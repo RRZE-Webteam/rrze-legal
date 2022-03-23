@@ -1,0 +1,62 @@
+{{message_has_been_sent_successfully}}
+<div class="alert alert-success">
+    {{=message_has_been_sent_successfully}}
+</div>
+{{/message_has_been_sent_successfully}}
+{{error_message_could_not_be_sent}}
+<div class="alert alert-danger">
+    <span class="sr-only">Error:</span>
+    {{=error_message_could_not_be_sent}}
+</div>
+{{/error_message_could_not_be_sent}}
+<form method="post" class="wcag-contact-form">
+    {{=wp_nonce}}
+    <input type="hidden" value="{{=captcha_result}}" name="message_solution">
+    <div class="form-group">
+        <label class="form-control-label" for="message_name">Name</label>
+        <input type="text" class="form-control form-control-success" id="message_name" name="message_name"
+            value="{{=name}}" placeholder="Enter a name">
+        {{error_name}}
+        <div class="alert alert-danger" role="alert">
+            <span class="sr-only">Error:</span>
+            {{=error_name}}
+        </div>
+        {{/error_name}}
+    </div>
+    <div class="form-group">
+        <label class="form-control-label" for="message_email">EMail</label>
+        <input type="text" class="form-control" id="message_email" name="message_email" value="{{=email}}"
+            placeholder="Enter an email address">
+        {{error_email}}
+        <div class="alert alert-danger" role="alert">
+            <span class="sr-only">Error:</span>
+            {{=error_email}}
+        </div>
+        {{/error_email}}
+    </div>
+    <div class="form-group">
+        <label for="message_name">Message</label>
+        <textarea class="form-control" id="message_feedback" name="message_feedback">{{=message}}</textarea>
+        {{error_message}}
+        <div class="alert alert-danger" role="alert">
+            <span class="sr-only">Error:</span>
+            {{=error_message}}
+        </div>
+        {{/error_message}}
+    </div>
+    <div class="form-group">
+        <label for="message_human">{{=captcha_num_1}} times {{=captcha_num_2}} equals? (<em>Enter the result as
+                number</em>)</label>
+        <input type="number" class="form-control form-control-success" id="message_human" name="message_human"
+            value="0">
+        {{error_captcha}}
+        <div class="alert alert-danger" role="alert">
+            <span class="sr-only">Error:</span>
+            {{=error_captcha}}
+        </div>
+        {{/error_captcha}}
+    </div>
+    <div class=wcag-submit>
+        <input type="submit" value="Send EMail">
+    </div>
+</form>
