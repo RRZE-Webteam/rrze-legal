@@ -1,0 +1,140 @@
+<p>
+    Public authorities are obliged to make websites and mobile applications accessible in
+    accordance with Directive (EU) 2016/2102 of the European Parliament and of the Council.
+    The following accessibility statement documents the implementation status of this
+    website in accordance with the {{accessibility_url_law}}<a
+        href="{{=accessibility_url_law}}">{{/accessibility_url_law}}applicable
+        legislation{{accessibility_url_law}}</a>{{/accessibility_url_law}}.
+
+    {{websites}}
+</p>
+<p>
+    The accessibility statement belongs to the following website(s):
+    <strong><em>{{=websites}}</em></strong>
+    {{/websites}}
+</p>
+
+<h2>Compliance status</h2>
+
+<div class="alert {{=accessibility_conformity_alert_style}}">
+    <p>{{=accessibility_conformity_label}}</p>
+</div>
+{{accessibility_conformity_filled}}
+<table class="nobackground" style="width: auto;">
+    {{accessibility_compliance_method_label}}
+    <tr>
+        <th>Methology:</th>
+        <td>{{=accessibility_compliance_method_label}}</td>
+    </tr>
+    {{/accessibility_compliance_method_label}}
+    {{accessibility_compliance_status_creation_date}}
+    <tr>
+        <th>Creation Date</th>
+        <td>{{=accessibility_compliance_status_creation_date}}</td>
+    </tr>
+    {{/accessibility_compliance_status_creation_date}}
+    {{accessibility_compliance_status_last_review_date}}
+    <tr>
+        <th>Last revision:</th>
+        <td>{{=accessibility_compliance_status_last_review_date}}</td>
+    </tr>
+    {{/accessibility_compliance_status_last_review_date}}
+    {{accessibility_compliance_status_report_url}}
+    <tr>
+        <th>Report:</th>
+        <td><a href="{{=accessibility_compliance_status_report_url}}">{{=accessibility_compliance_status_report_url}}</a></td>
+    </tr>
+    {{/accessibility_compliance_status_report_url}}
+</table>
+
+<h2>Known accessibility issues</h2>
+<p>
+    Listing and explanation of the problems with the implementation of the accessibility of this website.
+</p>
+{{/accessibility_conformity_filled}}
+
+{{!non_accessible_content_helper}}
+<h3>Content that is not accessible to people with disabilities</h3>
+{{=accessibility_non_accessible_content_list}}
+{{/!non_accessible_content_helper}}
+{{=accessibility_statement_non_accessible_content_text}}
+
+{{accessibility_statement_non_accessible_content_reason}}
+<h3>Reason</h3>
+{{=accessibility_statement_non_accessible_content_reason}}
+{{/accessibility_statement_non_accessible_content_reason}}
+
+{{accessibility_statement_non_accessible_content_alternative}}
+<h3>Alternative access routes</h3>
+{{=accessibility_statement_non_accessible_content_alternative}}
+{{/accessibility_statement_non_accessible_content_alternative}}
+
+
+<h2>Help and contact in case of problems</h2>
+<p>
+    You may have shortcomings in meeting the requirements
+    notify the accessibility or information that is not accessible
+    be presented barrier-free.
+</p>
+
+<h3>Contact Person</h3>
+{{accessibility_feedback_contact_person}}
+<p>{{=accessibility_feedback_contact_person}}</p>
+{{/accessibility_feedback_contact_person}}
+
+{{accessibility_feedback_contact_address}}
+<address>
+    {{=accessibility_feedback_contact_address}}
+</address>
+{{/accessibility_feedback_contact_address}}
+
+<ul class="person-info">
+    {{accessibility_feedback_contact_phone}}
+    <li class="person-info-phone"><span class="screen-reader-text">Phone:</span> {{=accessibility_feedback_contact_phone}}</li>
+    {{/accessibility_feedback_contact_phone}}
+    {{accessibility_feedback_contact_email}}
+    <li class="person-info-email"><span class="screen-reader-text">EMail:</span> <a
+            href="mailto:{{=accessibility_feedback_contact_email}}">{{=accessibility_feedback_contact_email}}</a></li>
+    {{/accessibility_feedback_contact_email}}
+</ul>
+
+{{accessibility_contact_form}}
+<h3 id="contact-form">Contact form</h3>
+{{=accessibility_contact_form}}
+{{/accessibility_contact_form}}
+
+<h2>Enforcement procedures</h2>
+<p>
+    Remains a request for the possibility of contact within six weeks
+    in full or in part unanswered, the competent authority checks at the request of the user, whether in the context of
+    Monitoring against the operators of the web offer measures are required.
+</p>
+<p>Contact information of the enforcement oversight body:</p>
+
+<p><strong>{{=accessibility_controlling_name}}</strong></p>
+<address>
+    {{accessibility_controlling_street}}
+    {{=accessibility_controlling_street}}<br>
+    {{/accessibility_controlling_street}}
+    {{accessibility_controlling_city}}
+    {{=accessibility_controlling_postalcode}}
+    {{=accessibility_controlling_city}}
+    {{/accessibility_controlling_city}}
+</address>
+<ul class="person-info">
+    {{accessibility_controlling_phone}}
+    <li class="person-info-phone"><span class="screen-reader-text">Phone: </span> {{=accessibility_controlling_phone}}
+    </li>
+    {{/accessibility_controlling_phone}}
+    {{accessibility_controlling_fax}}
+    <li class="person-info-fax"><span class="screen-reader-text">Fax:</span> {{=accessibility_controlling_fax}}</li>
+    {{/accessibility_controlling_fax}}
+    {{accessibility_controlling_email}}
+    <li class="person-info-email"><span class="screen-reader-text">EMail:</span> <a
+            href="mailto:{{=accessibility_controlling_email}}">{{=accessibility_controlling_email}}</a></li>
+    {{/accessibility_controlling_email}}
+    {{accessibility_controlling_url}}
+    <li class="person-info-www"><span class="screen-reader-text">Web:</span> <a
+            href="{{=accessibility_controlling_url}}">{{=accessibility_controlling_url}}</a></li>
+    {{/accessibility_controlling_url}}
+</ul>

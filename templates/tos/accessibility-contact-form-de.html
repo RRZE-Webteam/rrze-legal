@@ -1,0 +1,67 @@
+{{message_has_been_sent_successfully}}
+<div class="alert alert-success">
+    {{=message_has_been_sent_successfully}}
+</div>
+{{/message_has_been_sent_successfully}}
+{{error_message_could_not_be_sent}}
+<div class="alert alert-danger">
+    <span class="sr-only">Fehler:</span>
+    {{=error_message_could_not_be_sent}}
+</div>
+{{/error_message_could_not_be_sent}}
+
+<form method="post" class="wcag-contact-form">
+    {{=wp_nonce}}
+    <input type="hidden" value="{{=captcha_result}}" name="message_solution">
+    <div class="form-group">
+        <label class="form-control-label" for="message_name">Name</label>
+        <input type="text" class="form-control form-control-success" id="message_name" name="message_name"
+            value="{{=name}}" placeholder="Geben Sie einen Namen ein">
+
+        {{error_name}}
+        <div class="alert alert-danger" role="alert">
+            <span class="sr-only">Fehler:</span>
+            {{=error_name}}
+        </div>
+        {{/error_name}}
+    </div>
+    <div class="form-group">
+        <label class="form-control-label" for="message_email">E-Mail</label>
+        <input type="email" class="form-control" id="message_email" name="message_email" value="{{=email}}"
+            placeholder="Geben Sie eine E-Mail-Adresse ein">
+
+        {{error_email}}
+        <div class="alert alert-danger" role="alert">
+            <span class="sr-only">Fehler:</span>
+            {{=error_email}}
+        </div>
+        {{/error_email}}
+    </div>
+    <div class="form-group">
+        <label for="message_feedback">Nachricht</label>
+        <textarea class="form-control" id="message_feedback" name="message_feedback">{{=message}}</textarea>
+
+        {{error_message}}
+        <div class="alert alert-danger" role="alert">
+
+            <span class="sr-only">Fehler:</span>
+            {{=error_message}}
+        </div>
+        {{/error_message}}
+    </div>
+    <div class="form-group">
+        <label for="message_human">{{=captcha_num_1}} mal {{=captcha_num_2}} ist gleich? (<em>Geben Sie das Ergebnis als
+                Zahl ein</em>)</label>
+        <input type="number" class="form-control form-control-success" name="message_human" value="" id="message_human">
+
+        {{error_captcha}}
+        <div class="alert alert-danger" role="alert">
+            <span class="sr-only">Fehler:</span>
+            {{=error_captcha}}
+        </div>
+        {{/error_captcha}}
+    </div>
+    <div class=wcag-submit>
+        <input type="submit" value="E-Mail absenden">
+    </div>
+</form>
