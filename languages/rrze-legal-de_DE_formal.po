@@ -1,0 +1,1331 @@
+# Copyright (C) 2022 RRZE Webteam
+# This file is distributed under the GNU General Public License v2.
+msgid ""
+msgstr ""
+"Project-Id-Version: RRZE Legal 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-legal\n"
+"POT-Creation-Date: 2022-03-23T16:04:33+00:00\n"
+"PO-Revision-Date: 2022-03-23 17:21+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE@formal\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Domain: rrze-legal\n"
+
+#. Plugin Name of the plugin
+msgid "RRZE Legal"
+msgstr "RRZE Legal"
+
+#. Plugin URI of the plugin
+msgid "https://gitlab.rrze.fau.de/rrze-webteam/rrze-legal"
+msgstr "https://gitlab.rrze.fau.de/rrze-webteam/rrze-legal"
+
+#. Description of the plugin
+msgid "Legal Mandatory Information & GDPR."
+msgstr "Gesetzliche Pflichtangaben & DSGVO."
+
+#. Author of the plugin
+msgid "RRZE Webteam"
+msgstr "RRZE-Webteam"
+
+#. Author URI of the plugin
+msgid "https://blogs.fau.de/webworking/"
+msgstr "https://blogs.fau.de/webworking/"
+
+#: includes/Fields.php:347
+msgid "&mdash; Select &mdash;"
+msgstr "&mdash; Auswählen &mdash;"
+
+#: includes/Main.php:58 settings/network.php:20 settings/settings.php:21
+msgid "Legal Settings"
+msgstr "Rechtliche Einstellungen"
+
+#. translators: 1: Plugin name, 2: Link of the settings page.
+#: includes/Main.php:62
+msgid ""
+"One or more mandatory fields of the \"%1$s\" plugin settings have not been "
+"filled. Please fill in these fields as soon as possible in the following "
+"link: %2$s."
+msgstr ""
+"Ein oder mehrere Pflichtfelder der Plugin-Einstellungen „%1$s“ wurden nicht "
+"ausgefüllt. Bitte füllen Sie diese Felder so schnell wie möglich unter "
+"folgendem Link aus: %2$s."
+
+#: includes/Network/Options.php:150
+msgid "Settings saved."
+msgstr "Die Einstellungen wurden gespeichert."
+
+#: includes/Network/Options.php:152
+msgid "Dismiss this notice."
+msgstr "Diese Meldung ausblenden."
+
+#: includes/Options.php:97
+msgid "Bundesebene Deutschland (Öffentlicher Dienst)"
+msgstr "Bundesebene Deutschland (Öffentlicher Dienst)"
+
+#: includes/Options.php:109
+msgid "Baden-Württemberg"
+msgstr "Baden-Württemberg"
+
+#: includes/Options.php:118
+msgid "Bayern"
+msgstr "Bayern"
+
+#: includes/Options.php:132
+msgid "Berlin"
+msgstr "Berlin"
+
+#: includes/Options.php:143
+msgid "Brandenburg"
+msgstr "Brandenburg"
+
+#: includes/Options.php:154
+msgid "Bremen"
+msgstr "Bremen"
+
+#: includes/Options.php:165
+msgid "Hamburg"
+msgstr "Hamburg"
+
+#: includes/Options.php:175
+msgid "Hessen"
+msgstr "Hessen"
+
+#: includes/Options.php:186
+msgid "Mecklenburg-Vorpommern"
+msgstr "Mecklenburg-Vorpommern"
+
+#: includes/Options.php:197
+msgid "Niedersachsen"
+msgstr "Niedersachsen"
+
+#: includes/Options.php:206
+msgid "Nordrhein-Westfalen"
+msgstr "Nordrhein-Westfalen"
+
+#: includes/Options.php:215
+msgid "Rheinland-Pfalz"
+msgstr "Rheinland-Pfalz"
+
+#: includes/Options.php:226
+msgid "Saarland"
+msgstr "Saarland"
+
+#: includes/Options.php:237
+msgid "Sachsen"
+msgstr "Sachsen"
+
+#: includes/Options.php:246
+msgid "Sachsen-Anhalt"
+msgstr "Sachsen-Anhalt"
+
+#: includes/Options.php:257
+msgid "Schleswig-Holstein"
+msgstr "Schleswig-Holstein"
+
+#: includes/Options.php:268
+msgid "Thüringen"
+msgstr "Thüringen"
+
+#. translators: %s: label of the field.
+#: includes/Settings.php:562
+msgid "The field %s is required."
+msgstr "Das Feld %s ist erforderlich."
+
+#. translators: %s: label of the field.
+#: includes/Settings.php:572
+msgid "The value of the field %s is not valid."
+msgstr "Der Wert des Felds %s ist ungültig."
+
+#: includes/Settings.php:624
+msgid "yy-mm-dd"
+msgstr "yy-mm-dd"
+
+#: includes/TOS/ContactForm.php:74
+msgid "The message could not be sent."
+msgstr "Die Nachricht konnte nicht gesendet werden."
+
+#: includes/TOS/ContactForm.php:81
+msgid "Thank you for your message. It was sent successfully."
+msgstr "Danke für Ihre Nachricht. Sie wurde erfolgreich gesendet."
+
+#: includes/TOS/ContactForm.php:141
+msgid "The following message was entered in the accessibility feedback form."
+msgstr ""
+"Die folgende Nachricht wurde im Feedback-Formular zur Barrierefreiheit "
+"eingegeben."
+
+#: includes/TOS/ContactForm.php:142
+msgid "From"
+msgstr "Absender"
+
+#: includes/TOS/ContactForm.php:143 settings/settings.php:55
+#: settings/settings.php:120 settings/settings.php:258
+msgid "Name"
+msgstr "Name"
+
+#: includes/TOS/ContactForm.php:144
+msgid "Email Addresse"
+msgstr "E-Mail-Adresse"
+
+#: includes/TOS/ContactForm.php:148
+msgid "User Agent"
+msgstr "Verwendeter User-Agent"
+
+#: includes/TOS/ContactForm.php:151
+msgid "Sending Time"
+msgstr "Absendezeit"
+
+#: includes/TOS/ContactForm.php:151
+msgid "d/m/Y - g:i a"
+msgstr "d.m.Y - H:i"
+
+#: includes/TOS/ContactForm.php:152
+msgid "Website Form"
+msgstr "Website-Form"
+
+#: includes/TOS/ContactForm.php:153
+msgid "Message entered by the sender"
+msgstr "Vom Absender eingegebene Nachricht"
+
+#: includes/TOS/ContactForm.php:160
+msgid "Go to the website"
+msgstr "Website aufrufen"
+
+#: includes/TOS/ContactForm.php:161
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: includes/TOS/ContactForm.php:169
+msgid "Please enter a name."
+msgstr "Bitte geben Sie einen Namen an."
+
+#: includes/TOS/ContactForm.php:172
+msgid ""
+"The email address field must be filled out and contain a correctly spelled "
+"email address."
+msgstr ""
+"Die Feld der E-Mail-Adresse muss ausgefüllt sein und eine korrekt "
+"geschriebene E-Mailadresse enthalten."
+
+#: includes/TOS/ContactForm.php:174
+msgid "The specified e-mail address is not correct."
+msgstr "Die angegebene E-Mailadresse ist nicht korrekt."
+
+#: includes/TOS/ContactForm.php:177
+msgid "Please enter a text."
+msgstr "Bitte geben Sie einen Text an."
+
+#: includes/TOS/ContactForm.php:180
+msgid "Please enter a number as solution."
+msgstr "Bitte geben Sie eine Zahl als Lösung ein."
+
+#: includes/TOS/ContactForm.php:182
+msgid "The entered number is wrong."
+msgstr "Die eingegebene Zahl ist falsch."
+
+#: includes/TOS/ContactForm.php:205
+msgid "Error"
+msgstr "Fehler"
+
+#: includes/TOS/ContactForm.php:226
+msgid "zero"
+msgstr "Null"
+
+#: includes/TOS/ContactForm.php:227
+msgid "one"
+msgstr "Eins"
+
+#: includes/TOS/ContactForm.php:228
+msgid "two"
+msgstr "Zwei"
+
+#: includes/TOS/ContactForm.php:229
+msgid "three"
+msgstr "Drei"
+
+#: includes/TOS/ContactForm.php:230
+msgid "four"
+msgstr "Vier"
+
+#: includes/TOS/ContactForm.php:231
+msgid "five"
+msgstr "Fünf"
+
+#: includes/TOS/ContactForm.php:232
+msgid "six"
+msgstr "Sechs"
+
+#: includes/TOS/ContactForm.php:233
+msgid "seven"
+msgstr "Sieben"
+
+#: includes/TOS/ContactForm.php:234
+msgid "eight"
+msgstr "Acht"
+
+#: includes/TOS/ContactForm.php:235
+msgid "nine"
+msgstr "Neun"
+
+#: includes/TOS/Endpoint.php:26 settings/settings.php:25
+msgid "Imprint"
+msgstr "Impressum"
+
+#: includes/TOS/Endpoint.php:27 settings/settings.php:242
+msgid "Privacy"
+msgstr "Datenschutz"
+
+#: includes/TOS/Endpoint.php:28 settings/settings.php:480
+msgid "Accessibility"
+msgstr "Barrierefreiheit"
+
+#: includes/TOS/Endpoint.php:229
+msgid "Not Found"
+msgstr "Nicht gefunden"
+
+#. translators: 1: Server PHP version number, 2: Required PHP version number.
+#: rrze-legal.php:71
+msgid ""
+"The server is running PHP version %1$s. The Plugin requires at least PHP "
+"version %2$s."
+msgstr ""
+"The server is running PHP version %1$s. The Plugin requires at least PHP "
+"version %2$s."
+
+#. translators: 1: Server WordPress version number, 2: Required WordPress version number.
+#: rrze-legal.php:78
+msgid ""
+"The server is running WordPress version %1$s. The Plugin requires at least "
+"WordPress version %2$s."
+msgstr ""
+"The server is running WordPress version %1$s. The Plugin requires at least "
+"WordPress version %2$s."
+
+#. translators: 1: The plugin name, 2: The error string.
+#: rrze-legal.php:97 rrze-legal.php:195
+msgid "Plugins: %1$s: %2$s"
+msgstr "Plugins: %1$s: %2$s"
+
+#: rrze-legal.php:162
+msgid ""
+"The \"rrze-tos\" plugin is networkwide activated. Please deactivate the "
+"\"rrze-tos\" plugin as it will be replaced by the \"rrze-legal\" plugin."
+msgstr ""
+"Das Plugin „rrze-tos“ ist netzwerkweit aktiviert. Bitte deaktivieren Sie das "
+"Plugin „rrze-tos“, da es durch das Plugin „rrze-legal“ ersetzt wird."
+
+#: settings/network.php:11 settings/network.php:14 settings/settings.php:11
+#: settings/settings.php:14
+msgid "Legal"
+msgstr "Rechtliches"
+
+#: settings/network.php:24
+msgid "Default Values"
+msgstr "Standardwerte"
+
+#: settings/network.php:29
+msgid "FAU domains"
+msgstr "FAU-Domains"
+
+#: settings/network.php:30
+msgid ""
+"Websites whose URLs contain default domains will get the default values."
+msgstr ""
+"Websites, deren URLs Standarddomänen enthalten, erhalten die Standardwerte."
+
+#. translators: %s: url of the endpoint page.
+#: settings/settings.php:29 settings/settings.php:246 settings/settings.php:484
+msgid "The output of this settings page is available at the following link: %s"
+msgstr ""
+"Die Ausgabe dieser Einstellungsseite ist unter folgendem Link verfügbar: %s"
+
+#: settings/settings.php:35
+msgid "Scope"
+msgstr "Umfang"
+
+#: settings/settings.php:40
+msgid "Websites"
+msgstr "Webauftritte"
+
+#: settings/settings.php:41
+msgid ""
+"If this imprint applies to more than one website, add here the domain namens "
+"of the other websites. Please enter one domain name per line."
+msgstr ""
+"Wenn dieses Impressum für mehr als eine Website gilt, fügen Sie hier die "
+"Domain-Namen der anderen Websites hinzu. Bitte geben Sie einen Domainnamen "
+"pro Zeile ein."
+
+#: settings/settings.php:50
+msgid "Responsible Person"
+msgstr "Verantwortliche Person"
+
+#: settings/settings.php:51
+msgid "Data for contacting in legal terms."
+msgstr "Daten zur Kontaktaufnahme in rechtlicher Hinsicht."
+
+#: settings/settings.php:56
+msgid ""
+"Legally responsible person for the website. (This is usually the chair owner "
+"or facility manager)."
+msgstr ""
+"Rechtlich verantwortliche Person für die Website. (Dies ist in der Regel der "
+"Stuhlbesitzer oder Facility Manager)."
+
+#: settings/settings.php:64 settings/settings.php:128 settings/settings.php:267
+msgid "Email"
+msgstr "E-Mail"
+
+#: settings/settings.php:71 settings/settings.php:274
+msgid "Street Name & House Number"
+msgstr "Straße und Hausnummer"
+
+#: settings/settings.php:78 settings/settings.php:281
+msgid "Postal Code"
+msgstr "Postleitzahl"
+
+#: settings/settings.php:85 settings/settings.php:288
+msgid "City"
+msgstr "Stadt"
+
+#: settings/settings.php:92 settings/settings.php:136 settings/settings.php:295
+msgid "Phone"
+msgstr "Telefon"
+
+#: settings/settings.php:99 settings/settings.php:302
+msgid "Fax Number"
+msgstr "Faxnummer"
+
+#: settings/settings.php:105
+msgid "Organization"
+msgstr "Organisation"
+
+#: settings/settings.php:115
+msgid "Webmaster"
+msgstr "Webmaster"
+
+#: settings/settings.php:116
+msgid "Data for contacting the content of the website."
+msgstr "Daten zur Kontaktaufnahme hinsichtlich der Inhalte des Webauftritts."
+
+#: settings/settings.php:121
+msgid "Name of the webmaster or the responsible web editor."
+msgstr "Name des Webmasters oder der zuständigen Webredaktion."
+
+#: settings/settings.php:144 settings/settings.php:454
+msgid "Optional Information"
+msgstr "Optionale Angabe"
+
+#: settings/settings.php:145
+msgid ""
+"This option allows you to change predefined paragraphs, as well as to add "
+"another self-phrased paragraph.<br>Note: Official FAU facilities should have "
+"all of the following options enabled."
+msgstr ""
+"Mit dieser Option können Sie vordefinierte Absätze ändern und einen weiteren "
+"selbst formulierten Absatz hinzufügen.<br>Hinweis: Offizielle Einrichtungen "
+"der FAU sollten alle folgenden Optionen aktiviert haben."
+
+#: settings/settings.php:149
+msgid "Reference to the University Management"
+msgstr "Verweis auf die Universitätsleitung"
+
+#: settings/settings.php:150
+msgid ""
+"Official representative of the university and its outward institutions is "
+"the president. For this purpose, a corresponding paragraph is displayed."
+msgstr ""
+"Offizieller Vertreter der Universität und ihrer äußeren Institutionen ist "
+"der Präsident. Dazu wird ein entsprechender Absatz angezeigt."
+
+#: settings/settings.php:153 settings/settings.php:166
+#: settings/settings.php:179 settings/settings.php:192
+#: settings/settings.php:205 settings/settings.php:224
+#: settings/settings.php:319 settings/settings.php:332
+#: settings/settings.php:345 settings/settings.php:358
+#: settings/settings.php:378 settings/settings.php:391
+#: settings/settings.php:404 settings/settings.php:417
+#: settings/settings.php:430 settings/settings.php:443
+#: settings/settings.php:462
+msgid "Yes"
+msgstr "Ja"
+
+#: settings/settings.php:154 settings/settings.php:167
+#: settings/settings.php:180 settings/settings.php:193
+#: settings/settings.php:206 settings/settings.php:225
+#: settings/settings.php:320 settings/settings.php:333
+#: settings/settings.php:346 settings/settings.php:359
+#: settings/settings.php:379 settings/settings.php:392
+#: settings/settings.php:405 settings/settings.php:418
+#: settings/settings.php:431 settings/settings.php:444
+#: settings/settings.php:463
+msgid "No"
+msgstr "Nein"
+
+#: settings/settings.php:162
+msgid "Supervisory Authority"
+msgstr "Aufsichtsbehörde"
+
+#: settings/settings.php:163
+msgid "Displays the supervisory authority."
+msgstr "Zeigt die Aufsichtsbehörde an."
+
+#: settings/settings.php:175
+msgid "Identification Numbers"
+msgstr "Identifikationsnummern"
+
+#: settings/settings.php:176
+msgid ""
+"Display of public and official identification numbers of the university."
+msgstr ""
+"Anzeige der öffentlichen und amtlichen Identifikationsnummern der "
+"Universität."
+
+#: settings/settings.php:188
+msgid "IT Security"
+msgstr "IT-Sicherheit"
+
+#: settings/settings.php:189
+msgid "Note and contact details for reporting IT security incidents."
+msgstr "Hinweis und Kontaktdaten für die Meldung von IT-Sicherheitsvorfällen."
+
+#: settings/settings.php:201
+msgid "Image Rights"
+msgstr "Bildrechte"
+
+#: settings/settings.php:202
+msgid "Insert free text field for image rights?"
+msgstr "Freitextfeld für Bildrechte einfügen?"
+
+#: settings/settings.php:213 settings/settings.php:232
+#: settings/settings.php:470
+msgid "Content"
+msgstr "Inhalt"
+
+#: settings/settings.php:214
+msgid "Optional paragraph for the description of any image rights used."
+msgstr "Optionaler Absatz zur Beschreibung der verwendeten Bildrechte."
+
+#: settings/settings.php:220 settings/settings.php:459
+msgid "Add a New Section"
+msgstr "Hinzufügen eines neuen Abschnitts"
+
+#: settings/settings.php:233 settings/settings.php:471
+msgid "Content of the new, additional section."
+msgstr "Inhalt des neuen, zusätzlichen Abschnitts."
+
+#: settings/settings.php:252
+msgid "Data Protection Officer"
+msgstr "Datenschutzbeauftragter"
+
+#: settings/settings.php:254
+msgid ""
+"The designation, position and tasks of a data protection officer (DPO) "
+"within an organization are described in Articles 37, 38 and 39 of the "
+"European Union (EU) General Data Protection Regulation (GDPR)."
+msgstr ""
+"Die Benennung, Position und Aufgaben eines Datenschutzbeauftragten (DSB) "
+"innerhalb einer Organisation sind in den Artikeln 37, 38 und 39 der "
+"Datenschutz-Grundverordnung (DSGVO) der Europäischen Union (EU) beschrieben."
+
+#: settings/settings.php:310
+msgid "Services"
+msgstr "Dienstleistungen"
+
+#: settings/settings.php:311
+msgid ""
+"If any of the following services are used, enable them to generate a "
+"corresponding notice in the privacy policy."
+msgstr ""
+"Wenn einer der folgenden Dienste verwendet wird, ermöglichen Sie es ihnen, "
+"einen entsprechenden Hinweis in der Datenschutzerklärung zu generieren."
+
+#: settings/settings.php:315
+msgid "Newsletter/Mailinglist"
+msgstr "Newsletter/Mailingliste"
+
+#: settings/settings.php:316
+msgid "Do you offer a newsletter or mailing list?"
+msgstr "Bieten Sie einen Newsletter oder eine Mailingliste an?"
+
+#: settings/settings.php:328
+msgid "Contact Form"
+msgstr "Kontaktformular"
+
+#: settings/settings.php:329
+msgid ""
+"Do you use a contact form on this website? (The accessibility declaration "
+"offers one, so the answer is usually \"yes\")."
+msgstr ""
+"Nutzen Sie auf dieser Website ein Kontaktformular? (Die "
+"Zugänglichkeitserklärung bietet eine, daher lautet die Antwort in der Regel "
+"\"Ja”)."
+
+#: settings/settings.php:341
+msgid "Registration/Registration Forms"
+msgstr "Anmeldung/Anmeldeformulare"
+
+#: settings/settings.php:342
+msgid ""
+"Do you use forms to sign up for events or other functions that require "
+"registration?"
+msgstr ""
+"Verwenden Sie Formulare, um sich für Veranstaltungen oder andere Funktionen "
+"anzumelden, die eine Registrierung erfordern?"
+
+#: settings/settings.php:354
+msgid "Corona Contact Tracking"
+msgstr "Corona Kontaktverfolgung"
+
+#: settings/settings.php:355
+msgid "Display the data on Corona contact tracking for events."
+msgstr ""
+"Zeigen Sie die Daten zur Corona-Kontaktverfolgung für Veranstaltungen an."
+
+#: settings/settings.php:369
+msgid "External Service Providers"
+msgstr "Externe Dienstleister"
+
+#: settings/settings.php:370
+msgid ""
+"If external service providers are used to include content on the website, "
+"they must also be included in the privacy policy."
+msgstr ""
+"Werden externe Dienstleister eingesetzt, um Inhalte auf der Website "
+"einzubinden, müssen diese ebenfalls in die Datenschutzerklärung einbezogen "
+"werden."
+
+#: settings/settings.php:374
+msgid "YouTube Embeds"
+msgstr "YouTube-Einbettungen"
+
+#: settings/settings.php:375
+msgid "If you include YouTube videos in the website, enable this option."
+msgstr ""
+"Wenn Sie YouTube-Videos in die Website einbinden, aktivieren Sie diese "
+"Option."
+
+#: settings/settings.php:387
+msgid "Slideshare Embeds"
+msgstr "Slideshare Einbettungen"
+
+#: settings/settings.php:388
+msgid ""
+"If you offer slides on Slideshare and embed them in the website, enable this "
+"option."
+msgstr ""
+"Wenn Sie Folien auf Slideshare anbieten und in die Website einbetten, "
+"aktivieren Sie diese Option."
+
+#: settings/settings.php:400
+msgid "Vimeo Embeds"
+msgstr "Vimeo Einbettungen"
+
+#: settings/settings.php:401
+msgid ""
+"If you include videos from the online service Vimeo in the website, enable "
+"this option."
+msgstr ""
+"Wenn Sie Videos des Online-Dienstes Vimeo in die Website einbinden, "
+"aktivieren Sie diese Option."
+
+#: settings/settings.php:413
+msgid "VG Word Counting Pixels"
+msgstr "VG Word Counting Pixels"
+
+#: settings/settings.php:414
+msgid ""
+"If the VG Word measurement method is used on the website, this option should "
+"be activated."
+msgstr ""
+"Wenn auf der Website das Messverfahren VG Word verwendet wird, sollte diese "
+"Option aktiviert sein."
+
+#: settings/settings.php:426
+msgid "Siteimprove"
+msgstr "Siteimprove"
+
+#: settings/settings.php:427
+msgid ""
+"If Siteimprove Analytics is used on the website, this option should be "
+"activated."
+msgstr ""
+"Wenn Siteimprove Analytics auf der Website verwendet wird, sollte diese "
+"Option aktiviert sein."
+
+#: settings/settings.php:439
+msgid "Varifast"
+msgstr "Varifast"
+
+#: settings/settings.php:440
+msgid ""
+"In the event that Varifast advertising is used on the website, this option "
+"should be activated."
+msgstr ""
+"Für den Fall, dass Varifast-Werbung auf der Website verwendet wird, sollte "
+"diese Option aktiviert sein."
+
+#: settings/settings.php:455
+msgid "Additional information about the privacy policy."
+msgstr "Zusätzliche Informationen zur Datenschutzerklärung."
+
+#: settings/settings.php:490
+msgid "General Information"
+msgstr "Allgemeine Informationen"
+
+#: settings/settings.php:491
+msgid ""
+"All public sector bodies are obliged to make their websites and / or mobile "
+"applications accessible in accordance with Directive (EU) 2016/2102 of the "
+"European Parliament and of the Council, or implementation in their "
+"respective national legislation. It also includes the provision of an "
+"Accessibility Declaration of Conformity, in which all web site and app "
+"operators must publicly state the status of the website and explain the "
+"reasons for which barriers exist."
+msgstr ""
+"Alle öffentlichen Stellen sind gemäß der Richtlinie (EU) 2016/2102 des "
+"Europäischen Parlaments und des Rates, bzw. der Umsetzung in der jeweiligen "
+"Landesgesetzgebung dazu verpflichtet, ihre Webauftritte und/ oder mobilen "
+"Anwendungen barrierefrei zugänglich zu machen. HIerzu gehört auch die "
+"Bereitstellung einer Konformitätserklärung zur Barrierefreiheit, in der alle "
+"Betreiber von Webauftritten und Apps den Status der Webseite öffentlich "
+"angeben und erläutern müssen, aus welchen Gründen welche Barrieren vorhanden "
+"sind."
+
+#: settings/settings.php:495
+msgid "Legal Area"
+msgstr "Rechtsraum"
+
+#: settings/settings.php:496
+msgid ""
+"Selection of the legal area to which the operator of the website belongs."
+msgstr ""
+"Auswahl des Rechtsraumes, zu welcher der Betreiber des Webangebots gehört."
+
+#: settings/settings.php:506
+msgid "Compliance Status"
+msgstr "Konformitätsstatus"
+
+#: settings/settings.php:507
+msgid ""
+"Officially stated status of the website, as well as its contents regarding "
+"the fulfillment of the legal requirements."
+msgstr ""
+"Offiziell anzugebender Status des Webauftritts, sowie dessen Inhalten "
+"hinsichtlich der Erfüllung der gesetzlichen Anforderungen."
+
+#: settings/settings.php:511
+msgid "Declaration of Conformity"
+msgstr "Konformitätserklärung"
+
+#: settings/settings.php:512
+msgid ""
+"State of conformity in accordance with EU Directive 2102 and local "
+"legislation."
+msgstr ""
+"Stand der Konformität gemäß der EU-Richtlinie 2102 und der lokalen "
+"Gesetzgebung."
+
+#: settings/settings.php:515
+msgid ""
+"Completely compliant: the content is fully compliant with the accessibility "
+"standard without exceptions"
+msgstr ""
+"Vollständig konform: Der Inhalt entspricht ohne Ausnahmen vollständig dem "
+"Standard für Barrierefreiheit"
+
+#: settings/settings.php:516
+msgid ""
+"Partially Compliant: Some parts of the content are not fully compliant with "
+"the accessibility standard"
+msgstr ""
+"Teilweise konform: Einige Teile des Inhalts entsprechen nicht vollständig "
+"dem Standard für Barrierefreiheit"
+
+#: settings/settings.php:517
+msgid ""
+"Non-compliant: The content does not comply with the accessibility standard"
+msgstr ""
+"Nicht konform: Der Inhalt entspricht nicht dem Standard für Barrierefreiheit"
+
+#: settings/settings.php:518
+msgid "Unknown: Content was not rated or rating results are not available"
+msgstr ""
+"Unbekannt: Der Inhalt wurde nicht bewertet oder die Bewertungsergebnisse "
+"sind nicht verfügbar"
+
+#: settings/settings.php:536
+msgid "Method"
+msgstr "Methode"
+
+#: settings/settings.php:539
+msgid "Self-Evaluation"
+msgstr "Selbstbewertung"
+
+#: settings/settings.php:540
+msgid "Third party rating"
+msgstr "Bewertung durch Dritte"
+
+#: settings/settings.php:547
+msgid "Creation Date"
+msgstr "Erstellungsdatum"
+
+#: settings/settings.php:555
+msgid "Last Review Date"
+msgstr "Datum der letzten Überprüfung"
+
+#: settings/settings.php:563
+msgid "Report URL"
+msgstr "URL des Berichts"
+
+#: settings/settings.php:564
+msgid "If there is a detailed review, this can be linked here."
+msgstr ""
+"Falls es einen ausführlichen Testbericht gibt, kann dieser hier verlinkt "
+"werden."
+
+#: settings/settings.php:573
+msgid "Statement"
+msgstr "Erklärung"
+
+#: settings/settings.php:574
+msgid "List and explain the problems with the implementation of accessibility."
+msgstr ""
+"Auflistung und Erläuterung der Probleme bei der Umsetzung der "
+"Barrierefreiheit."
+
+#: settings/settings.php:578
+msgid "Input Assistance For Non-Accessible Content"
+msgstr "Eingabehilfe zu nicht barrierefreie Inhalte"
+
+#: settings/settings.php:581
+msgid "Fill out explanations manually"
+msgstr "Erklärungen manuell ausfüllen"
+
+#: settings/settings.php:582
+msgid "Use input help and supplement it with manual entries"
+msgstr "Eingabehilfe nutzen und durch manuelle Eingaben ergänzen"
+
+#: settings/settings.php:588
+msgid "Non-Accessible Content (Selection List)"
+msgstr "Nicht barrierefrei zugängliche Inhalte (Auswahl)"
+
+#: settings/settings.php:589
+msgid ""
+"Selection of the most common deficiencies that a website can have. However, "
+"when choosing one or more of the above-mentioned deficiencies, please "
+"provide below a plausible justification why this deficiency exists and which "
+"alternatives are available in order to access the content nevertheless."
+msgstr ""
+"Auswahl der gängsten Mängel, die eine Webseite aufweisen kann. Bitte geben "
+"Sie bei AUswahl einer oder mehrerer oben genannter Mängel dennoch unten eine "
+"jeweils plausible Begründung ein, warum dieser Mangel vorhanden ist und "
+"welche Alternativen vorhanden sind, um dennoch an die Inhalte zu gelangen."
+
+#: settings/settings.php:592
+msgid ""
+"PDF documents created before 23.09.2018 could not yet be converted to an "
+"accessible format."
+msgstr ""
+"PDF-Dokumente, die vor dem 23.09.2018 erstellt wurden, konnten noch nicht "
+"auf ein barrierefreies Format umgestellt werden."
+
+#: settings/settings.php:593
+msgid ""
+"PDF documents created after 23.09.2018 do not yet have an accessible format."
+msgstr ""
+"PDF-Dokumente, die nach dem 23.09.2018 erstellt wurden, sind noch nicht "
+"barrierefrei zugänglich."
+
+#: settings/settings.php:594
+msgid ""
+"Some documents have been provided by third parties (for example, the "
+"Examination Office, other FAU bodies, ministries, etc.). These documents are "
+"not available in an accessible version."
+msgstr ""
+"Einige Dokumente wurden von Dritten (z.B. Prüfungsamt, andere Einrichtungen "
+"der FAU, Ministerien, u.a.) bereitgestellt. Diese Dokumente liegen nicht in "
+"einer barrierefreien Fassung vor."
+
+#: settings/settings.php:595
+msgid "Embedded videos currently have no subtitles or transcription available."
+msgstr ""
+"Zu eingebundenen Videos stehen derzeit keine Untertitel oder Transkription "
+"zur Verfügung."
+
+#: settings/settings.php:596
+msgid ""
+"Currently there is no textual description for directions describing maps or "
+"maps."
+msgstr ""
+"Zu mittels Karten oder Kartenbildern eingebundenen Anfahrtsbeschreibungen "
+"fehlt derzeit die textuelle Beschreibung."
+
+#: settings/settings.php:597
+msgid ""
+"Graphics or images contained in the pages are currently not completely "
+"supplemented by text descriptions."
+msgstr ""
+"In den Seiten enthaltene Grafiken oder Bilder sind derzeit nicht vollständig "
+"durch Textbeschreibungen ergänzt worden."
+
+#: settings/settings.php:598
+msgid "Tables are used for the purpose of optical design."
+msgstr "Es werden Tabellen zum Zwecke der optischen Gestaltung verwendet."
+
+#: settings/settings.php:599
+msgid ""
+"When using multilingual content on a page, sometimes the languages ​​are not "
+"correctly marked in HTML."
+msgstr ""
+"Bei der Verwendung von mehrsprachigen Inhalten auf einer Seite, werden die "
+"Sprachen teilweise nicht korrekt in HTML gekennzeichnet."
+
+#: settings/settings.php:600
+msgid ""
+"The font color in the logo with the full title of the website does not have "
+"enough contrast."
+msgstr ""
+"Die Schriftfarbe im Logo mit dem ausgeschriebenen Titel des Webauftritts ist "
+"nicht kontrastreich genug."
+
+#: settings/settings.php:605
+msgid "Non-Accessible Content (Free Text)"
+msgstr "Nicht barrierefrei zugängliche Inhalte (Freitext)"
+
+#: settings/settings.php:606
+msgid ""
+"The website owner is obliged to publicly list all non-accessible components "
+"of the website and its contents. These must be specified here."
+msgstr ""
+"Der Gesetzgeber verpflichtet dazu, alle nicht barrierefreien Bestandteile "
+"des Webauftritts und der Inhalte öffentlich aufzulisten. Diese müssen hier "
+"angegeben werden."
+
+#: settings/settings.php:611
+msgid "Reason"
+msgstr "Begründung"
+
+#: settings/settings.php:612
+msgid ""
+"In addition to the pure list of non-accessible contents, a justification for "
+"each of the above points should also be provided as to why barrier-free "
+"accessibility could not be achieved. Please note that the legislator lists "
+"the following reasons as unjustified: \"Lack of priorities, time or ignorance"
+"\". These items should not be used as justification."
+msgstr ""
+"Neben der reinen Auflistung der nicht barrierefreien Inhalte ist zusätzlich "
+"für jeden genannten Punkt eine Begründung anzugeben, warum die "
+"Barrierefreiheit nicht geleistet werden konnte. Bitte beachten Sie, daß der "
+"Gesetzgeber folgende Begründungen als unberechtigt auflistet: „Mangelnde "
+"Prioritäten, Zeit oder Unkenntnis“. Diese Punkte dürfen daher nicht als "
+"Begründung verwendet werden."
+
+#: settings/settings.php:617
+msgid "Alternatives"
+msgstr "Alternative Zugangswege"
+
+#: settings/settings.php:618
+msgid ""
+"Indicate here whether and which alternatives are available to obtain the "
+"above inaccessible content. This can be, for example, the contact via the "
+"feedback form or the indication of a body that provides help."
+msgstr ""
+"Geben Sie hier an, ob und welche Alternativen zur Verfügung stehen, die oben "
+"genannten nicht zugänglichen Inhalte zu erlangen. Dies kann beispielsweise "
+"die Kontaktaufnahme über das Feedback-Formular sein oder die Angabe einer "
+"Stelle, die Hilfe leistet."
+
+#: settings/settings.php:625
+msgid "Feedback Mechanism"
+msgstr "Feedback-Mechanismus"
+
+#: settings/settings.php:626
+msgid "Opportunities to contact for accessibility issues and errors."
+msgstr ""
+"Möglichkeiten zur Kontaktaufnahme bei Problemen und Fehlern zur "
+"Barrierefreiheit."
+
+#: settings/settings.php:630
+msgid "Contact Person"
+msgstr "Ansprechpartner"
+
+#: settings/settings.php:631
+msgid ""
+"Enter a name for the responsible contact person for complaints or requests "
+"for help about lack of accessibility."
+msgstr ""
+"Geben Sie hier einen Namen für den zuständigen Ansprechpartner für "
+"Beschwerden oder Hilfeanfragen über mangelnde Zugänglichkeit an."
+
+#: settings/settings.php:637
+msgid "Contact Email Addresse"
+msgstr "E-Mail-Adresse"
+
+#: settings/settings.php:638
+msgid ""
+"Recipient email address for complaints or requests for help about lack of "
+"accessibility. Please note: If a request about the possibility of contact "
+"remains completely or partially unanswered within six weeks, the supervisory "
+"authority will check at the request of the user whether measures are "
+"required in the context of the monitoring of the operator of the website (ie "
+"you)."
+msgstr ""
+"Empfänger-Mailadresse zu Beschwerden oder Hilfeanfragen über mangelnde "
+"Zugänglichkeit. Bitte beachten Sie: Bleibt eine Anfrage über die "
+"Kontaktmöglichkeit innerhalb von sechs Wochen ganz oder teilweise "
+"unbeantwortet, prüft die zuständige Aufsichtsbehörde auf Antrag des Nutzers, "
+"ob im Rahmen der Überwachung gegenüber dem Betreiber des Webauftritts (also "
+"Ihnen) Maßnahmen erforderlich sind."
+
+#: settings/settings.php:645
+msgid "Email CC"
+msgstr "E-Mail CC"
+
+#: settings/settings.php:646
+msgid "Optional additional email address."
+msgstr "Optionale zusätzliche E-Mail-Adresse."
+
+#: settings/settings.php:652
+msgid "Email Subject"
+msgstr "E-Mail Betreff"
+
+#: settings/settings.php:654
+msgid "Accessibility Feedback Form"
+msgstr "Feedback-Formular zur Barrierefreiheit"
+
+#: settings/settings.php:659
+msgid "Contact Phone"
+msgstr "Telefon"
+
+#: settings/settings.php:660
+msgid "Contact number for telephone assistance."
+msgstr "Kontaktnummer für telefonische Hilfestellung."
+
+#: settings/settings.php:666
+msgid "Contact Address"
+msgstr "Adresse"
+
+#: settings/settings.php:667
+msgid "Postal address as an alternative to email address."
+msgstr "Postanschrift als Alternative zur E-Mail-Adresse."
+
+#~ msgid "Your cookie consent settings have been reset."
+#~ msgstr "Ihre Cookie-Einwilligungseinstellungen wurden zurückgesetzt."
+
+#~ msgid "Additionally, any cookies set for this domain have been cleared."
+#~ msgstr "Außerdem wurden alle für diese Domain gesetzten Cookies gelöscht."
+
+#~ msgid "Essential Cookies"
+#~ msgstr "Essenzielle Cookies"
+
+#~ msgid "Statistics Cookies"
+#~ msgstr "Statistik-Cookies"
+
+#~ msgid "Marketing Cookies"
+#~ msgstr "Marketing-Cookies"
+
+#~ msgid "External Media Cookies"
+#~ msgstr "Externe Medien-Cookies"
+
+#~ msgid "View Cookie Consent"
+#~ msgstr "Cookie-Zustimmung anzeigen"
+
+#~ msgid "Search Consents"
+#~ msgstr "Suche nach Einwilligungen"
+
+#~ msgid "No consents found."
+#~ msgstr "Keine Einwilligungen gefunden."
+
+#~ msgid "No consents found in Trash."
+#~ msgstr "Keine Einwilligungen im Papierkorb gefunden."
+
+#~ msgid "Cookie Consent"
+#~ msgstr "Cookie Einwilligung"
+
+#~ msgid "UUID"
+#~ msgstr "UUID"
+
+#~ msgid "Cookie Categories"
+#~ msgstr "Cookie-Kategorien"
+
+#~ msgid "Cookie consent saved."
+#~ msgstr "Cookie-Einwilligung gespeichert."
+
+#~ msgid "View"
+#~ msgstr "Anzeigen"
+
+#~ msgid "Consent Data"
+#~ msgstr "Einwilligungsdaten"
+
+#~ msgid "Date/Time"
+#~ msgstr "Datum/Uhrzeit"
+
+#~ msgid "Remote Address"
+#~ msgstr "Remote-IP-Adresse"
+
+#~ msgid "HTTP User Agent"
+#~ msgstr "HTTP User Agent"
+
+#~ msgid "cookie-consent"
+#~ msgstr "cookie-einwilligung"
+
+#~ msgid "Cookie consent status"
+#~ msgstr "Status der Cookie-Einwilligung"
+
+#~ msgid "No consent given"
+#~ msgstr "Keine Einwilligung erteilt"
+
+#~ msgid "Consent given for"
+#~ msgstr "Einwilligung erteilt für"
+
+#~ msgid "no category"
+#~ msgstr "keine Kategorie"
+
+#~ msgid "Selection List"
+#~ msgstr "Auswahlliste"
+
+#~ msgid "Description"
+#~ msgstr "Beschreibung"
+
+#~ msgid "Cookie Banner"
+#~ msgstr "Cookie Banner"
+
+#~ msgid "General configuration for the cookie banner."
+#~ msgstr "Allgemeine Konfiguration für das Cookie-Banner."
+
+#~ msgid "Actions"
+#~ msgstr "Aktionen"
+
+#~ msgid "Actions taken after cookie consent."
+#~ msgstr "Aktionen, die nach der Cookie-Einwilligung durchgeführt werden."
+
+#~ msgid "Reload Page"
+#~ msgstr "Seite neu laden"
+
+#~ msgid "Reload page after cookie consent has been saved"
+#~ msgstr "Seite neu laden, nachdem die Cookie-Einwilligung gespeichert wurde"
+
+#~ msgid ""
+#~ "Configuration of the cookie banner content such as the headline, notice "
+#~ "text and buttons text."
+#~ msgstr ""
+#~ "Konfiguration des Cookie-Bannerinhalts wie Überschrift, Hinweistext und "
+#~ "Schaltflächentext."
+
+#~ msgid "Headline"
+#~ msgstr "Überschrift"
+
+#~ msgid "Privacy Settings"
+#~ msgstr "Datenschutzeinstellungen"
+
+#~ msgid "Notice Text"
+#~ msgstr "Hinweistext"
+
+#~ msgid ""
+#~ "We use cookies to measure marketing efforts and improve our services. "
+#~ "Please review the cookie settings and confirm your choice."
+#~ msgstr ""
+#~ "Wir verwenden Cookies, um Marketingbemühungen zu messen und unsere "
+#~ "Dienstleistungen zu verbessern. Bitte überprüfen Sie die Cookie-"
+#~ "Einstellungen und bestätigen Sie Ihre Auswahl."
+
+#~ msgid "Accept Button Text"
+#~ msgstr "Buttontext zum Akzeptieren"
+
+#~ msgid "Button for accepting all cookie categories."
+#~ msgstr "Schaltfläche zum Akzeptieren aller Cookie-Kategorien."
+
+#~ msgid "Accept All Cookies"
+#~ msgstr "Alle Cookies akzeptieren"
+
+#~ msgid "Confirm Choice Button Text"
+#~ msgstr "Text der Auswahltaste bestätigen"
+
+#~ msgid ""
+#~ "Button for accepting the selected cookie categories. Will only be shown "
+#~ "if any optional categories are active."
+#~ msgstr ""
+#~ "Schaltfläche zum Akzeptieren der ausgewählten Cookie-Kategorien. Wird nur "
+#~ "angezeigt, wenn optionale Kategorien aktiv sind."
+
+#~ msgid "Confirm Choice"
+#~ msgstr "Bestätigen Sie Ihre Auswahl"
+
+#~ msgid "Privacy Policy Button Text"
+#~ msgstr "Text der Schaltfläche „Datenschutzrichtlinie“"
+
+#~ msgid ""
+#~ "Button for visiting the privacy policy. Will only be shown if a Privacy "
+#~ "Policy page is set."
+#~ msgstr ""
+#~ "Schaltfläche zum Aufrufen der Datenschutzerklärung. Wird nur angezeigt, "
+#~ "wenn eine Datenschutzrichtlinienseite festgelegt ist."
+
+#~ msgid "Privacy Policy"
+#~ msgstr "Datenschutzerklärung"
+
+#~ msgid "Revoke Consent Button Text"
+#~ msgstr "Text der Schaltfläche \"Einwilligung widerrufen”"
+
+#~ msgid ""
+#~ "Button for revoking a previously given consent (output via shortcode)."
+#~ msgstr ""
+#~ "Button zum Widerrufen einer zuvor erteilten Einwilligung (Ausgabe per "
+#~ "Shortcode)."
+
+#~ msgid "Revoke Consent"
+#~ msgstr "Einwilligung widerrufen"
+
+#~ msgid ""
+#~ "Configuration of the different categories of cookies used on the website."
+#~ msgstr ""
+#~ "Konfiguration der verschiedenen Kategorien von Cookies, die auf der "
+#~ "Website verwendet werden."
+
+#~ msgid "Essential"
+#~ msgstr "Notwendig"
+
+#~ msgid "Cookies that are essential for the functionality of the website."
+#~ msgstr "Cookies, die für die Funktionalität der Website unerlässlich sind."
+
+#~ msgid "Label"
+#~ msgstr "Beschriftung"
+
+#~ msgid ""
+#~ "Essential cookies enable basic functions and are required for the website "
+#~ "to function properly."
+#~ msgstr ""
+#~ "Essenzielle Cookies ermöglichen grundlegende Funktionen und sind für die "
+#~ "einwandfreie Funktion der Website erforderlich."
+
+#~ msgid "Statistics"
+#~ msgstr "Statistiken"
+
+#~ msgid "Statistics cookies collect data anonymously."
+#~ msgstr "Statistik Cookies erfassen Informationen anonym."
+
+#~ msgid ""
+#~ "Statistics cookies collect information anonymously. This information "
+#~ "helps us to understand how our visitors use our website."
+#~ msgstr ""
+#~ "Statistik-Cookies erfassen Informationen anonym. Diese Informationen "
+#~ "helfen uns zu verstehen, wie unsere Besucher unsere Website nutzen."
+
+#~ msgid "Marketing"
+#~ msgstr "Marketing"
+
+#~ msgid ""
+#~ "Cookies that provide functionality for marketing, advertising and "
+#~ "targeting."
+#~ msgstr ""
+#~ "Cookies, die Funktionen für Marketing, Werbung und Targeting "
+#~ "bereitstellen."
+
+#~ msgid ""
+#~ "Marketing cookies are used by third parties or publishers to display "
+#~ "personalized advertisements. They do this by tracking visitors across "
+#~ "websites."
+#~ msgstr ""
+#~ "Marketing-Cookies werden von Drittanbietern oder Publishern verwendet, um "
+#~ "personalisierte Werbung anzuzeigen. Sie tun dies, indem sie Besucher über "
+#~ "Websites hinweg verfolgen."
+
+#~ msgid "External Media"
+#~ msgstr "Externe Medien"
+
+#~ msgid "Content from video platforms and social media platforms."
+#~ msgstr "Inhalte von Videoplattformen und Social-Media-Plattformen."
+
+#~ msgid ""
+#~ "Content from video platforms and social media platforms is blocked by "
+#~ "default. If cookies from external media are accepted, access to this "
+#~ "content no longer requires manual consent."
+#~ msgstr ""
+#~ "Inhalte von Videoplattformen und Social-Media-Plattformen werden "
+#~ "standardmäßig blockiert. Wenn Cookies von externen Medien akzeptiert "
+#~ "werden, bedarf der Zugriff auf diese Inhalte keiner manuellen "
+#~ "Einwilligung mehr."
+
+#~ msgid "Manage settings related to consents and logs."
+#~ msgstr ""
+#~ "Verwalten Sie Einstellungen im Zusammenhang mit Einwilligungen und "
+#~ "Protokollen."
+
+#~ msgid "Log"
+#~ msgstr "Protokoll"
+
+#~ msgid "Activate"
+#~ msgstr "Aktivieren"
+
+#~ msgid "Activate cookie consent log"
+#~ msgstr "Cookie-Einwilligungsprotokoll aktivieren"
+
+#~ msgid "Anonymize IP"
+#~ msgstr "IP anonymisieren"
+
+#~ msgid "Anonymize IP addresses in cookie consent log"
+#~ msgstr "IP-Adressen im Cookie-Einwilligungsprotokoll anonymisieren"
+
+#~ msgid "Purge Interval"
+#~ msgstr "Löschintervall"
+
+#~ msgid "Purge cookie consent logs after an amount of time."
+#~ msgstr "Cookie-Einwilligungsprotokolle nach einer gewissen Zeit löschen."
+
+#~ msgid "1 month"
+#~ msgstr "1 Monat"
+
+#~ msgid "3 months"
+#~ msgstr "3 Monate"
+
+#~ msgid "6 months"
+#~ msgstr "6 Monate"
+
+#~ msgid "1 year"
+#~ msgstr "1 Jahr"
+
+#~ msgid "Purge cookie consents on revoke"
+#~ msgstr "Cookie-Einwilligungen beim Widerruf löschen"
+
+#~ msgid ""
+#~ "Delete all saved cookie consents when using the 'Revoke Consent' button"
+#~ msgstr ""
+#~ "Alle gespeicherten Cookie-Einwilligungen werden gelöscht, wenn man die "
+#~ "Schaltfläche „Einwilligung widerrufen“ verwenden"
+
+#~ msgid "Fax"
+#~ msgstr "Fax"
+
+#~ msgid "Cookie Banner & Consent"
+#~ msgstr "Cookie-Banner & Einwilligung"
+
+#~ msgid "imprint settings"
+#~ msgstr "Impressumeinstellungen"
+
+#~ msgid ""
+#~ "The name of the person responsible for this website has not yet been "
+#~ "given. Please enter a responsible person in the %s."
+#~ msgstr ""
+#~ "Der Name der für diesen Webauftritt verantwortlichen Person wurde noch "
+#~ "nicht angegeben. Bitte geben Sie in den %s eine verantwortliche Person an."
+
+#~ msgid ""
+#~ "Replace the standard text with the introduction and the contact details "
+#~ "for the data protection officer with your own text."
+#~ msgstr ""
+#~ "Ersetzen Sie den Standardtext durch die Einleitung und die Kontaktdaten "
+#~ "des Datenschutzbeauftragten durch Ihren eigenen Text."
+
+#~ msgid ""
+#~ "Own text for introduction and indication of a data protection officer."
+#~ msgstr ""
+#~ "Eigener Text zur Vorstellung und Angabe eines Datenschutzbeauftragten."
+
+#~ msgid "   Name"
+#~ msgstr "Eingegebener Name"
