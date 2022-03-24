@@ -485,6 +485,7 @@ class Settings
             $section = $sectionId . $suffix;
             $default = isset($option['default']) ? $option['default'] : '';
             $value = $this->getOption($section, $name, $default);
+            $required = isset($option['required']) ? (bool) $option['required'] : false;
 
             $atts = [
                 'name' => $name,
@@ -506,7 +507,7 @@ class Settings
                 'inline' => isset($option['inline']) ? (bool) $option['inline'] : false,
                 'disabled' => isset($option['disabled']) ? (bool) $option['disabled'] : false,
                 'sanitize_callback' => isset($option['sanitize_callback']) ? $option['sanitize_callback'] : null,
-                'required' => isset($option['required']) ? (bool) $option['required'] : false,
+                'required' => $required,
                 'errors' => get_settings_errors($this->settingsPrefix . $section),
             ];
 
@@ -515,7 +516,7 @@ class Settings
 
             add_settings_field(
                 "{$section}[{$name}]",
-                $label,
+                $required ? $label . ' *' : $label,
                 $callback,
                 $this->settingsPrefix . $sectionId,
                 $this->settingsPrefix . $section,
