@@ -38,11 +38,15 @@
 </address>
 
 <ul class="person-info">
+    {{privacy_dpo_phone}}
     <li class="person-info-phone"><span class="screen-reader-text">Telefon: </span> {{=privacy_dpo_phone}}</li>
+    {{privacy_dpo_phone}}
     {{privacy_dpo_fax}}
     <li class="person-info-fax"><span class="screen-reader-text">Fax:</span> {{=privacy_dpo_fax}}</li>
     {{/privacy_dpo_fax}}
+    {{privacy_dpo_email}}
     <li class="person-info-email"><span class="screen-reader-text">E-Mail:</span> <a
             href="mailto:{{=privacy_dpo_email}}">{{=privacy_dpo_email}}</a></li>
+    {{/privacy_dpo_email}}
 </ul>
 {{/is_default_domain}}
