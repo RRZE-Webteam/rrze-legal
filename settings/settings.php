@@ -92,7 +92,6 @@ $settings = [
                                 'label' => __('Phone', 'rrze-legal'),
                                 'type' => 'text',
                                 'sanitize_callback' => 'sanitize_text_field',
-                                'required' => true,
                             ],
                             [
                                 'name' => 'fax',
@@ -295,7 +294,6 @@ $settings = [
                                 'label' => __('Phone', 'rrze-legal'),
                                 'type' => 'text',
                                 'sanitize_callback' => 'sanitize_text_field',
-                                'required' => true,
                             ],
                             [
                                 'name' => 'fax',

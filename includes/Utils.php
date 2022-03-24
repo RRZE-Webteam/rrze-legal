@@ -18,6 +18,7 @@ class Utils
 
     public static function isPluginActive(string $plugin)
     {
+        include_once ABSPATH . 'wp-admin/includes/plugin.php';
         return (is_plugin_active_for_network($plugin) || is_plugin_active($plugin));
     }
 
