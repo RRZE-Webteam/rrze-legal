@@ -92,9 +92,16 @@ class Endpoint
                 }
             }
         }
-
         if (!$title || !$prefix) {
             return;
+        }
+        $page = get_page_by_title($title);
+        if (!is_null($page) && $page->post_status == 'publish') {
+            // Render the page with the content
+            $content = &$page->post_content;
+            $template = plugin()->getPath(Template::THEMES_PATH) . Template::getThemeFilename();
+            include($template);
+            exit;
         }
         // Get the options
         $options = settings()->getOptions();
@@ -105,6 +112,8 @@ class Endpoint
                 break;
             }
         }
+        // Set default domain option
+        $options['is_default_domain'] = settings()->isCurrentSiteInDefaultDomains() ? '1' : '0';
         // Legal area
         $legalArea = $options['accessibility_general_legal_area'] ?? '';
         foreach (settings()->getLegalAreaData() as $key => $area) {
@@ -115,6 +124,17 @@ class Endpoint
                 break;
             }
         }
+        // Set accessibility conformity
+        self::setAccessibilityConformity($options);
+        // Set accessibility compliance method
+        self::setComplianceMethod($options);
+        // Set accessibility compliance dates
+        self::setComplianceDates($options);
+        // Set accessibility compliance content list
+        self::setComplianceContentList($options);
+        // Set contact form
+        self::setContactForm($options);
+
         // Get the parent template
         $template = plugin()->getPath(Template::TOS_PATH) . $prefix . '-' . $langCode . '.html';
         if (!is_readable($template)) {
@@ -132,8 +152,6 @@ class Endpoint
                 }
             }
         }
-        // Set default domain option
-        $options['is_default_domain'] = settings()->isCurrentSiteInDefaultDomains() ? '1' : '0';
         // Includes other child templates
         $_tpl = 'privacy-dpo';
         $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-' . $langCode . '.html';
@@ -141,16 +159,7 @@ class Endpoint
         $_tpl = 'privacy-rights-data-subject';
         $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-' . $langCode . '.html';
         $options[str_replace('-', '_', $_tpl) . '_template'] = is_readable($tpl) ? self::getContent($tpl, $options) : '';
-        // Set accessibility conformity
-        self::setAccessibilityConformity($options);
-        // Set accessibility compliance method
-        self::setComplianceMethod($options);
-        // Set accessibility compliance dates
-        self::setComplianceDates($options);
-        // Set accessibility compliance content list
-        self::setComplianceContentList($options);
-        // Set contact form
-        self::setContactForm($options);
+
         // Render all templates and get the page content
         $content = self::getContent($template, $options);
         // Render the page with the content
