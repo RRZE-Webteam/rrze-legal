@@ -15,7 +15,6 @@ class Update
         $version = get_option(settings()->getOptionName() . '_version', '0');
         if (version_compare($version, '1.0.0', '<')) {
             self::updateToVersion100();
-            flush_rewrite_rules();
             Utils::redirectToReferer();
         }
     }
