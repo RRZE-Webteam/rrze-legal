@@ -14,9 +14,8 @@ defined('ABSPATH') || exit;
 class Locale
 {
     /**
-     * Get Available Languages
-     * 
-     * @return array Return available languages array.
+     * Get all available languages based on the presence of *.mo files in WP_LANG_DIR.
+     * @return array Available languages array.
      */
     public static function availableLanguages(): array
     {
@@ -32,9 +31,8 @@ class Locale
     }
 
     /**
-     * Get Website Locale
-     * 
-     * @return string Return webiste locale.
+     * Get the current website locale.
+     * @return string The locale of the website or from the 'locale' hook.
      */
     public static function getLocale(): string
     {
@@ -42,9 +40,8 @@ class Locale
     }
 
     /**
-     * Get Language Code
-     * 
-     * @return string Return the language code.
+     * Get the first two characters of the locale.
+     * @return string The ISO 639-1 language code.
      */
     public static function getLangCode(): string
     {
@@ -52,18 +49,23 @@ class Locale
     }
 
     /**
-     * Get Current User Language
-     * 
-     * @return string Return the current user language.
+     * Get the first two characters of the user locale.
+     * @param int $userId The user ID.
+     * @return string The ISO 639-1 language code.
      */
-    public static function getUserLangCode($userId = 0)
+    public static function getUserLangCode(int $userId = 0): string
     {
         return substr(self::getUserLocale($userId), 0, 2);
     }
 
+    /**
+     * Get the current user locale.
+     * @param int $userId The user ID.
+     * @return string The locale of the user.
+     */
     public static function getUserLocale(int $userId = 0): string
     {
-        $defaultLocale = Locale::getDefaultLocale();
+        $defaultLocale = self::getDefaultLocale();
 
         if (!$userId = absint($userId)) {
             if (function_exists('wp_get_current_user')) {
@@ -88,7 +90,11 @@ class Locale
         return $defaultLocale;
     }
 
-    public static function getDefaultLocale()
+    /**
+     * Get the default website locale.
+     * @return string The default locale of the website.
+     */
+    public static function getDefaultLocale(): string
     {
         static $locale;
 
