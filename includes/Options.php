@@ -13,7 +13,6 @@ class Options extends Settings
         parent::__construct();
         $this->optionName = 'rrze_legal';
         add_filter('rrze-legal-privacy-hide-dpo-section', [$this, 'setHideDpoSection']);
-        add_filter('rrze_legal_accessibility_general_legal_area_capability', [$this, 'setLegalAreaCapability']);
     }
 
     public function setHideDpoSection()
@@ -22,14 +21,6 @@ class Options extends Settings
             return true;
         }
         return false;
-    }
-
-    public function setLegalAreaCapability($capability)
-    {
-        if (!$this->isCurrentSiteInDefaultDomains()) {
-            return $capability;
-        }
-        return 'manage_network_options';
     }
 
     public function isCurrentSiteInDefaultDomains()
