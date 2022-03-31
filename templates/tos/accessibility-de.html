@@ -47,7 +47,9 @@
     {{accessibility_compliance_status_report_url}}
     <tr>
         <th>Bericht:</th>
-        <td><a href="{{=accessibility_compliance_status_report_url}}">{{=accessibility_compliance_status_report_url}}</a></td>
+        <td><a
+                href="{{=accessibility_compliance_status_report_url}}">{{=accessibility_compliance_status_report_url}}</a>
+        </td>
     </tr>
     {{/accessibility_compliance_status_report_url}}
 </table>
@@ -95,7 +97,8 @@
 
 <ul class="person-info">
     {{accessibility_feedback_contact_phone}}
-    <li class="person-info-phone"><span class="screen-reader-text">Telefon: </span> {{=accessibility_feedback_contact_phone}}
+    <li class="person-info-phone"><span class="screen-reader-text">Telefon: </span>
+        {{=accessibility_feedback_contact_phone}}
     </li>
     {{/accessibility_feedback_contact_phone}}
     {{accessibility_feedback_contact_email}}
@@ -116,7 +119,7 @@
     ob im Rahmen der Überwachung gegenüber dem Verpflichteten Maßnahmen erforderlich sind.
 </p>
 <p>Kontaktinformation der für das Durchsetzungsverfahren zuständigen Aufsicht:</p>
-<p><strong>{{=accessibility_controlling_name}}</strong>
+<p><strong>{{=accessibility_controlling}}</strong>
     {{accessibility_controlling_namezusatz}}
     <br>{{=accessibility_controlling_namezusatz}}
     {{/accessibility_controlling_namezusatz}}
@@ -126,7 +129,7 @@
     {{=accessibility_controlling_street}}<br>
     {{/accessibility_controlling_street}}
     {{accessibility_controlling_city}}
-    {{=accessibility_controlling_postalcode}}
+    {{=accessibility_controlling_plz}}
     {{=accessibility_controlling_city}}
     {{/accessibility_controlling_city}}
 </address>

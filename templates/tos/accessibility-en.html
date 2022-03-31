@@ -42,7 +42,9 @@
     {{accessibility_compliance_status_report_url}}
     <tr>
         <th>Report:</th>
-        <td><a href="{{=accessibility_compliance_status_report_url}}">{{=accessibility_compliance_status_report_url}}</a></td>
+        <td><a
+                href="{{=accessibility_compliance_status_report_url}}">{{=accessibility_compliance_status_report_url}}</a>
+        </td>
     </tr>
     {{/accessibility_compliance_status_report_url}}
 </table>
@@ -90,7 +92,8 @@
 
 <ul class="person-info">
     {{accessibility_feedback_contact_phone}}
-    <li class="person-info-phone"><span class="screen-reader-text">Phone:</span> {{=accessibility_feedback_contact_phone}}</li>
+    <li class="person-info-phone"><span class="screen-reader-text">Phone:</span>
+        {{=accessibility_feedback_contact_phone}}</li>
     {{/accessibility_feedback_contact_phone}}
     {{accessibility_feedback_contact_email}}
     <li class="person-info-email"><span class="screen-reader-text">EMail:</span> <a
@@ -110,14 +113,17 @@
     Monitoring against the operators of the web offer measures are required.
 </p>
 <p>Contact information of the enforcement oversight body:</p>
-
-<p><strong>{{=accessibility_controlling_name}}</strong></p>
+<p><strong>{{=accessibility_controlling}}</strong>
+    {{accessibility_controlling_namezusatz}}
+    <br>{{=accessibility_controlling_namezusatz}}
+    {{/accessibility_controlling_namezusatz}}
+</p>
 <address>
     {{accessibility_controlling_street}}
     {{=accessibility_controlling_street}}<br>
     {{/accessibility_controlling_street}}
     {{accessibility_controlling_city}}
-    {{=accessibility_controlling_postalcode}}
+    {{=accessibility_controlling_plz}}
     {{=accessibility_controlling_city}}
     {{/accessibility_controlling_city}}
 </address>
