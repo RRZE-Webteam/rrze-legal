@@ -92,13 +92,7 @@ class Endpoint
                 }
             }
         }
-        if (($page = get_page_by_title($title)) !== null) {
-            // Render the page with the content
-            $content = &$page->post_content;
-            $template = plugin()->getPath(Template::THEMES_PATH) . Template::getThemeFilename();
-            include($template);
-            exit;
-        }
+
         if (!$title || !$prefix) {
             return;
         }
