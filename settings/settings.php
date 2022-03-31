@@ -495,7 +495,6 @@ $settings = [
                                 'type' => 'select',
                                 'options' => settings()->getLegalAreaOptions(),
                                 'default' => 2,
-                                'capability' => apply_filters('rrze_legal_accessibility_general_legal_area_capability', 'manage_options'),
                             ],
                         ],
                     ],
