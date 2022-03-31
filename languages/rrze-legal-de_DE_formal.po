@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RRZE Legal 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-legal\n"
-"POT-Creation-Date: 2022-03-23T16:04:33+00:00\n"
-"PO-Revision-Date: 2022-03-23 17:21+0100\n"
+"POT-Creation-Date: 2022-03-31T16:03:28+00:00\n"
+"PO-Revision-Date: 2022-03-31 18:04+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE@formal\n"
@@ -40,12 +40,12 @@ msgstr "https://blogs.fau.de/webworking/"
 msgid "&mdash; Select &mdash;"
 msgstr "&mdash; Auswählen &mdash;"
 
-#: includes/Main.php:58 settings/network.php:20 settings/settings.php:21
+#: includes/Main.php:78 settings/network.php:20 settings/settings.php:21
 msgid "Legal Settings"
 msgstr "Rechtliche Einstellungen"
 
 #. translators: 1: Plugin name, 2: Link of the settings page.
-#: includes/Main.php:62
+#: includes/Main.php:82
 msgid ""
 "One or more mandatory fields of the \"%1$s\" plugin settings have not been "
 "filled. Please fill in these fields as soon as possible in the following "
@@ -55,6 +55,15 @@ msgstr ""
 "ausgefüllt. Bitte füllen Sie diese Felder so schnell wie möglich unter "
 "folgendem Link aus: %2$s."
 
+#. translators: %s: Permalink of the page that overrides the endpoint.
+#: includes/Main.php:94
+msgid ""
+"The output of this settings page is overwritten by the content of the "
+"following page: %s."
+msgstr ""
+"Die Ausgabe dieser Einstellungsseite wird durch den Inhalt der folgenden "
+"Seite überschrieben: %s."
+
 #: includes/Network/Options.php:150
 msgid "Settings saved."
 msgstr "Die Einstellungen wurden gespeichert."
@@ -63,85 +72,85 @@ msgstr "Die Einstellungen wurden gespeichert."
 msgid "Dismiss this notice."
 msgstr "Diese Meldung ausblenden."
 
-#: includes/Options.php:97
+#: includes/Options.php:88
 msgid "Bundesebene Deutschland (Öffentlicher Dienst)"
 msgstr "Bundesebene Deutschland (Öffentlicher Dienst)"
 
-#: includes/Options.php:109
+#: includes/Options.php:100
 msgid "Baden-Württemberg"
 msgstr "Baden-Württemberg"
 
-#: includes/Options.php:118
+#: includes/Options.php:109
 msgid "Bayern"
 msgstr "Bayern"
 
-#: includes/Options.php:132
+#: includes/Options.php:123
 msgid "Berlin"
 msgstr "Berlin"
 
-#: includes/Options.php:143
+#: includes/Options.php:134
 msgid "Brandenburg"
 msgstr "Brandenburg"
 
-#: includes/Options.php:154
+#: includes/Options.php:145
 msgid "Bremen"
 msgstr "Bremen"
 
-#: includes/Options.php:165
+#: includes/Options.php:156
 msgid "Hamburg"
 msgstr "Hamburg"
 
-#: includes/Options.php:175
+#: includes/Options.php:166
 msgid "Hessen"
 msgstr "Hessen"
 
-#: includes/Options.php:186
+#: includes/Options.php:177
 msgid "Mecklenburg-Vorpommern"
 msgstr "Mecklenburg-Vorpommern"
 
-#: includes/Options.php:197
+#: includes/Options.php:188
 msgid "Niedersachsen"
 msgstr "Niedersachsen"
 
-#: includes/Options.php:206
+#: includes/Options.php:197
 msgid "Nordrhein-Westfalen"
 msgstr "Nordrhein-Westfalen"
 
-#: includes/Options.php:215
+#: includes/Options.php:206
 msgid "Rheinland-Pfalz"
 msgstr "Rheinland-Pfalz"
 
-#: includes/Options.php:226
+#: includes/Options.php:217
 msgid "Saarland"
 msgstr "Saarland"
 
-#: includes/Options.php:237
+#: includes/Options.php:228
 msgid "Sachsen"
 msgstr "Sachsen"
 
-#: includes/Options.php:246
+#: includes/Options.php:237
 msgid "Sachsen-Anhalt"
 msgstr "Sachsen-Anhalt"
 
-#: includes/Options.php:257
+#: includes/Options.php:248
 msgid "Schleswig-Holstein"
 msgstr "Schleswig-Holstein"
 
-#: includes/Options.php:268
+#: includes/Options.php:259
 msgid "Thüringen"
 msgstr "Thüringen"
 
 #. translators: %s: label of the field.
-#: includes/Settings.php:562
+#: includes/Settings.php:563
 msgid "The field %s is required."
 msgstr "Das Feld %s ist erforderlich."
 
 #. translators: %s: label of the field.
-#: includes/Settings.php:572
+#: includes/Settings.php:573
 msgid "The value of the field %s is not valid."
 msgstr "Der Wert des Felds %s ist ungültig."
 
-#: includes/Settings.php:624
+#: includes/Settings.php:625
 msgid "yy-mm-dd"
 msgstr "yy-mm-dd"
 
@@ -164,7 +173,7 @@ msgid "From"
 msgstr "Absender"
 
 #: includes/TOS/ContactForm.php:143 settings/settings.php:55
-#: settings/settings.php:120 settings/settings.php:258
+#: settings/settings.php:119 settings/settings.php:257
 msgid "Name"
 msgstr "Name"
 
@@ -276,15 +285,15 @@ msgstr "Neun"
 msgid "Imprint"
 msgstr "Impressum"
 
-#: includes/TOS/Endpoint.php:27 settings/settings.php:242
+#: includes/TOS/Endpoint.php:27 settings/settings.php:241
 msgid "Privacy"
 msgstr "Datenschutz"
 
-#: includes/TOS/Endpoint.php:28 settings/settings.php:480
+#: includes/TOS/Endpoint.php:28 settings/settings.php:478
 msgid "Accessibility"
 msgstr "Barrierefreiheit"
 
-#: includes/TOS/Endpoint.php:229
+#: includes/TOS/Endpoint.php:239
 msgid "Not Found"
 msgstr "Nicht gefunden"
 
@@ -339,7 +348,7 @@ msgstr ""
 "Websites, deren URLs Standarddomänen enthalten, erhalten die Standardwerte."
 
 #. translators: %s: url of the endpoint page.
-#: settings/settings.php:29 settings/settings.php:246 settings/settings.php:484
+#: settings/settings.php:29 settings/settings.php:245 settings/settings.php:482
 msgid "The output of this settings page is available at the following link: %s"
 msgstr ""
 "Die Ausgabe dieser Einstellungsseite ist unter folgendem Link verfügbar: %s"
@@ -377,51 +386,51 @@ msgstr ""
 "Rechtlich verantwortliche Person für die Website. (Dies ist in der Regel der "
 "Stuhlbesitzer oder Facility Manager)."
 
-#: settings/settings.php:64 settings/settings.php:128 settings/settings.php:267
+#: settings/settings.php:64 settings/settings.php:127 settings/settings.php:266
 msgid "Email"
 msgstr "E-Mail"
 
-#: settings/settings.php:71 settings/settings.php:274
+#: settings/settings.php:71 settings/settings.php:273
 msgid "Street Name & House Number"
 msgstr "Straße und Hausnummer"
 
-#: settings/settings.php:78 settings/settings.php:281
+#: settings/settings.php:78 settings/settings.php:280
 msgid "Postal Code"
 msgstr "Postleitzahl"
 
-#: settings/settings.php:85 settings/settings.php:288
+#: settings/settings.php:85 settings/settings.php:287
 msgid "City"
 msgstr "Stadt"
 
-#: settings/settings.php:92 settings/settings.php:136 settings/settings.php:295
+#: settings/settings.php:92 settings/settings.php:135 settings/settings.php:294
 msgid "Phone"
 msgstr "Telefon"
 
-#: settings/settings.php:99 settings/settings.php:302
+#: settings/settings.php:98 settings/settings.php:300
 msgid "Fax Number"
 msgstr "Faxnummer"
 
-#: settings/settings.php:105
+#: settings/settings.php:104
 msgid "Organization"
 msgstr "Organisation"
 
-#: settings/settings.php:115
+#: settings/settings.php:114
 msgid "Webmaster"
 msgstr "Webmaster"
 
-#: settings/settings.php:116
+#: settings/settings.php:115
 msgid "Data for contacting the content of the website."
 msgstr "Daten zur Kontaktaufnahme hinsichtlich der Inhalte des Webauftritts."
 
-#: settings/settings.php:121
+#: settings/settings.php:120
 msgid "Name of the webmaster or the responsible web editor."
 msgstr "Name des Webmasters oder der zuständigen Webredaktion."
 
-#: settings/settings.php:144 settings/settings.php:454
+#: settings/settings.php:143 settings/settings.php:452
 msgid "Optional Information"
 msgstr "Optionale Angabe"
 
-#: settings/settings.php:145
+#: settings/settings.php:144
 msgid ""
 "This option allows you to change predefined paragraphs, as well as to add "
 "another self-phrased paragraph.<br>Note: Official FAU facilities should have "
@@ -431,11 +440,11 @@ msgstr ""
 "selbst formulierten Absatz hinzufügen.<br>Hinweis: Offizielle Einrichtungen "
 "der FAU sollten alle folgenden Optionen aktiviert haben."
 
-#: settings/settings.php:149
+#: settings/settings.php:148
 msgid "Reference to the University Management"
 msgstr "Verweis auf die Universitätsleitung"
 
-#: settings/settings.php:150
+#: settings/settings.php:149
 msgid ""
 "Official representative of the university and its outward institutions is "
 "the president. For this purpose, a corresponding paragraph is displayed."
@@ -443,87 +452,87 @@ msgstr ""
 "Offizieller Vertreter der Universität und ihrer äußeren Institutionen ist "
 "der Präsident. Dazu wird ein entsprechender Absatz angezeigt."
 
-#: settings/settings.php:153 settings/settings.php:166
-#: settings/settings.php:179 settings/settings.php:192
-#: settings/settings.php:205 settings/settings.php:224
-#: settings/settings.php:319 settings/settings.php:332
-#: settings/settings.php:345 settings/settings.php:358
-#: settings/settings.php:378 settings/settings.php:391
-#: settings/settings.php:404 settings/settings.php:417
-#: settings/settings.php:430 settings/settings.php:443
-#: settings/settings.php:462
+#: settings/settings.php:152 settings/settings.php:165
+#: settings/settings.php:178 settings/settings.php:191
+#: settings/settings.php:204 settings/settings.php:223
+#: settings/settings.php:317 settings/settings.php:330
+#: settings/settings.php:343 settings/settings.php:356
+#: settings/settings.php:376 settings/settings.php:389
+#: settings/settings.php:402 settings/settings.php:415
+#: settings/settings.php:428 settings/settings.php:441
+#: settings/settings.php:460
 msgid "Yes"
 msgstr "Ja"
 
-#: settings/settings.php:154 settings/settings.php:167
-#: settings/settings.php:180 settings/settings.php:193
-#: settings/settings.php:206 settings/settings.php:225
-#: settings/settings.php:320 settings/settings.php:333
-#: settings/settings.php:346 settings/settings.php:359
-#: settings/settings.php:379 settings/settings.php:392
-#: settings/settings.php:405 settings/settings.php:418
-#: settings/settings.php:431 settings/settings.php:444
-#: settings/settings.php:463
+#: settings/settings.php:153 settings/settings.php:166
+#: settings/settings.php:179 settings/settings.php:192
+#: settings/settings.php:205 settings/settings.php:224
+#: settings/settings.php:318 settings/settings.php:331
+#: settings/settings.php:344 settings/settings.php:357
+#: settings/settings.php:377 settings/settings.php:390
+#: settings/settings.php:403 settings/settings.php:416
+#: settings/settings.php:429 settings/settings.php:442
+#: settings/settings.php:461
 msgid "No"
 msgstr "Nein"
 
-#: settings/settings.php:162
+#: settings/settings.php:161
 msgid "Supervisory Authority"
 msgstr "Aufsichtsbehörde"
 
-#: settings/settings.php:163
+#: settings/settings.php:162
 msgid "Displays the supervisory authority."
 msgstr "Zeigt die Aufsichtsbehörde an."
 
-#: settings/settings.php:175
+#: settings/settings.php:174
 msgid "Identification Numbers"
 msgstr "Identifikationsnummern"
 
-#: settings/settings.php:176
+#: settings/settings.php:175
 msgid ""
 "Display of public and official identification numbers of the university."
 msgstr ""
 "Anzeige der öffentlichen und amtlichen Identifikationsnummern der "
 "Universität."
 
-#: settings/settings.php:188
+#: settings/settings.php:187
 msgid "IT Security"
 msgstr "IT-Sicherheit"
 
-#: settings/settings.php:189
+#: settings/settings.php:188
 msgid "Note and contact details for reporting IT security incidents."
 msgstr "Hinweis und Kontaktdaten für die Meldung von IT-Sicherheitsvorfällen."
 
-#: settings/settings.php:201
+#: settings/settings.php:200
 msgid "Image Rights"
 msgstr "Bildrechte"
 
-#: settings/settings.php:202
+#: settings/settings.php:201
 msgid "Insert free text field for image rights?"
 msgstr "Freitextfeld für Bildrechte einfügen?"
 
-#: settings/settings.php:213 settings/settings.php:232
-#: settings/settings.php:470
+#: settings/settings.php:212 settings/settings.php:231
+#: settings/settings.php:468
 msgid "Content"
 msgstr "Inhalt"
 
-#: settings/settings.php:214
+#: settings/settings.php:213
 msgid "Optional paragraph for the description of any image rights used."
 msgstr "Optionaler Absatz zur Beschreibung der verwendeten Bildrechte."
 
-#: settings/settings.php:220 settings/settings.php:459
+#: settings/settings.php:219 settings/settings.php:457
 msgid "Add a New Section"
 msgstr "Hinzufügen eines neuen Abschnitts"
 
-#: settings/settings.php:233 settings/settings.php:471
+#: settings/settings.php:232 settings/settings.php:469
 msgid "Content of the new, additional section."
 msgstr "Inhalt des neuen, zusätzlichen Abschnitts."
 
-#: settings/settings.php:252
+#: settings/settings.php:251
 msgid "Data Protection Officer"
 msgstr "Datenschutzbeauftragter"
 
-#: settings/settings.php:254
+#: settings/settings.php:253
 msgid ""
 "The designation, position and tasks of a data protection officer (DPO) "
 "within an organization are described in Articles 37, 38 and 39 of the "
@@ -533,11 +542,11 @@ msgstr ""
 "innerhalb einer Organisation sind in den Artikeln 37, 38 und 39 der "
 "Datenschutz-Grundverordnung (DSGVO) der Europäischen Union (EU) beschrieben."
 
-#: settings/settings.php:310
+#: settings/settings.php:308
 msgid "Services"
 msgstr "Dienstleistungen"
 
-#: settings/settings.php:311
+#: settings/settings.php:309
 msgid ""
 "If any of the following services are used, enable them to generate a "
 "corresponding notice in the privacy policy."
@@ -545,19 +554,19 @@ msgstr ""
 "Wenn einer der folgenden Dienste verwendet wird, ermöglichen Sie es ihnen, "
 "einen entsprechenden Hinweis in der Datenschutzerklärung zu generieren."
 
-#: settings/settings.php:315
+#: settings/settings.php:313
 msgid "Newsletter/Mailinglist"
 msgstr "Newsletter/Mailingliste"
 
-#: settings/settings.php:316
+#: settings/settings.php:314
 msgid "Do you offer a newsletter or mailing list?"
 msgstr "Bieten Sie einen Newsletter oder eine Mailingliste an?"
 
-#: settings/settings.php:328
+#: settings/settings.php:326
 msgid "Contact Form"
 msgstr "Kontaktformular"
 
-#: settings/settings.php:329
+#: settings/settings.php:327
 msgid ""
 "Do you use a contact form on this website? (The accessibility declaration "
 "offers one, so the answer is usually \"yes\")."
@@ -566,11 +575,11 @@ msgstr ""
 "Zugänglichkeitserklärung bietet eine, daher lautet die Antwort in der Regel "
 "\"Ja”)."
 
-#: settings/settings.php:341
+#: settings/settings.php:339
 msgid "Registration/Registration Forms"
 msgstr "Anmeldung/Anmeldeformulare"
 
-#: settings/settings.php:342
+#: settings/settings.php:340
 msgid ""
 "Do you use forms to sign up for events or other functions that require "
 "registration?"
@@ -578,20 +587,20 @@ msgstr ""
 "Verwenden Sie Formulare, um sich für Veranstaltungen oder andere Funktionen "
 "anzumelden, die eine Registrierung erfordern?"
 
-#: settings/settings.php:354
+#: settings/settings.php:352
 msgid "Corona Contact Tracking"
 msgstr "Corona Kontaktverfolgung"
 
-#: settings/settings.php:355
+#: settings/settings.php:353
 msgid "Display the data on Corona contact tracking for events."
 msgstr ""
 "Zeigen Sie die Daten zur Corona-Kontaktverfolgung für Veranstaltungen an."
 
-#: settings/settings.php:369
+#: settings/settings.php:367
 msgid "External Service Providers"
 msgstr "Externe Dienstleister"
 
-#: settings/settings.php:370
+#: settings/settings.php:368
 msgid ""
 "If external service providers are used to include content on the website, "
 "they must also be included in the privacy policy."
@@ -600,21 +609,21 @@ msgstr ""
 "einzubinden, müssen diese ebenfalls in die Datenschutzerklärung einbezogen "
 "werden."
 
-#: settings/settings.php:374
+#: settings/settings.php:372
 msgid "YouTube Embeds"
 msgstr "YouTube-Einbettungen"
 
-#: settings/settings.php:375
+#: settings/settings.php:373
 msgid "If you include YouTube videos in the website, enable this option."
 msgstr ""
 "Wenn Sie YouTube-Videos in die Website einbinden, aktivieren Sie diese "
 "Option."
 
-#: settings/settings.php:387
+#: settings/settings.php:385
 msgid "Slideshare Embeds"
 msgstr "Slideshare Einbettungen"
 
-#: settings/settings.php:388
+#: settings/settings.php:386
 msgid ""
 "If you offer slides on Slideshare and embed them in the website, enable this "
 "option."
@@ -622,11 +631,11 @@ msgstr ""
 "Wenn Sie Folien auf Slideshare anbieten und in die Website einbetten, "
 "aktivieren Sie diese Option."
 
-#: settings/settings.php:400
+#: settings/settings.php:398
 msgid "Vimeo Embeds"
 msgstr "Vimeo Einbettungen"
 
-#: settings/settings.php:401
+#: settings/settings.php:399
 msgid ""
 "If you include videos from the online service Vimeo in the website, enable "
 "this option."
@@ -634,11 +643,11 @@ msgstr ""
 "Wenn Sie Videos des Online-Dienstes Vimeo in die Website einbinden, "
 "aktivieren Sie diese Option."
 
-#: settings/settings.php:413
+#: settings/settings.php:411
 msgid "VG Word Counting Pixels"
 msgstr "VG Word Counting Pixels"
 
-#: settings/settings.php:414
+#: settings/settings.php:412
 msgid ""
 "If the VG Word measurement method is used on the website, this option should "
 "be activated."
@@ -646,11 +655,11 @@ msgstr ""
 "Wenn auf der Website das Messverfahren VG Word verwendet wird, sollte diese "
 "Option aktiviert sein."
 
-#: settings/settings.php:426
+#: settings/settings.php:424
 msgid "Siteimprove"
 msgstr "Siteimprove"
 
-#: settings/settings.php:427
+#: settings/settings.php:425
 msgid ""
 "If Siteimprove Analytics is used on the website, this option should be "
 "activated."
@@ -658,11 +667,11 @@ msgstr ""
 "Wenn Siteimprove Analytics auf der Website verwendet wird, sollte diese "
 "Option aktiviert sein."
 
-#: settings/settings.php:439
+#: settings/settings.php:437
 msgid "Varifast"
 msgstr "Varifast"
 
-#: settings/settings.php:440
+#: settings/settings.php:438
 msgid ""
 "In the event that Varifast advertising is used on the website, this option "
 "should be activated."
@@ -670,15 +679,15 @@ msgstr ""
 "Für den Fall, dass Varifast-Werbung auf der Website verwendet wird, sollte "
 "diese Option aktiviert sein."
 
-#: settings/settings.php:455
+#: settings/settings.php:453
 msgid "Additional information about the privacy policy."
 msgstr "Zusätzliche Informationen zur Datenschutzerklärung."
 
-#: settings/settings.php:490
+#: settings/settings.php:488
 msgid "General Information"
 msgstr "Allgemeine Informationen"
 
-#: settings/settings.php:491
+#: settings/settings.php:489
 msgid ""
 "All public sector bodies are obliged to make their websites and / or mobile "
 "applications accessible in accordance with Directive (EU) 2016/2102 of the "
@@ -697,21 +706,21 @@ msgstr ""
 "angeben und erläutern müssen, aus welchen Gründen welche Barrieren vorhanden "
 "sind."
 
-#: settings/settings.php:495
+#: settings/settings.php:493
 msgid "Legal Area"
 msgstr "Rechtsraum"
 
-#: settings/settings.php:496
+#: settings/settings.php:494
 msgid ""
 "Selection of the legal area to which the operator of the website belongs."
 msgstr ""
 "Auswahl des Rechtsraumes, zu welcher der Betreiber des Webangebots gehört."
 
-#: settings/settings.php:506
+#: settings/settings.php:503
 msgid "Compliance Status"
 msgstr "Konformitätsstatus"
 
-#: settings/settings.php:507
+#: settings/settings.php:504
 msgid ""
 "Officially stated status of the website, as well as its contents regarding "
 "the fulfillment of the legal requirements."
@@ -719,11 +728,11 @@ msgstr ""
 "Offiziell anzugebender Status des Webauftritts, sowie dessen Inhalten "
 "hinsichtlich der Erfüllung der gesetzlichen Anforderungen."
 
-#: settings/settings.php:511
+#: settings/settings.php:508
 msgid "Declaration of Conformity"
 msgstr "Konformitätserklärung"
 
-#: settings/settings.php:512
+#: settings/settings.php:509
 msgid ""
 "State of conformity in accordance with EU Directive 2102 and local "
 "legislation."
@@ -731,7 +740,7 @@ msgstr ""
 "Stand der Konformität gemäß der EU-Richtlinie 2102 und der lokalen "
 "Gesetzgebung."
 
-#: settings/settings.php:515
+#: settings/settings.php:512
 msgid ""
 "Completely compliant: the content is fully compliant with the accessibility "
 "standard without exceptions"
@@ -739,7 +748,7 @@ msgstr ""
 "Vollständig konform: Der Inhalt entspricht ohne Ausnahmen vollständig dem "
 "Standard für Barrierefreiheit"
 
-#: settings/settings.php:516
+#: settings/settings.php:513
 msgid ""
 "Partially Compliant: Some parts of the content are not fully compliant with "
 "the accessibility standard"
@@ -747,75 +756,75 @@ msgstr ""
 "Teilweise konform: Einige Teile des Inhalts entsprechen nicht vollständig "
 "dem Standard für Barrierefreiheit"
 
-#: settings/settings.php:517
+#: settings/settings.php:514
 msgid ""
 "Non-compliant: The content does not comply with the accessibility standard"
 msgstr ""
 "Nicht konform: Der Inhalt entspricht nicht dem Standard für Barrierefreiheit"
 
-#: settings/settings.php:518
+#: settings/settings.php:515
 msgid "Unknown: Content was not rated or rating results are not available"
 msgstr ""
 "Unbekannt: Der Inhalt wurde nicht bewertet oder die Bewertungsergebnisse "
 "sind nicht verfügbar"
 
-#: settings/settings.php:536
+#: settings/settings.php:533
 msgid "Method"
 msgstr "Methode"
 
-#: settings/settings.php:539
+#: settings/settings.php:536
 msgid "Self-Evaluation"
 msgstr "Selbstbewertung"
 
-#: settings/settings.php:540
+#: settings/settings.php:537
 msgid "Third party rating"
 msgstr "Bewertung durch Dritte"
 
-#: settings/settings.php:547
+#: settings/settings.php:544
 msgid "Creation Date"
 msgstr "Erstellungsdatum"
 
-#: settings/settings.php:555
+#: settings/settings.php:552
 msgid "Last Review Date"
 msgstr "Datum der letzten Überprüfung"
 
-#: settings/settings.php:563
+#: settings/settings.php:560
 msgid "Report URL"
 msgstr "URL des Berichts"
 
-#: settings/settings.php:564
+#: settings/settings.php:561
 msgid "If there is a detailed review, this can be linked here."
 msgstr ""
 "Falls es einen ausführlichen Testbericht gibt, kann dieser hier verlinkt "
 "werden."
 
-#: settings/settings.php:573
+#: settings/settings.php:570
 msgid "Statement"
 msgstr "Erklärung"
 
-#: settings/settings.php:574
+#: settings/settings.php:571
 msgid "List and explain the problems with the implementation of accessibility."
 msgstr ""
 "Auflistung und Erläuterung der Probleme bei der Umsetzung der "
 "Barrierefreiheit."
 
-#: settings/settings.php:578
+#: settings/settings.php:575
 msgid "Input Assistance For Non-Accessible Content"
 msgstr "Eingabehilfe zu nicht barrierefreie Inhalte"
 
-#: settings/settings.php:581
+#: settings/settings.php:578
 msgid "Fill out explanations manually"
 msgstr "Erklärungen manuell ausfüllen"
 
-#: settings/settings.php:582
+#: settings/settings.php:579
 msgid "Use input help and supplement it with manual entries"
 msgstr "Eingabehilfe nutzen und durch manuelle Eingaben ergänzen"
 
-#: settings/settings.php:588
+#: settings/settings.php:585
 msgid "Non-Accessible Content (Selection List)"
 msgstr "Nicht barrierefrei zugängliche Inhalte (Auswahl)"
 
-#: settings/settings.php:589
+#: settings/settings.php:586
 msgid ""
 "Selection of the most common deficiencies that a website can have. However, "
 "when choosing one or more of the above-mentioned deficiencies, please "
@@ -827,7 +836,7 @@ msgstr ""
 "jeweils plausible Begründung ein, warum dieser Mangel vorhanden ist und "
 "welche Alternativen vorhanden sind, um dennoch an die Inhalte zu gelangen."
 
-#: settings/settings.php:592
+#: settings/settings.php:589
 msgid ""
 "PDF documents created before 23.09.2018 could not yet be converted to an "
 "accessible format."
@@ -835,14 +844,14 @@ msgstr ""
 "PDF-Dokumente, die vor dem 23.09.2018 erstellt wurden, konnten noch nicht "
 "auf ein barrierefreies Format umgestellt werden."
 
-#: settings/settings.php:593
+#: settings/settings.php:590
 msgid ""
 "PDF documents created after 23.09.2018 do not yet have an accessible format."
 msgstr ""
 "PDF-Dokumente, die nach dem 23.09.2018 erstellt wurden, sind noch nicht "
 "barrierefrei zugänglich."
 
-#: settings/settings.php:594
+#: settings/settings.php:591
 msgid ""
 "Some documents have been provided by third parties (for example, the "
 "Examination Office, other FAU bodies, ministries, etc.). These documents are "
@@ -852,13 +861,13 @@ msgstr ""
 "der FAU, Ministerien, u.a.) bereitgestellt. Diese Dokumente liegen nicht in "
 "einer barrierefreien Fassung vor."
 
-#: settings/settings.php:595
+#: settings/settings.php:592
 msgid "Embedded videos currently have no subtitles or transcription available."
 msgstr ""
 "Zu eingebundenen Videos stehen derzeit keine Untertitel oder Transkription "
 "zur Verfügung."
 
-#: settings/settings.php:596
+#: settings/settings.php:593
 msgid ""
 "Currently there is no textual description for directions describing maps or "
 "maps."
@@ -866,7 +875,7 @@ msgstr ""
 "Zu mittels Karten oder Kartenbildern eingebundenen Anfahrtsbeschreibungen "
 "fehlt derzeit die textuelle Beschreibung."
 
-#: settings/settings.php:597
+#: settings/settings.php:594
 msgid ""
 "Graphics or images contained in the pages are currently not completely "
 "supplemented by text descriptions."
@@ -874,11 +883,11 @@ msgstr ""
 "In den Seiten enthaltene Grafiken oder Bilder sind derzeit nicht vollständig "
 "durch Textbeschreibungen ergänzt worden."
 
-#: settings/settings.php:598
+#: settings/settings.php:595
 msgid "Tables are used for the purpose of optical design."
 msgstr "Es werden Tabellen zum Zwecke der optischen Gestaltung verwendet."
 
-#: settings/settings.php:599
+#: settings/settings.php:596
 msgid ""
 "When using multilingual content on a page, sometimes the languages ​​are not "
 "correctly marked in HTML."
@@ -886,7 +895,7 @@ msgstr ""
 "Bei der Verwendung von mehrsprachigen Inhalten auf einer Seite, werden die "
 "Sprachen teilweise nicht korrekt in HTML gekennzeichnet."
 
-#: settings/settings.php:600
+#: settings/settings.php:597
 msgid ""
 "The font color in the logo with the full title of the website does not have "
 "enough contrast."
@@ -894,11 +903,11 @@ msgstr ""
 "Die Schriftfarbe im Logo mit dem ausgeschriebenen Titel des Webauftritts ist "
 "nicht kontrastreich genug."
 
-#: settings/settings.php:605
+#: settings/settings.php:602
 msgid "Non-Accessible Content (Free Text)"
 msgstr "Nicht barrierefrei zugängliche Inhalte (Freitext)"
 
-#: settings/settings.php:606
+#: settings/settings.php:603
 msgid ""
 "The website owner is obliged to publicly list all non-accessible components "
 "of the website and its contents. These must be specified here."
@@ -907,11 +916,11 @@ msgstr ""
 "des Webauftritts und der Inhalte öffentlich aufzulisten. Diese müssen hier "
 "angegeben werden."
 
-#: settings/settings.php:611
+#: settings/settings.php:608
 msgid "Reason"
 msgstr "Begründung"
 
-#: settings/settings.php:612
+#: settings/settings.php:609
 msgid ""
 "In addition to the pure list of non-accessible contents, a justification for "
 "each of the above points should also be provided as to why barrier-free "
@@ -926,11 +935,11 @@ msgstr ""
 "Prioritäten, Zeit oder Unkenntnis“. Diese Punkte dürfen daher nicht als "
 "Begründung verwendet werden."
 
-#: settings/settings.php:617
+#: settings/settings.php:614
 msgid "Alternatives"
 msgstr "Alternative Zugangswege"
 
-#: settings/settings.php:618
+#: settings/settings.php:615
 msgid ""
 "Indicate here whether and which alternatives are available to obtain the "
 "above inaccessible content. This can be, for example, the contact via the "
@@ -941,21 +950,21 @@ msgstr ""
 "die Kontaktaufnahme über das Feedback-Formular sein oder die Angabe einer "
 "Stelle, die Hilfe leistet."
 
-#: settings/settings.php:625
+#: settings/settings.php:622
 msgid "Feedback Mechanism"
 msgstr "Feedback-Mechanismus"
 
-#: settings/settings.php:626
+#: settings/settings.php:623
 msgid "Opportunities to contact for accessibility issues and errors."
 msgstr ""
 "Möglichkeiten zur Kontaktaufnahme bei Problemen und Fehlern zur "
 "Barrierefreiheit."
 
-#: settings/settings.php:630
+#: settings/settings.php:627
 msgid "Contact Person"
 msgstr "Ansprechpartner"
 
-#: settings/settings.php:631
+#: settings/settings.php:628
 msgid ""
 "Enter a name for the responsible contact person for complaints or requests "
 "for help about lack of accessibility."
@@ -963,11 +972,11 @@ msgstr ""
 "Geben Sie hier einen Namen für den zuständigen Ansprechpartner für "
 "Beschwerden oder Hilfeanfragen über mangelnde Zugänglichkeit an."
 
-#: settings/settings.php:637
+#: settings/settings.php:634
 msgid "Contact Email Addresse"
 msgstr "E-Mail-Adresse"
 
-#: settings/settings.php:638
+#: settings/settings.php:635
 msgid ""
 "Recipient email address for complaints or requests for help about lack of "
 "accessibility. Please note: If a request about the possibility of contact "
@@ -983,35 +992,35 @@ msgstr ""
 "ob im Rahmen der Überwachung gegenüber dem Betreiber des Webauftritts (also "
 "Ihnen) Maßnahmen erforderlich sind."
 
-#: settings/settings.php:645
+#: settings/settings.php:642
 msgid "Email CC"
 msgstr "E-Mail CC"
 
-#: settings/settings.php:646
+#: settings/settings.php:643
 msgid "Optional additional email address."
 msgstr "Optionale zusätzliche E-Mail-Adresse."
 
-#: settings/settings.php:652
+#: settings/settings.php:649
 msgid "Email Subject"
 msgstr "E-Mail Betreff"
 
-#: settings/settings.php:654
+#: settings/settings.php:651
 msgid "Accessibility Feedback Form"
 msgstr "Feedback-Formular zur Barrierefreiheit"
 
-#: settings/settings.php:659
+#: settings/settings.php:656
 msgid "Contact Phone"
 msgstr "Telefon"
 
-#: settings/settings.php:660
+#: settings/settings.php:657
 msgid "Contact number for telephone assistance."
 msgstr "Kontaktnummer für telefonische Hilfestellung."
 
-#: settings/settings.php:666
+#: settings/settings.php:663
 msgid "Contact Address"
 msgstr "Adresse"
 
-#: settings/settings.php:667
+#: settings/settings.php:664
 msgid "Postal address as an alternative to email address."
 msgstr "Postanschrift als Alternative zur E-Mail-Adresse."
 
