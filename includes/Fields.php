@@ -159,7 +159,7 @@ class Fields
         $step = ($atts['step'] != '') ? ' step="' . $atts['step'] . '"' : '';
 
         $html = sprintf(
-            '<input type="number" class="%1$s-text" id="%2$s" name="%3$s[%4$s_%5$s]" value="%6$s"%7$s%8$s%9$s%10$s>',
+            '<input type="number" class="%1$s-number" id="%2$s" name="%3$s[%4$s_%5$s]" value="%6$s"%7$s%8$s%9$s%10$s>',
             $size,
             $atts['id'],
             $atts['option_name'],
