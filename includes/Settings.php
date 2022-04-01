@@ -123,8 +123,17 @@ class Settings
     }
 
     /**
-     * Returns the page options.
+     * Returns the default tab.
      * @return string
+     */
+    public function getDefaultTab()
+    {
+        return $this->defaultTab;
+    }
+
+    /**
+     * Returns the page options.
+     * @return object
      */
     public function getPageOptions()
     {
@@ -133,11 +142,29 @@ class Settings
 
     /**
      * Returns the page menu options.
-     * @return string
+     * @return object
      */
     public function getMenuOptions()
     {
         return $this->optionsMenu;
+    }
+
+    /**
+     * Returns the sections.
+     * @return object
+     */
+    public function getSections()
+    {
+        return $this->sections;
+    }
+
+    /**
+     * Returns the fields.
+     * @return array
+     */
+    public function getFields(): array
+    {
+        return $this->fields;
     }
 
     /**
@@ -248,15 +275,6 @@ class Settings
                 $this->fields[$sectionId . $subsection . '_' . $option['name']] = $option;
             }
         }
-    }
-
-    /**
-     * Returns the fields.
-     * @return array
-     */
-    public function getFields(): array
-    {
-        return $this->fields;
     }
 
     /**

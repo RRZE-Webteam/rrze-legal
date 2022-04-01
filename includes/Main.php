@@ -33,6 +33,7 @@ class Main
         if (!current_user_can('manage_options')) {
             return;
         }
+
         $slugs = Endpoint::slugsTitles();
         $published = [];
         foreach ($slugs as $slug => $title) {
@@ -42,51 +43,50 @@ class Main
             }
         }
 
+        $pagePrefix = settings()->getPagePrefix();
+        $currentPage = array_key_exists('page', $_GET) ? $_GET['page'] : '';
         $current = array_key_exists('current-tab', $_GET) ? $_GET['current-tab'] : '';
-        $current = $current ? explode('-', $current) : [];
-        $current = $current[array_key_last($current)] ?? '';
+        $current = $current ? ltrim($current, $pagePrefix) : '';
+        $current = $current == '' ? array_key_first($slugs) : $current;
 
         $options = settings()->getOptions();
         foreach (settings()->getFields() as $key => $field) {
             $slug = explode('_', $key)[0];
             $required = isset($field['required']) ? (bool) $field['required'] : false;
-            if ($options[$key] === '' && $required && !isset($published[$slug])) {
-                add_action('admin_notices', [$this, 'requiredFieldNotice']);
+            if ($currentPage != 'legal' && $options[$key] === '' && $required && !isset($published[$slug])) {
+                add_action('admin_notices', [$this, 'requiredTOSFieldNotice']);
                 break;
-            } elseif (isset($published[$current])) {
+            }
+            if ($currentPage == 'legal' && isset($published[$current])) {
                 $postId = $published[$current];
                 add_action('admin_notices', function () use ($postId) {
-                    $this->currentEndpointIsPublished($postId);
+                    $this->currentTOSEndpointOverwritten($postId);
                 });
                 break;
             }
         }
     }
 
-    public function requiredFieldNotice()
+    public function requiredTOSFieldNotice()
     {
-        $pluginData = get_plugin_data(plugin()->getFile());
-        $pluginName = $pluginData['Name'];
-        $menuOptions = settings()->getMenuOptions();
         $link = sprintf(
             /* translators: 1: Url of the settings page, 2: Title of the settings page. */
             '<a href="%1$s">%2$s</a>',
             add_query_arg(
-                ['page' => $menuOptions->slug],
+                ['page' => 'legal'],
                 admin_url('options-general.php')
             ),
             __('Legal Settings', 'rrze-legal')
         );
         $message = sprintf(
-            /* translators: 1: Plugin name, 2: Link of the settings page. */
-            __('One or more mandatory fields of the "%1$s" plugin settings have not been filled. Please fill in these fields as soon as possible in the following link: %2$s.', 'rrze-legal'),
-            $pluginName,
+            /* translators: %s: Link of the settings page. */
+            __('One or more mandatory fields of the legal settings have not been filled. Please fill in these fields as soon as possible in the following link: %s.', 'rrze-legal'),
             $link
         );
         echo "<div class='notice notice-warning is-dismissible'><p>{$message}</p></div>";
     }
 
-    protected function currentEndpointIsPublished(int $postId = 0)
+    protected function currentTOSEndpointOverwritten(int $postId = 0)
     {
         $link = '<a href="' . get_permalink($postId) . '">' . get_the_title($postId) . '</a>';
         $message = sprintf(
