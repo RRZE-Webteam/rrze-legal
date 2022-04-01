@@ -98,7 +98,7 @@ class Endpoint
         $page = get_page_by_title($title);
         if (!is_null($page) && $page->post_status == 'publish') {
             // Render the page with the content
-            $content = &$page->post_content;
+            $content = wpautop($page->post_content);
             $template = plugin()->getPath(Template::THEMES_PATH) . Template::getThemeFilename();
             include($template);
             exit;
