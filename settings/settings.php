@@ -64,7 +64,6 @@ $settings = [
                                 'label' => __('Email', 'rrze-legal'),
                                 'type' => 'text',
                                 'sanitize_callback' => 'sanitize_text_field',
-                                'required' => true,
                             ],
                             [
                                 'name' => 'street',
@@ -266,7 +265,6 @@ $settings = [
                                 'label' => __('Email', 'rrze-legal'),
                                 'type' => 'text',
                                 'sanitize_callback' => 'sanitize_text_field',
-                                'required' => true,
                             ],
                             [
                                 'name' => 'street',
