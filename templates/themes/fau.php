@@ -36,8 +36,10 @@ if (is_plugin_active('rrze-elements/rrze-elements.php')) {
         <div class="content-row">
             <main>
                 <h1 class="screen-reader-text"><?php echo $title; ?></h1>
-                <div id="rrze-tos">
-                    <?php echo $content; ?>
+                <div class="inline-box">
+                    <div class="content-inline">
+                        <?php echo $content; ?>
+                    </div>
                 </div>
             </main>
         </div>
