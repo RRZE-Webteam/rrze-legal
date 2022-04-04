@@ -661,7 +661,7 @@ $settings = [
                                 'label' => __('Contact Address', 'rrze-legal'),
                                 'description' =>  __('Postal address as an alternative to email address.', 'rrze-legal'),
                                 'type' => 'textarea',
-                                'sanitize_callback' => 'sanitize_textarea',
+                                'sanitize_callback' => 'sanitize_textarea_field',
                             ],
                         ],
                     ],
