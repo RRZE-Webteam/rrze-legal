@@ -162,6 +162,9 @@ class Endpoint
 
         // Render all templates and get the page content
         $content = self::getContent($template, $options);
+        // Search content for shortcodes and filter shortcodes through their hooks
+        // Shortcodes inside HTML elements will be skipped
+        $content = do_shortcode($content);
         // Render the page with the content
         $template = plugin()->getPath(Template::THEMES_PATH) . Template::getThemeFilename();
         if (!is_readable($template)) {
