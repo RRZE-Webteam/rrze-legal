@@ -97,8 +97,12 @@ class Endpoint
         }
         $page = get_page_by_title($title);
         if (!is_null($page) && $page->post_status == 'publish') {
-            // Render the page with the content
+            //Replaces double line breaks with paragraph elements
             $content = wpautop($page->post_content);
+            // Search content for shortcodes and filter shortcodes through their hooks
+            // Shortcodes inside HTML elements will be skipped
+            $content = do_shortcode($content);
+            // Render the page with the content
             $template = plugin()->getPath(Template::THEMES_PATH) . Template::getThemeFilename();
             include($template);
             exit;
@@ -230,7 +234,7 @@ class Endpoint
     {
         $content = Template::getContent($template, $options);
         $content = preg_replace('/(^|[^\n\r])[\r\n](?![\n\r])/', '$1 ', $content);
-        return do_shortcode($content);
+        return $content;
     }
 
     protected static function error404()
