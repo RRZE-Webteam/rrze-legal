@@ -60,7 +60,7 @@ class NavMenu
     protected static function createTosMenu()
     {
         $menuLocations = self::menuLocations();
-        $stylesheet = Theme::getFauStylesheets();
+        $stylesheet = Theme::getCurrentStylesheet();
 
         $menuItems = self::createMenuItems();
         $menuName  = self::TOS_MENU_SLUG;
@@ -84,7 +84,7 @@ class NavMenu
 
         $menuId = wp_create_nav_menu($menuName);
         if (is_wp_error($menuId)) {
-            return false;
+            return $menuId; // return an instance of \WP_Error.
         }
 
         $menu = get_term_by('name', $menuName, 'nav_menu');
