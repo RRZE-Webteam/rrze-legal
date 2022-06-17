@@ -4,8 +4,7 @@ namespace RRZE\Legal\Consent;
 
 defined('ABSPATH') || exit;
 
-use RRZE\Legal\Settings;
-use RRZE\Legal\Utils;
+use RRZE\Legal\{Settings, Template, Locale, Utils};
 use function RRZE\Legal\{plugin, network};
 
 class Options extends Settings
@@ -38,6 +37,20 @@ class Options extends Settings
     public function getSiteUrlPath()
     {
         return Utils::getSiteUrlPath();
+    }
+
+    public function bannerDefaultDescription()
+    {
+        $langCode = is_user_logged_in() && is_admin() ? Locale::getUserLangCode() : Locale::getLangCode();
+        $tpl = plugin()->getPath(Template::CONSENT_PATH) . 'banner-default-description' . '-' . $langCode . '.html';
+        return is_readable($tpl) ? $this->getTplContent($tpl) : '';
+    }
+
+    protected function getTplContent($template, $options = [])
+    {
+        $content = Template::getContent($template, $options);
+        $content = preg_replace('/(^|[^\n\r])[\r\n](?![\n\r])/', '$1 ', $content);
+        return $content;
     }
 
     public function hasNetworkPriority()
@@ -99,7 +112,7 @@ class Options extends Settings
         } else {
             return (bool) $this->getOption('banner', 'reload_after_optout');
         }
-    }    
+    }
 
     public function isIgnorePreselectedStatusActive()
     {
@@ -108,5 +121,5 @@ class Options extends Settings
         } else {
             return (bool) $this->getOption('banner', 'ignore_preselected_status');
         }
-    }    
+    }
 }
