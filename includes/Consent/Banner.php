@@ -4,7 +4,7 @@ namespace RRZE\Legal\Consent;
 
 defined('ABSPATH') || exit;
 
-use RRZE\Legal\HtmlMinifier;
+use RRZE\Legal\{Template, HtmlMinifier};
 use function RRZE\Legal\{plugin, tos, consent, consentCookies};
 
 class Banner
@@ -84,8 +84,8 @@ class Banner
 
         // Include banner templates
         $minifier = new HtmlMinifier();
-        $bannerTemplateFile = plugin()->getPath('templates/consent') . 'banner-layout.php';
-        $cookiePreferenceTemplateFile = plugin()->getPath('templates/consent') . 'banner-preferences.php';
+        $bannerTemplateFile = plugin()->getPath(Template::CONSENT_PATH) . 'banner-layout.php';
+        $cookiePreferenceTemplateFile = plugin()->getPath(Template::CONSENT_PATH) . 'banner-preferences.php';
         ob_start();
         include $bannerTemplateFile;
         $content = ob_get_clean();
