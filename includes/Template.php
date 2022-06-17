@@ -10,6 +10,8 @@ class Template
 
     const THEMES_PATH = 'templates/themes';
 
+    const CONSENT_PATH = 'templates/consent';
+
     protected static $themesFilenames = [
         'fau.php' => [
             'FAU-Einrichtungen',
