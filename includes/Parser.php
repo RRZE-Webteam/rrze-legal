@@ -18,25 +18,25 @@ defined('ABSPATH') || exit;
 class Parser
 {
     /**
-     * [protected description]
+     * Block start delimiter.
      * @var string
      */
     protected $blockRegex = '/\\{\\{(([@!]?)(.+?))\\}\\}(([\\s\\S]+?)(\\{\\{:\\1\\}\\}([\\s\\S]+?))?)\\{\\{\\/\\1\\}\\}/';
 
     /**
-     * [protected description]
+     * Value interpolation delimiter.
      * @var string
      */
     protected $valRegex = '/\\{\\{([=%])(.+?)\\}\\}/';
 
     /**
-     * [protected description]
+     * Variables array.
      * @var array
      */
     protected $vars;
 
     /**
-     * [__construct description]
+     * Constructor.
      */
     public function __construct()
     {
@@ -54,66 +54,65 @@ class Parser
     }
 
     /**
-     * [getValue description]
+     * Get a value from the variables array.
      * @param  string $index [description]
-     * @return string        [description]
+     * @return mixed        [description]
      */
     public function getValue($index)
     {
         $index = explode('.', $index);
-
         return $this->searchValue($index, $this->vars);
     }
 
     /**
-     * [searchValue description]
+     * Search a value in the variables array.
      * @param array $index  [description]
      * @param array $value [description]
-     * @return string       [description]
+     * @return mixed       [description]
      */
     protected function searchValue($index, $value)
     {
-        if (is_array($index) &&
-           ! empty($index)) {
-            $current_index = array_shift($index);
+        if (
+            is_array($index) &&
+            !empty($index)
+        ) {
+            $currentIndex = array_shift($index);
         }
-        if (is_array($index) &&
-           ! empty($index) &&
-           isset($value[$current_index]) &&
-           is_array($value[$current_index]) &&
-           ! empty($value[$current_index])) {
-            return $this->searchValue($index, $value[$current_index]);
+        if (
+            is_array($index) &&
+            !empty($index) &&
+            isset($value[$currentIndex]) &&
+            is_array($value[$currentIndex]) &&
+            !empty($value[$currentIndex])
+        ) {
+            return $this->searchValue($index, $value[$currentIndex]);
         } else {
-            $val = isset($value[$current_index]) ? $value[$current_index] : '';
+            $val = $value[$currentIndex] ?? '';
             return str_replace('{{', "{\f{", $val);
         }
     }
 
     /**
-     * [matchTags description]
-     * @param  array $matches [description]
-     * @return string         [description]
+     * Match Tags
+     * @param  array $matches
+     * @return string
      */
     public function matchTags($matches)
     {
-        if (! is_array($matches)) {
-            return '';
-        }
-
-        $_key = isset($matches[0]) ? $matches[0] : '';
-        $_val = isset($matches[1]) ? $matches[1] : '';
-        $meta = isset($matches[2]) ? $matches[2] : '';
-        $key = isset($matches[3]) ? $matches[3] : '';
-        $expr = isset($matches[4]) ? $matches[4] : '';
-        $ifTrue = isset($matches[5]) ? $matches[5] : '';
-        $ifElse = isset($matches[6]) ? $matches[6] : '';
-        $ifFalse = isset($matches[7]) ? $matches[7] : '';
+        $_key = $matches[0] ?? '';
+        $_val = $matches[1] ?? '';
+        $meta = $matches[2] ?? '';
+        $key = $matches[3] ?? '';
+        $expr = $matches[4] ?? '';
+        $ifTrue = $matches[5] ?? '';
+        $ifElse = $matches[6] ?? '';
+        $ifFalse = $matches[7] ?? '';
 
         $val = $this->getValue($key);
 
         $temp = '';
 
-        if (! $val) {
+        if (!$val) {
             // Check for if negation
             if ($meta == '!') {
                 return $this->render($expr);
@@ -126,17 +125,17 @@ class Parser
         }
 
         // Check for regular if expr
-        if (! $meta) {
+        if (!$meta) {
             return $this->render($ifTrue);
         }
 
         // Process array iteration
         if ($meta == '@') {
             // Store any previous vars by reusing existing vars
-            $_key = $this->vars['_key'];
-            $_val = $this->vars['_val'];
+            $_key = $this->vars['_key'] ?? '';
+            $_val = $this->vars['_val'] ?? '';
 
-            foreach ($_val as $i => $v) {
+            foreach ($val as $i => $v) {
                 $this->vars['_key'] = $i;
                 $this->vars['_val'] = $v;
 
@@ -151,18 +150,14 @@ class Parser
     }
 
     /**
-     * [replaceTags description]
+     * Replace tags with values.
      * @param  array $matches [description]
      * @return string         [description]
      */
     public function replaceTags($matches)
     {
-        if (! is_array($matches)) {
-            return '';
-        }
-
-        $meta = isset($matches[1]) ? $matches[1] : '';
-        $key = isset($matches[2]) ? $matches[2] : '';
+        $meta = $matches[1] ?? '';
+        $key = $matches[2] ?? '';
 
         $val = $this->getValue($key);
 
@@ -174,7 +169,7 @@ class Parser
     }
 
     /**
-     * [render description]
+     * Render a string with embedded interpolation expressions.
      * @param  string $fragment [description]
      * @return mixed            [description]
      */
@@ -187,20 +182,22 @@ class Parser
     }
 
     /**
-     * [parse description]
+     * Parse a string with embedded interpolation expressions.
      * @param  string $template [description]
      * @param  array $data      [description]
      * @return string           [description]
      */
     public function parse($templateFile, $data)
     {
-        if (! is_readable($templateFile)) {
+        if (!is_readable($templateFile)) {
             return '';
         }
         ob_start();
         include($templateFile);
-        $content = ob_get_contents();
-        @ob_end_clean();
+        $content = ob_get_clean();
+        if (!$data) {
+            return $content;
+        }
         $this->vars = (array) $data;
         return $this->render($content);
     }
