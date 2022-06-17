@@ -7,7 +7,7 @@ defined('ABSPATH') || exit;
 use RRZE\Legal\Locale;
 use RRZE\Legal\Template;
 use function RRZE\Legal\plugin;
-use function RRZE\Legal\settings;
+use function RRZE\Legal\tos;
 
 class ContactForm
 {
@@ -128,14 +128,14 @@ class ContactForm
 
     protected function sendMail($name, $from, $message)
     {
-        $to = sanitize_email(settings()->getOption('accessibility_feedback', 'contact_email'));
-        $subject = sanitize_text_field(settings()->getOption('accessibility_feedback', 'email_subject'));
+        $to = sanitize_email(tos()->getOption('accessibility_feedback', 'contact_email'));
+        $subject = sanitize_text_field(tos()->getOption('accessibility_feedback', 'email_subject'));
         $headers = [
             'Content-Type: text/plain; charset=UTF-8',
             sprintf('Reply-To: %1$s <%2$s>', sanitize_text_field($name), sanitize_text_field($from))
         ];
-        if (settings()->getOption('accessibility_feedback', 'email_cc')) {
-            $headers[] = sprintf('CC: <%s>', sanitize_email(settings()->getOption('accessibility_feedback', 'email_cc')));
+        if (tos()->getOption('accessibility_feedback', 'email_cc')) {
+            $headers[] = sprintf('CC: <%s>', sanitize_email(tos()->getOption('accessibility_feedback', 'email_cc')));
         }
 
         $pretext = __('The following message was entered in the accessibility feedback form.', 'rrze-legal') . " \n\n";
