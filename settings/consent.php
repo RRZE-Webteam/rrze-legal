@@ -254,7 +254,7 @@ $settings = [
                                 'label' => __('Activate', 'rrze-legal'),
                                 'description' => __('Activate consent log', 'rrze-legal'),
                                 'type' => 'checkbox',
-                                'default' => '1',
+                                'default' => false,
                             ],
                             [
                                 'name' => 'purge_interval',
