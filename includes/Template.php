@@ -52,7 +52,7 @@ class Template
     protected static function parseContent($template, $data)
     {
         $templateFile = self::getTemplateLocale($template);
-        if ($templateFile && !empty($data)) {
+        if ($templateFile) {
             $parser = new Parser();
             return $parser->parse($templateFile, $data);
         }
