@@ -4,11 +4,11 @@
 Plugin Name:     RRZE Legal
 Plugin URI:      https://gitlab.rrze.fau.de/rrze-webteam/rrze-legal
 Description:     Legal Mandatory Information & GDPR.
-Version:         1.0.10
+Version:         2.0.0
 Author:          RRZE Webteam
 Author URI:      https://blogs.fau.de/webworking/
-License:         GNU General Public License v2
-License URI:     http://www.gnu.org/licenses/gpl-2.0.html
+License:         GNU General Public License Version 3
+License URI:     https://www.gnu.org/licenses/gpl-3.0.html
 Domain Path:     /languages
 Text Domain:     rrze-legal
 */
@@ -18,6 +18,10 @@ namespace RRZE\Legal;
 defined('ABSPATH') || exit;
 
 use RRZE\Legal\Network\Options as NetworkOptions;
+use RRZE\Legal\TOS\Options as TOSOptions;
+use RRZE\Legal\Consent\Options as ConsentOptions;
+use RRZE\Legal\Consent\Categories\Options as ConsentCategoriesOptions;
+use RRZE\Legal\Consent\Cookies\Options as ConsentCookiesOptions;
 
 const RRZE_PHP_VERSION = '7.4';
 const RRZE_WP_VERSION  = '5.9';
@@ -125,19 +129,6 @@ function plugin()
 }
 
 /**
- * Instantiate Options class.
- * @return object Plugin
- */
-function settings()
-{
-    static $instance;
-    if (null === $instance) {
-        $instance = new Options();
-    }
-    return $instance;
-}
-
-/**
  * Instantiate Network Options class.
  * @return object Plugin
  */
@@ -150,6 +141,61 @@ function network()
     return $instance;
 }
 
+/**
+ * Instantiate TOS Options class.
+ * @return object Plugin
+ */
+function tos()
+{
+    static $instance;
+    if (null === $instance) {
+        $instance = new TOSOptions();
+    }
+    return $instance;
+}
+
+/**
+ * Instantiate Consent Options class.
+ * @return object Plugin
+ */
+function consent()
+{
+    static $instance;
+    if (null === $instance) {
+        $instance = new ConsentOptions();
+    }
+    return $instance;
+}
+
+/**
+ * Instantiate Consent Categories Options class.
+ * @return object Plugin
+ */
+function consentCategories()
+{
+    static $instance;
+    if (null === $instance) {
+        $instance = new ConsentCategoriesOptions();
+    }
+    return $instance;
+}
+
+/**
+ * Instantiate Consent Cookies Options class.
+ * @return object Plugin
+ */
+function consentCookies()
+{
+    static $instance;
+    if (null === $instance) {
+        $instance = new ConsentCookiesOptions();
+    }
+    return $instance;
+}
+
+/**
+ * TOS Plugin Deactivation.
+ */
 function tosPluginDeactivation()
 {
     include_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -178,10 +224,6 @@ function loaded()
     }
     loadTextdomain();
     plugin()->loaded();
-    if (is_multisite()) {
-        network()->loaded();
-    }
-    settings()->loaded();
     if ($error = systemRequirements()) {
         add_action('admin_init', function () use ($error) {
             if (current_user_can('activate_plugins')) {
