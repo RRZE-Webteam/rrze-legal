@@ -5,7 +5,7 @@ namespace RRZE\Legal;
 defined('ABSPATH') || exit;
 
 $data = [
-    'version' => 8,
+    'version' => 1,
     'items' => [
         'default' => [
             'id' => 'default',
@@ -109,7 +109,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 1,
-            'status' => false,
+            'status' => consent()->isServiceProviderActive('siteimprove_analytics'),
             'static' => true,
         ],
         'facebook' => [
@@ -238,7 +238,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 6,
-            'status' => false,
+            'status' => consent()->isServiceProviderActive('vimeo'),
             'static' => true,
         ],
         'youtube' => [
@@ -263,7 +263,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 7,
-            'status' => false,
+            'status' => consent()->isServiceProviderActive('youtube'),
             'static' => true,
         ],
         'slideshare' => [
@@ -284,7 +284,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 6,
-            'status' => false,
+            'status' => consent()->isServiceProviderActive('slideshare'),
             'static' => true,
         ],
         'brmediathek' => [
@@ -307,7 +307,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 8,
-            'status' => false,
+            'status' => consent()->isServiceProviderActive('brmediathek'),
             'static' => true,
         ],
         'ardmediathek' => [
@@ -330,7 +330,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 8,
-            'status' => false,
+            'status' => consent()->isServiceProviderActive('ardmediathek'),
             'static' => true,
         ],
     ],
