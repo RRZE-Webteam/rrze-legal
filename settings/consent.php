@@ -172,7 +172,7 @@ $settings = [
                                 'name' => 'description_text',
                                 'label' => __('Description Text', 'rrze-legal'),
                                 'type' => 'wpeditor',
-                                'default' => __('We use cookies to measure marketing efforts and improve our services. Please review the cookie settings and confirm your choice.', 'rrze-legal'),
+                                'default' => consent()->bannerDefaultDescription(),
                                 'required' => true,
                             ],
                             [
