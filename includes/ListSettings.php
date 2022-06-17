@@ -590,7 +590,7 @@ class ListSettings
                 }
                 $disabled = isset($option['disabled']) ? (bool) $option['disabled'] : false;
                 if (!isset($input[$key]) && $disabled) {
-                    $input[$key] = $this->options[$id][$option['name']] ?? '';
+                    $input[$key] = $this->options[$id][$option['name']] ?? ($type === 'checkbox' ? '0' : '');
                 } elseif (!isset($input[$key]) && $type === 'checkbox') {
                     $input[$key] = '0';
                 }
