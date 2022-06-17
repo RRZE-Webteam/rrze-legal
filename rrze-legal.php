@@ -24,7 +24,7 @@ use RRZE\Legal\Consent\Categories\Options as ConsentCategoriesOptions;
 use RRZE\Legal\Consent\Cookies\Options as ConsentCookiesOptions;
 
 const RRZE_PHP_VERSION = '7.4';
-const RRZE_WP_VERSION  = '5.9';
+const RRZE_WP_VERSION  = '6.0';
 
 /**
  * SPL Autoloader (PSR-4).
