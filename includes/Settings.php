@@ -605,7 +605,7 @@ class Settings
                 }
                 $disabled = isset($option['disabled']) ? (bool) $option['disabled'] : false;
                 if (!isset($input[$key]) && $disabled) {
-                    $input[$key] = $this->options[$key] ?? '';
+                    $input[$key] = $this->options[$key] ?? ($type === 'checkbox' ? '0' : '');
                 } elseif (!isset($input[$key]) && $type === 'checkbox') {
                     $input[$key] = '0';
                 }
