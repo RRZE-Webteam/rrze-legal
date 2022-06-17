@@ -53,6 +53,23 @@ class Options extends Settings
         return $content;
     }
 
+    public function isServiceProviderActive($provider)
+    {
+        $serviceProviders = apply_filters('rrze_legal_consent_banner_service_providers', [
+            'siteimprove_analytics' => 'rrze-siteimprove/rrze-siteimprove.php',
+            'vimeo' => 'rrze-video/rrze-video.php',
+            'youtube' => 'rrze-video/rrze-video.php',
+            'slideshare' => 'rrze-video/rrze-video.php',
+            'brmediathek' => 'rrze-video/rrze-video.php',
+            'ardmediathek' => 'rrze-video/rrze-video.php',
+        ]);
+        foreach ($serviceProviders as $key => $value) {
+            if ($key === $provider) {
+                return (bool) Utils::isPluginActive($value);
+            }
+        }
+    }
+
     public function hasNetworkPriority()
     {
         return $this->isPluginActiveForNetwork && !network()->hasException() ? true : false;
