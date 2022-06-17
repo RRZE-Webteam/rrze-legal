@@ -5,6 +5,10 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 const path = require("path");
 const settings = path.join(__dirname, "src", "settings");
+const tos = path.join(__dirname, "src", "tos");
+const consent = path.join(__dirname, "src", "consent");
+const banner = path.join(__dirname, "src", "banner");
+const prioritize = path.join(__dirname, "src", "prioritize");
 
 module.exports = (env, argv) => {
     function isDevelopment() {
@@ -13,6 +17,10 @@ module.exports = (env, argv) => {
     var config = {
         entry: {
             settings,
+            tos,
+            consent,
+            banner,
+            prioritize,
         },
         output: {
             path: path.resolve(__dirname, "build"),
