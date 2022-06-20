@@ -141,6 +141,9 @@ class Endpoint
         // Get the parent template
         $template = plugin()->getPath(Template::TOS_PATH) . $prefix . '-' . $langCode . '.html';
         if (!is_readable($template)) {
+            $template = plugin()->getPath(Template::TOS_PATH) . $prefix . '-en.html';
+        }
+        if (!is_readable($template)) {
             self::error404();
         }
         // Find child templates in settings fields
@@ -149,6 +152,9 @@ class Endpoint
             foreach ($_tplAry as $_val => $_tpl) {
                 if ($options[$key] == $_val) {
                     $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-' . $langCode . '.html';
+                    if (!is_readable($tpl)) {
+                        $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-en.html';
+                    }
                     $options[str_replace('-', '_', $_tpl) . '_template'] = is_readable($tpl) ? self::getContent($tpl, $options) : '';
                 } elseif ($_tpl) {
                     $options[str_replace('-', '_', $_tpl) . '_template'] = '';
@@ -162,8 +168,12 @@ class Endpoint
             if ($value) {
                 $tpl = plugin()->getPath(Template::TOS_PATH) .
                     sprintf('service-providers/%1$s-cookie-%2$s.html', str_replace('_', '-', $key), $langCode);
+                if (!is_readable($tpl)) {
+                    $tpl = plugin()->getPath(Template::TOS_PATH) .
+                        sprintf('service-providers/%s-cookie-en.html', str_replace('_', '-', $key));
+                }
                 if (is_readable($tpl)) {
-                    $options['service_providers_template'][$key] = self::getContent($tpl);
+                    $options['service_providers_template'][$key] = is_readable($tpl) ? self::getContent($tpl) : '';
                 }
             }
         }
@@ -173,9 +183,15 @@ class Endpoint
         // Includes other child templates
         $_tpl = 'privacy-dpo';
         $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-' . $langCode . '.html';
+        if (!is_readable($tpl)) {
+            $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-en.html';
+        }
         $options[str_replace('-', '_', $_tpl) . '_template'] = is_readable($tpl) ? self::getContent($tpl, $options) : '';
         $_tpl = 'privacy-rights-data-subject';
         $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-' . $langCode . '.html';
+        if (!is_readable($tpl)) {
+            $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-en.html';
+        }
         $options[str_replace('-', '_', $_tpl) . '_template'] = is_readable($tpl) ? self::getContent($tpl, $options) : '';
         // Render all templates and get the page content
         $content = self::getContent($template, $options);
