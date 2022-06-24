@@ -824,7 +824,7 @@ class ListSettings
         if (
             !empty($staticData) &&
             is_array($staticData) &&
-            version_compare($optionVersion, $version, '<')
+            version_compare($optionVersion, $version, '!=')
         ) {
             $this->updateWithStaticData($staticData);
             update_option($this->optionName . '_version', $version);
