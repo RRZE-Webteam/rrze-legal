@@ -4,13 +4,12 @@
     "main": "rrze-legal.php",
     "scripts": {
         "start": "webpack --mode=development --watch",
-        "build": "webpack --mode=production && gulp bundle",
+        "build": "webpack --mode=production",
         "clean": "rm -rf build/",
         "major": "gulp major",
         "minor": "gulp minor",
         "patch": "gulp patch",
-        "prerelease": "gulp prerelease",
-        "bundle": "gulp bundle"
+        "prerelease": "gulp prerelease"
     },
     "repository": {
         "type": "git",
