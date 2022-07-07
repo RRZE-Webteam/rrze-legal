@@ -5,7 +5,7 @@ namespace RRZE\Legal\Consent;
 defined('ABSPATH') || exit;
 
 use RRZE\Legal\{Settings, Template, Locale, Utils};
-use function RRZE\Legal\{plugin, network};
+use function RRZE\Legal\{plugin, network, consentCookies};
 
 class Options extends Settings
 {
@@ -104,7 +104,23 @@ class Options extends Settings
 
     public function isTestModeActive()
     {
-        return (bool) $this->getOption('banner', 'test_mode');
+        return ((bool) $this->getOption('banner', 'test_mode') && current_user_can('manage_options'));
+    }
+
+    public function hasOnlyEssentialCookies()
+    {
+        $cookies = 0;
+        $options = consentCookies()->getOptions();
+        foreach ($options as $value) {
+            $category = $value['category'] ?? '';
+            if ($category === 'essential') {
+                continue;
+            }
+            if (!empty($value['status'])) {
+                $cookies++;
+            }
+        }
+        return empty($cookies);
     }
 
     public function isCookieForBotsActive()
