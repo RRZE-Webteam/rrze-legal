@@ -4,7 +4,7 @@ namespace RRZE\Legal\TOS;
 
 defined('ABSPATH') || exit;
 
-use RRZE\Legal\{Settings, Utils};
+use RRZE\Legal\{Settings, Cache, Utils};
 use RRZE\Legal\TOS\Endpoint;
 use function RRZE\Legal\{plugin, network, consentCookies};
 
@@ -40,7 +40,9 @@ class Options extends Settings
                     $consentCookiesOptions[$key]['status'] = '0';
                 }
             }
-            update_option($consentCookiesOptionName, $consentCookiesOptions);
+            if (update_option($consentCookiesOptionName, $consentCookiesOptions)) {
+                Cache::flush();
+            }
         }
         return $this->options;
     }
