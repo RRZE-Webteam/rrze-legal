@@ -1156,6 +1156,7 @@
                                 cookieVersion: "1",
                                 hideBannerOnPages: [],
                                 respectDoNotTrack: "",
+                                hasOnlyEssentialCookies: "",
                                 reloadAfterConsent: "",
                                 reloadAfterOptOut: "",
                                 showBanner: "1",
@@ -1329,9 +1330,9 @@
                                       Y(),
                                       O(),
                                       document.dispatchEvent(m.codeUnblocked))
-                                    : e.respectDoNotTrack &&
+                                    : e.hasOnlyEssentialCookies || (e.respectDoNotTrack &&
                                       void 0 !== navigator.doNotTrack &&
-                                      "1" === navigator.doNotTrack
+                                      "1" === navigator.doNotTrack)
                                     ? (J(
                                           { essential: e.cookies.essential },
                                           !1
