@@ -103,6 +103,7 @@ class JavaScript
                 tos()->endpointUrl('privacy'),
             ],
             'respectDoNotTrack' => consent()->isRespectDoNotTrackActive(),
+            'hasOnlyEssentialCookies' => consent()->hasOnlyEssentialCookies(),
             'reloadAfterConsent' => false,
             'reloadAfterOptOut' => consent()->isReloadAfterOptoutActive(),
             'showBanner' => consent()->isBannerActive(),
