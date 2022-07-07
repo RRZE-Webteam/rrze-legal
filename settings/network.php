@@ -83,7 +83,7 @@ $settings = [
                         'label' => __('Respect "Do Not Track"', 'rrze-legal'),
                         'description' => __("A visitor with active <strong>\"Do Not Track\"</strong> setting will not see the <strong>Consent Banner</strong> and the system will automatically select the <strong>Refuse</strong> option", 'rrze-legal'),
                         'type' => 'checkbox',
-                        'default' => false,
+                        'default' => true,
                     ],
                     [
                         'name' => 'reload_after_optout',
