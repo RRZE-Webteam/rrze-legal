@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RRZE Legal 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-legal\n"
-"POT-Creation-Date: 2022-06-17T12:21:16+00:00\n"
-"PO-Revision-Date: 2022-06-17 14:21+0200\n"
+"POT-Creation-Date: 2022-07-08T14:02:24+00:00\n"
+"PO-Revision-Date: 2022-07-08 16:04+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -101,8 +101,8 @@ msgstr ""
 "Speichert die Einstellungen der Besucher, die in der Consent-Banner "
 "ausgewählt wurden."
 
-#: data/consent-cookies.php:19 data/consent-cookies.php:301
-#: data/consent-cookies.php:324
+#: data/consent-cookies.php:19 data/consent-cookies.php:124
+#: data/consent-cookies.php:343 data/consent-cookies.php:366
 msgid "1 Year"
 msgstr "1 Jahr"
 
@@ -111,7 +111,8 @@ msgid "WordPress"
 msgstr "WordPress"
 
 #: data/consent-cookies.php:36 data/consent-cookies.php:57
-#: data/consent-cookies.php:78
+#: data/consent-cookies.php:78 data/consent-cookies.php:99
+#: data/consent-cookies.php:120
 msgid "No transmission to third parties"
 msgstr "Keine Übermittlung an Drittanbieter"
 
@@ -120,7 +121,8 @@ msgid "Test if cookie can be set. Remember User session."
 msgstr "Teste, ob ein Cookie gesetzt werden kann. Benutzersitzung speichern."
 
 #: data/consent-cookies.php:40 data/consent-cookies.php:61
-#: data/consent-cookies.php:82 data/consent-cookies.php:166
+#: data/consent-cookies.php:82 data/consent-cookies.php:103
+#: data/consent-cookies.php:208
 msgid "Session"
 msgstr "Session"
 
@@ -141,63 +143,79 @@ msgid "Preserves user session state across page requests."
 msgstr "Bewahrt den Status der Benutzersitzung über Seitenanfragen hinweg."
 
 #: data/consent-cookies.php:98
+msgid "RSVP"
+msgstr "RSVP"
+
+#: data/consent-cookies.php:100
+msgid "Used to manage RSVP session state."
+msgstr "Dient zur Verwaltung des RSVP-Sitzungsstatus."
+
+#: data/consent-cookies.php:119
+msgid "RRZE Rate Button"
+msgstr "RRZE Rate-Button"
+
+#: data/consent-cookies.php:121
+msgid "Used to manage the rating counter."
+msgstr "Wird verwendet, um den Bewertungszähler zu verwalten."
+
+#: data/consent-cookies.php:140
 msgid "Siteimprove Analytics"
 msgstr "Siteimprove Analytics"
 
-#: data/consent-cookies.php:99
+#: data/consent-cookies.php:141
 msgid "Rosenheimer Str. 143 C, 81671 Munich, Germany"
 msgstr "Rosenheimer Str. 143 C, 81671 München, Deutschland"
 
-#: data/consent-cookies.php:100
+#: data/consent-cookies.php:142
 msgid "Used to help record the visitor’s use of the website."
 msgstr ""
 "Wird verwendet, um die Nutzung der Website durch den Besucher zu erfassen."
 
-#: data/consent-cookies.php:103
+#: data/consent-cookies.php:145
 msgid "1000 Days"
 msgstr "1000 Tage"
 
-#: data/consent-cookies.php:119
+#: data/consent-cookies.php:161
 msgid "Facebook"
 msgstr "Facebook"
 
-#: data/consent-cookies.php:120 data/consent-cookies.php:162
+#: data/consent-cookies.php:162 data/consent-cookies.php:204
 msgid "Meta Platforms Ireland Limited, 4 Grand Canal Square, Dublin 2, Ireland"
 msgstr "Meta Platforms Ireland Limited, 4 Grand Canal Square, Dublin 2, Irland"
 
-#: data/consent-cookies.php:121
+#: data/consent-cookies.php:163
 msgid "Used to unblock Facebook content."
 msgstr "Wird verwendet, um Facebook-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:140
+#: data/consent-cookies.php:182
 msgid "Google Maps"
 msgstr "Google Maps"
 
-#: data/consent-cookies.php:141 data/consent-cookies.php:249
+#: data/consent-cookies.php:183 data/consent-cookies.php:291
 msgid "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland"
 msgstr "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland"
 
-#: data/consent-cookies.php:142
+#: data/consent-cookies.php:184
 msgid "Used to unblock Google Maps content."
 msgstr "Wird zum Entsperren von Google-Maps-Inhalten verwendet."
 
-#: data/consent-cookies.php:145 data/consent-cookies.php:257
+#: data/consent-cookies.php:187 data/consent-cookies.php:299
 msgid "6 Months"
 msgstr "6 Monate"
 
-#: data/consent-cookies.php:161
+#: data/consent-cookies.php:203
 msgid "Instagram"
 msgstr "Instagram"
 
-#: data/consent-cookies.php:163
+#: data/consent-cookies.php:205
 msgid "Used to unblock Instagram content."
 msgstr "Wird verwendet, um Instagram-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:182
+#: data/consent-cookies.php:224
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: data/consent-cookies.php:183
+#: data/consent-cookies.php:225
 msgid ""
 "Openstreetmap Foundation, St John’s Innovation Centre, Cowley Road, "
 "Cambridge CB4 0WS, United Kingdom"
@@ -205,19 +223,19 @@ msgstr ""
 "Openstreetmap Foundation, St John’s Innovation Centre, Cowley Road, "
 "Cambridge CB4 0WS, Großbritannien"
 
-#: data/consent-cookies.php:184
+#: data/consent-cookies.php:226
 msgid "Used to unblock OpenStreetMap content."
 msgstr "Wird zum Entsperren von OpenStreetMap-Inhalten verwendet."
 
-#: data/consent-cookies.php:187
+#: data/consent-cookies.php:229
 msgid "1-10 Years"
 msgstr "1-10 Jahre"
 
-#: data/consent-cookies.php:203
+#: data/consent-cookies.php:245
 msgid "Twitter"
 msgstr "Twitter"
 
-#: data/consent-cookies.php:204
+#: data/consent-cookies.php:246
 msgid ""
 "Twitter International Company, One Cumberland Place, Fenian Street, Dublin "
 "2, D02 AX07, Ireland"
@@ -225,71 +243,71 @@ msgstr ""
 "Twitter International Company, One Cumberland Place, Fenian Street, Dublin "
 "2, D02 AX07, Irland"
 
-#: data/consent-cookies.php:205
+#: data/consent-cookies.php:247
 msgid "Used to unblock Twitter content."
 msgstr "Wird verwendet, um Twitter-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:211
+#: data/consent-cookies.php:253
 msgid "Unlimited"
 msgstr "Unbegrenzt"
 
-#: data/consent-cookies.php:227
+#: data/consent-cookies.php:269
 msgid "Vimeo"
 msgstr "Vimeo"
 
-#: data/consent-cookies.php:228
+#: data/consent-cookies.php:270
 msgid "Vimeo Inc., 555 West 18th Street, New York, New York 10011, USA"
 msgstr ""
 "Vimeo Inc., 555 West 18th Street, New York, New York 10011, Vereinigte "
 "Staaten"
 
-#: data/consent-cookies.php:229
+#: data/consent-cookies.php:271
 msgid "Used to unblock Vimeo content."
 msgstr "Wird verwendet, um Vimeo-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:232 data/consent-cookies.php:278
+#: data/consent-cookies.php:274 data/consent-cookies.php:320
 msgid "2 Years"
 msgstr "2 Jahre"
 
-#: data/consent-cookies.php:248
+#: data/consent-cookies.php:290
 msgid "YouTube"
 msgstr "YouTube"
 
-#: data/consent-cookies.php:250
+#: data/consent-cookies.php:292
 msgid "Used to unblock YouTube content."
 msgstr "Wird verwendet, um Youtube-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:273
+#: data/consent-cookies.php:315
 msgid "Slideshare"
 msgstr "Slideshare"
 
-#: data/consent-cookies.php:274
+#: data/consent-cookies.php:316
 msgid "Scribd, Inc., 460 Bryant St, 100, San Francisco, CA 94107-2594 USA"
 msgstr ""
 "Scribd, Inc., 460 Bryant St, 100, San Francisco, CA 94107-2594 Vereinigten "
 "Staten"
 
-#: data/consent-cookies.php:275
+#: data/consent-cookies.php:317
 msgid "Used to unblock Slideshare content."
 msgstr "Wird verwendet, um Slideshare-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:294
+#: data/consent-cookies.php:336
 msgid "BR Mediathek"
 msgstr "BR Mediathek"
 
-#: data/consent-cookies.php:295 data/consent-cookies.php:318
+#: data/consent-cookies.php:337 data/consent-cookies.php:360
 msgid "Bayerischer Rundfunk, Rundfunkplatz 1, 80335 Munich, Germany"
 msgstr "Bayerischer Rundfunk, Rundfunkplatz 1, 80335 München, Deutschland"
 
-#: data/consent-cookies.php:296
+#: data/consent-cookies.php:338
 msgid "Used to unblock BR content."
 msgstr "Wird verwendet, um BR-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:317
+#: data/consent-cookies.php:359
 msgid "ARD Mediathek"
 msgstr "ARD Mediathek"
 
-#: data/consent-cookies.php:319
+#: data/consent-cookies.php:361
 msgid "Used to unblock ARD content."
 msgstr "Wird verwendet, um ARD-Inhalte zu entsperren."
 
@@ -301,7 +319,7 @@ msgstr "Datenschutzerklärung"
 msgid "Individual privacy settings"
 msgstr "Individuelle Einstellungen"
 
-#: includes/Consent/Banner.php:42 settings/consent.php:167
+#: includes/Consent/Banner.php:42 settings/consent.php:168
 msgid "Privacy Settings"
 msgstr "Datenschutzeinstellungen"
 
@@ -730,75 +748,75 @@ msgstr "Barrierefreiheit"
 msgid "and"
 msgstr "und"
 
-#: includes/TOS/Endpoint.php:259
+#: includes/TOS/Endpoint.php:275
 msgid "Not Found"
 msgstr "Nicht gefunden"
 
-#: includes/TOS/Options.php:191
+#: includes/TOS/Options.php:194
 msgid "Bundesebene Deutschland (Öffentlicher Dienst)"
 msgstr "Bundesebene Deutschland (Öffentlicher Dienst)"
 
-#: includes/TOS/Options.php:203
+#: includes/TOS/Options.php:206
 msgid "Baden-Württemberg"
 msgstr "Baden-Württemberg"
 
-#: includes/TOS/Options.php:212
+#: includes/TOS/Options.php:215
 msgid "Bayern"
 msgstr "Bayern"
 
-#: includes/TOS/Options.php:226
+#: includes/TOS/Options.php:229
 msgid "Berlin"
 msgstr "Berlin"
 
-#: includes/TOS/Options.php:237
+#: includes/TOS/Options.php:240
 msgid "Brandenburg"
 msgstr "Brandenburg"
 
-#: includes/TOS/Options.php:248
+#: includes/TOS/Options.php:251
 msgid "Bremen"
 msgstr "Bremen"
 
-#: includes/TOS/Options.php:259
+#: includes/TOS/Options.php:262
 msgid "Hamburg"
 msgstr "Hamburg"
 
-#: includes/TOS/Options.php:269
+#: includes/TOS/Options.php:272
 msgid "Hessen"
 msgstr "Hessen"
 
-#: includes/TOS/Options.php:280
+#: includes/TOS/Options.php:283
 msgid "Mecklenburg-Vorpommern"
 msgstr "Mecklenburg-Vorpommern"
 
-#: includes/TOS/Options.php:291
+#: includes/TOS/Options.php:294
 msgid "Niedersachsen"
 msgstr "Niedersachsen"
 
-#: includes/TOS/Options.php:300
+#: includes/TOS/Options.php:303
 msgid "Nordrhein-Westfalen"
 msgstr "Nordrhein-Westfalen"
 
-#: includes/TOS/Options.php:309
+#: includes/TOS/Options.php:312
 msgid "Rheinland-Pfalz"
 msgstr "Rheinland-Pfalz"
 
-#: includes/TOS/Options.php:320
+#: includes/TOS/Options.php:323
 msgid "Saarland"
 msgstr "Saarland"
 
-#: includes/TOS/Options.php:331
+#: includes/TOS/Options.php:334
 msgid "Sachsen"
 msgstr "Sachsen"
 
-#: includes/TOS/Options.php:340
+#: includes/TOS/Options.php:343
 msgid "Sachsen-Anhalt"
 msgstr "Sachsen-Anhalt"
 
-#: includes/TOS/Options.php:351
+#: includes/TOS/Options.php:354
 msgid "Schleswig-Holstein"
 msgstr "Schleswig-Holstein"
 
-#: includes/TOS/Options.php:362
+#: includes/TOS/Options.php:365
 msgid "Thüringen"
 msgstr "Thüringen"
 
@@ -1066,7 +1084,7 @@ msgstr "Banner"
 msgid "General consent banner settings."
 msgstr "Allgemeine Einstellungen für das Content-Banner."
 
-#: settings/consent.php:34 settings/consent.php:225 settings/consent.php:249
+#: settings/consent.php:34 settings/consent.php:226 settings/consent.php:250
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
@@ -1078,11 +1096,11 @@ msgstr ""
 "Aktiviert das Consent-Banner. Zeigt das <strong>Banner</strong> an und "
 "blockiert Iframes und andere externe Medien"
 
-#: settings/consent.php:46
+#: settings/consent.php:47
 msgid "Test Mode"
 msgstr "Testmodus"
 
-#: settings/consent.php:47
+#: settings/consent.php:48
 msgid ""
 "Test the consent banner settings without having to enable <strong>Banner "
 "Status</strong>"
@@ -1090,12 +1108,12 @@ msgstr ""
 "Testen Sie die Einstellungen des Content-Banners, ohne den <strong>Banner-"
 "Status</strong> aktivieren zu müssen"
 
-#: settings/consent.php:53 settings/network.php:65
+#: settings/consent.php:54 settings/network.php:65
 msgid "Update Consent Cookie Version & Force Re-Selection"
 msgstr "Consent-Cookie-Version aktualisieren und erneute Auswahl erzwingen"
 
 #. translators: %s: Consent cookie version.
-#: settings/consent.php:56 settings/network.php:68
+#: settings/consent.php:57 settings/network.php:68
 msgid ""
 "Updates the version of the cookie of Consent Cookie. This will cause the "
 "<strong>Consent Banner</strong> to reappear for visitors who have already "
@@ -1106,21 +1124,21 @@ msgstr ""
 "ausgewählt haben, erneut angezeigt. <strong>Aktuelle Version des Standard-"
 "Cookies: %s </strong>"
 
-#: settings/consent.php:64 settings/network.php:76
+#: settings/consent.php:65 settings/network.php:76
 msgid "Cookies for Bots/Crawlers"
 msgstr "Cookies für Bots/Crawler"
 
-#: settings/consent.php:65 settings/network.php:77
+#: settings/consent.php:66 settings/network.php:77
 msgid "A bot/crawler is treated like a visitor who accepted all cookies"
 msgstr ""
 "Ein Bot/Crawler wird wie ein Besucher behandelt, der alle Cookies akzeptiert "
 "hat.“"
 
-#: settings/consent.php:71 settings/network.php:83
+#: settings/consent.php:72 settings/network.php:83
 msgid "Respect \"Do Not Track\""
 msgstr "Respektiere „Do Not Track“"
 
-#: settings/consent.php:72 settings/network.php:84
+#: settings/consent.php:73 settings/network.php:84
 msgid ""
 "A visitor with active <strong>\"Do Not Track\"</strong> setting will not see "
 "the <strong>Consent Banner</strong> and the system will automatically select "
@@ -1130,11 +1148,11 @@ msgstr ""
 "das <strong>Content-Banner</strong> nicht und das System wählt automatisch "
 "die Option <strong>„Ablehnen“</strong>"
 
-#: settings/consent.php:78 settings/network.php:90
+#: settings/consent.php:79 settings/network.php:90
 msgid "Reload After Opt-Out"
 msgstr "Nach Opt-Out neu laden"
 
-#: settings/consent.php:79 settings/network.php:91
+#: settings/consent.php:80 settings/network.php:91
 msgid ""
 "If activated the website will be reloaded after the visitor saves their "
 "consent"
@@ -1142,11 +1160,11 @@ msgstr ""
 "Wenn aktiviert, wird die Website neu geladen, nachdem der Besucher seine "
 "Einwilligung gespeichert hat"
 
-#: settings/consent.php:85 settings/network.php:97
+#: settings/consent.php:86 settings/network.php:97
 msgid "Ignore Preselected Categories"
 msgstr "Vorgewählte Kategorien ignorieren"
 
-#: settings/consent.php:86 settings/network.php:98
+#: settings/consent.php:87 settings/network.php:98
 msgid ""
 "If activated, no <strong>Categories</strong> are preselected in the "
 "<strong>Consent Banner</strong>"
@@ -1154,19 +1172,19 @@ msgstr ""
 "Wenn aktiviert, werden keine <strong>Kategorien</strong> im <strong>Consent "
 "Banner</strong> vorausgewählt"
 
-#: settings/consent.php:94
+#: settings/consent.php:95
 msgid "Cookie Settings"
 msgstr "Cookie Einstellungen"
 
-#: settings/consent.php:95
+#: settings/consent.php:96
 msgid "Consent cookie settings."
 msgstr "Cookie-Einstellungen zustimmen."
 
-#: settings/consent.php:99
+#: settings/consent.php:100
 msgid "Domain"
 msgstr "Domain"
 
-#: settings/consent.php:100
+#: settings/consent.php:101
 msgid ""
 "Specify the domain for which the cookie is valid. Example: If you enter "
 "<strong><em>example.com</em></strong> the cookie is also valid for "
@@ -1176,22 +1194,22 @@ msgstr ""
 "<strong><em>beispiel.de</em></strong> eingeben, gilt das Cookie auch für "
 "Subdomains wie <strong><em>shop.beispiel.de</em></strong>"
 
-#: settings/consent.php:109
+#: settings/consent.php:110
 msgid "Path"
 msgstr "Pfad"
 
 #. translators: %s: Default website url path.
-#: settings/consent.php:112
+#: settings/consent.php:113
 msgid ""
 "The path for which the cookie is valid. Default path: <strong>%s</strong>"
 msgstr ""
 "Der Pfad, für den das Cookie gültig ist. Standard-Pfad: <strong>%s</strong>"
 
-#: settings/consent.php:123
+#: settings/consent.php:124
 msgid "Secure"
 msgstr "Secure"
 
-#: settings/consent.php:124
+#: settings/consent.php:125
 msgid ""
 "Cookie is sent to the server only in case of an encrypted request via the "
 "HTTPS protocol"
@@ -1199,11 +1217,11 @@ msgstr ""
 "Das Cookie wird nur bei einer verschlüsselten Anfrage über das HTTPS-"
 "Protokoll an den Server gesendet"
 
-#: settings/consent.php:130
+#: settings/consent.php:131
 msgid "Cookie Lifetime in Days"
 msgstr "Cookie Laufzeit in Tagen"
 
-#: settings/consent.php:131
+#: settings/consent.php:132
 msgid ""
 "Number of days until the visitor will be asked again to choose their cookie "
 "perference."
@@ -1211,11 +1229,11 @@ msgstr ""
 "Anzahl der Tage, bis der Besucher erneut aufgefordert wird, seine Cookie-"
 "Präferenz zu wählen."
 
-#: settings/consent.php:144
+#: settings/consent.php:145
 msgid "Cookie Lifetime in Days - Essential Only"
 msgstr "Cookie Laufzeit in Tagen - Nur Essenziell"
 
-#: settings/consent.php:145
+#: settings/consent.php:146
 msgid ""
 "Number of days until the visitor will be asked again to choose their cookie "
 "preference, if the visitor has only given consent to essential cookies."
@@ -1224,12 +1242,12 @@ msgstr ""
 "Präferenz auszuwählen, wenn der Besucher nur seine Zustimmung zu "
 "essentiellen Cookies gegeben hat."
 
-#: settings/consent.php:160 settings/tos.php:218 settings/tos.php:237
+#: settings/consent.php:161 settings/tos.php:218 settings/tos.php:237
 #: settings/tos.php:405
 msgid "Content"
 msgstr "Inhalt"
 
-#: settings/consent.php:161
+#: settings/consent.php:162
 msgid ""
 "Configuration of the cookie banner content such as the headline, notice text "
 "and buttons text."
@@ -1237,19 +1255,19 @@ msgstr ""
 "Konfiguration des Cookie-Bannerinhalts wie Überschrift, Hinweistext und "
 "Schaltflächentext."
 
-#: settings/consent.php:165
+#: settings/consent.php:166
 msgid "Headline"
 msgstr "Überschrift"
 
-#: settings/consent.php:173
+#: settings/consent.php:174
 msgid "Description Text"
 msgstr "Beschreibung"
 
-#: settings/consent.php:180
+#: settings/consent.php:181
 msgid "Preference Text"
 msgstr "Einstellungstext"
 
-#: settings/consent.php:182
+#: settings/consent.php:183
 msgid ""
 "Here you will find an overview of all cookies used. You can give your "
 "consent to whole categories or display further information and select "
@@ -1259,44 +1277,44 @@ msgstr ""
 "Einwilligung zu ganzen Kategorien geben oder sich weitere Informationen "
 "anzeigen lassen und bestimmte Cookies auswählen."
 
-#: settings/consent.php:187
+#: settings/consent.php:188
 msgid "Accept All Button Text"
 msgstr "Text der Schaltfläche „Alle akzeptieren“"
 
-#: settings/consent.php:190
+#: settings/consent.php:191
 msgid "Accept all"
 msgstr "Alle akzeptieren"
 
-#: settings/consent.php:196
+#: settings/consent.php:197
 msgid "Refuse Button Text"
 msgstr "Text der Schaltfläche „Ablehnen”"
 
-#: settings/consent.php:199
+#: settings/consent.php:200
 msgid "Accept only essential cookies"
 msgstr "Nur essentielle Cookies akzeptieren"
 
-#: settings/consent.php:205
+#: settings/consent.php:206
 msgid "Save Preference Button Text"
 msgstr "Text der Schaltfläche „Speichern”"
 
-#: settings/consent.php:208
+#: settings/consent.php:209
 msgid "Save"
 msgstr "Speichern"
 
-#: settings/consent.php:218
+#: settings/consent.php:219
 msgid "Content Blocker"
 msgstr "Inhaltsblocker"
 
-#: settings/consent.php:220
+#: settings/consent.php:221
 msgid "Manage settings related to content blocking."
 msgstr ""
 "Verwalten Sie Einstellungen im Zusammenhang mit der Inhaltsblockierung."
 
-#: settings/consent.php:230
+#: settings/consent.php:231
 msgid "Host(s) Allow List"
 msgstr "Zulassungsliste für Hosts"
 
-#: settings/consent.php:231
+#: settings/consent.php:232
 msgid ""
 "One host per line. When a host is recognized (for example within the src-"
 "attribute of an iframe) the content will not be blocked."
@@ -1304,37 +1322,37 @@ msgstr ""
 "Ein Host pro Zeile. Wenn ein Host erkannt wird (z. B. im src-Attribut eines "
 "Iframes), wird der Inhalt nicht blockiert."
 
-#: settings/consent.php:242
+#: settings/consent.php:243
 msgid "Log"
 msgstr "Protokoll"
 
-#: settings/consent.php:244
+#: settings/consent.php:245
 msgid "Manage settings related to consents logs."
 msgstr ""
 "Verwalten Sie Einstellungen im Zusammenhang mit Einwilligungen und "
 "Protokollen."
 
-#: settings/consent.php:254
+#: settings/consent.php:255
 msgid "Activate"
 msgstr "Aktivieren"
 
-#: settings/consent.php:255
+#: settings/consent.php:256
 msgid "Activate consent log"
 msgstr "Cookie-Einwilligungsprotokoll aktivieren"
 
-#: settings/consent.php:261
+#: settings/consent.php:262
 msgid "Purge Interval"
 msgstr "Löschintervall"
 
-#: settings/consent.php:262
+#: settings/consent.php:263
 msgid "Purge consent logs after an amount of time."
 msgstr "Cookie-Einwilligungsprotokolle nach einer gewissen Zeit löschen."
 
-#: settings/consent.php:266
+#: settings/consent.php:267
 msgid "1 month"
 msgstr "1 Monat"
 
-#: settings/consent.php:267
+#: settings/consent.php:268
 msgid "3 months"
 msgstr "3 Monate"
 
