@@ -6,7 +6,7 @@ defined('ABSPATH') || exit;
 
 use RRZE\Legal\{Settings, Cache, Utils};
 use RRZE\Legal\TOS\Endpoint;
-use function RRZE\Legal\{plugin, network, consentCookies};
+use function RRZE\Legal\{plugin, network, consent, consentCookies};
 
 class Options extends Settings
 {
@@ -41,6 +41,7 @@ class Options extends Settings
                 }
             }
             if (update_option($consentCookiesOptionName, $consentCookiesOptions)) {
+                consent()->updateCookieVersion();
                 Cache::flush();
             }
         }
