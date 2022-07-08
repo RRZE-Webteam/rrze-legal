@@ -862,6 +862,7 @@ class ListSettings
         foreach ($data as $key => $value) {
             if (!isset($this->options[$key]) || $isPluginActiveForNetwork) {
                 $status = $data[$key]['status'] ?? '0';
+                $status = $this->options[$key]['status'] ?? $status;
                 $this->options[$key] = $value;
                 $this->options[$key]['status'] = $status;
                 $this->options[$key]['static'] = '1';
