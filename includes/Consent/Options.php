@@ -80,16 +80,17 @@ class Options extends Settings
 
     public function getCookieVersion()
     {
+        $currentVersion = (int) get_option('rrze_legal_consent_cookie_version', 1);
         if ($this->hasNetworkPriority()) {
-            return (int) get_site_option('rrze_legal_consent_cookie_version', 1);
-        } else {
-            return (int) get_option('rrze_legal_consent_cookie_version', 1);
+            $networkVersion = (int) get_site_option('rrze_legal_consent_cookie_version', 1);
+            $currentVersion = $currentVersion + $networkVersion;
         }
+        return $currentVersion;
     }
 
     public function updateCookieVersion()
     {
-        $currentVersion = $this->getCookieVersion();
+        $currentVersion = (int) get_option('rrze_legal_consent_cookie_version', 1);
         update_option('rrze_legal_consent_cookie_version', $currentVersion + 1);
     }
 
