@@ -89,12 +89,12 @@ class NavMenu
 
         $menu = get_term_by('name', $menuName, 'nav_menu');
 
-        foreach ($menuItems as $slug => $value) {
+        foreach ($menuItems as $slug => $title) {
             wp_update_nav_menu_item(
                 $menu->term_id,
                 0,
                 [
-                    'menu-item-title'   => mb_convert_case($value, MB_CASE_TITLE, 'UTF-8'),
+                    'menu-item-title'   => mb_convert_case($title, MB_CASE_TITLE, 'UTF-8'),
                     'menu-item-classes' => 'tos',
                     'menu-item-url'     => home_url('/' . sanitize_title($slug)),
                     'menu-item-status'  => 'publish',

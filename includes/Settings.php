@@ -24,10 +24,16 @@ class Settings
 
     /**
      * Settings menu
-     * 
+     *
      * @var array
      */
     protected $menuSettings = [];
+
+    /**
+     * Options parent.
+     * @var object
+     */
+    protected $optionsParent = null;
 
     /**
      * Options page.
@@ -37,7 +43,7 @@ class Settings
 
     /**
      * Options menu.
-     * 
+     *
      * @var object
      */
     protected $optionsMenu = null;
@@ -79,17 +85,26 @@ class Settings
     protected $pagePrefix = '';
 
     /**
+     * Settings filename.
+     * @var string
+     */
+    protected $settingsFilename = '';
+
+    /**
      * Settings prefix.
      * @var string
      */
     protected $settingsPrefix = '';
 
+    /**
+     * Class constructor.
+     */
     public function __construct()
     {
         $this->pagePrefix = plugin()->getSlug() . '-';
         $this->settingsPrefix = str_replace('-', '_', $this->pagePrefix);
 
-        add_action('admin_enqueue_scripts', [$this, 'adminEnqueueScripts']);
+        add_action('admin_enqueue_scripts', [$this, 'adminRegisterSettingsScripts']);
     }
 
     /**
@@ -97,20 +112,34 @@ class Settings
      */
     public function loaded()
     {
-        if ($this->optionName === '') {
+        if ($this->optionName === '' || $this->settingsFilename === '') {
             return;
         }
-        include_once(plugin()->getPath() . "settings/settings.php");
-        $this->settings = $settings;
-        $this->optionsPage = (object) $this->settings['options_page']['page'];
-        $this->optionsMenu = (object) $this->settings['options_page']['menu'];
-        $this->sections = (object) $this->settings['settings']['sections'];
+
+        include_once(plugin()->getPath() . "settings/{$this->settingsFilename}.php");
+        $this->settings = $settings ?? [];
+        $this->optionsParent = (object) $this->settings['options_page']['parent'] ?? [];
+        $this->optionsPage = (object) $this->settings['options_page']['page'] ?? [];
+        $this->optionsMenu = (object) $this->settings['options_page']['menu'] ?? [];
+        $this->sections = (object) $this->settings['settings']['sections'] ?? [];
 
         $this->setFields();
         $this->setOptions();
+    }
 
-        add_action('admin_menu', [$this, 'adminMenu'], $this->optionsMenu->position);
-        add_action('admin_init', [$this, 'adminInit']);
+    public function setAdminMenu()
+    {
+        add_action('admin_menu', [$this, 'adminSubMenu']);
+        add_action('admin_init', [$this, 'registerSetting']);
+    }
+
+    /**
+     * Returns the settings filename.
+     * @return string
+     */
+    public function getSettingsFilename()
+    {
+        return $this->settingsFilename;
     }
 
     /**
@@ -133,7 +162,7 @@ class Settings
 
     /**
      * Returns the page options.
-     * @return object
+     * @return string
      */
     public function getPageOptions()
     {
@@ -142,7 +171,7 @@ class Settings
 
     /**
      * Returns the page menu options.
-     * @return object
+     * @return string
      */
     public function getMenuOptions()
     {
@@ -156,6 +185,21 @@ class Settings
     public function getSections()
     {
         return $this->sections;
+    }
+
+    /**
+     * Returns the settings sections.
+     * @return object
+     */
+    public function getSettingsSections()
+    {
+        $settingsSections = [];
+        foreach ($this->sections as $section) {
+            if (isset($section['id'])) {
+                $settingsSections[] = $this->settingsPrefix . $section['id'];
+            }
+        }
+        return $settingsSections;
     }
 
     /**
@@ -190,7 +234,8 @@ class Settings
         $langCode = is_user_logged_in() && is_admin() ? Locale::getUserLangCode() : Locale::getLangCode();
         $this->optionName = $this->optionName . '_' . $langCode;
         $defaults = $this->defaultOptions();
-        $options = (array) get_option($this->optionName);
+        $options = get_option($this->optionName);
+        $options = $options !== false ? $options : [];
         $options = wp_parse_args($options, $defaults);
         $this->options = array_intersect_key($options, $defaults);
     }
@@ -248,7 +293,7 @@ class Settings
                         if (isset($subsection['hide_section']) && (bool) $subsection['hide_section']) {
                             continue;
                         }
-                        $this->formatField($subsection['fields'], $section['id'], $subsection['id']);
+                        $this->formatField($subsection['fields'], $section['id']);
                     }
                 }
             } elseif (isset($section['fields'])) {
@@ -261,27 +306,25 @@ class Settings
      * Format the settings fields.
      * @param array  $fields  The settings fields
      * @param string  $section The section id this field belongs to
-     * @param string  $subsection The subsection id this field belongs to
      * @return void
      */
-    protected function formatField(array $fields, string $sectionId, string $subsectionId = '')
+    protected function formatField(array $fields, string $sectionId)
     {
-        $subsection = $subsectionId !== '' ? '_' . $subsectionId : '';
         foreach ($fields as $option) {
             if (isset($option['capability']) && !current_user_can($option['capability'])) {
                 continue;
             }
             if (isset($option['name'])) {
-                $this->fields[$sectionId . $subsection . '_' . $option['name']] = $option;
+                $this->fields[$sectionId . '_' . $option['name']] = $option;
             }
         }
     }
 
     /**
-     * Adds a submenu page to the Settings main menu.
+     * Adds a admin submenu page.
      * @return void
      */
-    public function adminMenu()
+    public function adminSubMenu()
     {
         foreach ($this->sections as $key => $section) {
             $sectionId = str_replace('_', '-', $section['id']);
@@ -293,22 +336,23 @@ class Settings
 
         $this->currentTab = array_key_exists('current-tab', $_GET) && in_array($_GET['current-tab'], $this->allTabs) ? $_GET['current-tab'] : $this->defaultTab;
 
-        add_options_page(
+        add_submenu_page(
+            $this->optionsParent->slug,
             $this->optionsPage->title,
             $this->optionsMenu->title,
             $this->optionsMenu->capability,
             $this->optionsMenu->slug,
-            [$this, 'pageOutput']
+            [$this, 'subMenuPage'],
+            $this->optionsMenu->position
         );
     }
 
     /**
-     * Display the settings page.
+     * Display the admin sub menu page.
      * @return void
      */
-    public function pageOutput()
+    public function subMenuPage()
     {
-        flush_rewrite_rules(false);
         wp_enqueue_style('rrze-legal-settings');
         wp_enqueue_script('rrze-legal-settings');
         echo '<div class="wrap">', PHP_EOL;
@@ -367,6 +411,7 @@ class Settings
                 continue;
             }
             echo '<form id="', $this->pagePrefix . $sectionId . '" method="post" action="options.php">';
+            settings_errors();
             do_settings_sections($this->settingsPrefix . $section['id']);
             settings_fields($this->settingsPrefix . $section['id']);
             submit_button();
@@ -375,18 +420,9 @@ class Settings
     }
 
     /**
-     * Registration of sections and fields.
-     * @return void
-     */
-    public function adminInit()
-    {
-        $this->registerSetting();
-    }
-
-    /**
      * Register the settings sections and fields.
      */
-    protected function registerSetting()
+    public function registerSetting()
     {
         foreach ($this->sections as $section) {
             if (!isset($section['id']) || !isset($section['title'])) {
@@ -426,7 +462,7 @@ class Settings
         }
         add_settings_section(
             $this->settingsPrefix . $section['id'],
-            !isset($section['hide_title']) || (bool) !$section['hide_title'] ? $section['title'] : '',
+            !isset($section['hide_title']) || $section['hide_title'] === false ? $section['title'] : '',
             $callback,
             $this->settingsPrefix . $section['id']
         );
@@ -477,59 +513,64 @@ class Settings
                 $callback,
                 $this->settingsPrefix . $sectionId
             );
-            $this->addFields($sectionId, $subsection['id']);
+            $this->addFields($sectionId, $subsection);
         }
     }
 
     /**
      * Add fields to the settings page.
      * @param string $sectionId
-     * @param string $subsectionId
-     * @param string $capability
+     * @param array $subsection
      * @return void
      */
-    protected function addFields(string $sectionId, string $subsectionId = '')
+    protected function addFields(string $sectionId, array $subsection = [])
     {
-        foreach ($this->fields as $key => $option) {
-            $suffix = $subsectionId ? '_' . $subsectionId . '_' : '_';
-            if (strpos($key, $sectionId . $suffix) !== 0) {
+        $fields = $subsection['fields'] ?? $this->fields;
+        $subsectionId = $subsection['id'] ?? '';
+        foreach ($fields as $key => $option) {
+            if (!$subsectionId && strpos($key, $sectionId . '_') !== 0) {
                 continue;
             }
-            $name = $option['name'];
-            $type = isset($option['type']) ? strtolower($option['type']) : 'text';
-            $label = isset($option['label']) ? $option['label'] : '';
+            $name = $option['name'] ?? '';
+            if (!isset($this->fields[$sectionId . '_' . $option['name']])) {
+                continue;
+            }
+            $type = isset($option['type']) ? strtolower($option['type']) : '';
+            $callback = Fields::callback($type);
+            if (!is_callable($callback)) {
+                continue;
+            }
 
-            $suffix = $subsectionId ? '_' . $subsectionId : '';
-            $section = $sectionId . $suffix;
-            $default = isset($option['default']) ? $option['default'] : '';
-            $value = $this->getOption($section, $name, $default);
+            $label = $option['label'] ?? '';
+            $section = $sectionId . ($subsectionId ? '_' . $subsectionId : '');
+            $default = $option['default'] ?? '';
+            $value = $this->getOption($sectionId, $name, $default);
             $required = isset($option['required']) ? (bool) $option['required'] : false;
 
             $atts = [
                 'name' => $name,
-                'id' => $this->settingsPrefix . $section . '_' . $name,
+                'id' => $this->settingsPrefix . $sectionId . '_' . $name,
                 'label' => $label,
                 'type' => $type,
-                'description' => isset($option['description']) ? $option['description'] : '',
-                'options' => isset($option['options']) ? $option['options'] : '',
+                'description' => $option['description'] ?? '',
+                'options' => $option['options'] ?? '',
                 'default' => $default,
-                'placeholder' => isset($option['placeholder']) ? $option['placeholder'] : '',
-                'section' => $section,
+                'placeholder' => $option['placeholder'] ?? '',
+                'section' => $sectionId,
                 'option_name' => $this->optionName,
                 'value' => $value,
-                'size' => isset($option['size']) ? $option['size'] : '',
+                'size' => $option['size'] ?? '',
                 'height' => isset($option['height']) ? absint($option['height']) : 0,
-                'min' => isset($option['min']) ? $option['min'] : '',
-                'max' => isset($option['max']) ? $option['max'] : '',
-                'step' => isset($option['step']) ? $option['step'] : '',
+                'min' => $option['min'] ?? '',
+                'max' => $option['max'] ?? '',
+                'step' => $option['step'] ?? '',
                 'inline' => isset($option['inline']) ? (bool) $option['inline'] : false,
                 'disabled' => isset($option['disabled']) ? (bool) $option['disabled'] : false,
-                'sanitize_callback' => isset($option['sanitize_callback']) ? $option['sanitize_callback'] : null,
+                'sanitize_callback' => $option['sanitize_callback'] ?? null,
                 'required' => $required,
                 'errors' => get_settings_errors($this->settingsPrefix . $section),
             ];
 
-            $callback = Fields::callback($type);
             $atts = Fields::matchAtts($atts);
 
             add_settings_field(
@@ -550,57 +591,70 @@ class Settings
      */
     public function sanitizeOptions($input)
     {
+        $hasError = false;
         $optionPage = $_POST['option_page'] ?? '';
         $prefix = substr($optionPage, strlen($this->settingsPrefix));
-        if (empty($input || !is_array($input)) || $prefix == '') {
-            return $this->options;
-        }
-        foreach ($this->fields as $key => $option) {
-            if (strpos($key, $prefix) !== 0) {
-                continue;
-            }
-            $type = isset($option['type']) ? strtolower($option['type']) : '';
-            if (!$type) {
-                continue;
-            }
-            $disabled = isset($option['disabled']) ? (bool) $option['disabled'] : false;
-            if (!isset($input[$key]) && $disabled) {
-                $input[$key] = $this->options[$key];
-            } elseif (!isset($input[$key]) && $type === 'checkbox') {
-                $input[$key] = '0';
-            }
-            $error = '';
-            $section = substr($key, 0, strrpos($key, '_' . $option['name']));
-            $settings = $this->settingsPrefix . $section;
-            $label = $option['label'];
-            $value = $input[$key];
-            $required = isset($option['required']) ? (bool) $option['required'] : false;
-            if ($value === '' && $required) {
-                $error = sprintf(
-                    /* translators: %s: label of the field. */
-                    __('The field %s is required.', 'rrze-legal'),
-                    $label
-                );
-            }
-            $sanitizeCallback = $this->getSanitizeCallback($key);
-            if ($sanitizeCallback !== false) {
-                $sanitizedValue = call_user_func($sanitizeCallback, $value);
-                if ($sanitizedValue === '' && $value !== '') {
+        if (!empty($input) && is_array($input) && $prefix != '') {
+            foreach ($this->fields as $key => $option) {
+                if (strpos($key, $prefix) !== 0) {
+                    continue;
+                }
+                $type = isset($option['type']) ? strtolower($option['type']) : '';
+                if (!$type) {
+                    continue;
+                }
+                $disabled = isset($option['disabled']) ? (bool) $option['disabled'] : false;
+                if (!isset($input[$key]) && $disabled) {
+                    $input[$key] = $this->options[$key] ?? ($type === 'checkbox' ? '0' : '');
+                } elseif (!isset($input[$key]) && $type === 'checkbox') {
+                    $input[$key] = '0';
+                }
+                $error = '';
+                $settings = '';
+                foreach ($this->getSettingsSections() as $settingsSection) {
+                    if (strpos($this->settingsPrefix . $key, $settingsSection) === 0) {
+                        $settings = $settingsSection;
+                        break;
+                    }
+                }
+                $label = $option['label'];
+                $value = $input[$key] ?? '';
+                $required = isset($option['required']) ? (bool) $option['required'] : false;
+                if ($value === '' && $required && !$disabled) {
                     $error = sprintf(
-                        /* translators: %s: label of the field. */
-                        __('The value of the field %s is not valid.', 'rrze-legal'),
+                        /* translators: %s: Label of the field. */
+                        __('The field %s is required.', 'rrze-legal'),
                         $label
                     );
+                }
+                $sanitizeCallback = $this->getSanitizeCallback($key);
+                if ($sanitizeCallback !== false) {
+                    $sanitizedValue = call_user_func($sanitizeCallback, $value);
+                    if ($sanitizedValue === '' && $value !== '' && !$disabled) {
+                        $error = sprintf(
+                            /* translators: 1: Invalid value, 2: Label of the field. */
+                            __('The value %1$s of the field %2$s is not valid.', 'rrze-legal'),
+                            $value,
+                            $label
+                        );
+                    } else {
+                        $value = $sanitizedValue;
+                    }
+                }
+                if ($error) {
+                    $hasError = true;
+                    add_settings_error($settings, $key, $error, 'error');
                 } else {
-                    $value = $sanitizedValue;
+                    $input[$key] = $value;
+                    $this->options[$key] = $value;
                 }
             }
-            if ($error) {
-                add_settings_error($settings, $key, $error, 'error');
-            } else {
-                $this->options[$key] = $value;
-            }
         }
+        return $this->postSanitizeOptions($input, $hasError);
+    }
+
+    protected function postSanitizeOptions($input, $hasError)
+    {
         return $this->options;
     }
 
@@ -621,10 +675,10 @@ class Settings
     }
 
     /**
-     * Enqueue admin scripts.
+     * Register admin scripts.
      * @return void
      */
-    public function adminEnqueueScripts()
+    public function adminRegisterSettingsScripts()
     {
         wp_register_style(
             'rrze-legal-settings',
@@ -639,26 +693,84 @@ class Settings
             plugin()->getVersion()
         );
         wp_localize_script('rrze-legal-settings', 'legalSettings', [
-            'optionName' => $this->optionName,
-            'dateFormat' => __('yy-mm-dd', 'rrze-legal'),
+            'dateFormat' => __('yy-mm-dd', 'rrze-legal')
         ]);
     }
 
     /**
      * sanitizeTextareaList
      * @param string $input
-     * @param boolean $sort
      * @return mixed
      */
-    protected function sanitizeTextareaList(string $input, bool $sort = true)
+    public function sanitizeTextareaList(string $input)
     {
-        if (!empty($input)) {
-            $inputAry = explode(PHP_EOL, sanitize_textarea_field($input));
-            $inputAry = array_filter(array_map('trim', $inputAry));
-            $inputAry = array_unique(array_values($inputAry));
-            if ($sort) sort($inputAry);
-            return !empty($inputAry) ? implode(PHP_EOL, $inputAry) : '';
+        if (empty($input)) {
+            return '';
         }
-        return '';
+        $inputAry = explode(PHP_EOL, sanitize_textarea_field($input));
+        $inputAry = array_filter(array_map('trim', $inputAry));
+        $inputAry = array_unique(array_values($inputAry));
+        return !empty($inputAry) ? implode(PHP_EOL, $inputAry) : '';
+    }
+
+    /**
+     * Validate URL
+     * @param string $input
+     * @return string
+     */
+    public function validateUrl(string $input): string
+    {
+        $input = sanitize_text_field($input);
+        if (filter_var(
+            $input,
+            FILTER_VALIDATE_DOMAIN,
+            FILTER_FLAG_HOSTNAME
+        ) === false) {
+            return '';
+        }
+        return $input;
+    }
+
+    /**
+     * Validate Email
+     * @param string $input
+     * @return string
+     */
+    public function validateEmail(string $input): string
+    {
+        $input = sanitize_text_field($input);
+        if (filter_var(
+            $input,
+            FILTER_VALIDATE_EMAIL
+        ) === false) {
+            return '';
+        }
+        return $input;
+    }
+
+    /**
+     * Validate Integer Range
+     * @param string $input
+     * @param integer $min
+     * @param integer $max
+     * @return integer
+     */
+    public function validateIntRange(string $input, int $min, int $max): int
+    {
+        $integer = intval($input);
+        if (filter_var(
+            $integer,
+            FILTER_VALIDATE_INT,
+            [
+                'options' => [
+                    'min_range' => $min,
+                    'max_range' => $max
+                ]
+            ]
+        ) === false) {
+            return '';
+        } else {
+            return $integer;
+        }
     }
 }

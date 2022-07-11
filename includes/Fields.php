@@ -91,14 +91,15 @@ class Fields
      * Displays a text input field.
      * @param array $atts Settings field attributes
      */
-    public static function text(array $atts)
+    public static function text(array $atts, string $type = 'text')
     {
         $value = esc_attr($atts['value']);
         $size = $atts['size'] != '' ? $atts['size'] : 'regular';
         $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . $atts['placeholder'] . '"' : '';
 
-        if ($atts['disabled'] != '') {
-            $html = sprintf(
+        $html = '';
+        if ($atts['disabled']) {
+            $html .= sprintf(
                 '<input type="hidden" name="%1$s[%2$s_%3$s]" value="%4$s">',
                 $atts['option_name'],
                 $atts['section'],
@@ -106,8 +107,9 @@ class Fields
                 $value,
             );
         }
-        $html = sprintf(
-            '<input type="text" class="%1$s-text" id="%2$s" name="%3$s[%4$s_%5$s]" value="%6$s"%7$s%8$s>',
+        $html .= sprintf(
+            '<input type="%1$s" class="%2$s-text" id="%3$s" name="%4$s[%5$s_%6$s]" value="%7$s"%8$s%9$s>',
+            $type,
             $size,
             $atts['id'],
             $atts['option_name'],
@@ -115,7 +117,7 @@ class Fields
             $atts['name'],
             $value,
             $placeholder,
-            $atts['disabled'] != '' ? ' disabled="disabled"' : ''
+            $atts['disabled'] ? ' disabled="disabled"' : ''
         );
         $html .= self::description($atts);
 
@@ -123,16 +125,31 @@ class Fields
     }
 
     /**
+     * Displays a email input field.
+     * @param array $atts Settings field attributes
+     */
+    public static function email(array $atts)
+    {
+        self::text($atts, 'email');
+    }
+
+    /**
      * Displays a textarea field.
      * @param array $atts Settings field attributes
      */
-    public static function textarea(array $atts)
+    public static function textarea(array $atts, string $editorType = '')
     {
         $value = esc_textarea($atts['value']);
         $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . $atts['placeholder'] . '"' : '';
+        $editorType = $editorType ? 'wpcode-' . $editorType . '-editor ' : '';
+        $format = '<textarea %1$srows="4" cols="50" id="%2$s" name="%3$s[%4$s_%5$s]"%6$s>%7$s</textarea>';
+        if ($editorType != '') {
+            $format = '<div class="code-editor">' . $format . '</div>';
+        }
 
         $html = sprintf(
-            '<textarea rows="4" cols="50" id="%1$s" name="%2$s[%3$s_%4$s]"%5$s>%6$s</textarea>',
+            $format,
+            $editorType,
             $atts['id'],
             $atts['option_name'],
             $atts['section'],
@@ -143,6 +160,33 @@ class Fields
         $html .= self::description($atts);
 
         echo $html;
+    }
+
+    /**
+     * Displays a html code editor input field.
+     * @param array $atts Settings field attributes
+     */
+    public static function htmleditor(array $atts)
+    {
+        self::textarea($atts, 'html');
+    }
+
+    /**
+     * Displays a js code editor input field.
+     * @param array $atts Settings field attributes
+     */
+    public static function jseditor(array $atts)
+    {
+        self::textarea($atts, 'js');
+    }
+
+    /**
+     * Displays a css code editor input field.
+     * @param array $atts Settings field attributes
+     */
+    public static function csseditor(array $atts)
+    {
+        self::textarea($atts, 'css');
     }
 
     /**
@@ -214,7 +258,18 @@ class Fields
     public static function checkbox(array $atts)
     {
         $value = $atts['value'];
-        $html = '<label>';
+
+        $html = '';
+        if ($atts['disabled']) {
+            $html .= sprintf(
+                '<input type="hidden" name="%1$s[%2$s_%3$s]" value="%4$s">',
+                $atts['option_name'],
+                $atts['section'],
+                $atts['name'],
+                checked($value, '1', false),
+            );
+        }
+        $html .= '<label>';
         $html .= sprintf(
             '<input type="checkbox" id="%1$s" name="%2$s[%3$s_%4$s]" value="1" %5$s%6$s>',
             $atts['id'],
@@ -222,7 +277,7 @@ class Fields
             $atts['section'],
             $atts['name'],
             checked($value, '1', false),
-            $atts['disabled'] != '' ? ' disabled="disabled"' : ''
+            $atts['disabled'] ? ' disabled="disabled"' : ''
         );
         $html .= sprintf(
             '%s</label>',
@@ -244,15 +299,15 @@ class Fields
         foreach ($atts['options'] as $key => $label) {
             $html .= '<label>';
             $html .= sprintf(
-                '<input type="checkbox" id="%1$s-%5$s" name="%2$s[%3$s_%4$s][]" value="%5$s" %6$s>',
+                '<input type="checkbox" id="%1$s-%5$s" name="%2$s[%3$s_%4$s][%5$s]" value="1" %6$s>',
                 $atts['id'],
                 $atts['option_name'],
                 $atts['section'],
                 $atts['name'],
                 $key,
-                checked(true, in_array($key, $value), false)
+                checked(true, !empty($value[$key]), false)
             );
-            $html .= sprintf('%1$s</label><br>', $label);
+            $html .= sprintf('%s</label><br>', $label);
         }
 
         $html .= self::description($atts);
@@ -408,8 +463,9 @@ class Fields
             'textarea_rows' => 10
         ];
 
+        echo '<div class="wpeditor-field-container">';
         wp_editor($value, $atts['section'] . '_' . $atts['name'], $editorSettings);
-
+        echo '</div>';
         echo self::description($atts);
     }
 }

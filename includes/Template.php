@@ -10,6 +10,8 @@ class Template
 
     const THEMES_PATH = 'templates/themes';
 
+    const CONSENT_PATH = 'templates/consent';
+
     protected static $themesFilenames = [
         'fau.php' => [
             'FAU-Einrichtungen',
@@ -52,7 +54,7 @@ class Template
     protected static function parseContent($template, $data)
     {
         $templateFile = self::getTemplateLocale($template);
-        if ($templateFile && !empty($data)) {
+        if ($templateFile) {
             $parser = new Parser();
             return $parser->parse($templateFile, $data);
         }
