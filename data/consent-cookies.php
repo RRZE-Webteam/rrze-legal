@@ -109,7 +109,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 5,
-            'status' => true,
+            'status' => consent()->isServiceProviderActive('rrze_rsvp'),
             'static' => true,
         ],
         'rrze_ratebutton' => [
@@ -130,7 +130,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 6,
-            'status' => true,
+            'status' => consent()->isServiceProviderActive('rrze_ratebutton'),
             'static' => true,
         ],
         'siteimprove_analytics' => [
@@ -175,7 +175,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 1,
-            'status' => false,
+            'status' => true,
             'static' => true,
         ],
         'instagram' => [
@@ -196,7 +196,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 2,
-            'status' => false,
+            'status' => true,
             'static' => true,
         ],
         'youtube' => [
@@ -221,7 +221,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 3,
-            'status' => consent()->isServiceProviderActive('youtube'),
+            'status' => true,
             'static' => true,
         ],
         'vimeo' => [
@@ -242,7 +242,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 4,
-            'status' => consent()->isServiceProviderActive('vimeo'),
+            'status' => true,
             'static' => true,
         ],
         'slideshare' => [
@@ -263,7 +263,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 5,
-            'status' => consent()->isServiceProviderActive('slideshare'),
+            'status' => true,
             'static' => true,
         ],
         'brmediathek' => [
