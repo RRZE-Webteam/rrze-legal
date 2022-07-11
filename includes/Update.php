@@ -60,15 +60,30 @@ class Update
      */
     protected static function updateToVersion200()
     {
+        $tosOptionName = tos()->getOptionName();
         $tosOptions = tos()->getOptions();
+
         foreach (self::optionsMap200() as $key => $newKey) {
             if (isset($tosOptions[$key])) {
                 $status = $tosOptions[$key] ? '1' : '0';
-                $tosOptions['privacy_external_services'][$newKey] = $status;
+                $tosOptions['privacy_service_providers'][$newKey] = $status;
             }
         }
-        update_option(tos()->getOptionName(), $tosOptions);
-        update_option(tos()->getOptionName() . '_version', '2.0.0');
+        update_option($tosOptionName, $tosOptions);
+        update_option($tosOptionName . '_version', '2.0.0');
+
+        $cookiesOptionsName = consentCookies()->getOptionName();
+        $cookiesOptions = consentCookies()->getOptions();
+        $externalServices = $tosOptions['privacy_service_providers'];
+
+        foreach (array_keys($cookiesOptions) as $key) {
+            if (!empty($externalServices[$key])) {
+                $cookiesOptions[$key]['status'] = '1';
+            } else {
+                $cookiesOptions[$key]['status'] = '0';
+            }
+        }
+        update_option($cookiesOptionsName, $cookiesOptions);
     }
 
     /**
@@ -139,12 +154,12 @@ class Update
     protected static function optionsMap200()
     {
         return [
+            //'privacy_external_services_vgword' => 'vgword',
+            //'privacy_external_services_varifast' => 'varifast',
             'privacy_external_services_youtube' => 'youtube',
-            'privacy_external_services_slideshare' => 'slideshare',
             'privacy_external_services_vimeo' => 'vimeo',
-            'privacy_external_services_vgword' => 'vgword',
+            'privacy_external_services_slideshare' => 'slideshare',
             'privacy_external_services_siteimprove' => 'siteimprove_analytics',
-            'privacy_external_services_varifast' => 'varifast',
         ];
     }
 }
