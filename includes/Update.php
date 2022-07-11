@@ -76,7 +76,11 @@ class Update
         $cookiesOptions = consentCookies()->getOptions();
         $externalServices = $tosOptions['privacy_service_providers'];
 
-        foreach (array_keys($cookiesOptions) as $key) {
+        foreach ($cookiesOptions as $key => $value) {
+            $category = $value['category'] ?? '';
+            if ($category === 'essential') {
+                continue;
+            }
             if (!empty($externalServices[$key])) {
                 $cookiesOptions[$key]['status'] = '1';
             } else {
