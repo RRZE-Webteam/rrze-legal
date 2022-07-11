@@ -4,8 +4,9 @@ namespace RRZE\Legal\Network;
 
 defined('ABSPATH') || exit;
 
-use \RRZE\Legal\Settings;
-use function \RRZE\Legal\plugin;
+use RRZE\Legal\Settings;
+use function RRZE\Legal\plugin;
+use function RRZE\Legal\consent;
 
 class Options extends Settings
 {
@@ -13,6 +14,9 @@ class Options extends Settings
     {
         parent::__construct();
         $this->optionName = 'rrze_legal_network';
+        $this->settingsFilename = 'network';
+
+        add_filter('rrze_legal_consent_capability', [$this, 'setConsentCapability']);
     }
 
     /**
@@ -20,17 +24,32 @@ class Options extends Settings
      */
     public function loaded()
     {
-        include_once(plugin()->getPath() . "settings/network.php");
+        if ($this->optionName === '' || $this->settingsFilename === '') {
+            return;
+        }
+        include_once(plugin()->getPath() . "settings/{$this->settingsFilename}.php");
         $this->settings = $settings;
+        $this->optionsParent = (object) $this->settings['options_page']['parent'];
         $this->optionsPage = (object) $this->settings['options_page']['page'];
         $this->optionsMenu = (object) $this->settings['options_page']['menu'];
         $this->sections = (object) $this->settings['settings']['sections'];
 
         $this->setFields();
         $this->setOptions();
+        foreach ($this->fields as $key => $field) {
+            $type = $field['type'] ?? '';
+            $value = $this->options[$key] ?? '';
+            if (is_array($value) && $type == 'textarea') {
+                $this->options[$key] = implode(PHP_EOL, $value);
+            }
+        }
+    }
 
-        add_action('network_admin_menu', [$this, 'adminMenu']);
-        add_action('admin_init', [$this, 'adminInit']);
+    public function setAdminMenu()
+    {
+        add_action('network_admin_menu', [$this, 'adminSubMenu']);
+        add_action('admin_init', [$this, 'registerSetting']);
+
         add_action('network_admin_edit_rrze-legal-network-action', [$this, 'save']);
         add_action('network_admin_notices', [$this, 'adminNotices']);
     }
@@ -49,36 +68,11 @@ class Options extends Settings
     }
 
     /**
-     * Adds a submenu page to the Settings main menu.
-     * @return void
-     */
-    public function adminMenu()
-    {
-        foreach ($this->sections as $key => $section) {
-            $sectionId = str_replace('_', '-', $section['id']);
-            if ($key == 0) {
-                $this->defaultTab = $this->pagePrefix . $sectionId;
-            }
-            $this->allTabs[] = $this->pagePrefix . $sectionId;
-        }
-
-        $this->currentTab = array_key_exists('current-tab', $_GET) && in_array($_GET['current-tab'], $this->allTabs) ? $_GET['current-tab'] : $this->defaultTab;
-
-        add_submenu_page(
-            'settings.php',
-            $this->optionsPage->title,
-            $this->optionsMenu->title,
-            $this->optionsMenu->capability,
-            $this->optionsMenu->slug,
-            [$this, 'pageOutput']
-        );
-    }
-
-    /**
      * Displays the corresponding form for each setting sections.
+     * @param string $hiddenField Hidden field
      * @return void
      */
-    public function settingsForm()
+    public function settingsForm($hiddenField = '')
     {
         foreach ($this->sections as $section) {
             $sectionId = str_replace('_', '-', $section['id']);
@@ -108,7 +102,7 @@ class Options extends Settings
     /**
      * Register the settings sections and fields.
      */
-    protected function registerSetting()
+    public function registerSetting()
     {
         foreach ($this->sections as $section) {
             if (!isset($section['id']) || !isset($section['title'])) {
@@ -116,6 +110,11 @@ class Options extends Settings
             }
             $this->addSection($section);
         }
+    }
+
+    public function setConsentCapability($capability)
+    {
+        return is_plugin_active_for_network(plugin()->getBaseName()) && !$this->hasException() ? 'manage_network_options' : $capability;
     }
 
     public function save()
@@ -152,5 +151,74 @@ class Options extends Settings
             __('Dismiss this notice.', 'rrze-legal'),
             '</span></button></div>';
         }
+    }
+
+    protected function postSanitizeOptions($input, $hasError)
+    {
+        if (!$hasError && $this->options['network_banner_update_version']) {
+            $this->updateCookieVersion();
+            $this->options['network_banner_update_version'] = '0';
+        }
+        return $this->options;
+    }
+
+    /**
+     * sanitizeTextareaSitesList
+     * @param string $input
+     * @return string
+     */
+    public function sanitizeTextareaSitesList(string $input)
+    {
+        $list = $this->sanitizeTextareaList($input);
+        $sites = explode(PHP_EOL, $list);
+        $exceptions = [];
+        foreach ($sites as $row) {
+            $aryRow = explode(' - ', $row);
+            $blogId = isset($aryRow[0]) ? trim($aryRow[0]) : '';
+            if (!absint($blogId)) {
+                continue;
+            }
+            switch_to_blog($blogId);
+            $url = get_option('siteurl');
+            restore_current_blog();
+            if (!$url) {
+                continue;
+            }
+            $exceptions[$url] = implode(' - ', [$blogId, $url]);
+        }
+        ksort($exceptions);
+        return !empty($exceptions) ? implode(PHP_EOL, $exceptions) : '';
+    }
+
+    /**
+     * Site ID has exception.
+     * @param string $sectionId
+     * @return bool
+     */
+    public function hasException()
+    {
+        $exceptions = (string) $this->getOption('network_general', 'exceptions');
+        $exceptions = explode(PHP_EOL, $exceptions);
+        if (!empty($exceptions) && is_array($exceptions)) {
+            foreach ($exceptions as $row) {
+                $aryRow = explode(' - ', $row);
+                $blogId = isset($aryRow[0]) ? trim($aryRow[0]) : '';
+                if (absint($blogId) == get_current_blog_id()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function getCookieVersion()
+    {
+        return (int) get_site_option('rrze_legal_consent_cookie_version', 1);
+    }
+
+    public function updateCookieVersion()
+    {
+        $currentVersion = $this->getCookieVersion();
+        update_site_option('rrze_legal_consent_cookie_version', $currentVersion + 1);
     }
 }

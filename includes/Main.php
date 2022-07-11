@@ -5,6 +5,7 @@ namespace RRZE\Legal;
 defined('ABSPATH') || exit;
 
 use RRZE\Legal\TOS\{Endpoint, NavMenu};
+use RRZE\Legal\Consent\Frontend;
 
 /**
  * Class Main
@@ -17,15 +18,57 @@ class Main
      */
     public function __construct()
     {
-        // Load TOS
+        // Load network settings
+        $isPluginActiveForNetwork = Utils::isPluginActiveForNetwork(plugin()->getBaseName());
+        if ($isPluginActiveForNetwork) {
+            network()->loaded();
+            network()->setAdminMenu();
+        }
+
+        // Adds a admin menu page
+        add_action('admin_menu', [$this, 'adminMenu']);
+
+        // Load consent settings
+        consent()->loaded();
+        consentCategories()->loaded();
+        consentCookies()->loaded();
+
+        // Load TOS settings
+        tos()->loaded();
         new Endpoint();
         NavMenu::addTosMenu();
+
+        // Set admin submenus
+        tos()->setAdminMenu();
+        consent()->setAdminMenu();
+        consentCategories()->setAdminMenu();
+        consentCookies()->setAdminMenu();
+
+        // Load banner
+        Frontend::loaded();
 
         // Update
         Update::loaded();
 
         // Notices for the administrator
         add_action('admin_init', [$this, 'adminInit']);
+    }
+
+    /**
+     * Adds a admin menu page.
+     * @return void
+     */
+    public function adminMenu()
+    {
+        add_menu_page(
+            __('Legal', 'rrze-legal'),
+            __('Legal', 'rrze-legal'),
+            'manage_options',
+            'legal',
+            '',
+            'dashicons-privacy',
+            null
+        );
     }
 
     public function adminInit()
@@ -43,17 +86,17 @@ class Main
             }
         }
 
-        $pagePrefix = settings()->getPagePrefix();
+        $pagePrefix = tos()->getPagePrefix();
         $currentPage = array_key_exists('page', $_GET) ? $_GET['page'] : '';
         $current = array_key_exists('current-tab', $_GET) ? $_GET['current-tab'] : '';
         $current = $current ? ltrim($current, $pagePrefix) : '';
         $current = $current == '' ? array_key_first($slugs) : $current;
 
-        $options = settings()->getOptions();
-        foreach (settings()->getFields() as $key => $field) {
+        $options = tos()->getOptions();
+        foreach (tos()->getFields() as $key => $field) {
             $slug = explode('_', $key)[0];
             $required = isset($field['required']) ? (bool) $field['required'] : false;
-            if ($currentPage != 'legal' && $options[$key] === '' && $required && !isset($published[$slug])) {
+            if ($currentPage != 'legal'  && !isset($published[$slug]) && $options[$key] === '' && $required) {
                 add_action('admin_notices', [$this, 'requiredTOSFieldNotice']);
                 break;
             }
@@ -74,9 +117,9 @@ class Main
             '<a href="%1$s">%2$s</a>',
             add_query_arg(
                 ['page' => 'legal'],
-                admin_url('options-general.php')
+                admin_url('admin.php')
             ),
-            __('Legal Settings', 'rrze-legal')
+            __('Legal Mandatory Information', 'rrze-legal')
         );
         $message = sprintf(
             /* translators: %s: Link of the settings page. */

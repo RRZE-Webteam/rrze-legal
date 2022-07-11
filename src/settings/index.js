@@ -1,5 +1,5 @@
 /**
  * Plugin dependencies
  */
-import "./settings.scss";
 import "./settings.js";
+import "./settings.scss";

@@ -12,9 +12,12 @@ class Update
      */
     public static function loaded()
     {
-        $version = get_option(settings()->getOptionName() . '_version', '0');
+        $version = get_option(tos()->getOptionName() . '_version', '0');
         if (version_compare($version, '1.0.0', '<')) {
             self::updateToVersion100();
+            Utils::redirectToReferer();
+        } elseif (version_compare($version, '1.0.0', '==')) {
+            self::updateToVersion200();
             Utils::redirectToReferer();
         }
     }
@@ -28,13 +31,13 @@ class Update
         include_once ABSPATH . 'wp-admin/includes/plugin.php';
         $tosOptions = (array) get_option('rrze_tos');
         if (!empty($tosOptions)) {
-            $options = settings()->getOptions();
-            foreach (self::equivalentTosPluginOptions() as $tos => $legal) {
+            $options = tos()->getOptions();
+            foreach (self::optionsMap100() as $tos => $legal) {
                 if (isset($tosOptions[$tos]) && isset($options[$legal])) {
                     $options[$legal] = $tosOptions[$tos];
                 }
             }
-            update_option(settings()->getOptionName(), $options);
+            update_option(tos()->getOptionName(), $options);
             if (
                 Utils::isPluginActive('rrze-multilang/rrze-multilang.php')
                 && get_option('rrze_legal_en') === false
@@ -42,7 +45,7 @@ class Update
                 update_option('rrze_legal_en', $options);
             }
         }
-        update_option(settings()->getOptionName() . '_version', '1.0.0');
+        update_option(tos()->getOptionName() . '_version', '1.0.0');
         if (
             Utils::isPluginActive('rrze-multilang/rrze-multilang.php')
             && get_option('rrze_legal_en_version') === false
@@ -52,10 +55,46 @@ class Update
     }
 
     /**
-     * Get equivalent TOS Plugin options.
+     * Update to version 2.0.0.
+     * @return void
+     */
+    protected static function updateToVersion200()
+    {
+        $tosOptionName = tos()->getOptionName();
+        $tosOptions = tos()->getOptions();
+
+        foreach (self::optionsMap200() as $key => $newKey) {
+            if (isset($tosOptions[$key])) {
+                $status = $tosOptions[$key] ? '1' : '0';
+                $tosOptions['privacy_service_providers'][$newKey] = $status;
+            }
+        }
+        update_option($tosOptionName, $tosOptions);
+        update_option($tosOptionName . '_version', '2.0.0');
+
+        $cookiesOptionsName = consentCookies()->getOptionName();
+        $cookiesOptions = consentCookies()->getOptions();
+        $externalServices = $tosOptions['privacy_service_providers'];
+
+        foreach ($cookiesOptions as $key => $value) {
+            $category = $value['category'] ?? '';
+            if ($category === 'essential') {
+                continue;
+            }
+            if (!empty($externalServices[$key])) {
+                $cookiesOptions[$key]['status'] = '1';
+            } else {
+                $cookiesOptions[$key]['status'] = '0';
+            }
+        }
+        update_option($cookiesOptionsName, $cookiesOptions);
+    }
+
+    /**
+     * Options map (v1.0.0).
      * @return array
      */
-    protected static function equivalentTosPluginOptions()
+    protected static function optionsMap100()
     {
         return [
             'imprint_websites' => 'imprint_scope_websites',
@@ -109,6 +148,22 @@ class Update
             'accessibility_feedback_cc' => 'accessibility_feedback_email_cc',
             'accessibility_feedback_phone' => 'accessibility_feedback_contact_phone',
             'accessibility_feedback_address' => 'accessibility_feedback_contact_address',
+        ];
+    }
+
+    /**
+     * Options map (v2.0.0).
+     * @return array
+     */
+    protected static function optionsMap200()
+    {
+        return [
+            //'privacy_external_services_vgword' => 'vgword',
+            //'privacy_external_services_varifast' => 'varifast',
+            'privacy_external_services_youtube' => 'youtube',
+            'privacy_external_services_vimeo' => 'vimeo',
+            'privacy_external_services_slideshare' => 'slideshare',
+            'privacy_external_services_siteimprove' => 'siteimprove_analytics',
         ];
     }
 }

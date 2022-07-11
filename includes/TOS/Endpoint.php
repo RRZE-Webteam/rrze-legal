@@ -4,10 +4,8 @@ namespace RRZE\Legal\TOS;
 
 defined('ABSPATH') || exit;
 
-use RRZE\Legal\Locale;
-use RRZE\Legal\Template;
-use function RRZE\Legal\plugin;
-use function RRZE\Legal\settings;
+use RRZE\Legal\{Locale, Template};
+use function RRZE\Legal\{plugin, tos};
 
 class Endpoint
 {
@@ -17,7 +15,7 @@ class Endpoint
     public function __construct()
     {
         add_action('init', [__CLASS__, 'addEndpoint']);
-        add_action('template_redirect', [__CLASS__, 'endpointTemplateRedirect']);
+        add_action('template_redirect', [__CLASS__, 'endpointTemplateRedirect'], 9999);
     }
 
     public static function slugsTitles()
@@ -97,7 +95,7 @@ class Endpoint
         }
         $page = get_page_by_title($title);
         if (!is_null($page) && $page->post_status == 'publish') {
-            //Replaces double line breaks with paragraph elements
+            // Replaces double line breaks with paragraph elements
             $content = wpautop($page->post_content);
             // Search content for shortcodes and filter shortcodes through their hooks
             // Shortcodes inside HTML elements will be skipped
@@ -108,19 +106,20 @@ class Endpoint
             exit;
         }
         // Get the options
-        $options = settings()->getOptions();
-        // External services
-        foreach ($options as $key => $value) {
-            if (strpos($key, 'privacy_external_services') !== false && $value == '1') {
-                $options['privacy_external_services'] = '1';
-                break;
-            }
+        $options = tos()->getOptions();
+        // Adjustments
+        $value = $options['imprint_scope_websites'];
+        if (!is_array($value)) {
+            $value = explode(PHP_EOL, $value);
         }
+        $lastValue = array_pop($value);
+        $value = sprintf('%s %s %s', implode(', ', $value), __('and', 'rrze-legal'), $lastValue);
+        $options['imprint_scope_websites'] = $value;
         // Set default domain option
-        $options['is_default_domain'] = settings()->isCurrentSiteInDefaultDomains() ? '1' : '0';
+        $options['is_default_domain'] = tos()->isCurrentSiteInDefaultDomains() ? '1' : '0';
         // Legal area
         $legalArea = $options['accessibility_general_legal_area'] ?? '';
-        foreach (settings()->getLegalAreaData() as $key => $area) {
+        foreach (tos()->getLegalAreaData() as $key => $area) {
             if ($legalArea == $key) {
                 foreach ($area as $_key => $_value) {
                     $options['accessibility_' . $_key] = $_value;
@@ -142,28 +141,58 @@ class Endpoint
         // Get the parent template
         $template = plugin()->getPath(Template::TOS_PATH) . $prefix . '-' . $langCode . '.html';
         if (!is_readable($template)) {
+            $template = plugin()->getPath(Template::TOS_PATH) . $prefix . '-en.html';
+        }
+        if (!is_readable($template)) {
             self::error404();
         }
         // Find child templates in settings fields
-        foreach (settings()->getFields() as $key => $field) {
+        foreach (tos()->getFields() as $key => $field) {
             $_tplAry = isset($field['template']) && is_array($field['template']) ? $field['template'] : [];
             foreach ($_tplAry as $_val => $_tpl) {
                 if ($options[$key] == $_val) {
                     $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-' . $langCode . '.html';
+                    if (!is_readable($tpl)) {
+                        $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-en.html';
+                    }
                     $options[str_replace('-', '_', $_tpl) . '_template'] = is_readable($tpl) ? self::getContent($tpl, $options) : '';
                 } elseif ($_tpl) {
                     $options[str_replace('-', '_', $_tpl) . '_template'] = '';
                 }
             }
         }
+        // Includes service providers templates
+        $options['privacy_external_service_providers'] = '';
+        $options['service_providers_template'] = [];
+        foreach (tos()->getServiceProvidersStatus() as $key => $value) {
+            if ($value) {
+                $tpl = plugin()->getPath(Template::TOS_PATH) .
+                    sprintf('service-providers/%1$s-cookie-%2$s.html', str_replace('_', '-', $key), $langCode);
+                if (!is_readable($tpl)) {
+                    $tpl = plugin()->getPath(Template::TOS_PATH) .
+                        sprintf('service-providers/%s-cookie-en.html', str_replace('_', '-', $key));
+                }
+                if (is_readable($tpl)) {
+                    $options['service_providers_template'][$key] = is_readable($tpl) ? self::getContent($tpl) : '';
+                }
+            }
+        }
+        if (!empty($options['service_providers_template'])) {
+            $options['privacy_external_service_providers'] = '1';
+        }
         // Includes other child templates
         $_tpl = 'privacy-dpo';
         $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-' . $langCode . '.html';
+        if (!is_readable($tpl)) {
+            $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-en.html';
+        }
         $options[str_replace('-', '_', $_tpl) . '_template'] = is_readable($tpl) ? self::getContent($tpl, $options) : '';
         $_tpl = 'privacy-rights-data-subject';
         $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-' . $langCode . '.html';
+        if (!is_readable($tpl)) {
+            $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-en.html';
+        }
         $options[str_replace('-', '_', $_tpl) . '_template'] = is_readable($tpl) ? self::getContent($tpl, $options) : '';
-
         // Render all templates and get the page content
         $content = self::getContent($template, $options);
         // Search content for shortcodes and filter shortcodes through their hooks
@@ -187,7 +216,7 @@ class Endpoint
     protected static function setAccessibilityConformity(&$options)
     {
         $key = $options['accessibility_compliance_status_conformity'] ?? '';
-        $fields = (array) settings()->getFields()['accessibility_compliance_status_conformity'] ?? [];
+        $fields = (array) tos()->getFields()['accessibility_compliance_status_conformity'] ?? [];
         $optionsField = $fields['options'] ?? [];
         $styleField = $fields['style'] ?? [];
         $complianceField = $fields['compliance'] ?? [];
@@ -199,7 +228,7 @@ class Endpoint
     protected static function setComplianceMethod(&$options)
     {
         $key = $options['accessibility_compliance_status_method'] ?? '';
-        $fields = (array) settings()->getFields()['accessibility_compliance_status_conformity'] ?? [];
+        $fields = (array) tos()->getFields()['accessibility_compliance_status_conformity'] ?? [];
         $optionsField = $fields['options'] ?? [];
         $options['accessibility_compliance_method_label'] =  $optionsField[$key];
     }
@@ -218,7 +247,7 @@ class Endpoint
         $contentList = (array) $options['accessibility_statement_non_accessible_content_list'] ?? [];
         if ($contentHelper == '0' && !empty($contentList)) {
             $list = '';
-            $fields = (array) settings()->getFields()['accessibility_statement_non_accessible_content_list'] ?? [];
+            $fields = (array) tos()->getFields()['accessibility_statement_non_accessible_content_list'] ?? [];
             $optionsField = $fields['options'] ?? [];
             foreach ($contentList as $key) {
                 if (isset($optionsField[$key])) {
@@ -230,7 +259,7 @@ class Endpoint
         }
     }
 
-    protected static function getContent($template, $options)
+    protected static function getContent($template, $options = [])
     {
         $content = Template::getContent($template, $options);
         $content = preg_replace('/(^|[^\n\r])[\r\n](?![\n\r])/', '$1 ', $content);
@@ -247,6 +276,16 @@ class Endpoint
         }
     }
 
+    public static function endpointTitle(string $slug = ''): string
+    {
+        $defaultSlugs = self::defaultSlugs();
+        if (!isset($defaultSlugs[$slug])) {
+            return '';
+        }
+        $slugsTitles = self::slugsTitles();
+        return $slugsTitles[$slug];
+    }
+
     public static function endpointUrl(string $slug = ''): string
     {
         $defaultSlugs = self::defaultSlugs();
@@ -258,7 +297,7 @@ class Endpoint
         $langCode = is_user_logged_in() && is_admin() ? Locale::getUserLangCode() : Locale::getLangCode();
         $slugs = self::getSlugs();
         $langSegment = $locale != $defaultLocale ? $langCode . '/' : '';
-        return site_url($langSegment . $slugs[$slug]);
+        return site_url($langSegment . $slugs[$slug] . '/');
     }
 
     public static function endpointLink(string $slug = ''): string

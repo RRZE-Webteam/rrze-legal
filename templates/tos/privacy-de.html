@@ -184,12 +184,16 @@
 
 <p>
     Cookies werden auf dem Rechner des Nutzers gespeichert und von diesem an unserer Seite übermittelt. Daher haben
-    Sie als Nutzer auch die volle Kontrolle über die Verwendung von Cookies. Durch eine Änderung der Einstellungen
-    in Ihrem Internetbrowser können Sie die Übertragung von Cookies deaktivieren oder einschränken. Bereits
-    gespeicherte Cookies können jederzeit gelöscht werden. Dies kann auch automatisiert erfolgen. Werden Cookies für
-    unseren Webauftritt deaktiviert, können möglicherweise nicht mehr alle Funktionen des Webauftrittes vollumfänglich
-    genutzt
-    werden.
+    Sie als Nutzer auch die volle Kontrolle über die Verwendung von Cookies.
+    Sie können die Übertragung von Cookies deaktivieren oder einschränken,
+    indem Sie die Cookie-Einstellungen in Ihrem Webbrowser ändern
+    oder auf den unten stehenden Link Cookie-Einstellungen klicken.
+    Bereits gespeicherte Cookies können jederzeit gelöscht werden.
+    Dies kann auch automatisiert erfolgen. Werden Cookies für unseren Webauftritt deaktiviert,
+    können möglicherweise nicht mehr alle Funktionen des Webauftrittes vollumfänglich genutzt werden.
+</p>
+<p>
+    <a href="#" class="rrzelegal-cookie-preference">Cookie-Einstellungen</a>
 </p>
 [/collapse]
 
@@ -198,18 +202,15 @@
 {{=privacy_registration_forms_template}}
 {{=privacy_corona_contact_tracking_template}}
 
-{{privacy_external_services}}
+{{privacy_external_service_providers}}
 [collapse title="Externe Dienstleister"]
 [accordion]
-{{=privacy_youtube_template}}
-{{=privacy_vimeo_template}}
-{{=privacy_slideshare_template}}
-{{=privacy_vgword_template}}
-{{=privacy_varifast_template}}
-{{=privacy_siteimprove_template}}
+{{@service_providers_template}}
+{{=_val}}
+{{/@service_providers_template}}
 [/accordion]
 [/collapse]
-{{/privacy_external_services}}
+{{/privacy_external_service_providers}}
 {{privacy_optional_new_section}}
 [collapse title="Sonstiges"]
 {{=privacy_optional_new_section_content}}
