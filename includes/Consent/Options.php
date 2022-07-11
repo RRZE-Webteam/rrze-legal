@@ -59,10 +59,9 @@ class Options extends Settings
     public function isServiceProviderActive($provider)
     {
         $serviceProviders = apply_filters('rrze_legal_consent_banner_service_providers', [
+            'rrze_rsvp' => 'rrze-rsvp/rrze-rsvp.php',
+            'rrze_ratebutton' => 'rrze_ratebutton/rrze_ratebutton.php',
             'siteimprove_analytics' => 'rrze-siteimprove/rrze-siteimprove.php',
-            'vimeo' => 'rrze-video/rrze-video.php',
-            'youtube' => 'rrze-video/rrze-video.php',
-            'slideshare' => 'rrze-video/rrze-video.php',
             'brmediathek' => 'rrze-video/rrze-video.php',
             'ardmediathek' => 'rrze-video/rrze-video.php',
         ]);
