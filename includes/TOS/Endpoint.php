@@ -249,7 +249,7 @@ class Endpoint
             $list = '';
             $fields = (array) tos()->getFields()['accessibility_statement_non_accessible_content_list'] ?? [];
             $optionsField = $fields['options'] ?? [];
-            foreach ($contentList as $key) {
+            foreach (array_keys($contentList) as $key) {
                 if (isset($optionsField[$key])) {
                     $list .= '<li>' . $optionsField[$key] . '</li>';
                 }
