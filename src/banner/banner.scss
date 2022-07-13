@@ -1901,15 +1901,15 @@
 
 .RRZELegal {
     ._rrzelegal-btn {
-        background: var(--color-button-bg, #004a9f);
+        background: var(--color-primary-basis, #04316a);
         border-radius: 4px;
-        color: var(--color-button-text, #004a9f) !important;
+        color: var(--color-primary-basis-kontrast, #fff);
 
         &:hover,
         &:focus {
-            background: var(--color-button-hover-bg, #041e42);
+            background: var(--color-primary-dunkelste, #041e42);
             border-radius: 4px;
-            color: var(--color-button-hover-text, #fff) !important;
+            color: var(--color-primary-dunkelste-kontrast, #fff);
         }
     }
 
@@ -1972,13 +1972,3 @@ a._rrzelegal-btn {
     text-decoration: none !important;
 }
 
-a._rrzelegal-btn-cookie-preference {
-    background: var(--color-primary-basis, #04316a) !important;
-    border-radius: 4px !important;
-    color: var(--color-primary-basis-kontrast, #fff) !important;
-
-    &:hover {
-        background: var(--color-primary-dunkelste, #041e42) !important;
-        color: var(--color-primary-dunkelste-kontrast, #fff) !important;
-    }
-}
