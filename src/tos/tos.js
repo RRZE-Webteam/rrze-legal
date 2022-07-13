@@ -42,16 +42,17 @@ jQuery(document).ready(function ($) {
     }
 
     function accessibilityHelperSection() {
-        let inputHelper = `${legalSettings.optionName}[accessibility_statement_non_accessible_content_helper]`;
+        let inputName = `${legalSettings.optionName}[accessibility_statement_non_accessible_content_helper]`;
         let input = $(
-            `input[name='${inputHelper}']:checked`,
+            `input[name='${inputName}']:checked`,
             "#rrze-legal-accessibility"
         ).val();
-        let inputList = `${legalSettings.optionName}[accessibility_statement_non_accessible_content_list][]`;
+        let inputList =
+            "[id^=rrze_legal_accessibility_statement_non_accessible_content_list]";
         if ("1" === input) {
-            $(`input[name='${inputList}']`).parents("tr").hide();
+            $(`${inputList}`).parents("tr").hide();
         } else {
-            $(`input[name='${inputList}']`).parents("tr").show();
+            $(`${inputList}`).parents("tr").show();
         }
     }
 
