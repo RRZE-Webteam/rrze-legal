@@ -254,7 +254,6 @@ class Endpoint
                     $list .= '<li>' . $optionsField[$key] . '</li>';
                 }
             }
-            $options['non_accessible_content_helper'] = $contentHelper;
             $options['accessibility_non_accessible_content_list'] = $list ? '<ul>' . $list . '</ul>' : '';
         }
     }
