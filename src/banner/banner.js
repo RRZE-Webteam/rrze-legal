@@ -1154,7 +1154,7 @@
                                 cookieBeforeConsent: "",
                                 cookiesForBots: "1",
                                 cookieVersion: "1",
-                                hideBannerOnPages: [],
+                                hideBannerOnUrls: [],
                                 respectDoNotTrack: "",
                                 hasOnlyEssentialCookies: "",
                                 reloadAfterConsent: "",
@@ -1312,9 +1312,9 @@
                               document.dispatchEvent(m.codeUnblocked),
                               O())
                             : e.showBanner
-                            ? 0 === e.hideBannerOnPages.length ||
+                            ? 0 === e.hideBannerOnUrls.length ||
                               -1 ===
-                                  e.hideBannerOnPages.indexOf(
+                                  e.hideBannerOnUrls.indexOf(
                                       window.location.protocol +
                                           "//" +
                                           window.location.host +
