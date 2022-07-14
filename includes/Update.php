@@ -19,6 +19,9 @@ class Update
         } elseif (version_compare($version, '1.0.0', '==')) {
             self::updateToVersion200();
             Utils::redirectToReferer();
+        } elseif (version_compare($version, '2.0.0', '==')) {
+            self::updateToVersion220();
+            Utils::redirectToReferer();
         }
     }
 
@@ -88,6 +91,28 @@ class Update
             }
         }
         update_option($cookiesOptionsName, $cookiesOptions);
+    }
+
+    /**
+     * Update to version 2.2.0.
+     * @return void
+     */
+    protected static function updateToVersion220()
+    {
+        $tosOptionName = tos()->getOptionName();
+        $cookiesOptionsName = consentCookies()->getOptionName();
+        $cookiesOptions = consentCookies()->getOptions();
+
+        foreach ($cookiesOptions as $key => $value) {
+            $id = $value['id'] ?? '';
+            $category = $value['category'] ?? '';
+            if ($category === 'external_media' && $id === 'instagram') {
+                unset($cookiesOptions[$key]);
+                break;
+            }
+        }
+        update_option($cookiesOptionsName, $cookiesOptions);
+        update_option($tosOptionName . '_version', '2.2.0');
     }
 
     /**

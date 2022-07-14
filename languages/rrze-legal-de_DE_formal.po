@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RRZE Legal 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-legal\n"
-"POT-Creation-Date: 2022-07-14T08:52:40+00:00\n"
-"PO-Revision-Date: 2022-07-14 10:53+0200\n"
+"POT-Creation-Date: 2022-07-14T12:53:48+00:00\n"
+"PO-Revision-Date: 2022-07-14 14:54+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE@formal\n"
@@ -102,7 +102,7 @@ msgstr ""
 "ausgewählt wurden."
 
 #: data/consent-cookies.php:19 data/consent-cookies.php:124
-#: data/consent-cookies.php:280 data/consent-cookies.php:303
+#: data/consent-cookies.php:259 data/consent-cookies.php:282
 msgid "1 Year"
 msgstr "1 Jahr"
 
@@ -122,7 +122,6 @@ msgstr "Teste, ob ein Cookie gesetzt werden kann. Benutzersitzung speichern."
 
 #: data/consent-cookies.php:40 data/consent-cookies.php:61
 #: data/consent-cookies.php:82 data/consent-cookies.php:103
-#: data/consent-cookies.php:190
 msgid "Session"
 msgstr "Session"
 
@@ -196,82 +195,70 @@ msgid "Unlimited"
 msgstr "Unbegrenzt"
 
 #: data/consent-cookies.php:185
-msgid "Instagram"
-msgstr "Instagram"
-
-#: data/consent-cookies.php:186
-msgid "Meta Platforms Ireland Limited, 4 Grand Canal Square, Dublin 2, Ireland"
-msgstr "Meta Platforms Ireland Limited, 4 Grand Canal Square, Dublin 2, Irland"
-
-#: data/consent-cookies.php:187
-msgid "Used to unblock Instagram content."
-msgstr "Wird verwendet, um Instagram-Inhalte zu entsperren."
-
-#: data/consent-cookies.php:206
 msgid "YouTube"
 msgstr "YouTube"
 
-#: data/consent-cookies.php:207
+#: data/consent-cookies.php:186
 msgid "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland"
 msgstr "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland"
 
-#: data/consent-cookies.php:208
+#: data/consent-cookies.php:187
 msgid "Used to unblock YouTube content."
 msgstr "Wird verwendet, um Youtube-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:215
+#: data/consent-cookies.php:194
 msgid "6 Months"
 msgstr "6 Monate"
 
-#: data/consent-cookies.php:231
+#: data/consent-cookies.php:210
 msgid "Vimeo"
 msgstr "Vimeo"
 
-#: data/consent-cookies.php:232
+#: data/consent-cookies.php:211
 msgid "Vimeo Inc., 555 West 18th Street, New York, New York 10011, USA"
 msgstr ""
 "Vimeo Inc., 555 West 18th Street, New York, New York 10011, Vereinigte "
 "Staaten"
 
-#: data/consent-cookies.php:233
+#: data/consent-cookies.php:212
 msgid "Used to unblock Vimeo content."
 msgstr "Wird verwendet, um Vimeo-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:236 data/consent-cookies.php:257
+#: data/consent-cookies.php:215 data/consent-cookies.php:236
 msgid "2 Years"
 msgstr "2 Jahre"
 
-#: data/consent-cookies.php:252
+#: data/consent-cookies.php:231
 msgid "Slideshare"
 msgstr "Slideshare"
 
-#: data/consent-cookies.php:253
+#: data/consent-cookies.php:232
 msgid "Scribd, Inc., 460 Bryant St, 100, San Francisco, CA 94107-2594 USA"
 msgstr ""
 "Scribd, Inc., 460 Bryant St, 100, San Francisco, CA 94107-2594 Vereinigten "
 "Staten"
 
-#: data/consent-cookies.php:254
+#: data/consent-cookies.php:233
 msgid "Used to unblock Slideshare content."
 msgstr "Wird verwendet, um Slideshare-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:273
+#: data/consent-cookies.php:252
 msgid "BR Mediathek"
 msgstr "BR Mediathek"
 
-#: data/consent-cookies.php:274 data/consent-cookies.php:297
+#: data/consent-cookies.php:253 data/consent-cookies.php:276
 msgid "Bayerischer Rundfunk, Rundfunkplatz 1, 80335 Munich, Germany"
 msgstr "Bayerischer Rundfunk, Rundfunkplatz 1, 80335 München, Deutschland"
 
-#: data/consent-cookies.php:275
+#: data/consent-cookies.php:254
 msgid "Used to unblock BR content."
 msgstr "Wird verwendet, um BR-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:296
+#: data/consent-cookies.php:275
 msgid "ARD Mediathek"
 msgstr "ARD Mediathek"
 
-#: data/consent-cookies.php:298
+#: data/consent-cookies.php:277
 msgid "Used to unblock ARD content."
 msgstr "Wird verwendet, um ARD-Inhalte zu entsperren."
 
@@ -1971,6 +1958,17 @@ msgstr "Adresse"
 #: settings/tos.php:605
 msgid "Postal address as an alternative to email address."
 msgstr "Postanschrift als Alternative zur E-Mail-Adresse."
+
+#~ msgid "Instagram"
+#~ msgstr "Instagram"
+
+#~ msgid ""
+#~ "Meta Platforms Ireland Limited, 4 Grand Canal Square, Dublin 2, Ireland"
+#~ msgstr ""
+#~ "Meta Platforms Ireland Limited, 4 Grand Canal Square, Dublin 2, Irland"
+
+#~ msgid "Used to unblock Instagram content."
+#~ msgstr "Wird verwendet, um Instagram-Inhalte zu entsperren."
 
 #~ msgid "Facebook"
 #~ msgstr "Facebook"
