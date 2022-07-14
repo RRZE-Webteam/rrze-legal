@@ -88,6 +88,14 @@ $settings = [
                                 'type' => 'checkbox',
                                 'default' => true,
                             ],
+                            [
+                                'name' => 'hide_on_url',
+                                'label' => __('Hide On URL', 'rrze-legal'),
+                                'description' => __('Add one URL per line. The <strong>Consent Banner</strong> will not be shown on these URLs.', 'rrze-legal'),
+                                'type' => 'textarea',
+                                'default' => '',
+                                'sanitize_callback' => [consent(), 'sanitizeTextareaList'],
+                            ],
                         ],
                     ],
                     [
