@@ -78,6 +78,15 @@ class JavaScript
             true
         );
 
+        $defaultHideBannerOnPages = [
+            tos()->endpointUrl('imprint'),
+            tos()->endpointUrl('accessibility'),
+            tos()->endpointUrl('privacy'),
+        ];
+        $hideBannerOnUrls = consent()->getOption('banner', 'hide_on_url');
+        $hideBannerOnUrls = explode(PHP_EOL, $hideBannerOnUrls);
+        $hideBannerOnUrls = array_merge($hideBannerOnUrls, $defaultHideBannerOnPages);
+
         $jsConfig = [
             'ajaxURL' => admin_url('admin-ajax.php'),
             'animation' => false, //bannerAnimation
@@ -97,11 +106,7 @@ class JavaScript
             'cookieBeforeConsent' => false,
             'cookiesForBots' => consent()->isCookieForBotsActive(),
             'cookieVersion' => $this->cookieVersion,
-            'hideBannerOnPages' => [
-                tos()->endpointUrl('imprint'),
-                tos()->endpointUrl('accessibility'),
-                tos()->endpointUrl('privacy'),
-            ],
+            'hideBannerOnUrls' => $hideBannerOnUrls,
             'respectDoNotTrack' => consent()->isRespectDoNotTrackActive(),
             'hasOnlyEssentialCookies' => consent()->hasOnlyEssentialCookies(),
             'reloadAfterConsent' => false,
