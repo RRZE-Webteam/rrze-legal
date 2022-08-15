@@ -316,19 +316,6 @@ $settings = [
                         'description' => __('If any of the following services are used, enable them to generate a corresponding notice in the privacy policy.', 'rrze-legal'),
                         'fields' => [
                             [
-                                'name' => 'services_newsletter',
-                                'label' => __('Newsletter/Mailinglist', 'rrze-legal'),
-                                'description' => __('Do you offer a newsletter or mailing list?', 'rrze-legal'),
-                                'type' => 'radio',
-                                'options' => [
-                                    '1' => __('Yes', 'rrze-legal'),
-                                    '0' => __('No', 'rrze-legal'),
-                                ],
-                                'default' => '0',
-                                'inline' => true,
-                                'template' => ['1' => 'privacy-newsletter'],
-                            ],
-                            [
                                 'name' => 'services_contact_form',
                                 'label' => __('Contact Form', 'rrze-legal'),
                                 'description' => __('Do you use a contact form on this website? (The accessibility declaration offers one, so the answer is usually "yes").', 'rrze-legal'),
@@ -350,10 +337,24 @@ $settings = [
                                     '1' => __('Yes', 'rrze-legal'),
                                     '0' => __('No', 'rrze-legal'),
                                 ],
-                                'default' => '0',
+                                'default' => tos()->isRsvpActive() ? '1' : '0',
                                 'inline' => true,
                                 'template' => ['1' => 'privacy-registration-forms'],
                             ],
+                            [
+                                'name' => 'services_newsletter',
+                                'label' => __('Newsletter/Mailinglist', 'rrze-legal'),
+                                'description' => __('Do you offer a newsletter or mailing list?', 'rrze-legal'),
+                                'type' => 'radio',
+                                'options' => [
+                                    '1' => __('Yes', 'rrze-legal'),
+                                    '0' => __('No', 'rrze-legal'),
+                                ],
+                                'default' => tos()->isNewsletterActive() ? '1' : '0',
+                                'inline' => true,
+                                'template' => ['1' => 'privacy-newsletter'],
+                            ],
+                            /*
                             [
                                 'name' => 'services_corona_contact_tracking',
                                 'label' => __('Corona Contact Tracking', 'rrze-legal'),
@@ -367,6 +368,7 @@ $settings = [
                                 'inline' => true,
                                 'template' => ['1' => 'privacy-corona-contact-tracking'],
                             ],
+                            */
                         ],
                     ],
                     [
