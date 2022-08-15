@@ -6,7 +6,6 @@ defined('ABSPATH') || exit;
 
 use RRZE\Legal\Settings;
 use function RRZE\Legal\plugin;
-use function RRZE\Legal\consent;
 
 class Options extends Settings
 {

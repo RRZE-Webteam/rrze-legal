@@ -142,12 +142,22 @@ class Fields
         $value = esc_textarea($atts['value']);
         $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . $atts['placeholder'] . '"' : '';
         $editorType = $editorType ? 'wpcode-' . $editorType . '-editor ' : '';
-        $format = '<textarea %1$srows="4" cols="50" id="%2$s" name="%3$s[%4$s_%5$s]"%6$s>%7$s</textarea>';
+        $format = '<textarea %1$srows="4" cols="50" id="%2$s" name="%3$s[%4$s_%5$s]"%6$s%7$s>%8$s</textarea>';
         if ($editorType != '') {
             $format = '<div class="code-editor">' . $format . '</div>';
         }
 
-        $html = sprintf(
+        $html = '';
+        if ($atts['disabled']) {
+            $html .= sprintf(
+                '<input type="hidden" name="%1$s[%2$s_%3$s]" value="%4$s">',
+                $atts['option_name'],
+                $atts['section'],
+                $atts['name'],
+                $value,
+            );
+        }
+        $html .= sprintf(
             $format,
             $editorType,
             $atts['id'],
@@ -155,6 +165,7 @@ class Fields
             $atts['section'],
             $atts['name'],
             $placeholder,
+            $atts['disabled'] ? ' disabled="disabled"' : '',
             $value
         );
         $html .= self::description($atts);

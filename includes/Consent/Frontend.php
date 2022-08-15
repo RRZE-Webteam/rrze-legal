@@ -4,6 +4,7 @@ namespace RRZE\Legal\Consent;
 
 defined('ABSPATH') || exit;
 
+use RRZE\Legal\Cache;
 use function RRZE\Legal\{plugin, consent};
 
 class Frontend
@@ -22,6 +23,10 @@ class Frontend
      */
     public static function init()
     {
+        if (Cache::skipOnIp()) {
+            return;
+        }
+
         if (consent()->isBannerActive() || consent()->isTestModeActive()) {
             // Add scripts and styles
             add_action('wp_enqueue_scripts', [__CLASS__, 'enqueueScripts']);
