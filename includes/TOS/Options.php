@@ -143,6 +143,16 @@ class Options extends Settings
         return Endpoint::endpointLink($slug);
     }
 
+    public function isNewsletterActive()
+    {
+        return Utils::isPluginActive('rrze-newsletter/rrze-newsletter.php');
+    }
+
+    public function isRsvpActive()
+    {
+        return Utils::isPluginActive('rrze-rsvp/rrze-rsvp.php');
+    }
+
     public function getServiceProvidersOptions(): array
     {
         $providers = [];
