@@ -4,6 +4,8 @@ namespace RRZE\Legal;
 
 defined('ABSPATH') || exit;
 
+use RRZE\Legal\IP\{IP, IPUtils, RemoteAddress};
+
 class Utils
 {
     /**
@@ -96,6 +98,63 @@ class Utils
         $args[] = &$data;
         call_user_func_array('array_multisort', $args);
         return array_pop($args);
+    }
+
+    /**
+     * Sanitize IP addresses range.
+     * @param array $ipAddress
+     * @return array
+     */
+    public static function sanitizeIpRange(array $ipAddress)
+    {
+        $ipRange = [];
+        if (!empty($ipAddress)) {
+            foreach ($ipAddress as $value) {
+                $value = trim($value);
+                if (empty($value)) {
+                    continue;
+                }
+                $sanitizedValue = IPUtils::sanitizeIpRange($value);
+                if (!is_null($sanitizedValue)) {
+                    $ipRange[] = $sanitizedValue;
+                }
+            }
+        }
+        return $ipRange;
+    }
+
+    /**
+     * Check IP address range.
+     * @param array $ipAddresses
+     * @return boolean
+     */
+    public static function checkIpAddressRange($ipAddresses = [])
+    {
+        if (empty($ipAddresses) || !is_array($ipAddresses)) {
+            return false;
+        }
+
+        $remoteAddress = self::getRemoteIpAddress();
+        if (!$remoteAddress) {
+            return false;
+        }
+
+        $ip = IP::fromStringIP($remoteAddress);
+        if ($ip->isInRanges($ipAddresses)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get remote Ip address.
+     * @return string The remote IP address or an empty string.
+     */
+    public static function getRemoteIpAddress()
+    {
+        $remoteAddress = new RemoteAddress();
+        return $remoteAddress->getIpAddress();
     }
 
     /**
