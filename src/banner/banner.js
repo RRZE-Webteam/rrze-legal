@@ -1058,7 +1058,7 @@
                 },
                 no = function (t) {
                     !1 ===
-                        /bot|googlebot|crawler|spider|robot|crawling|lighthouse/i.test(
+                        /bot|googlebot|crawler|spider|robot|crawling|lighthouse|Siteimprove/i.test(
                             navigator.userAgent.toLowerCase()
                         ) &&
                         o
@@ -1393,7 +1393,7 @@
                                           window.location.pathname
                                   )
                                 ? e.cookiesForBots &&
-                                  /bot|googlebot|crawler|spider|robot|crawling|lighthouse/i.test(
+                                  /bot|googlebot|crawler|spider|robot|crawling|lighthouse|Siteimprove/i.test(
                                       navigator.userAgent.toLowerCase()
                                   )
                                     ? (J(e.cookies, !1),
