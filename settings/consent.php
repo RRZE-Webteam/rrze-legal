@@ -96,6 +96,15 @@ $settings = [
                                 'default' => '',
                                 'sanitize_callback' => [consent(), 'sanitizeTextareaList'],
                             ],
+                            [
+                                'name' => 'cookies_for_ip_addresses',
+                                'label' => __('Cookies For IP Addresses', 'rrze-legal'),
+                                'description' => __('These IP addresses are treated as a visitor who accepted all cookies. Add one IP address per line.', 'rrze-legal'),
+                                'type' => 'textarea',
+                                'default' => '',
+                                'disabled' => consent()->hasNetworkPriority(),
+                                'sanitize_callback' => [consent(), 'sanitizeTextareaIpList'],
+                            ],
                         ],
                     ],
                     [
