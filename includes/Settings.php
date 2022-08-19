@@ -714,6 +714,22 @@ class Settings
     }
 
     /**
+     * Sanitize textarea IP addresses list.
+     * @param string $input
+     * @return string
+     */
+    public function sanitizeTextareaIpList(string $input = '')
+    {
+        if (!empty($input)) {
+            $inputAry = explode(PHP_EOL, sanitize_textarea_field($input));
+            $inputAry = array_filter(array_map('trim', $inputAry));
+            $inputAry = array_unique(array_values($inputAry));
+        }
+        $inputAry = !empty($inputAry) ? Utils::sanitizeIpRange($inputAry) : '';
+        return !empty($inputAry) ? implode(PHP_EOL, $inputAry) : '';
+    }
+
+    /**
      * Validate URL
      * @param string $input
      * @return string
