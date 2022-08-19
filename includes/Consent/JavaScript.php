@@ -107,6 +107,7 @@ class JavaScript
             'cookiesForBots' => consent()->isCookieForBotsActive(),
             'cookieVersion' => $this->cookieVersion,
             'hideBannerOnUrls' => $hideBannerOnUrls,
+            'cookiesForIpAddresses' => consent()->hasCookiesForIpAddresses(),
             'respectDoNotTrack' => consent()->isRespectDoNotTrackActive(),
             'hasOnlyEssentialCookies' => consent()->hasOnlyEssentialCookies(),
             'reloadAfterConsent' => false,
