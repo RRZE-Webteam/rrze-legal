@@ -168,44 +168,44 @@
                             : o(
                                   "._rrzelegal-" + e.boxLayout + "-wrap"
                               ).addClass("_rrzelegal-position-fixed"),
-                              setTimeout(
-                                function () {
+                        setTimeout(
+                            function () {
+                                o(
+                                    "._rrzelegal-" + e.boxLayout + "-wrap"
+                                ).removeAttr("style"),
                                     o(
-                                        "._rrzelegal-" + e.boxLayout + "-wrap"
+                                        "._rrzelegal-" +
+                                            e.boxLayout +
+                                            " .cookie-box .container"
                                     ).removeAttr("style"),
+                                    o(
+                                        "._rrzelegal-" +
+                                            e.boxLayout +
+                                            " .cookie-preference .container"
+                                    ).removeAttr("style"),
+                                    e.animation &&
+                                        (o(
+                                            "._rrzelegal-" + e.boxLayout
+                                        ).removeClass("_rrzelegal-animated"),
                                         o(
-                                            "._rrzelegal-" +
-                                                e.boxLayout +
-                                                " .cookie-box .container"
-                                        ).removeAttr("style"),
+                                            "._rrzelegal-" + e.boxLayout
+                                        ).removeClass("delay-1s"),
                                         o(
-                                            "._rrzelegal-" +
-                                                e.boxLayout +
-                                                " .cookie-preference .container"
-                                        ).removeAttr("style"),
-                                        e.animation &&
-                                            (o(
-                                                "._rrzelegal-" + e.boxLayout
-                                            ).removeClass("_rrzelegal-animated"),
-                                            o("._rrzelegal-" + e.boxLayout).removeClass(
-                                                "delay-1s"
-                                            ),
-                                            o("._rrzelegal-" + e.boxLayout).removeClass(
-                                                e.animationIn
-                                            ),
-                                            o("._rrzelegal-" + e.boxLayout).removeClass(
-                                                e.animationOut
-                                            )),
+                                            "._rrzelegal-" + e.boxLayout
+                                        ).removeClass(e.animationIn),
+                                        o(
+                                            "._rrzelegal-" + e.boxLayout
+                                        ).removeClass(e.animationOut)),
+                                    o("#RRZELegalBanner > div").removeClass(
+                                        "show-cookie-box"
+                                    ),
+                                    e.blockContent &&
                                         o("#RRZELegalBanner > div").removeClass(
-                                            "show-cookie-box"
-                                        ),
-                                        e.blockContent &&
-                                            o(
-                                                "#RRZELegalBanner > div"
-                                            ).removeClass("_rrzelegal-block-content");
-                                },
-                                e.animation ? 1e3 : 0
-                            ),                              
+                                            "_rrzelegal-block-content"
+                                        );
+                            },
+                            e.animation ? 1e3 : 0
+                        ),
                         o("body").removeClass("rrzelegal-position-fix"),
                         !0
                     );
@@ -271,26 +271,51 @@
                                               o(this).trigger("change");
                                       }));
                         }),
-                        o("._rrzelegal-" + e.boxLayout + " .cookie-box .container")
-                        .animate(
-                            {height: 0, opacity: 0}, 
-                            function () {
-                                o("._rrzelegal-" + e.boxLayout + " .cookie-box").attr("aria-hidden", !0),
-                                o("._rrzelegal-" + e.boxLayout + " .cookie-preference").attr("aria-hidden", !1),
-                                o("#CookiePrefSave")[0].focus({preventScroll: !0}),
-                                o("._rrzelegal-" + e.boxLayout + "-wrap")
-                                .animate(
-                                    {width: "100vw", maxWidth: "box" === e.boxLayout ? "768px" : "100%"}, "box" === e.boxLayout ? 400 : 0,
+                        o(
+                            "._rrzelegal-" +
+                                e.boxLayout +
+                                " .cookie-box .container"
+                        ).animate({ height: 0, opacity: 0 }, function () {
+                            o(
+                                "._rrzelegal-" + e.boxLayout + " .cookie-box"
+                            ).attr("aria-hidden", !0),
+                                o(
+                                    "._rrzelegal-" +
+                                        e.boxLayout +
+                                        " .cookie-preference"
+                                ).attr("aria-hidden", !1),
+                                o("#CookiePrefSave")[0].focus({
+                                    preventScroll: !0,
+                                }),
+                                o(
+                                    "._rrzelegal-" + e.boxLayout + "-wrap"
+                                ).animate(
+                                    {
+                                        width: "100vw",
+                                        maxWidth:
+                                            "box" === e.boxLayout
+                                                ? "768px"
+                                                : "100%",
+                                    },
+                                    "box" === e.boxLayout ? 400 : 0,
                                     function () {
-                                        var t = o("._rrzelegal-" + e.boxLayout + " .cookie-preference .container")[0].scrollHeight;
-                                        o("._rrzelegal-" + e.boxLayout + " .cookie-preference .container")
-                                        .animate(
-                                            {height: "80vh", maxHeight: t, opacity: 1}
-                                        );
+                                        var t = o(
+                                            "._rrzelegal-" +
+                                                e.boxLayout +
+                                                " .cookie-preference .container"
+                                        )[0].scrollHeight;
+                                        o(
+                                            "._rrzelegal-" +
+                                                e.boxLayout +
+                                                " .cookie-preference .container"
+                                        ).animate({
+                                            height: "80vh",
+                                            maxHeight: t,
+                                            opacity: 1,
+                                        });
                                     }
                                 );
-                            }
-                        );
+                        });
                 },
                 D = function () {
                     L(document.querySelector(".cookie-preference")),
@@ -622,7 +647,9 @@
                                 if (i === consentCookieName) {
                                     var s = JSON.parse(decodeURIComponent(a));
                                     void 0 !== s.domainPath
-                                        ? s.domainPath === e.cookieDomain + e.cookiePath && (v = s)
+                                        ? s.domainPath ===
+                                              e.cookieDomain + e.cookiePath &&
+                                          (v = s)
                                         : (v = s);
                                 }
                             } catch (e) {
@@ -654,7 +681,8 @@
                         (n.expires = i),
                         (n.uid = v.uid),
                         (n.version = e.cookieVersion),
-                        void 0 === n.consents.essential && (n.consents.essential = e.cookies.essential);
+                        void 0 === n.consents.essential &&
+                            (n.consents.essential = e.cookies.essential);
                     var r = !0;
                     1 === Object.keys(o).length
                         ? ((n.uid = "anonymous"),
@@ -665,7 +693,11 @@
                         ? ((n.uid = $()),
                           1 === Object.keys(v.consents).length && (r = !1))
                         : "anonymous" !== v.uid && (r = !1),
-                        a.push(consentCookieName + "=" + encodeURIComponent(JSON.stringify(n))),
+                        a.push(
+                            consentCookieName +
+                                "=" +
+                                encodeURIComponent(JSON.stringify(n))
+                        ),
                         "" !== e.cookieDomain &&
                             "" === e.automaticCookieDomainAndPath &&
                             a.push("domain=" + e.cookieDomain),
@@ -901,9 +933,9 @@
                         a = o(this).parents(".RRZELegal"),
                         s = !1;
                     if (
-                        ((n = a.find(
+                        (n = a.find(
                             "[data-rrzelegal-cookie-type='content-blocker']"
-                        )[0].dataset.rrzelegalCookieId))
+                        )[0].dataset.rrzelegalCookieId)
                     )
                         for (var c in (o(
                             "[data-rrzelegal-cookie-type='content-blocker'][data-rrzelegal-cookie-id='" +
@@ -1069,6 +1101,26 @@
                             });
                     });
                 },
+                cookiesForIpAddresses = function () {
+                    o.ajax(e.ajaxURL, {
+                        type: "POST",
+                        data: {
+                            action: "banner_cookies_for_ip_addresses_handler",
+                        },
+                    }).done(function (r) {
+                        let check = o.parseJSON(r);
+                        if (check.check === "1") {
+                            J(e.cookies, !1),
+                                V(),
+                                F(),
+                                Y(),
+                                O(),
+                                document.dispatchEvent(m.codeUnblocked);
+                        } else {
+                            S(!0);
+                        }
+                    });
+                },
                 ao = function (t) {
                     if (e.crossDomainCookie.length)
                         for (var n in e.crossDomainCookie) {
@@ -1155,6 +1207,7 @@
                                 cookiesForBots: "1",
                                 cookieVersion: "1",
                                 hideBannerOnUrls: [],
+                                cookiesForIpAddresses: "",
                                 respectDoNotTrack: "",
                                 hasOnlyEssentialCookies: "",
                                 reloadAfterConsent: "",
@@ -1196,12 +1249,18 @@
                                         for (var e in u[o])
                                             if (
                                                 void 0 !== u[o][e].settings &&
-                                                void 0 !== u[o][e].settings.blockCookiesBeforeConsent &&
-                                                "1" === u[o][e].settings.blockCookiesBeforeConsent &&
-                                                void 0 !== u[o][e].cookieNameList &&
+                                                void 0 !==
+                                                    u[o][e].settings
+                                                        .blockCookiesBeforeConsent &&
+                                                "1" ===
+                                                    u[o][e].settings
+                                                        .blockCookiesBeforeConsent &&
+                                                void 0 !==
+                                                    u[o][e].cookieNameList &&
                                                 !1 === q(e)
                                             )
-                                                for (var t in u[o][e].cookieNameList)
+                                                for (var t in u[o][e]
+                                                    .cookieNameList)
                                                     M(
                                                         t,
                                                         null,
@@ -1237,17 +1296,30 @@
                                             t = [],
                                             n = e.cookieLifetimeEssentialOnly,
                                             i = new Date();
-                                        i.setTime(i.getTime() + 24 * parseInt(n) * 60 * 60 * 1e3);
+                                        i.setTime(
+                                            i.getTime() +
+                                                24 * parseInt(n) * 60 * 60 * 1e3
+                                        );
                                         var a = i.toUTCString();
                                         (o.consents = {}),
-                                            (o.domainPath = e.cookieDomain + e.cookiePath),
+                                            (o.domainPath =
+                                                e.cookieDomain + e.cookiePath),
                                             (o.expires = a),
                                             (o.uid = v.uid),
                                             (o.version = null),
-                                            t.push(consentCookieName + "=" + encodeURIComponent(JSON.stringify(o))),
+                                            t.push(
+                                                consentCookieName +
+                                                    "=" +
+                                                    encodeURIComponent(
+                                                        JSON.stringify(o)
+                                                    )
+                                            ),
                                             "" !== e.cookieDomain &&
-                                                "" === e.automaticCookieDomainAndPath &&
-                                                t.push("domain=" + e.cookieDomain),
+                                                "" ===
+                                                    e.automaticCookieDomainAndPath &&
+                                                t.push(
+                                                    "domain=" + e.cookieDomain
+                                                ),
                                             t.push("path=" + e.cookiePath),
                                             t.push("expires=" + a),
                                             t.push("SameSite=Lax"),
@@ -1330,9 +1402,10 @@
                                       Y(),
                                       O(),
                                       document.dispatchEvent(m.codeUnblocked))
-                                    : e.hasOnlyEssentialCookies || (e.respectDoNotTrack &&
-                                      void 0 !== navigator.doNotTrack &&
-                                      "1" === navigator.doNotTrack)
+                                    : e.hasOnlyEssentialCookies ||
+                                      (e.respectDoNotTrack &&
+                                          void 0 !== navigator.doNotTrack &&
+                                          "1" === navigator.doNotTrack)
                                     ? (J(
                                           { essential: e.cookies.essential },
                                           !1
@@ -1342,6 +1415,8 @@
                                       Y(),
                                       O(),
                                       document.dispatchEvent(m.codeUnblocked))
+                                    : e.cookiesForIpAddresses
+                                    ? cookiesForIpAddresses()
                                     : S(!0)
                                 : (V(),
                                   F(),

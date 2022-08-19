@@ -4,7 +4,7 @@ namespace RRZE\Legal\Consent;
 
 defined('ABSPATH') || exit;
 
-use RRZE\Legal\Cache;
+use RRZE\Legal\Utils;
 use function RRZE\Legal\{plugin, consent};
 
 class Frontend
@@ -14,8 +14,10 @@ class Frontend
         add_action('init', [__CLASS__, 'init']);
 
         // Register handler for AJAX requests
-        add_action('wp_ajax_banner_log_handler', [__CLASS__, 'handleAjaxRequest']);
-        add_action('wp_ajax_nopriv_banner_log_handler', [__CLASS__, 'handleAjaxRequest']);
+        add_action('wp_ajax_banner_log_handler', [__CLASS__, 'handleLogAjaxRequest']);
+        add_action('wp_ajax_nopriv_banner_log_handler', [__CLASS__, 'handleLogAjaxRequest']);
+        add_action('wp_ajax_banner_cookies_for_ip_addresses_handler', [__CLASS__, 'handleCookiesForIpAddresses']);
+        add_action('wp_ajax_nopriv_banner_cookies_for_ip_addresses_handler', [__CLASS__, 'handleCookiesForIpAddresses']);
     }
 
     /**
@@ -23,10 +25,6 @@ class Frontend
      */
     public static function init()
     {
-        if (Cache::skipOnIp()) {
-            return;
-        }
-
         if (consent()->isBannerActive() || consent()->isTestModeActive()) {
             // Add scripts and styles
             add_action('wp_enqueue_scripts', [__CLASS__, 'enqueueScripts']);
@@ -109,9 +107,9 @@ class Frontend
     }
 
     /**
-     * Handle Ajax Request.
+     * Handle Log (ajax request).
      */
-    public static function handleAjaxRequest()
+    public static function handleLogAjaxRequest()
     {
         if (!empty($_POST['type'])) {
             $requestType = $_POST['type'];
@@ -125,6 +123,18 @@ class Frontend
                 echo json_encode(Log::getConsentHistory($_POST['uid']));
             }
         }
+        wp_die();
+    }
+
+    /**
+     * Handle Hide On IP Address (ajax request).
+     */
+    public static function handleCookiesForIpAddresses()
+    {
+        $ipAddresses = consent()->getCookiesForIpAddresses();
+        $ipAddresses = !empty($ipAddresses) ? explode(PHP_EOL, $ipAddresses) : [];
+        $check = Utils::checkIpAddressRange($ipAddresses) ? '1' : '0';
+        echo json_encode(['check' => $check]);
         wp_die();
     }
 }

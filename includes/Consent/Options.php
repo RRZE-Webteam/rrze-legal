@@ -158,4 +158,18 @@ class Options extends Settings
             return (bool) $this->getOption('banner', 'ignore_preselected_status');
         }
     }
+
+    public function getCookiesForIpAddresses()
+    {
+        if ($this->hasNetworkPriority()) {
+            return network()->getOption('network_banner', 'cookies_for_ip_addresses');
+        } else {
+            return $this->getOption('banner', 'cookies_for_ip_addresses');
+        }
+    }
+
+    public function hasCookiesForIpAddresses()
+    {
+        return (bool) $this->getCookiesForIpAddresses();
+    }
 }

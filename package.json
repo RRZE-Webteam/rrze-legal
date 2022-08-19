@@ -1,6 +1,6 @@
 {
     "name": "rrze-legal",
-    "version": "2.2.0",
+    "version": "2.4.0",
     "main": "rrze-legal.php",
     "scripts": {
         "start": "webpack --mode=development --watch",
@@ -21,23 +21,24 @@
     },
     "homepage": "https://github.com/RRZE-Webteam/rrze-legal#readme",
     "devDependencies": {
-        "@babel/core": "^7.14",
-        "@babel/preset-env": "^7.14",
-        "autoprefixer": "^10.3.1",
-        "babel-loader": "^8.2.2",
-        "clean-webpack-plugin": "^3.0.0",
-        "css-loader": "^6.2.0",
-        "css-minimizer-webpack-plugin": "^3.0.2",
-        "mini-css-extract-plugin": "^2.6.1",
-        "postcss-loader": "^6.1.1",
-        "sass": "^1.53.0",
-        "sass-loader": "^12.1.0",
-        "style-loader": "^3.2.1",
-        "terser-webpack-plugin": "^5.1.4",
-        "webpack": "^5.46.0",
-        "webpack-cli": "^4.7.2",
+        "@babel/core": "^7.18.10",
+        "@babel/preset-env": "^7.18.10",
+        "autoprefixer": "^10.4.8",
+        "babel-loader": "^8.2.5",
+        "clean-webpack-plugin": "^4.0.0",
+        "css-loader": "^6.7.1",
+        "css-minimizer-webpack-plugin": "^4.0.0",
         "gulp": "^4.0.2",
         "gulp-bump": "^3.2.0",
-        "gulp-touch-cmd": "^0.0.1"
+        "gulp-touch-cmd": "^0.0.1",
+        "mini-css-extract-plugin": "^2.6.1",
+        "postcss-loader": "^7.0.1",
+        "sass": "^1.54.4",
+        "sass-loader": "^13.0.2",
+        "semver": "^7.3.7",
+        "style-loader": "^3.3.1",
+        "terser-webpack-plugin": "^5.3.5",
+        "webpack": "^5.74.0",
+        "webpack-cli": "^4.10.0"
     }
 }
