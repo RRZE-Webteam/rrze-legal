@@ -140,7 +140,7 @@ class JavaScript
                             'settings' => [
                                 'blockCookiesBeforeConsent' => false,
                                 'prioritize' => false,
-                                'asyncOptOutCode' => (bool) $cookieData['async_opt_out_code'],
+                                'asyncOptOutCode' => (bool) $cookieData['async_opt_out_code'] ?? 0,
                             ],
                         ];
 
