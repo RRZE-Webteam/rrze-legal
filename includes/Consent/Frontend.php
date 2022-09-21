@@ -25,6 +25,13 @@ class Frontend
      */
     public static function init()
     {
+        if (self::rrzeAccessControlPlugin()) {
+            Cookies::setEssentialCookie();
+            return;
+        } elseif (self::rrzePrivateSitePlugin()) {
+            return;
+        }
+
         if (consent()->isBannerActive() || consent()->isTestModeActive()) {
             // Add scripts and styles
             add_action('wp_enqueue_scripts', [__CLASS__, 'enqueueScripts']);
@@ -136,5 +143,46 @@ class Frontend
         $check = Utils::checkIpAddressRange($ipAddresses) ? '1' : '0';
         echo json_encode(['check' => $check]);
         wp_die();
+    }
+
+    public static function rrzeAccessControlPlugin()
+    {
+        if (
+            !Utils::isPluginActive('rrze-ac/rrze-ac.php')
+            && !Utils::isPluginActiveForNetwork('rrze-ac/rrze-ac.php')
+
+        ) {
+            return false;
+        }
+
+        $currentURL = '//' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        $postId = url_to_postid($currentURL);
+        $post = $postId ? get_post($postId) : 0;
+        if (
+            !($post instanceof \WP_Post)
+            || !in_array($post->post_type, ['page', 'attachment'])
+        ) {
+            return false;
+        }
+
+        $meta = get_post_meta($postId, '_access_permission');
+        if (empty($meta) || $meta == 'all') {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static function rrzePrivateSitePlugin()
+    {
+        if (
+            !Utils::isPluginActive('rrze-private-site/rrze-private-site.php')
+            && !Utils::isPluginActiveForNetwork('rrze-private-site/rrze-private-site.php')
+
+        ) {
+            return false;
+        }
+
+        return true;
     }
 }
