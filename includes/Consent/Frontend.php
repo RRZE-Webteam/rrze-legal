@@ -6,6 +6,7 @@ defined('ABSPATH') || exit;
 
 use RRZE\Legal\Utils;
 use function RRZE\Legal\{plugin, consent};
+use const RRZE\PrivateSite\PRIVATE_SITE_OPTION;
 
 class Frontend
 {
@@ -180,6 +181,10 @@ class Frontend
             && !Utils::isPluginActiveForNetwork('rrze-private-site/rrze-private-site.php')
 
         ) {
+            return false;
+        }
+
+        if (empty(PRIVATE_SITE_OPTION) || !get_option(PRIVATE_SITE_OPTION)) {
             return false;
         }
 
