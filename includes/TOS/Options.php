@@ -101,6 +101,14 @@ class Options extends Settings
         return false;
     }
 
+    public function overwriteEndpoints()
+    {
+        if ($this->isPluginActiveForNetwork) {
+            return (bool) network()->getOption('network_general', 'overwrite_endpoints');
+        }
+        return false;
+    }
+
     public function getDefaultDomains()
     {
         $defaultDomains = Utils::getFAUDomains();

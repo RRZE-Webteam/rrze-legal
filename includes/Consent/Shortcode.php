@@ -54,7 +54,7 @@ class Shortcode
                 $content .= '<span class="_rrzelegal-slider"></span>';
                 $content .= '<span class="_rrzelegal-btn-switch-status" data-active="'
                     . esc_html(__('Yes, I agree.', 'rrze-legal')) . '" data-inactive="'
-                    . esc_html(__('Yes, I agree.', 'rrze-legal')) . '" aria-hidden="true"></span>';
+                    . esc_html(__('Yes, I agree.', 'rrze-legal')) . '"></span>';
                 $content .= '</label>';
                 $content .= '</div></div>';
                 $content .= '</div>';

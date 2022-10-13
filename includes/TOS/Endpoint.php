@@ -93,17 +93,19 @@ class Endpoint
         if (!$title || !$prefix) {
             return;
         }
-        $page = get_page_by_title($title);
-        if (!is_null($page) && $page->post_status == 'publish') {
-            // Replaces double line breaks with paragraph elements
-            $content = wpautop($page->post_content);
-            // Search content for shortcodes and filter shortcodes through their hooks
-            // Shortcodes inside HTML elements will be skipped
-            $content = do_shortcode($content);
-            // Render the page with the content
-            $template = plugin()->getPath(Template::THEMES_PATH) . Template::getThemeFilename();
-            include($template);
-            exit;
+        if (tos()->overwriteEndpoints()) {
+            $page = get_page_by_title($title);
+            if (!is_null($page) && $page->post_status == 'publish') {
+                // Replaces double line breaks with paragraph elements
+                $content = wpautop($page->post_content);
+                // Search content for shortcodes and filter shortcodes through their hooks
+                // Shortcodes inside HTML elements will be skipped
+                $content = do_shortcode($content);
+                // Render the page with the content
+                $template = plugin()->getPath(Template::THEMES_PATH) . Template::getThemeFilename();
+                include($template);
+                exit;
+            }
         }
         // Get the options
         $options = tos()->getOptions();
