@@ -32,7 +32,7 @@ $settings = [
                     [
                         'name' => 'overwrite_endpoints',
                         'label' => __('Overwrite Endpoints', 'rrze-legal'),
-                        'description' => __('Overwrite endpoints with pages that have the same title', 'rrze-legal'),
+                        'description' => __('Websites may create their own, manually created web pages for the legal text. These then have priority over the automatically created texts and are shown instead', 'rrze-legal'),
                         'type' => 'checkbox',
                         'default' => true,
                     ],
