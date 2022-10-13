@@ -30,6 +30,13 @@ $settings = [
                 'description' => __('General network settings.', 'rrze-legal'),
                 'fields' => [
                     [
+                        'name' => 'overwrite_endpoints',
+                        'label' => __('Overwrite Endpoints', 'rrze-legal'),
+                        'description' => __('Overwrite endpoints with pages that have the same title', 'rrze-legal'),
+                        'type' => 'checkbox',
+                        'default' => true,
+                    ],
+                    [
                         'name' => 'fau_domains',
                         'label' => __('FAU domains', 'rrze-legal'),
                         'description' => __('Websites belonging to FAU domains will use the default FAU data for some sections.', 'rrze-legal'),
