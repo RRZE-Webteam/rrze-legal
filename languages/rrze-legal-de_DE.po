@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RRZE Legal 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-legal\n"
-"POT-Creation-Date: 2022-08-19T10:38:25+00:00\n"
-"PO-Revision-Date: 2022-08-19 12:38+0200\n"
+"POT-Creation-Date: 2022-10-13T13:13:13+00:00\n"
+"PO-Revision-Date: 2022-10-13 15:17+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -350,7 +350,7 @@ msgstr "Beschreibung"
 #: includes/Consent/Categories/ListTable.php:105
 #: includes/Consent/Cookies/ListTable.php:140
 #: settings/consent-categories.php:46 settings/consent-cookies.php:54
-#: settings/consent.php:39 settings/network.php:58
+#: settings/consent.php:39 settings/network.php:65
 msgid "Status"
 msgstr "Status"
 
@@ -526,12 +526,12 @@ msgstr "Einträge pro Seite:"
 msgid "Legal"
 msgstr "Rechtliches"
 
-#: includes/Main.php:122 settings/tos.php:14 settings/tos.php:17
+#: includes/Main.php:123 settings/tos.php:14 settings/tos.php:17
 msgid "Legal Mandatory Information"
 msgstr "Rechtliche Pflichtangaben"
 
 #. translators: %s: Link of the settings page.
-#: includes/Main.php:126
+#: includes/Main.php:127
 msgid ""
 "One or more mandatory fields of the legal settings have not been filled. "
 "Please fill in these fields as soon as possible in the following link: %s."
@@ -541,7 +541,7 @@ msgstr ""
 "folgendem Link aus: %s."
 
 #. translators: %s: Permalink of the page that overrides the endpoint.
-#: includes/Main.php:137
+#: includes/Main.php:138
 msgid ""
 "The output of this settings page is overwritten by the content of the "
 "following page: %s."
@@ -695,79 +695,79 @@ msgstr "Datenschutz"
 msgid "Accessibility"
 msgstr "Barrierefreiheit"
 
-#: includes/TOS/Endpoint.php:116
+#: includes/TOS/Endpoint.php:118
 msgid "and"
 msgstr "und"
 
-#: includes/TOS/Endpoint.php:274
+#: includes/TOS/Endpoint.php:276
 msgid "Not Found"
 msgstr "Nicht gefunden"
 
-#: includes/TOS/Options.php:204
+#: includes/TOS/Options.php:212
 msgid "Bundesebene Deutschland (Öffentlicher Dienst)"
 msgstr "Bundesebene Deutschland (Öffentlicher Dienst)"
 
-#: includes/TOS/Options.php:216
+#: includes/TOS/Options.php:224
 msgid "Baden-Württemberg"
 msgstr "Baden-Württemberg"
 
-#: includes/TOS/Options.php:225
+#: includes/TOS/Options.php:233
 msgid "Bayern"
 msgstr "Bayern"
 
-#: includes/TOS/Options.php:239
+#: includes/TOS/Options.php:247
 msgid "Berlin"
 msgstr "Berlin"
 
-#: includes/TOS/Options.php:250
+#: includes/TOS/Options.php:258
 msgid "Brandenburg"
 msgstr "Brandenburg"
 
-#: includes/TOS/Options.php:261
+#: includes/TOS/Options.php:269
 msgid "Bremen"
 msgstr "Bremen"
 
-#: includes/TOS/Options.php:272
+#: includes/TOS/Options.php:280
 msgid "Hamburg"
 msgstr "Hamburg"
 
-#: includes/TOS/Options.php:282
+#: includes/TOS/Options.php:290
 msgid "Hessen"
 msgstr "Hessen"
 
-#: includes/TOS/Options.php:293
+#: includes/TOS/Options.php:301
 msgid "Mecklenburg-Vorpommern"
 msgstr "Mecklenburg-Vorpommern"
 
-#: includes/TOS/Options.php:304
+#: includes/TOS/Options.php:312
 msgid "Niedersachsen"
 msgstr "Niedersachsen"
 
-#: includes/TOS/Options.php:313
+#: includes/TOS/Options.php:321
 msgid "Nordrhein-Westfalen"
 msgstr "Nordrhein-Westfalen"
 
-#: includes/TOS/Options.php:322
+#: includes/TOS/Options.php:330
 msgid "Rheinland-Pfalz"
 msgstr "Rheinland-Pfalz"
 
-#: includes/TOS/Options.php:333
+#: includes/TOS/Options.php:341
 msgid "Saarland"
 msgstr "Saarland"
 
-#: includes/TOS/Options.php:344
+#: includes/TOS/Options.php:352
 msgid "Sachsen"
 msgstr "Sachsen"
 
-#: includes/TOS/Options.php:353
+#: includes/TOS/Options.php:361
 msgid "Sachsen-Anhalt"
 msgstr "Sachsen-Anhalt"
 
-#: includes/TOS/Options.php:364
+#: includes/TOS/Options.php:372
 msgid "Schleswig-Holstein"
 msgstr "Schleswig-Holstein"
 
-#: includes/TOS/Options.php:375
+#: includes/TOS/Options.php:383
 msgid "Thüringen"
 msgstr "Thüringen"
 
@@ -1027,7 +1027,7 @@ msgstr "Consent-Banner"
 msgid "Consent Settings"
 msgstr "Consent-Einstellungen"
 
-#: settings/consent.php:28 settings/network.php:52
+#: settings/consent.php:28 settings/network.php:59
 msgid "Banner"
 msgstr "Banner"
 
@@ -1039,7 +1039,7 @@ msgstr "Allgemeine Einstellungen für das Content-Banner."
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
-#: settings/consent.php:40 settings/network.php:59
+#: settings/consent.php:40 settings/network.php:66
 msgid ""
 "Activates the Consent Banner. Displays the <strong>Banner</strong> and "
 "blocks iframes and other external media"
@@ -1059,12 +1059,12 @@ msgstr ""
 "Testen Sie die Einstellungen des Content-Banners, ohne den <strong>Banner-"
 "Status</strong> aktivieren zu müssen"
 
-#: settings/consent.php:54 settings/network.php:65
+#: settings/consent.php:54 settings/network.php:72
 msgid "Update Consent Cookie Version & Force Re-Selection"
 msgstr "Consent-Cookie-Version aktualisieren und erneute Auswahl erzwingen"
 
 #. translators: %s: Consent cookie version.
-#: settings/consent.php:57 settings/network.php:68
+#: settings/consent.php:57 settings/network.php:75
 msgid ""
 "Updates the version of the cookie of Consent Cookie. This will cause the "
 "<strong>Consent Banner</strong> to reappear for visitors who have already "
@@ -1075,21 +1075,21 @@ msgstr ""
 "ausgewählt haben, erneut angezeigt. <strong>Aktuelle Version des Standard-"
 "Cookies: %s </strong>"
 
-#: settings/consent.php:65 settings/network.php:76
+#: settings/consent.php:65 settings/network.php:83
 msgid "Cookies for Bots/Crawlers"
 msgstr "Cookies für Bots/Crawler"
 
-#: settings/consent.php:66 settings/network.php:77
+#: settings/consent.php:66 settings/network.php:84
 msgid "A bot/crawler is treated like a visitor who accepted all cookies"
 msgstr ""
 "Ein Bot/Crawler wird wie ein Besucher behandelt, der alle Cookies akzeptiert "
 "hat.“"
 
-#: settings/consent.php:72 settings/network.php:83
+#: settings/consent.php:72 settings/network.php:90
 msgid "Respect \"Do Not Track\""
 msgstr "Respektiere „Do Not Track“"
 
-#: settings/consent.php:73 settings/network.php:84
+#: settings/consent.php:73 settings/network.php:91
 msgid ""
 "A visitor with active <strong>\"Do Not Track\"</strong> setting will not see "
 "the <strong>Consent Banner</strong> and the system will automatically select "
@@ -1099,11 +1099,11 @@ msgstr ""
 "das <strong>Content-Banner</strong> nicht und das System wählt automatisch "
 "die Option <strong>„Ablehnen“</strong>"
 
-#: settings/consent.php:79 settings/network.php:90
+#: settings/consent.php:79 settings/network.php:97
 msgid "Reload After Opt-Out"
 msgstr "Nach Opt-Out neu laden"
 
-#: settings/consent.php:80 settings/network.php:91
+#: settings/consent.php:80 settings/network.php:98
 msgid ""
 "If activated the website will be reloaded after the visitor saves their "
 "consent"
@@ -1111,11 +1111,11 @@ msgstr ""
 "Wenn aktiviert, wird die Website neu geladen, nachdem der Besucher seine "
 "Einwilligung gespeichert hat"
 
-#: settings/consent.php:86 settings/network.php:97
+#: settings/consent.php:86 settings/network.php:104
 msgid "Ignore Preselected Categories"
 msgstr "Vorgewählte Kategorien ignorieren"
 
-#: settings/consent.php:87 settings/network.php:98
+#: settings/consent.php:87 settings/network.php:105
 msgid ""
 "If activated, no <strong>Categories</strong> are preselected in the "
 "<strong>Consent Banner</strong>"
@@ -1135,11 +1135,11 @@ msgstr ""
 "Fügen Sie eine URL pro Zeile hinzu. Das <strong>Consent-Banner</strong> wird "
 "auf diesen URLs nicht angezeigt."
 
-#: settings/consent.php:101 settings/network.php:104
+#: settings/consent.php:101 settings/network.php:111
 msgid "Cookies For IP Addresses"
 msgstr "Cookies für IP-Adressen"
 
-#: settings/consent.php:102 settings/network.php:105
+#: settings/consent.php:102 settings/network.php:112
 msgid ""
 "These IP addresses are treated as a visitor who accepted all cookies. Add "
 "one IP address per line."
@@ -1344,10 +1344,18 @@ msgid "General network settings."
 msgstr "Allgemeine Netzwerkeinstellungen."
 
 #: settings/network.php:34
+msgid "Overwrite Endpoints"
+msgstr "Endpoints überschreiben"
+
+#: settings/network.php:35
+msgid "Overwrite endpoints with pages that have the same title"
+msgstr "Überschreiben von Endpoints mit Seiten, die denselben Titel haben"
+
+#: settings/network.php:41
 msgid "FAU domains"
 msgstr "FAU-Domains"
 
-#: settings/network.php:35
+#: settings/network.php:42
 msgid ""
 "Websites belonging to FAU domains will use the default FAU data for some "
 "sections."
@@ -1355,11 +1363,11 @@ msgstr ""
 "Websites, die zu FAU-Domains gehören, verwenden für einige Bereiche die "
 "Standarddaten der FAU."
 
-#: settings/network.php:42
+#: settings/network.php:49
 msgid "Exceptions"
 msgstr "Ausnahmen"
 
-#: settings/network.php:43
+#: settings/network.php:50
 msgid ""
 "List of website IDs that are exempt from the network settings. Enter one "
 "website ID per line."
@@ -1367,7 +1375,7 @@ msgstr ""
 "Liste der Website-IDs, die von den Netzwerkeinstellungen ausgenommen sind. "
 "Geben Sie eine Website-ID pro Zeile ein."
 
-#: settings/network.php:54
+#: settings/network.php:61
 msgid "General network settings for consent banner."
 msgstr "Allgemeine Netzwerkeinstellungen für Einwilligungsbanner."
 
