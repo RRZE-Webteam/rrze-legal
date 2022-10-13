@@ -103,10 +103,10 @@ class Options extends Settings
 
     public function overwriteEndpoints()
     {
-        if ($this->isPluginActiveForNetwork) {
+        if ($this->isPluginActiveForNetwork && !network()->hasException()) {
             return (bool) network()->getOption('network_general', 'overwrite_endpoints');
         }
-        return false;
+        return true;
     }
 
     public function getDefaultDomains()
