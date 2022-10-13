@@ -79,13 +79,14 @@ class Main
 
         $slugs = Endpoint::slugsTitles();
         $published = [];
-        foreach ($slugs as $slug => $title) {
-            $page = get_page_by_title($title);
-            if (!is_null($page) && $page->post_status == 'publish') {
-                $published[$slug] = $page->ID;
+        if (tos()->overwriteEndpoints()) {
+            foreach ($slugs as $slug => $title) {
+                $page = get_page_by_title($title);
+                if (!is_null($page) && $page->post_status == 'publish') {
+                    $published[$slug] = $page->ID;
+                }
             }
         }
-
         $pagePrefix = tos()->getPagePrefix();
         $currentPage = array_key_exists('page', $_GET) ? $_GET['page'] : '';
         $current = array_key_exists('current-tab', $_GET) ? $_GET['current-tab'] : '';
