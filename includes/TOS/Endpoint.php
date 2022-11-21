@@ -230,7 +230,7 @@ class Endpoint
     protected static function setComplianceMethod(&$options)
     {
         $key = $options['accessibility_compliance_status_method'] ?? '';
-        $fields = (array) tos()->getFields()['accessibility_compliance_status_conformity'] ?? [];
+        $fields = (array) tos()->getFields()['accessibility_compliance_status_method'] ?? [];
         $optionsField = $fields['options'] ?? [];
         $options['accessibility_compliance_method_label'] =  $optionsField[$key];
     }
