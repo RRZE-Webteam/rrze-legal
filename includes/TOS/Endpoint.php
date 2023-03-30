@@ -65,6 +65,7 @@ class Endpoint
 
     public static function endpointTemplateRedirect()
     {
+        $pagePath = '';
         $title = '';
         $prefix = '';
         $locale = Locale::getLocale();
@@ -84,17 +85,18 @@ class Endpoint
                     wp_redirect(site_url($langSegment . $r));
                     exit;
                 } elseif ($urlSlug == $slug && $langCode == $lang) {
+                    $pagePath = $slug;
                     $title = self::slugsTitles()[$key];
                     $prefix = self::defaultSlugs()[$key];
                     break 2;
                 }
             }
         }
-        if (!$title || !$prefix) {
+        if (!$pagePath || !$title || !$prefix) {
             return;
         }
         if (tos()->overwriteEndpoints()) {
-            $page = get_page_by_title($title);
+            $page = get_page_by_path($pagePath);
             if (!is_null($page) && $page->post_status == 'publish') {
                 // Replaces double line breaks with paragraph elements
                 $content = wpautop($page->post_content);

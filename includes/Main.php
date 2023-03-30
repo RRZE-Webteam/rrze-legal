@@ -77,11 +77,11 @@ class Main
             return;
         }
 
-        $slugs = Endpoint::slugsTitles();
+        $slugs = Endpoint::getSlugs();
         $published = [];
         if (tos()->overwriteEndpoints()) {
-            foreach ($slugs as $slug => $title) {
-                $page = get_page_by_title($title);
+            foreach (array_keys($slugs) as $slug) {
+                $page = get_page_by_path($slug);
                 if (!is_null($page) && $page->post_status == 'publish') {
                     $published[$slug] = $page->ID;
                 }
