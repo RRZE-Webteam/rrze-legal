@@ -29,5 +29,4 @@ if (is_plugin_active('rrze-elements/rrze-elements.php')) {
     </div>
 </div>
 <?php
-get_template_part('template-parts/footer', 'social');
 get_footer();

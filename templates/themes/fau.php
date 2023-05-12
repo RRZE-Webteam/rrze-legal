@@ -9,33 +9,27 @@ namespace RRZE\Legal;
 defined('ABSPATH') || exit;
 
 global $post;
-$breadcrump = function_exists('fau_get_breadcrump') ? fau_get_breadcrump() : '';
-
+$post->post_title = $title;
 get_header();
 if (is_plugin_active('rrze-elements/rrze-elements.php')) {
     wp_enqueue_style('rrze-elements');
     wp_enqueue_script('rrze-accordions');
 }
+
+$currentTheme = wp_get_theme();		
+$vers = $currentTheme->get( 'Version' );
+  if (version_compare($vers, "2.3", '<')) {  
+    // alte Anweisung für den Hero hier....
+      get_template_part('template-parts/hero', 'small');
+  }
 ?>
-<section id="hero" class="hero-small">
-    <div class="container hero-content">
-        <div class="row">
-            <div class="col-xs-12">
-                <?php echo $breadcrump; ?>
-            </div>
-        </div>
-        <div class="row" aria-hidden="true" role="presentation">
-            <div class="col-xs-12">
-                <p class="presentationtitle"><?php echo $title; ?></p>
-            </div>
-        </div>
-    </div>
-</section>
+
 <div id="content">
     <div class="content-container">
         <div class="content-row">
-            <main>
-                <h1 class="screen-reader-text"><?php echo $title; ?></h1>
+            <main<?php echo fau_get_page_langcode($post->ID);?>>
+                <h1 id="maintop" class="screen-reader-text"><?php echo $title; ?></h1>
+
                 <div class="inline-box">
                     <div class="content-inline">
                         <?php echo $content; ?>
@@ -46,5 +40,4 @@ if (is_plugin_active('rrze-elements/rrze-elements.php')) {
     </div>
 </div>
 <?php
-get_template_part('template-parts/footer', 'social');
 get_footer();
