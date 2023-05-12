@@ -16,7 +16,6 @@ class Endpoint
     {
         add_action('init', [__CLASS__, 'addEndpoint']);
         add_action('template_redirect', [__CLASS__, 'endpointTemplateRedirect'], 9999);
-
     }
 
     public static function slugsTitles()
@@ -63,8 +62,7 @@ class Endpoint
             }
         }
     }
-  
-    
+
     public static function endpointTemplateRedirect()
     {
         $pagePath = '';
