@@ -8,8 +8,6 @@ namespace RRZE\Legal;
 
 defined('ABSPATH') || exit;
 
-global $post;
-$post->post_title = $title;
 get_header();
 if (is_plugin_active('rrze-elements/rrze-elements.php')) {
     wp_enqueue_style('rrze-elements');
@@ -27,7 +25,7 @@ $vers = $currentTheme->get( 'Version' );
 <div id="content">
     <div class="content-container">
         <div class="content-row">
-            <main<?php echo fau_get_page_langcode($post->ID);?>>
+            <main>
                 <h1 id="maintop" class="screen-reader-text"><?php echo $title; ?></h1>
 
                 <div class="inline-box">
