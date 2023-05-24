@@ -6,8 +6,6 @@
 
 namespace RRZE\Legal;
 
-use WP_Post;
-
 defined('ABSPATH') || exit;
 
 $langCode = ' lang="' . Locale::getLangCode() . '"';
