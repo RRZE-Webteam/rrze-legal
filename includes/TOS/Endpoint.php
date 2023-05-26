@@ -92,9 +92,13 @@ class Endpoint
                 }
             }
         }
+
         if (!$pagePath || !$title || !$prefix) {
             return;
         }
+
+        add_filter('pre_get_document_title', fn () => ($title));
+
         if (tos()->overwriteEndpoints()) {
             $page = get_page_by_path($pagePath);
             if (!is_null($page) && $page->post_status == 'publish') {
