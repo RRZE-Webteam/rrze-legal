@@ -97,6 +97,7 @@ class Endpoint
             return;
         }
 
+        add_filter('the_title', fn () => ($title));
         add_filter('pre_get_document_title', fn () => ($title));
 
         if (tos()->overwriteEndpoints()) {
