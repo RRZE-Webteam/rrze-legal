@@ -9,9 +9,6 @@ namespace RRZE\Legal;
 defined('ABSPATH') || exit;
 
 $langCode = ' lang="' . Locale::getLangCode() . '"';
-if ($post = get_post()) {
-    $post->post_title = $title;
-}
 get_header();
 if (is_plugin_active('rrze-elements/rrze-elements.php')) {
     wp_enqueue_style('rrze-elements');
