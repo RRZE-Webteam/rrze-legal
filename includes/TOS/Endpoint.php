@@ -15,7 +15,7 @@ class Endpoint
     public function __construct()
     {
         add_action('init', [__CLASS__, 'addEndpoint']);
-        add_action('template_redirect', [__CLASS__, 'endpointTemplateRedirect'], 9999);
+        add_action('template_redirect', [__CLASS__, 'endpointTemplateRedirect']);
     }
 
     public static function slugsTitles()
@@ -97,7 +97,6 @@ class Endpoint
             return;
         }
 
-        add_filter('the_title', fn () => ($title));
         add_filter('pre_get_document_title', fn () => ($title));
 
         if (tos()->overwriteEndpoints()) {
