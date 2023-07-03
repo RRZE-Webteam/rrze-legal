@@ -45,7 +45,9 @@ class Main
         consentCookies()->setAdminMenu();
 
         // Load banner
-        Frontend::loaded();
+        if (!is_admin() && strpos($_SERVER['REQUEST_URI'], '/wp-json/') === false) {
+            Frontend::loaded();
+        }
 
         // Update
         Update::loaded();
