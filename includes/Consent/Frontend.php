@@ -184,7 +184,7 @@ class Frontend
             return false;
         }
 
-        if (empty(PRIVATE_SITE_OPTION) || !get_option(PRIVATE_SITE_OPTION)) {
+        if (!defined('PRIVATE_SITE_OPTION') || !get_option(PRIVATE_SITE_OPTION)) {
             return false;
         }
 
