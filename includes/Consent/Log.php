@@ -74,7 +74,6 @@ class Log
 
     /**
      * Get consent history.
-     *
      * @param mixed $uid
      */
     public static function getConsentHistory($uid)
@@ -93,6 +92,9 @@ class Log
 
         // Get logs
         $logs = get_option('rrze_legal_consent_log');
+        if (!$logs || !is_array($logs)) {
+            return $consentHistory;
+        }
 
         foreach ($logs as $logItem) {
             $consentList = [];
@@ -131,5 +133,14 @@ class Log
         }
 
         return $consentHistory;
+    }
+
+    /**
+     * Delete consent log
+     * @return void
+     */
+    public static function delete()
+    {
+        return delete_option('rrze_legal_consent_log');
     }
 }
