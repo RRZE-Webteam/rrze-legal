@@ -125,7 +125,8 @@ class Frontend
             // Frontend request
             if ($requestType == 'log' && !empty($_POST['cookieData'])) {
                 echo json_encode([
-                    'success' => Log::add($_POST['cookieData']),
+                    // 'success' => Log::add($_POST['cookieData']),
+                    'success' => Log::delete(),
                 ]);
             } elseif ($requestType == 'consent_history' && !empty($_POST['uid'])) {
                 echo json_encode(Log::getConsentHistory($_POST['uid']));
