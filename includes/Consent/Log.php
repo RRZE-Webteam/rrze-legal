@@ -141,6 +141,7 @@ class Log
      */
     public static function delete()
     {
-        return delete_option('rrze_legal_consent_log');
+        delete_option('rrze_legal_consent_log');
+        return true;
     }
 }

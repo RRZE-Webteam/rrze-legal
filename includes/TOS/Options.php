@@ -54,7 +54,7 @@ class Options extends Settings
      */
     public function subMenuPage()
     {
-        flush_rewrite_rules(false);
+        // flush_rewrite_rules(false);
         wp_enqueue_style('rrze-legal-settings');
         wp_enqueue_script('rrze-legal-settings');
         wp_enqueue_script('rrze-legal-tos-settings');
