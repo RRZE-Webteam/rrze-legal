@@ -102,8 +102,8 @@ class CookieBlocker
         $host = Utils::getSiteUrlHost();
         $domain = Utils::getSiteUrlDomain();
         unset($_COOKIE[$cookieName]);
-        setcookie($cookieName, null, -1, '/');
-        setcookie($cookieName, null, -1, '/', '.' . $host);
-        setcookie($cookieName, null, -1, '/', '.' . $domain);
+        setcookie($cookieName, '', -1, '/');
+        setcookie($cookieName, '', -1, '/', '.' . $host);
+        setcookie($cookieName, '', -1, '/', '.' . $domain);
     }
 }
