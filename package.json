@@ -1,6 +1,6 @@
 {
     "name": "rrze-legal",
-    "version": "2.6.18",
+    "version": "2.6.19",
     "main": "rrze-legal.php",
     "scripts": {
         "start": "webpack --mode=development --watch",
