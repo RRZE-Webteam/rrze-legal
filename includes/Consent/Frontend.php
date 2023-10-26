@@ -26,10 +26,6 @@ class Frontend
      */
     public static function init()
     {
-        if (apply_filters('rrze_legal_disable_consent_banner', false)) {
-            return;
-        }
-
         if (self::rrzeAccessControlPlugin()) {
             Cookies::setEssentialCookie();
             return;
