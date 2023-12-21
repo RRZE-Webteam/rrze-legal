@@ -84,6 +84,13 @@ class ListSettings
      */
     protected $listTable;
 
+     /**
+     * Settings
+     * @var object
+     */
+    protected $settings;
+    
+    
     /**
      * Class constructor.
      */

@@ -7,8 +7,7 @@ defined('ABSPATH') || exit;
 use RRZE\Legal\Utils;
 use function RRZE\Legal\consentCookies;
 
-class CookieBlocker
-{
+class CookieBlocker {
     /**
      * Delete imprecise cookie.
      * @param mixed $cookieName
