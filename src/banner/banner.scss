@@ -1177,7 +1177,7 @@
         color: inherit;
         font-family: inherit;
         font-size: 1.625em;
-        line-height: 1.125em;
+        line-height: 1.5;
         word-break: break-all;
     }
 
@@ -1193,7 +1193,7 @@
             color: inherit;
             font-family: inherit;
             font-size: 1em;
-            line-height: 1.25em;
+            line-height: 1.5;
             list-style: none;
             margin: 0 0.9375em 0.375em 0;
 
@@ -1212,7 +1212,7 @@
         color: inherit;
         font-family: inherit;
         font-size: 1em;
-        line-height: 1.4em;
+        line-height: 1.5;
         margin: 0.9375em 0;
 
         &:last-child {
@@ -1313,7 +1313,7 @@
             border-bottom: 1px solid #777;
             color: inherit;
             font-size: 1.25em;
-            line-height: 1.6em;
+            line-height: 1.5;
             padding-bottom: 1px;
             text-decoration: none;
             transition: all 0.1s linear;
@@ -1536,7 +1536,6 @@
 
     ._rrzelegal-bar-advanced ul li,
     ._rrzelegal-box-advanced ul li {
-        line-height: 1.375em;
         margin: 0 0.9375em 0.875em 0;
     }
 
@@ -1558,12 +1557,11 @@
 }
 
 .RRZELegal ._rrzelegal-content-blocker {
-    line-height: 1.5em;
+    line-height: 1.5;
 
     h1 {
         font-size: 1.312rem;
-        font-weight: 700;
-        line-height: 1.969rem;
+        font-weight: 700;   
         margin: 0;
         padding: 11px 0;
     }
