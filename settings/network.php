@@ -41,7 +41,7 @@ $settings = [
                         'label' => __('FAU domains', 'rrze-legal'),
                         'description' => __('Websites belonging to FAU domains will use the default FAU data for some sections.', 'rrze-legal'),
                         'type' => 'textarea',
-                        'default' => tos()->getDefaultDomainsToString(),
+                        'default' => tos()->getFAUDomainsToString(),
                         'sanitize_callback' => [network(), 'sanitizeTextareaList'],
                     ],
                     [
