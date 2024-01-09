@@ -8,8 +8,7 @@ defined('ABSPATH') || exit;
  * Class Settings
  * @package RRZE\Legal
  */
-class Settings
-{
+class Settings {
     /**
      * Option name.
      * @var string
@@ -95,12 +94,18 @@ class Settings
      * @var string
      */
     protected $settingsPrefix = '';
-
+    
+     /**
+     * Settings
+     * @var object
+     */
+    protected $settings;
+    
+    
     /**
      * Class constructor.
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->pagePrefix = plugin()->getSlug() . '-';
         $this->settingsPrefix = str_replace('-', '_', $this->pagePrefix);
 
@@ -110,8 +115,7 @@ class Settings
     /**
      * Execute on 'plugins_loaded' API/action.
      */
-    public function loaded()
-    {
+    public function loaded() {
         if ($this->optionName === '' || $this->settingsFilename === '') {
             return;
         }

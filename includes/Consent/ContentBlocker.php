@@ -6,8 +6,7 @@ defined('ABSPATH') || exit;
 
 use function RRZE\Legal\{tos, consent, consentCookies};
 
-class ContentBlocker
-{
+class ContentBlocker {
     private static $instance;
 
     private $currentBlockedContent = '';
@@ -24,6 +23,9 @@ class ContentBlocker
 
     private $categories = [];
 
+    private $contentBlocker = [];
+    
+    
     /**
      * Singleton
      * @return object

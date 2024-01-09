@@ -6,8 +6,7 @@ defined('ABSPATH') || exit;
 
 use function RRZE\Legal\{plugin, tos, consent, consentCookies};
 
-class JavaScript
-{
+class JavaScript {
     /**
      * Singleton instance.
      * @var mixed
@@ -26,6 +25,12 @@ class JavaScript
      */
     private $cookieVersion;
 
+     /**
+     * Categories
+     * @var string
+     */
+    private $categories = [];
+    
     /**
      * Content blocker.
      * @var array
@@ -38,6 +43,9 @@ class JavaScript
      */
     private $fallbackCode = [];
 
+    
+
+    
     /**
      * Singleton
      * @return object
