@@ -37,15 +37,6 @@ class Utils
     }
 
     /**
-     * Get FAU domains.
-     * @return array
-     */
-    public static function getFAUDomains(): array
-    {
-        return ['fau.de', 'fau.eu', 'uni-erlangen.de'];
-    }
-
-    /**
      * Check if the plugin is active.
      * @return boolean
      */

@@ -6,7 +6,7 @@ defined('ABSPATH') || exit;
 
 use RRZE\Legal\{Settings, Cache, Utils};
 use RRZE\Legal\TOS\Endpoint;
-use function RRZE\Legal\{plugin, network, consent, consentCookies};
+use function RRZE\Legal\{plugin, network, consent, consentCookies, fauDomains};
 
 class Options extends Settings
 {
@@ -19,7 +19,7 @@ class Options extends Settings
         $this->settingsFilename = 'tos';
 
         add_action('admin_enqueue_scripts', [$this, 'adminEnqueueTOSScripts']);
-        add_filter('rrze_legal_privacy_hide_dpo_section', [$this, 'setHideDpoSection']);
+        add_filter('rrze_legal_privacy_hide_dpo_section', [$this, 'setFAUDpoSection']);
 
         $this->isPluginActiveForNetwork = Utils::isPluginActiveForNetwork(plugin()->getBaseName());
     }
@@ -81,7 +81,7 @@ class Options extends Settings
         ]);
     }
 
-    public function setHideDpoSection()
+    public function setFAUDpoSection()
     {
         if ($this->isCurrentSiteInDefaultDomains()) {
             return true;
@@ -91,9 +91,9 @@ class Options extends Settings
 
     public function isCurrentSiteInDefaultDomains()
     {
-        $defaultDomains = $this->getDefaultDomains();
-        $hostname = parse_url(get_site_url(), PHP_URL_HOST);
-        foreach ($defaultDomains as $domain) {
+        $fauDomains = $this->getFAUDomains();
+        $hostname = Utils::getSiteUrlHost();
+        foreach ($fauDomains as $domain) {
             if (strpos($hostname, $domain) !== false) {
                 return true;
             }
@@ -109,21 +109,21 @@ class Options extends Settings
         return true;
     }
 
-    public function getDefaultDomains()
+    public function getFAUDomains()
     {
-        $defaultDomains = Utils::getFAUDomains();
+        $fauDomains = fauDomains();
         if ($this->isPluginActiveForNetwork) {
-            $fauDomains = network()->getOption('network_general', 'fau_domains');
-            if (!empty($fauDomains)) {
-                $defaultDomains = explode(PHP_EOL, $fauDomains);
+            $customDomains = network()->getOption('network_general', 'fau_domains');
+            if (!empty($customDomains)) {
+                $fauDomains = explode(PHP_EOL, $customDomains);
             }
         }
-        return $defaultDomains;
+        return $fauDomains;
     }
 
-    public function getDefaultDomainsToString()
+    public function getFAUDomainsToString()
     {
-        return implode(PHP_EOL, $this->getDefaultDomains());
+        return implode(PHP_EOL, $this->getFAUDomains());
     }
 
     public function getSiteUrlHost()
