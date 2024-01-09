@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RRZE Legal 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-legal\n"
-"POT-Creation-Date: 2022-10-13T14:55:03+00:00\n"
-"PO-Revision-Date: 2022-10-26 09:36+0200\n"
+"POT-Creation-Date: 2024-01-09T10:46:31+00:00\n"
+"PO-Revision-Date: 2024-01-09 11:52+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE@formal\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Domain: rrze-legal\n"
 
 #. Plugin Name of the plugin
@@ -301,7 +301,7 @@ msgstr "Akzeptieren"
 #: includes/Consent/Banner.php:62 includes/Consent/Categories/ListTable.php:103
 #: includes/Consent/Cookies/ListTable.php:137 includes/TOS/ContactForm.php:143
 #: settings/consent-categories.php:53 settings/consent-cookies.php:75
-#: settings/tos.php:58 settings/tos.php:123 settings/tos.php:263
+#: settings/tos.php:58 settings/tos.php:123 settings/tos.php:271
 msgid "Name"
 msgstr "Name"
 
@@ -521,17 +521,17 @@ msgstr "Der Wert %1$s des Feldes %2$s ist ungültig."
 msgid "Number of items per page:"
 msgstr "Einträge pro Seite:"
 
-#: includes/Main.php:64 includes/Main.php:65 settings/network.php:14
+#: includes/Main.php:66 includes/Main.php:67 settings/network.php:14
 #: settings/network.php:17
 msgid "Legal"
 msgstr "Rechtliches"
 
-#: includes/Main.php:123 settings/tos.php:14 settings/tos.php:17
+#: includes/Main.php:125 settings/tos.php:14 settings/tos.php:17
 msgid "Legal Mandatory Information"
 msgstr "Rechtliche Pflichtangaben"
 
 #. translators: %s: Link of the settings page.
-#: includes/Main.php:127
+#: includes/Main.php:129
 msgid ""
 "One or more mandatory fields of the legal settings have not been filled. "
 "Please fill in these fields as soon as possible in the following link: %s."
@@ -541,7 +541,7 @@ msgstr ""
 "folgendem Link aus: %s."
 
 #. translators: %s: Permalink of the page that overrides the endpoint.
-#: includes/Main.php:138
+#: includes/Main.php:140
 msgid ""
 "The output of this settings page is overwritten by the content of the "
 "following page: %s."
@@ -687,19 +687,19 @@ msgstr "Neun"
 msgid "Imprint"
 msgstr "Impressum"
 
-#: includes/TOS/Endpoint.php:25 settings/tos.php:247
+#: includes/TOS/Endpoint.php:25 settings/tos.php:255
 msgid "Privacy"
 msgstr "Datenschutz"
 
-#: includes/TOS/Endpoint.php:26 settings/tos.php:417
+#: includes/TOS/Endpoint.php:26 settings/tos.php:425
 msgid "Accessibility"
 msgstr "Barrierefreiheit"
 
-#: includes/TOS/Endpoint.php:118
+#: includes/TOS/Endpoint.php:124
 msgid "and"
 msgstr "und"
 
-#: includes/TOS/Endpoint.php:276
+#: includes/TOS/Endpoint.php:282
 msgid "Not Found"
 msgstr "Nicht gefunden"
 
@@ -1218,7 +1218,7 @@ msgstr ""
 "essentiellen Cookies gegeben hat."
 
 #: settings/consent.php:178 settings/tos.php:218 settings/tos.php:237
-#: settings/tos.php:407
+#: settings/tos.php:415
 msgid "Content"
 msgstr "Inhalt"
 
@@ -1390,7 +1390,7 @@ msgid "Legal Mandatory Information Settings"
 msgstr "Gesetzliche Pflichtangabeneinstellungen"
 
 #. translators: %s: Url of the endpoint page.
-#: settings/tos.php:32 settings/tos.php:251 settings/tos.php:421
+#: settings/tos.php:32 settings/tos.php:259 settings/tos.php:429
 msgid "The output of this settings page is available at the following link: %s"
 msgstr ""
 "Die Ausgabe dieser Einstellungsseite ist unter folgendem Link verfügbar: %s"
@@ -1428,27 +1428,27 @@ msgstr ""
 "Rechtlich verantwortliche Person für die Website. (Dies ist in der Regel der "
 "Lehrstuhlinhaber oder Facility Manager)."
 
-#: settings/tos.php:67 settings/tos.php:131 settings/tos.php:272
+#: settings/tos.php:67 settings/tos.php:131 settings/tos.php:280
 msgid "Email"
 msgstr "E-Mail"
 
-#: settings/tos.php:75 settings/tos.php:280
+#: settings/tos.php:75 settings/tos.php:288
 msgid "Street Name & House Number"
 msgstr "Straße und Hausnummer"
 
-#: settings/tos.php:82 settings/tos.php:287
+#: settings/tos.php:82 settings/tos.php:295
 msgid "Postal Code"
 msgstr "Postleitzahl"
 
-#: settings/tos.php:89 settings/tos.php:294
+#: settings/tos.php:89 settings/tos.php:302
 msgid "City"
 msgstr "Stadt"
 
-#: settings/tos.php:96 settings/tos.php:141 settings/tos.php:301
+#: settings/tos.php:96 settings/tos.php:141 settings/tos.php:309
 msgid "Phone"
 msgstr "Telefon"
 
-#: settings/tos.php:102 settings/tos.php:307
+#: settings/tos.php:102 settings/tos.php:315
 msgid "Fax Number"
 msgstr "Faxnummer"
 
@@ -1468,7 +1468,7 @@ msgstr "Daten zur Kontaktaufnahme hinsichtlich der Inhalte des Webauftritts."
 msgid "Name of the webmaster or the responsible web editor."
 msgstr "Name des Webmasters oder der zuständigen Webredaktion."
 
-#: settings/tos.php:149 settings/tos.php:391
+#: settings/tos.php:149 settings/tos.php:399
 msgid "Optional Information"
 msgstr "Optionale Angabe"
 
@@ -1496,15 +1496,15 @@ msgstr ""
 
 #: settings/tos.php:158 settings/tos.php:171 settings/tos.php:184
 #: settings/tos.php:197 settings/tos.php:210 settings/tos.php:229
-#: settings/tos.php:324 settings/tos.php:337 settings/tos.php:350
-#: settings/tos.php:399
+#: settings/tos.php:332 settings/tos.php:345 settings/tos.php:358
+#: settings/tos.php:407
 msgid "Yes"
 msgstr "Ja"
 
 #: settings/tos.php:159 settings/tos.php:172 settings/tos.php:185
 #: settings/tos.php:198 settings/tos.php:211 settings/tos.php:230
-#: settings/tos.php:325 settings/tos.php:338 settings/tos.php:351
-#: settings/tos.php:400
+#: settings/tos.php:333 settings/tos.php:346 settings/tos.php:359
+#: settings/tos.php:408
 msgid "No"
 msgstr "Nein"
 
@@ -1547,19 +1547,28 @@ msgstr "Freitextfeld für Bildrechte einfügen?"
 msgid "Optional paragraph for the description of any image rights used."
 msgstr "Optionaler Absatz zur Beschreibung der verwendeten Bildrechte."
 
-#: settings/tos.php:225 settings/tos.php:396
+#: settings/tos.php:225 settings/tos.php:404
 msgid "Add a New Section"
 msgstr "Hinzufügen eines neuen Abschnitts"
 
-#: settings/tos.php:238 settings/tos.php:408
+#: settings/tos.php:238 settings/tos.php:416
 msgid "Content of the new, additional section."
 msgstr "Inhalt des neuen, zusätzlichen Abschnitts."
 
-#: settings/tos.php:257
+#: settings/tos.php:243
+msgid "Whistleblower System URL"
+msgstr "URL des Hinweisgebersystems"
+
+#: settings/tos.php:244
+msgid "If there is a whistleblower system, this can be linked here."
+msgstr ""
+"Falls es ein Hinweisgebersystem gibt, kann dieses hier verlinkt werden."
+
+#: settings/tos.php:265
 msgid "Data Protection Officer"
 msgstr "Datenschutzbeauftragter"
 
-#: settings/tos.php:259
+#: settings/tos.php:267
 msgid ""
 "The designation, position and tasks of a data protection officer (DPO) "
 "within an organization are described in Articles 37, 38 and 39 of the "
@@ -1569,11 +1578,11 @@ msgstr ""
 "innerhalb einer Organisation sind in den Artikeln 37, 38 und 39 der "
 "Datenschutz-Grundverordnung (DSGVO) der Europäischen Union (EU) beschrieben."
 
-#: settings/tos.php:315
+#: settings/tos.php:323
 msgid "Services"
 msgstr "Dienstleistungen"
 
-#: settings/tos.php:316
+#: settings/tos.php:324
 msgid ""
 "If any of the following services are used, enable them to generate a "
 "corresponding notice in the privacy policy."
@@ -1581,11 +1590,11 @@ msgstr ""
 "Wenn einer der folgenden Dienste verwendet wird, ermöglichen Sie es ihnen, "
 "einen entsprechenden Hinweis in der Datenschutzerklärung zu generieren."
 
-#: settings/tos.php:320
+#: settings/tos.php:328
 msgid "Contact Form"
 msgstr "Kontaktformular"
 
-#: settings/tos.php:321
+#: settings/tos.php:329
 msgid ""
 "Do you use a contact form on this website? (The accessibility declaration "
 "offers one, so the answer is usually \"yes\")."
@@ -1594,11 +1603,11 @@ msgstr ""
 "Zugänglichkeitserklärung bietet eine, daher lautet die Antwort in der Regel "
 "\"Ja”)."
 
-#: settings/tos.php:333
+#: settings/tos.php:341
 msgid "Registration/Registration Forms"
 msgstr "Anmeldung/Anmeldeformulare"
 
-#: settings/tos.php:334
+#: settings/tos.php:342
 msgid ""
 "Do you use forms to sign up for events or other functions that require "
 "registration?"
@@ -1606,19 +1615,19 @@ msgstr ""
 "Verwenden Sie Formulare, um sich für Veranstaltungen oder andere Funktionen "
 "anzumelden, die eine Registrierung erfordern?"
 
-#: settings/tos.php:346
+#: settings/tos.php:354
 msgid "Newsletter/Mailinglist"
 msgstr "Newsletter/Mailingliste"
 
-#: settings/tos.php:347
+#: settings/tos.php:355
 msgid "Do you offer a newsletter or mailing list?"
 msgstr "Bieten Sie einen Newsletter oder eine Mailingliste an?"
 
-#: settings/tos.php:376
+#: settings/tos.php:384
 msgid "External Service Providers"
 msgstr "Externe Dienstleister"
 
-#: settings/tos.php:377
+#: settings/tos.php:385
 msgid ""
 "If external service providers are used to include content on the website, "
 "they must also be included in the privacy policy."
@@ -1627,19 +1636,19 @@ msgstr ""
 "einzubinden, müssen diese ebenfalls in die Datenschutzerklärung einbezogen "
 "werden."
 
-#: settings/tos.php:381
+#: settings/tos.php:389
 msgid "Service Providers"
 msgstr "Externe Dienstleister"
 
-#: settings/tos.php:392
+#: settings/tos.php:400
 msgid "Additional information about the privacy policy."
 msgstr "Zusätzliche Informationen zur Datenschutzerklärung."
 
-#: settings/tos.php:427
+#: settings/tos.php:435
 msgid "General Information"
 msgstr "Allgemeine Informationen"
 
-#: settings/tos.php:428
+#: settings/tos.php:436
 msgid ""
 "All public sector bodies are obliged to make their websites and / or mobile "
 "applications accessible in accordance with Directive (EU) 2016/2102 of the "
@@ -1658,21 +1667,21 @@ msgstr ""
 "angeben und erläutern müssen, aus welchen Gründen welche Barrieren vorhanden "
 "sind."
 
-#: settings/tos.php:432
+#: settings/tos.php:440
 msgid "Legal Area"
 msgstr "Rechtsraum"
 
-#: settings/tos.php:433
+#: settings/tos.php:441
 msgid ""
 "Selection of the legal area to which the operator of the website belongs."
 msgstr ""
 "Auswahl des Rechtsraumes, zu welcher der Betreiber des Webangebots gehört."
 
-#: settings/tos.php:442
+#: settings/tos.php:450
 msgid "Compliance Status"
 msgstr "Konformitätsstatus"
 
-#: settings/tos.php:443
+#: settings/tos.php:451
 msgid ""
 "Officially stated status of the website, as well as its contents regarding "
 "the fulfillment of the legal requirements."
@@ -1680,11 +1689,11 @@ msgstr ""
 "Offiziell anzugebender Status des Webauftritts, sowie dessen Inhalten "
 "hinsichtlich der Erfüllung der gesetzlichen Anforderungen."
 
-#: settings/tos.php:447
+#: settings/tos.php:455
 msgid "Declaration of Conformity"
 msgstr "Konformitätserklärung"
 
-#: settings/tos.php:448
+#: settings/tos.php:456
 msgid ""
 "State of conformity in accordance with EU Directive 2102 and local "
 "legislation."
@@ -1692,7 +1701,7 @@ msgstr ""
 "Stand der Konformität gemäß der EU-Richtlinie 2102 und der lokalen "
 "Gesetzgebung."
 
-#: settings/tos.php:451
+#: settings/tos.php:459
 msgid ""
 "Completely compliant: the content is fully compliant with the accessibility "
 "standard without exceptions"
@@ -1700,7 +1709,7 @@ msgstr ""
 "Vollständig konform: Der Inhalt entspricht ohne Ausnahmen vollständig dem "
 "Standard für Barrierefreiheit"
 
-#: settings/tos.php:452
+#: settings/tos.php:460
 msgid ""
 "Partially Compliant: Some parts of the content are not fully compliant with "
 "the accessibility standard"
@@ -1708,75 +1717,75 @@ msgstr ""
 "Teilweise konform: Einige Teile des Inhalts entsprechen nicht vollständig "
 "dem Standard für Barrierefreiheit"
 
-#: settings/tos.php:453
+#: settings/tos.php:461
 msgid ""
 "Non-compliant: The content does not comply with the accessibility standard"
 msgstr ""
 "Nicht konform: Der Inhalt entspricht nicht dem Standard für Barrierefreiheit"
 
-#: settings/tos.php:454
+#: settings/tos.php:462
 msgid "Unknown: Content was not rated or rating results are not available"
 msgstr ""
 "Unbekannt: Der Inhalt wurde nicht bewertet oder die Bewertungsergebnisse "
 "sind nicht verfügbar"
 
-#: settings/tos.php:472
+#: settings/tos.php:480
 msgid "Method"
 msgstr "Methode"
 
-#: settings/tos.php:475
+#: settings/tos.php:483
 msgid "Self-Evaluation"
 msgstr "Selbstbewertung"
 
-#: settings/tos.php:476
+#: settings/tos.php:484
 msgid "Third party rating"
 msgstr "Bewertung durch Dritte"
 
-#: settings/tos.php:483
+#: settings/tos.php:491
 msgid "Creation Date"
 msgstr "Erstellungsdatum"
 
-#: settings/tos.php:491
+#: settings/tos.php:499
 msgid "Last Review Date"
 msgstr "Datum der letzten Überprüfung"
 
-#: settings/tos.php:499
+#: settings/tos.php:507
 msgid "Report URL"
 msgstr "URL des Berichts"
 
-#: settings/tos.php:500
+#: settings/tos.php:508
 msgid "If there is a detailed review, this can be linked here."
 msgstr ""
 "Falls es einen ausführlichen Testbericht gibt, kann dieser hier verlinkt "
 "werden."
 
-#: settings/tos.php:509
+#: settings/tos.php:517
 msgid "Statement"
 msgstr "Erklärung"
 
-#: settings/tos.php:510
+#: settings/tos.php:518
 msgid "List and explain the problems with the implementation of accessibility."
 msgstr ""
 "Auflistung und Erläuterung der Probleme bei der Umsetzung der "
 "Barrierefreiheit."
 
-#: settings/tos.php:514
+#: settings/tos.php:522
 msgid "Input Assistance For Non-Accessible Content"
 msgstr "Eingabehilfe zu nicht barrierefreie Inhalte"
 
-#: settings/tos.php:517
+#: settings/tos.php:525
 msgid "Fill out explanations manually"
 msgstr "Erklärungen manuell ausfüllen"
 
-#: settings/tos.php:518
+#: settings/tos.php:526
 msgid "Use input help and supplement it with manual entries"
 msgstr "Eingabehilfe nutzen und durch manuelle Eingaben ergänzen"
 
-#: settings/tos.php:524
+#: settings/tos.php:532
 msgid "Non-Accessible Content (Selection List)"
 msgstr "Nicht barrierefrei zugängliche Inhalte (Auswahl)"
 
-#: settings/tos.php:525
+#: settings/tos.php:533
 msgid ""
 "Selection of the most common deficiencies that a website can have. However, "
 "when choosing one or more of the above-mentioned deficiencies, please "
@@ -1788,7 +1797,7 @@ msgstr ""
 "jeweils plausible Begründung ein, warum dieser Mangel vorhanden ist und "
 "welche Alternativen vorhanden sind, um dennoch an die Inhalte zu gelangen."
 
-#: settings/tos.php:528
+#: settings/tos.php:536
 msgid ""
 "PDF documents created before 23.09.2018 could not yet be converted to an "
 "accessible format."
@@ -1796,14 +1805,14 @@ msgstr ""
 "PDF-Dokumente, die vor dem 23.09.2018 erstellt wurden, konnten noch nicht "
 "auf ein barrierefreies Format umgestellt werden."
 
-#: settings/tos.php:529
+#: settings/tos.php:537
 msgid ""
 "PDF documents created after 23.09.2018 do not yet have an accessible format."
 msgstr ""
 "PDF-Dokumente, die nach dem 23.09.2018 erstellt wurden, sind noch nicht "
 "barrierefrei zugänglich."
 
-#: settings/tos.php:530
+#: settings/tos.php:538
 msgid ""
 "Some documents have been provided by third parties (for example, the "
 "Examination Office, other FAU bodies, ministries, etc.). These documents are "
@@ -1813,13 +1822,13 @@ msgstr ""
 "der FAU, Ministerien, u.a.) bereitgestellt. Diese Dokumente liegen nicht in "
 "einer barrierefreien Fassung vor."
 
-#: settings/tos.php:531
+#: settings/tos.php:539
 msgid "Embedded videos currently have no subtitles or transcription available."
 msgstr ""
 "Zu eingebundenen Videos stehen derzeit keine Untertitel oder Transkription "
 "zur Verfügung."
 
-#: settings/tos.php:532
+#: settings/tos.php:540
 msgid ""
 "Currently there is no textual description for directions describing maps or "
 "maps."
@@ -1827,7 +1836,7 @@ msgstr ""
 "Zu mittels Karten oder Kartenbildern eingebundenen Anfahrtsbeschreibungen "
 "fehlt derzeit die textuelle Beschreibung."
 
-#: settings/tos.php:533
+#: settings/tos.php:541
 msgid ""
 "Graphics or images contained in the pages are currently not completely "
 "supplemented by text descriptions."
@@ -1835,11 +1844,11 @@ msgstr ""
 "In den Seiten enthaltene Grafiken oder Bilder sind derzeit nicht vollständig "
 "durch Textbeschreibungen ergänzt worden."
 
-#: settings/tos.php:534
+#: settings/tos.php:542
 msgid "Tables are used for the purpose of optical design."
 msgstr "Es werden Tabellen zum Zwecke der optischen Gestaltung verwendet."
 
-#: settings/tos.php:535
+#: settings/tos.php:543
 msgid ""
 "When using multilingual content on a page, sometimes the languages ​​are not "
 "correctly marked in HTML."
@@ -1847,7 +1856,7 @@ msgstr ""
 "Bei der Verwendung von mehrsprachigen Inhalten auf einer Seite, werden die "
 "Sprachen teilweise nicht korrekt in HTML gekennzeichnet."
 
-#: settings/tos.php:536
+#: settings/tos.php:544
 msgid ""
 "The font color in the logo with the full title of the website does not have "
 "enough contrast."
@@ -1855,11 +1864,11 @@ msgstr ""
 "Die Schriftfarbe im Logo mit dem ausgeschriebenen Titel des Webauftritts ist "
 "nicht kontrastreich genug."
 
-#: settings/tos.php:541
+#: settings/tos.php:549
 msgid "Non-Accessible Content (Free Text)"
 msgstr "Nicht barrierefrei zugängliche Inhalte (Freitext)"
 
-#: settings/tos.php:542
+#: settings/tos.php:550
 msgid ""
 "The website owner is obliged to publicly list all non-accessible components "
 "of the website and its contents. These must be specified here."
@@ -1868,17 +1877,17 @@ msgstr ""
 "des Webauftritts und der Inhalte öffentlich aufzulisten. Diese müssen hier "
 "angegeben werden."
 
-#: settings/tos.php:547
+#: settings/tos.php:555
 msgid "Reason"
 msgstr "Begründung"
 
-#: settings/tos.php:548
+#: settings/tos.php:556
 msgid ""
 "In addition to the pure list of non-accessible contents, a justification for "
 "each of the above points should also be provided as to why barrier-free "
 "accessibility could not be achieved. Please note that the legislator lists "
-"the following reasons as unjustified: \"Lack of priorities, time or ignorance"
-"\". These items should not be used as justification."
+"the following reasons as unjustified: \"Lack of priorities, time or "
+"ignorance\". These items should not be used as justification."
 msgstr ""
 "Neben der reinen Auflistung der nicht barrierefreien Inhalte ist zusätzlich "
 "für jeden genannten Punkt eine Begründung anzugeben, warum die "
@@ -1887,11 +1896,11 @@ msgstr ""
 "Prioritäten, Zeit oder Unkenntnis“. Diese Punkte dürfen daher nicht als "
 "Begründung verwendet werden."
 
-#: settings/tos.php:553
+#: settings/tos.php:561
 msgid "Alternatives"
 msgstr "Alternative Zugangswege"
 
-#: settings/tos.php:554
+#: settings/tos.php:562
 msgid ""
 "Indicate here whether and which alternatives are available to obtain the "
 "above inaccessible content. This can be, for example, the contact via the "
@@ -1902,21 +1911,21 @@ msgstr ""
 "die Kontaktaufnahme über das Feedback-Formular sein oder die Angabe einer "
 "Stelle, die Hilfe leistet."
 
-#: settings/tos.php:561
+#: settings/tos.php:569
 msgid "Feedback Mechanism"
 msgstr "Feedback-Mechanismus"
 
-#: settings/tos.php:562
+#: settings/tos.php:570
 msgid "Opportunities to contact for accessibility issues and errors."
 msgstr ""
 "Möglichkeiten zur Kontaktaufnahme bei Problemen und Fehlern zur "
 "Barrierefreiheit."
 
-#: settings/tos.php:566
+#: settings/tos.php:574
 msgid "Contact Person"
 msgstr "Ansprechpartner"
 
-#: settings/tos.php:567
+#: settings/tos.php:575
 msgid ""
 "Enter a name for the responsible contact person for complaints or requests "
 "for help about lack of accessibility."
@@ -1924,11 +1933,11 @@ msgstr ""
 "Geben Sie hier einen Namen für den zuständigen Ansprechpartner für "
 "Beschwerden oder Hilfeanfragen über mangelnde Zugänglichkeit an."
 
-#: settings/tos.php:573
+#: settings/tos.php:581
 msgid "Contact Email Addresse"
 msgstr "E-Mail-Adresse"
 
-#: settings/tos.php:574
+#: settings/tos.php:582
 msgid ""
 "Recipient email address for complaints or requests for help about lack of "
 "accessibility. Please note: If a request about the possibility of contact "
@@ -1944,35 +1953,35 @@ msgstr ""
 "ob im Rahmen der Überwachung gegenüber dem Betreiber des Webauftritts (also "
 "Ihnen) Maßnahmen erforderlich sind."
 
-#: settings/tos.php:583
+#: settings/tos.php:591
 msgid "Email CC"
 msgstr "E-Mail CC"
 
-#: settings/tos.php:584
+#: settings/tos.php:592
 msgid "Optional additional email address."
 msgstr "Optionale zusätzliche E-Mail-Adresse."
 
-#: settings/tos.php:592
+#: settings/tos.php:600
 msgid "Email Subject"
 msgstr "E-Mail Betreff"
 
-#: settings/tos.php:594
+#: settings/tos.php:602
 msgid "Accessibility Feedback Form"
 msgstr "Feedback-Formular zur Barrierefreiheit"
 
-#: settings/tos.php:599
+#: settings/tos.php:607
 msgid "Contact Phone"
 msgstr "Telefon"
 
-#: settings/tos.php:600
+#: settings/tos.php:608
 msgid "Contact number for telephone assistance."
 msgstr "Kontaktnummer für telefonische Hilfestellung."
 
-#: settings/tos.php:606
+#: settings/tos.php:614
 msgid "Contact Address"
 msgstr "Adresse"
 
-#: settings/tos.php:607
+#: settings/tos.php:615
 msgid "Postal address as an alternative to email address."
 msgstr "Postanschrift als Alternative zur E-Mail-Adresse."
 
