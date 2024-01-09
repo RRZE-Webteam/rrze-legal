@@ -4,7 +4,7 @@
 Plugin Name:     RRZE Legal
 Plugin URI:      https://gitlab.rrze.fau.de/rrze-webteam/rrze-legal
 Description:     Legal Mandatory Information & GDPR.
-Version:         2.6.21
+Version:         2.7.0
 Author:          RRZE Webteam
 Author URI:      https://blogs.fau.de/webworking/
 License:         GNU General Public License Version 3
@@ -211,6 +211,22 @@ function tosPluginDeactivation()
         return false;
     }
     return true;
+}
+
+/**
+ * Get FAU domains.
+ * @return array
+ */
+function fauDomains(): array
+{
+    return apply_filters(
+        'rrze_legal_fau_domains',
+        [
+            'fau.de',
+            'fau.eu',
+            'uni-erlangen.de'
+        ]
+    );
 }
 
 /**
