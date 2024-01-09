@@ -120,8 +120,19 @@ class Endpoint
         if (!is_array($value)) {
             $value = explode(PHP_EOL, $value);
         }
-        $lastValue = array_pop($value);
-        $value = sprintf('%s %s %s', implode(', ', $value), __('and', 'rrze-legal'), $lastValue);
+        array_unshift($value, tos()->getSiteUrlHost());
+        $value = array_map('trim', $value);
+        $value = array_filter($value);
+        $value = array_unique($value);
+        $value = array_map('esc_html', $value);
+        if (count($value) > 1) {
+            $lastValue = array_pop($value);
+            $value = sprintf('%s %s %s', implode(', ', $value), __('and', 'rrze-legal'), $lastValue);
+            $options['imprint_websites_extra'] = '1';
+        } else {
+            $value = implode('', $value);
+        }
+
         $options['imprint_scope_websites'] = $value;
         // Set default domain option
         $options['is_default_domain'] = tos()->isCurrentSiteInDefaultDomains() ? '1' : '0';
