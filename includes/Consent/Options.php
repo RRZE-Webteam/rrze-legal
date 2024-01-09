@@ -7,12 +7,10 @@ defined('ABSPATH') || exit;
 use RRZE\Legal\{Settings, Template, Locale, Utils};
 use function RRZE\Legal\{plugin, network, consentCookies};
 
-class Options extends Settings
-{
+class Options extends Settings {
     private $isPluginActiveForNetwork;
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->optionName = 'rrze_legal_consent';
         $this->settingsFilename = 'consent';
@@ -20,8 +18,7 @@ class Options extends Settings
         $this->isPluginActiveForNetwork = Utils::isPluginActiveForNetwork(plugin()->getBaseName());
     }
 
-    protected function postSanitizeOptions($input, $hasError)
-    {
+    protected function postSanitizeOptions($input, $hasError) {
         if (!$hasError && $this->options['banner_update_version']) {
             $this->updateCookieVersion();
             $this->options['banner_update_version'] = '0';

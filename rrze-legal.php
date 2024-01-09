@@ -4,7 +4,7 @@
 Plugin Name:     RRZE Legal
 Plugin URI:      https://gitlab.rrze.fau.de/rrze-webteam/rrze-legal
 Description:     Legal Mandatory Information & GDPR.
-Version:         2.6.20
+Version:         2.6.21
 Author:          RRZE Webteam
 Author URI:      https://blogs.fau.de/webworking/
 License:         GNU General Public License Version 3
@@ -23,8 +23,8 @@ use RRZE\Legal\Consent\Options as ConsentOptions;
 use RRZE\Legal\Consent\Categories\Options as ConsentCategoriesOptions;
 use RRZE\Legal\Consent\Cookies\Options as ConsentCookiesOptions;
 
-const RRZE_PHP_VERSION = '8.0';
-const RRZE_WP_VERSION  = '6.2';
+const RRZE_PHP_VERSION = '8.1';
+const RRZE_WP_VERSION  = '6.4';
 
 /**
  * SPL Autoloader (PSR-4).
