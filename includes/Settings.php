@@ -101,7 +101,7 @@ class Settings {
      */
     protected $settings;
     
-    
+        
     /**
      * Class constructor.
      */
@@ -119,9 +119,9 @@ class Settings {
         if ($this->optionName === '' || $this->settingsFilename === '') {
             return;
         }
-
+        Debug::log("loaded Settings, file: ".$this->settingsFilename);
         include_once(plugin()->getPath() . "settings/{$this->settingsFilename}.php");
-        $this->settings = $settings ?? [];
+        $this->settings = $settings ?? [];    
         $this->optionsParent = (object) $this->settings['options_page']['parent'] ?? [];
         $this->optionsPage = (object) $this->settings['options_page']['page'] ?? [];
         $this->optionsMenu = (object) $this->settings['options_page']['menu'] ?? [];
@@ -131,8 +131,9 @@ class Settings {
         $this->setOptions();
     }
 
-    public function setAdminMenu()
-    {
+   
+    
+    public function setAdminMenu() {
         add_action('admin_menu', [$this, 'adminSubMenu']);
         add_action('admin_init', [$this, 'registerSetting']);
     }
@@ -141,8 +142,7 @@ class Settings {
      * Returns the settings filename.
      * @return string
      */
-    public function getSettingsFilename()
-    {
+    public function getSettingsFilename() {
         return $this->settingsFilename;
     }
 
@@ -150,8 +150,7 @@ class Settings {
      * Returns the page prefix.
      * @return string
      */
-    public function getPagePrefix()
-    {
+    public function getPagePrefix() {
         return $this->pagePrefix;
     }
 
@@ -159,8 +158,7 @@ class Settings {
      * Returns the default tab.
      * @return string
      */
-    public function getDefaultTab()
-    {
+    public function getDefaultTab() {
         return $this->defaultTab;
     }
 
@@ -168,8 +166,7 @@ class Settings {
      * Returns the page options.
      * @return string
      */
-    public function getPageOptions()
-    {
+    public function getPageOptions() {
         return $this->optionsPage;
     }
 
@@ -177,8 +174,7 @@ class Settings {
      * Returns the page menu options.
      * @return string
      */
-    public function getMenuOptions()
-    {
+    public function getMenuOptions() {
         return $this->optionsMenu;
     }
 
@@ -186,8 +182,7 @@ class Settings {
      * Returns the sections.
      * @return object
      */
-    public function getSections()
-    {
+    public function getSections() {
         return $this->sections;
     }
 
@@ -195,8 +190,7 @@ class Settings {
      * Returns the settings sections.
      * @return object
      */
-    public function getSettingsSections()
-    {
+    public function getSettingsSections() {
         $settingsSections = [];
         foreach ($this->sections as $section) {
             if (isset($section['id'])) {
@@ -210,8 +204,7 @@ class Settings {
      * Returns the fields.
      * @return array
      */
-    public function getFields(): array
-    {
+    public function getFields(): array {
         return $this->fields;
     }
 
@@ -219,8 +212,7 @@ class Settings {
      * Returns the default options.
      * @return array
      */
-    protected function defaultOptions(): array
-    {
+    protected function defaultOptions(): array {
         $defaultOptions = [];
         foreach ($this->fields as $field => $options) {
             $default = isset($options['default']) ? $options['default'] : '';
@@ -230,26 +222,24 @@ class Settings {
     }
 
     /**
-     * Set the options.
+     * Set the option values.
      * @return array
      */
-    protected function setOptions()
-    {
+    protected function setOptions() {
         $langCode = is_user_logged_in() && is_admin() ? Locale::getUserLangCode() : Locale::getLangCode();
         $this->optionName = $this->optionName . '_' . $langCode;
         $defaults = $this->defaultOptions();
         $options = get_option($this->optionName);
         $options = $options !== false ? $options : [];
         $options = wp_parse_args($options, $defaults);
-        $this->options = array_intersect_key($options, $defaults);
+        $this->options = array_intersect_key($options, $defaults);        
     }
-
+   
     /**
      * Returns the option name.
      * @return string
      */
-    public function getOptionName(): string
-    {
+    public function getOptionName(): string {
         return $this->optionName;
     }
 
@@ -257,8 +247,7 @@ class Settings {
      * Returns the options.
      * @return array
      */
-    public function getOptions(): array
-    {
+    public function getOptions(): array {
         return $this->options;
     }
 
@@ -269,8 +258,7 @@ class Settings {
      * @param mixed  $default Default text if it's not found
      * @return mixed
      */
-    public function getOption(string $section, string $name, $default = '')
-    {
+    public function getOption(string $section, string $name, $default = '') {
         $option = $section . '_' . $name;
         if (isset($this->options[$option])) {
             return $this->options[$option];
@@ -278,12 +266,12 @@ class Settings {
         return $default;
     }
 
+    
     /**
      * Set the settings fields.
      * @return void
      */
-    protected function setFields()
-    {
+    protected function setFields() {
         foreach ($this->sections as $section) {
             if (isset($section['capability']) && !current_user_can($section['capability'])) {
                 continue;
@@ -305,15 +293,14 @@ class Settings {
             }
         }
     }
-
+    
     /**
      * Format the settings fields.
      * @param array  $fields  The settings fields
      * @param string  $section The section id this field belongs to
      * @return void
      */
-    protected function formatField(array $fields, string $sectionId)
-    {
+    protected function formatField(array $fields, string $sectionId)  {
         foreach ($fields as $option) {
             if (isset($option['capability']) && !current_user_can($option['capability'])) {
                 continue;
@@ -328,8 +315,7 @@ class Settings {
      * Adds a admin submenu page.
      * @return void
      */
-    public function adminSubMenu()
-    {
+    public function adminSubMenu()  {
         foreach ($this->sections as $key => $section) {
             $sectionId = str_replace('_', '-', $section['id']);
             if ($key == 0) {
@@ -355,8 +341,7 @@ class Settings {
      * Display the admin sub menu page.
      * @return void
      */
-    public function subMenuPage()
-    {
+    public function subMenuPage() {
         wp_enqueue_style('rrze-legal-settings');
         wp_enqueue_script('rrze-legal-settings');
         echo '<div class="wrap">', PHP_EOL;
@@ -369,8 +354,7 @@ class Settings {
      * Display the settings sections as tabs.
      * @return void
      */
-    public function sectionsTabs()
-    {
+    public function sectionsTabs() {
         $html = '<h1>' . $this->settings['settings']['title'] . '</h1>' . PHP_EOL;
         $count = 0;
         foreach ($this->sections as $section) {
@@ -407,8 +391,7 @@ class Settings {
      * Displays the corresponding form for each setting sections.
      * @return void
      */
-    public function settingsForm()
-    {
+    public function settingsForm() {
         foreach ($this->sections as $section) {
             $sectionId = str_replace('_', '-', $section['id']);
             if ($this->pagePrefix . $sectionId != $this->currentTab) {
@@ -426,8 +409,7 @@ class Settings {
     /**
      * Register the settings sections and fields.
      */
-    public function registerSetting()
-    {
+    public function registerSetting() {
         foreach ($this->sections as $section) {
             if (!isset($section['id']) || !isset($section['title'])) {
                 continue;
@@ -445,8 +427,7 @@ class Settings {
      * Add a section to the settings page.
      * @param array $section
      */
-    protected function addSection(array $section)
-    {
+    protected function addSection(array $section)  {
         $capability = isset($section['capability']) ? $section['capability'] : 'manage_options';
         if (!current_user_can($capability)) {
             return;
@@ -484,8 +465,7 @@ class Settings {
      * @param string $capability
      * @return void
      */
-    protected function addSubsections(string $sectionId, array $subsections, string $capability)
-    {
+    protected function addSubsections(string $sectionId, array $subsections, string $capability)  {
         $defaultCap = $capability;
         foreach ($subsections as $subsection) {
             if (!isset($subsection['id']) || !isset($subsection['title'])) {
@@ -521,14 +501,15 @@ class Settings {
         }
     }
 
+  
+    
     /**
      * Add fields to the settings page.
      * @param string $sectionId
      * @param array $subsection
      * @return void
      */
-    protected function addFields(string $sectionId, array $subsection = [])
-    {
+    protected function addFields(string $sectionId, array $subsection = []) {
         $fields = $subsection['fields'] ?? $this->fields;
         $subsectionId = $subsection['id'] ?? '';
         foreach ($fields as $key => $option) {
