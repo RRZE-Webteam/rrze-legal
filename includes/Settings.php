@@ -119,7 +119,6 @@ class Settings {
         if ($this->optionName === '' || $this->settingsFilename === '') {
             return;
         }
-        Debug::log("loaded Settings, file: ".$this->settingsFilename);
         include_once(plugin()->getPath() . "settings/{$this->settingsFilename}.php");
         $this->settings = $settings ?? [];    
         $this->optionsParent = (object) $this->settings['options_page']['parent'] ?? [];
@@ -482,7 +481,7 @@ class Settings {
                 continue;
             }
             if (!empty($subsection['description'])) {
-                $section['description'] = '<div class="inside">' . $subsection['description'] . '</div>';
+                $subsection['description'] = '<div class="inside">' . $subsection['description'] . '</div>';
                 $callback = function () use ($subsection) {
                     echo $subsection['description'];
                 };

@@ -27,7 +27,7 @@ $settings = [
                 'id' => 'scope',
                 'title' => __('Organizational Affiliation', 'rrze-legal'),
                 'hide_title' => true,
-                'description' => __('','rrze-legal'),
+                'description' => __('Affiliation','rrze-legal'),
                 'subsections' => [
                     [
                         'id' => 'scope',

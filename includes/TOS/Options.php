@@ -63,6 +63,7 @@ class Options extends Settings {
 
         $this->setFields();
         $this->setOptions();
+        
     }
 
 
@@ -268,6 +269,87 @@ Debug::log("setOptions - SET SCOPE by options: $datascope ");
         }
                 
     }
+    
+    
+    /*
+     * check if a subsection is marked as readonly in the current context
+     * @param string $sectionId
+     * @return bool
+     */
+     protected function isReadonlySubsection(string $sectionId) {
+         if ((isset($this->staticdataScope)) && (isset($this->staticdata))) {
+             $datascope = $this->staticdataScope;
+             
+             if ((!empty($datascope)) && (isset($this->staticdata[$datascope]))) { 
+                if (isset($this->staticdata[$datascope][$sectionId])) {
+                    if ($this->staticdata[$datascope][$sectionId]['_readonly']===true) {      
+                        return true;
+                    }
+                }
+            }
+         }
+         return false; 
+     }
+    
+     /**
+     * Add a subsection to the settings page.
+     * @param string $sectionId
+     * @param array $subsections
+     * @param string $capability
+     * @return void
+     */
+    protected function addSubsections(string $sectionId, array $subsections, string $capability)  {
+        $defaultCap = $capability;
+        foreach ($subsections as $subsection) {
+            if (!isset($subsection['id']) || !isset($subsection['title'])) {
+                continue;
+            }
+            $capability = isset($subsection['capability']) ? $subsection['capability'] : $defaultCap;
+            if (!current_user_can($capability)) {
+                continue;
+            }
+            if (isset($subsection['hide_section']) && (bool) $subsection['hide_section']) {
+                continue;
+            }
+            if (!isset($subsection['fields'])) {
+                continue;
+            }
+            if (!empty($subsection['description'])) {
+                $subsection['description'] = '<div class="inside">' . $subsection['description'] . '</div>';
+                $callback = function () use ($subsection) {
+                    echo $subsection['description'];
+                };
+            } elseif (isset($subsection['callback'])) {
+                $callback = $subsection['callback'];
+            } else {
+                $callback = null;
+            }
+            
+            $readonly = $this->isReadonlySubsection($sectionId . '_' . $subsection['id']);
+            
+            $startclass = "subsection subsection-".$sectionId . '_' . $subsection['id'];
+            if ($readonly) {
+                $startclass .= " readonly";
+            }
+            
+            
+            $args = array(
+                  "before_section" =>  '<div class="'.$startclass.'">',
+                  "after_section"   => '</div>',
+                  "section_class" => "subsection-".$this->settingsPrefix . $sectionId . '_' . $subsection['id']
+            );
+           //     Debug::log("addSubsections - add_settings_section: ".$this->settingsPrefix . $sectionId . '_' . $subsection['id']);
+            add_settings_section(
+                $this->settingsPrefix . $sectionId . '_' . $subsection['id'],
+                !isset($subsection['hide_title']) || (bool) !$subsection['hide_title'] ? $subsection['title'] : '',
+                $callback,
+                $this->settingsPrefix . $sectionId,
+                $args
+            );
+            $this->addFields($sectionId, $subsection);
+        }
+    }
+    
  /**
      * Add fields to the settings page.
      * @param string $sectionId
@@ -369,11 +451,6 @@ Debug::log("setOptions - SET SCOPE by options: $datascope ");
                     } 
                 }
             }
-  
-   
-        
-           
-      
         }
     }
     
@@ -406,7 +483,7 @@ Debug::log("setOptions - SET SCOPE by options: $datascope ");
     public function loadStaticData(): array {
         $file_path = plugin()->getPath() . "data/{$this->settingsFilename}.php";
         if (file_exists($file_path)) {
-            // Lade die Datei ein, falls sie existiert
+            // Lade die Datei, falls sie existiert
             include $file_path;
 
             $staticData = $data['items'] ?? [];

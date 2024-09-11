@@ -22,7 +22,7 @@ $data = [
                 'person_name'       => 'Präsident Prof. Dr. Joachim Hornegger',
             ],
             'supervisory_authority' => [
-                '_readonly'        => true,
+                '_readonly'        => false,
                 'name'              => 'Bayerisches Staatsministerium für Wissenschaft und Kunst',
                 'email'             => '',
                 'postal_street'     => 'Salvatorstraße 2',
