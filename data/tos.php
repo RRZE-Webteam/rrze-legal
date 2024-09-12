@@ -56,7 +56,7 @@ $data = [
                 'url'               => 'https://fau.whistletrust.eu/startWhistleProcess.php'
             ],
             'privacy_dpo' =>  [
-                '_readonly'        => false,
+                '_readonly'        => true,
                 'email'             => 'datenschutzbeauftragter@fau.de',
                 'name'              => 'Datenschutzbeauftragter FAU',
                 'fax'               => '',
@@ -67,8 +67,24 @@ $data = [
                 'postal_city'      => 'Dresden',
                 'person_name'       => 'Klaus Hoogestraat',
             ],
-           
-  
+            'accessibility_supervisory_authority' => [
+                '_readonly'        => true,
+                'name'              => 'Landesamt für Digitalisierung, Breitband und Vermessung',
+                'email'             => 'bitv@bayern.de',
+                'phone'             => '',
+                'fax'               => '',
+                'postal_co'         => 'IT-Dienstleistungszentrum des Freistaats Bayern - Durchsetzungs- und Überwachungsstelle für barrierefreie Informationstechnik',
+                'postal_street'     => 'St.-Martin-Straße 47',
+                'postal_code'       => '81541',
+                'postal_city'      => 'München',
+                'url'               => 'https://www.ldbv.bayern.de/digitalisierung/bitv.html',
+                'url_law'               => 'https://www.gesetze-bayern.de/Content/Document/BayDiG',
+                'url_vo'               => 'https://www.gesetze-bayern.de/Content/Document/BayDiV',
+            ],
+ 
+                        
+            
+            
             
         ],
         'utn'   => [
@@ -101,17 +117,84 @@ $data = [
                 'phone'             => '+49 871 20 54 94 0',
                 'postal_co'         => '',
                 'postal_street'     => 'Wallerstraße 2',
-                'postal_code'       => '84032 ',
+                'postal_code'       => '84032',
                 'postal_city'       => 'Altdorf ',
                 'person_name'       => '',
-            ]
+            ],
+            'accessibility_supervisory_authority' => [
+                '_readonly'        => true,
+                'name'              => 'Landesamt für Digitalisierung, Breitband und Vermessung',
+                'email'             => 'bitv@bayern.de',
+                'phone'             => '',
+                'fax'               => '',
+                'postal_co'         => 'IT-Dienstleistungszentrum des Freistaats Bayern - Durchsetzungs- und Überwachungsstelle für barrierefreie Informationstechnik',
+                'postal_street'     => 'St.-Martin-Straße 47',
+                'postal_code'       => '81541',
+                'postal_city'      => 'München',
+                'url'               => 'https://www.ldbv.bayern.de/digitalisierung/bitv.html',
+                'url_law'               => 'https://www.gesetze-bayern.de/Content/Document/BayDiG',
+                'url_vo'               => 'https://www.gesetze-bayern.de/Content/Document/BayDiV',
+            ],
         ],
         'uk'    => [
             'name'  => __('Universitätsklinikum Erlangen', 'rrze-legal'),
+             'imprint_representation'    => [
+                '_readonly'         => true,
+                'email'             => '',
+                'name'              => 'Universitätsklinikum Erlangen',
+                'phone'             => '+49 9131 85 0',
+                'fax'               => '',
+                'postal_street'     => 'Maximiliansplatz 2',
+                'postal_code'       => '91054',
+                'postal_city'       => 'Erlangen',
+                'person_name'       => 'Ärztlicher Direktor Prof. Dr. med. Dr. h. c. Heinrich Iro',
+            ],
+            'imprint_supervisory_authority' => [
+                '_readonly'        => true,
+                'name'              => 'Bayerisches Staatsministerium für Wissenschaft und Kunst',
+                'email'             => '',
+                'postal_street'     => 'Salvatorstraße 2',
+                'postal_code'       => '80327',
+                'postal_city'      => 'München',
+                'url'               => 'https://www.stmwk.bayern.de/',
+            ],
+            'imprint_id_numbers'    => [
+                '_readonly'        => true,
+                'ustg'              => 'DE 248558812',
+                'tax'               => '',
+                'duns'              => '',
+                'eori'              => '',
+                'iban'              => '',
+                'bic'               => ''
+            ],
+              'privacy_dpo' =>  [
+                '_readonly'        => true,
+                'email'             => 'datenschutz@uk-erlangen.de',
+                'name'              => 'Datenschutzbeauftragter',
+                'fax'               => '',
+                'phone'             => '',
+                'postal_co'         => '',
+                'postal_street'     => 'Krankenhausstr. 12',
+                'postal_code'       => '91054',
+                'postal_city'       => 'Erlangen',
+                'person_name'       => '',
+            ],
+            'accessibility_supervisory_authority' => [
+                '_readonly'        => true,
+                'name'              => 'Landesamt für Digitalisierung, Breitband und Vermessung',
+                'email'             => 'bitv@bayern.de',
+                'phone'             => '',
+                'fax'               => '',
+                'postal_co'         => 'IT-Dienstleistungszentrum des Freistaats Bayern - Durchsetzungs- und Überwachungsstelle für barrierefreie Informationstechnik',
+                'postal_street'     => 'St.-Martin-Straße 47',
+                'postal_code'       => '81541',
+                'postal_city'      => 'München',
+                'url'               => 'https://www.ldbv.bayern.de/digitalisierung/bitv.html',
+                'url_law'               => 'https://www.gesetze-bayern.de/Content/Document/BayDiG',
+                'url_vo'               => 'https://www.gesetze-bayern.de/Content/Document/BayDiV',
+            ],
         ],
-        'stw'   => [
-            'name' => __('Studierendenwerk Erlangen-Nürnberg', 'rrze-legal'),
-        ],
+
         'cooperation'   => [
             'name' => __('Cooperation between different institutions', 'rrze-legal'),
         ],

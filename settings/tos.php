@@ -745,21 +745,7 @@ $settings = [
                     tos()->endpointLink('accessibility')
                 ),
                 'subsections' => [
-                    [
-                        'id' => 'general',
-                        'title' => __('General Information', 'rrze-legal'),
-                        'description' => __('All public sector bodies are obliged to make their websites and / or mobile applications accessible in accordance with Directive (EU) 2016/2102 of the European Parliament and of the Council, or implementation in their respective national legislation. It also includes the provision of an Accessibility Declaration of Conformity, in which all web site and app operators must publicly state the status of the website and explain the reasons for which barriers exist.', 'rrze-legal'),
-                        'fields' => [
-                            [
-                                'name' => 'general_legal_area',
-                                'label' => __('Legal Area', 'rrze-legal'),
-                                'description' => __('Selection of the legal area to which the operator of the website belongs.', 'rrze-legal'),
-                                'type' => 'select',
-                                'options' => tos()->getLegalAreaOptions(),
-                                'default' => 2,
-                            ],
-                        ],
-                    ],
+                    
                     [
                         'id' => 'compliance_status',
                         'title' => __('Compliance Status', 'rrze-legal'),
@@ -932,6 +918,93 @@ $settings = [
                             ],
                         ],
                     ],
+                                         [
+                        'id' => 'supervisory_authority',
+                        'title' => __('Supervisory Authority', 'rrze-legal'),
+                        'description' => __('Displays the supervisory authority.', 'rrze-legal'),
+                        'fields' => [
+                            [
+                                'name' => 'supervisory_authority_name',
+                                'label' => __('Name', 'rrze-legal'),
+                                'type' => 'text',
+                                'default' => '',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                         
+                            [
+                                'name' => 'supervisory_authority_email',
+                                'label' => __('Email', 'rrze-legal'),
+                                'type' => 'email',
+                                'sanitize_callback' => function ($input) {
+                                    return tos()->validateEmail($input);
+                                },
+                            ],
+                            [
+                                'name' => 'supervisory_authority_phone',
+                                'label' => __('Phone', 'rrze-legal'),
+                                'type' => 'tel',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ],
+                            [
+                                'name' => 'supervisory_authority_fax',
+                                'label' => __('Fax Number', 'rrze-legal'),
+                                'type' => 'tel',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ],
+                            [
+                                'name' => 'supervisory_authority_url',
+                                'label' => __('URL', 'rrze-legal'),
+                                'type' => 'url',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ], 
+                             [
+                                'name' => 'supervisory_authority_url_law',
+                                'label' => __('URL (concerning LAW)', 'rrze-legal'),
+                                'type' => 'url',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ], 
+                            [
+                                'name' => 'supervisory_authority_url_vo',
+                                'label' => __('URL (concerning VO)', 'rrze-legal'),
+                                'type' => 'url',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ], 
+                             [
+                                'name' => 'supervisory_authority_postal_co',
+                                'label' => __('C/O Address', 'rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],            
+                            [
+                                'name' => 'supervisory_authority_postal_street',
+                                'label' => __('Street Name & House Number', 'rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                            [
+                                'name' => 'supervisory_authority_postal_code',
+                                'label' => __('Postal Code', 'rrze-legal'),
+                                'type' => 'text',
+                                 'size'  => 5,
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                            [
+                                'name' => 'supervisory_authority_postal_city',
+                                'label' => __('City', 'rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                           
+                        ],
+                    ],    
+                                        
+                                     
+                                        
                 ],
             ],
         ],
