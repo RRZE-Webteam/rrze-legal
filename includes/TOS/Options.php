@@ -231,11 +231,11 @@ class Options extends Settings {
         $options = wp_parse_args($options, $defaults);
         $this->options = array_intersect_key($options, $defaults);
         
- Debug::log("setOptions - option name: ".$this->optionName);
+ // Debug::log("setOptions - option name: ".$this->optionName);
  
         if ((isset($this->options['scope_context'])) && (!empty($this->options['scope_context']))) {
              $datascope = $this->options['scope_context'];
-Debug::log("setOptions - SET SCOPE by options: $datascope ");
+// Debug::log("setOptions - SET SCOPE by options: $datascope ");
         } elseif ((isset($defaults['scope_context'])) && (!empty($defaults['scope_context']))) {
              Debug::log("setOptions - SET SCOPE by defaults: $datascope ");
 
@@ -282,7 +282,7 @@ Debug::log("setOptions - SET SCOPE by options: $datascope ");
              
              if ((!empty($datascope)) && (isset($this->staticdata[$datascope]))) { 
                 if (isset($this->staticdata[$datascope][$sectionId])) {
-                    if ($this->staticdata[$datascope][$sectionId]['_readonly']===true) {      
+                    if ((isset($this->staticdata[$datascope][$sectionId]['_readonly'])) &&  ($this->staticdata[$datascope][$sectionId]['_readonly']===true)) {      
                         return true;
                     }
                 }

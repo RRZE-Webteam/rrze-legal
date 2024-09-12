@@ -91,12 +91,30 @@ class Fields
      * Displays a text input field.
      * @param array $atts Settings field attributes
      */
-    public static function text(array $atts, string $type = 'text')
-    {
+    public static function text(array $atts, string $type = 'text') {
         $value = esc_attr($atts['value']);
         $size = $atts['size'] != '' ? $atts['size'] : 'regular';
         $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . $atts['placeholder'] . '"' : '';
 
+        $length = '';
+        if ((isset($atts['size'])) && (is_numeric($atts['size']))) {
+            $length = ' size="'.$atts['size'].'"';
+        }
+        $pattern = '';
+        switch ($type) {
+            case 'tel':
+                $pattern = ' pattern="[0-9\+]{3} [0-9]{4} [0-9\-\s]+"';
+                break;
+             case 'email':
+                $pattern = ' pattern=".+@[a-z0-9\.\-]+\.[a-z]{2,6}"';
+                break;
+             case 'url':
+                $pattern = ' pattern="^https:\/\/[a-z0-9\-\.]+\.[a-z]{2,6}.*"';
+                break;
+        }
+        
+        
+        
         $html = '';
         if ($atts['disabled']) {
             $html .= sprintf(
@@ -107,8 +125,9 @@ class Fields
                 $value,
             );
         }
+        
         $html .= sprintf(
-            '<input type="%1$s" class="%2$s-text" id="%3$s" name="%4$s[%5$s_%6$s]" value="%7$s"%8$s%9$s>',
+            '<input type="%1$s" class="%2$s-text" id="%3$s" name="%4$s[%5$s_%6$s]" value="%7$s"%8$s%9$s%10$s%11$s>',
             $type,
             $size,
             $atts['id'],
@@ -117,7 +136,9 @@ class Fields
             $atts['name'],
             $value,
             $placeholder,
-            $atts['disabled'] ? ' disabled="disabled"' : ''
+            $atts['disabled'] ? ' disabled="disabled"' : '',
+            $length,
+            $pattern    
         );
         $html .= self::description($atts);
 
@@ -128,9 +149,24 @@ class Fields
      * Displays a email input field.
      * @param array $atts Settings field attributes
      */
-    public static function email(array $atts)
-    {
+    public static function email(array $atts)  {
         self::text($atts, 'email');
+    }
+    
+      /**
+     * Displays a url input field.
+     * @param array $atts Settings field attributes
+     */
+    public static function url(array $atts)  {
+        self::text($atts, 'url');
+    }
+    
+     /**
+     * Displays a tel input field.
+     * @param array $atts Settings field attributes
+     */
+    public static function tel(array $atts)  {
+        self::text($atts, 'tel');
     }
 
     /**
@@ -157,6 +193,9 @@ class Fields
                 $value,
             );
         }
+     
+        
+        
         $html .= sprintf(
             $format,
             $editorType,

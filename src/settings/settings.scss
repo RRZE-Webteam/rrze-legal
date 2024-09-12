@@ -144,7 +144,11 @@
         }
     }
 }
-
+#wpcontent {
+    .subsection.readonly {
+	display: none;
+    }
+}
 @media screen and (max-width: 782px) {
     .rrze-legal-wpeditor-container,
     #wpcontent .code-editor {

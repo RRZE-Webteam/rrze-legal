@@ -21,8 +21,8 @@ $data = [
                 'postal_city'       => 'Erlangen',
                 'person_name'       => 'Präsident Prof. Dr. Joachim Hornegger',
             ],
-            'supervisory_authority' => [
-                '_readonly'        => false,
+            'imprint_supervisory_authority' => [
+                '_readonly'        => true,
                 'name'              => 'Bayerisches Staatsministerium für Wissenschaft und Kunst',
                 'email'             => '',
                 'postal_street'     => 'Salvatorstraße 2',
@@ -30,28 +30,33 @@ $data = [
                 'postal_city'      => 'München',
                 'url'               => 'https://www.stmwk.bayern.de/',
             ],
-            'id_numbers'    => [
+            'imprint_id_numbers'    => [
                 '_readonly'        => true,
                 'ustg'              => 'DE 132507686',
                 'tax'               => '216/114/20045 (Finanzamt Erlangen)',
                 'duns'              => '327958716',
-                'eori'              => 'DE4204891',               
+                'eori'              => 'DE4204891',
+                'iban'              => 'DE66700500000301279280',
+                'bic'               => 'BYLADEMMXXX'
             ],
-            'it_security' => [
+            'imprint_it_security' => [
                 '_readonly'         => true,
-                'name'              => '',
+                'name'              => 'Abuse-Contact',
                 'email'             => 'abuse@fau.de',
-                'postal_street'     => '',
-                'postal_code'       => '',
-                'postal_city'       => '',
+                'phone'             => '+49 9131 85 27815',
                 'url'               => 'https://www.rrze.fau.de/abuse/',
+                'postal_co'         => 'IT-Sicherheit',
+                'postal_street'     => 'Martensstraße 1',
+                'postal_code'       => '91058',
+                'postal_city'      => 'Erlangen',
             ],
-            'whistleblower_system' => [
+            'imprint_whistleblower_system' => [
                 '_readonly'        => true,
+                'linktitle'         => 'Hinweisgebersystem der FAU',
                 'url'               => 'https://fau.whistletrust.eu/startWhistleProcess.php'
             ],
             'privacy_dpo' =>  [
-                '_readonly'        => true,
+                '_readonly'        => false,
                 'email'             => 'datenschutzbeauftragter@fau.de',
                 'name'              => 'Datenschutzbeauftragter FAU',
                 'fax'               => '',
@@ -61,9 +66,8 @@ $data = [
                 'postal_code'       => '01127',
                 'postal_city'      => 'Dresden',
                 'person_name'       => 'Klaus Hoogestraat',
-            ]
-            
-            
+            ],
+           
   
             
         ],
@@ -80,7 +84,7 @@ $data = [
                 'postal_city'       => 'Nürnberg ',
                 'person_name'       => 'Präsident Prof. Dr. Alexander Martin',
             ],
-            'supervisory_authority' => [
+            'imprint_supervisory_authority' => [
                 '_readonly'        => true,
                 'name'              => 'Bayerisches Staatsministerium für Wissenschaft und Kunst',
                 'email'             => '',

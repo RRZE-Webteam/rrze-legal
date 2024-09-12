@@ -24,5 +24,11 @@
         "check-engines": "wp-scripts check-engines",
         "check-licenses": "wp-scripts check-licenses --prod --gpl3",
         "packages-update": "wp-scripts packages-update"
-    }
+    },
+    "name": "rrze-legal",
+    "version": "2.7.3",
+    "description": "Generator für rechtliche Pflichtangaben auf einem Webauftritt.",
+    "main": "webpack.config.js",
+    "author": "Wolfgang Wiese <wolfgang.wiese@fau.de> (https://www.rrze.fau.de/)",
+    "license": "GPL-3.0-or-later"
 }
