@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: RRZE Legal 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-legal\n"
 "POT-Creation-Date: 2024-01-09T10:46:31+00:00\n"
-"PO-Revision-Date: 2024-09-13 14:54+0000\n"
+"PO-Revision-Date: 2024-09-13 16:19+0000\n"
 "Last-Translator: Wolfgang Wiese <wolfgang.wiese@fau.de>\n"
 "Language-Team: Deutsch (Sie)\n"
 "Language: de_DE_formal\n"
@@ -138,7 +138,7 @@ msgstr ""
 #: settings/tos.php:165 settings/tos.php:383 settings/tos.php:599
 #: settings/tos.php:954
 msgid "Additional address line."
-msgstr "Zusätzliche Angabe zur Anschrift"
+msgstr "Zusätzliche Angabe zur Anschrift."
 
 #: settings/tos.php:693
 msgid "Additional information about the privacy policy."
