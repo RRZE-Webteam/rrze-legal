@@ -573,8 +573,7 @@ class Settings {
      * @param array $input
      * @return array
      */
-    public function sanitizeOptions($input)
-    {
+    public function sanitizeOptions($input)  {
         $hasError = false;
         $optionPage = $_POST['option_page'] ?? '';
         $prefix = substr($optionPage, strlen($this->settingsPrefix));
@@ -637,8 +636,7 @@ class Settings {
         return $this->postSanitizeOptions($input, $hasError);
     }
 
-    protected function postSanitizeOptions($input, $hasError)
-    {
+    protected function postSanitizeOptions($input, $hasError) {
         return $this->options;
     }
 
@@ -647,8 +645,7 @@ class Settings {
      * @param string $key Option key
      * @return mixed string|boolean false
      */
-    protected function getSanitizeCallback(string $key = '')
-    {
+    protected function getSanitizeCallback(string $key = '') {
         if (isset($this->fields[$key])) {
             $option = $this->fields[$key];
             if (isset($option['sanitize_callback']) && is_callable($option['sanitize_callback'])) {
@@ -662,14 +659,8 @@ class Settings {
      * Register admin scripts.
      * @return void
      */
-    public function adminRegisterSettingsScripts()
-    {
-        wp_register_style(
-            'rrze-legal-settings',
-            plugins_url('build/settings.css', plugin()->getBasename()),
-            [],
-            plugin()->getVersion()
-        );
+    public function adminRegisterSettingsScripts()  {
+        wp_register_style('rrze-legal-settings', plugins_url('build/settings.css', plugin()->getBasename()), [],plugin()->getVersion() );
         wp_register_script(
             'rrze-legal-settings',
             plugins_url('build/settings.js', plugin()->getBasename()),
@@ -686,8 +677,7 @@ class Settings {
      * @param string $input
      * @return mixed
      */
-    public function sanitizeTextareaList(string $input)
-    {
+    public function sanitizeTextareaList(string $input)  {
         if (empty($input)) {
             return '';
         }
@@ -718,8 +708,7 @@ class Settings {
      * @param string $input
      * @return string
      */
-    public function validateUrl(string $input): string
-    {
+    public function validateUrl(string $input): string  {
         $input = sanitize_text_field($input);
         if (filter_var(
             $input,
@@ -736,8 +725,7 @@ class Settings {
      * @param string $input
      * @return string
      */
-    public function validateEmail(string $input): string
-    {
+    public function validateEmail(string $input): string  {
         $input = sanitize_text_field($input);
         if (filter_var(
             $input,
@@ -755,8 +743,7 @@ class Settings {
      * @param integer $max
      * @return integer
      */
-    public function validateIntRange(string $input, int $min, int $max): int
-    {
+    public function validateIntRange(string $input, int $min, int $max): int {
         $integer = intval($input);
         if (filter_var(
             $integer,

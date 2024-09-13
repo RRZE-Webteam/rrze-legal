@@ -5,1089 +5,60 @@ msgstr ""
 "Project-Id-Version: RRZE Legal 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-legal\n"
 "POT-Creation-Date: 2024-01-09T10:46:31+00:00\n"
-"PO-Revision-Date: 2024-01-09 11:52+0100\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2024-09-13 14:55+0000\n"
+"Last-Translator: Wolfgang Wiese <wolfgang.wiese@fau.de>\n"
+"Language-Team: Deutsch\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Loco https://localise.biz/\n"
 "X-Domain: rrze-legal\n"
+"X-Loco-Version: 2.6.11; wp-6.6.2"
 
-#. Plugin Name of the plugin
-msgid "RRZE Legal"
-msgstr "RRZE Rechtliches"
+#: includes/Consent/Categories/Options.php:137
+msgid "&larr; Go to consent categories List"
+msgstr "&larr; Zurück zu den Consent-Kategorien"
 
-#. Plugin URI of the plugin
-msgid "https://gitlab.rrze.fau.de/rrze-webteam/rrze-legal"
-msgstr "https://gitlab.rrze.fau.de/rrze-webteam/rrze-legal"
+#: includes/Consent/Cookies/Options.php:202
+msgid "&larr; Go to consent cookies list"
+msgstr "&larr; Zurück zu den Consent-Cookies"
 
-#. Description of the plugin
-msgid "Legal Mandatory Information & GDPR."
-msgstr "Gesetzliche Pflichtangaben & DSGVO."
+#: includes/Fields.php:452
+msgid "&mdash; Select &mdash;"
+msgstr "&mdash; Auswählen &mdash;"
 
-#. Author of the plugin
-msgid "RRZE Webteam"
-msgstr "RRZE-Webteam"
-
-#. Author URI of the plugin
-msgid "https://blogs.fau.de/webworking/"
-msgstr "https://blogs.fau.de/webworking/"
-
-#: data/consent-categories.php:12
-msgid "Essential"
-msgstr "Essenziell"
-
-#: data/consent-categories.php:13
-msgid ""
-"Essential cookies enable basic functions and are necessary for the proper "
-"function of the website."
-msgstr ""
-"Essenzielle Cookies ermöglichen grundlegende Funktionen und sind für die "
-"einwandfreie Funktion der Website erforderlich."
-
-#: data/consent-categories.php:21
-msgid "Statistics"
-msgstr "Statistiken"
-
-#: data/consent-categories.php:22
-msgid ""
-"Statistics cookies collect information anonymously. This information helps "
-"us to understand how our visitors use our website."
-msgstr ""
-"Statistik-Cookies erfassen Informationen anonym. Diese Informationen helfen "
-"uns zu verstehen, wie unsere Besucher unsere Website nutzen."
-
-#: data/consent-categories.php:30
-msgid "Marketing"
-msgstr "Marketing"
-
-#: data/consent-categories.php:31
-msgid ""
-"Marketing cookies are used by third-party advertisers or publishers to "
-"display personalized ads. They do this by tracking visitors across websites."
-msgstr ""
-"Marketing-Cookies werden von Drittanbietern oder Publishern verwendet, um "
-"personalisierte Werbung anzuzeigen. Sie tun dies, indem sie Besucher über "
-"Websites hinweg verfolgen."
-
-#: data/consent-categories.php:39
-msgid "External Media"
-msgstr "Externe Medien"
-
-#: data/consent-categories.php:40
-msgid ""
-"Content from video platforms and social media platforms is blocked by "
-"default. If External Media cookies are accepted, access to those contents no "
-"longer requires manual consent."
-msgstr ""
-"Inhalte von Videoplattformen und Social-Media-Plattformen werden "
-"standardmäßig blockiert. Wenn Cookies von externen Medien akzeptiert werden, "
-"bedarf der Zugriff auf diese Inhalte keiner manuellen Einwilligung mehr."
-
-#: data/consent-cookies.php:14
-msgid "Default Cookie"
-msgstr "Standard-Cookie"
-
-#: data/consent-cookies.php:15
-msgid "Owner of this website"
-msgstr "Eigentümer dieser Website"
-
-#: data/consent-cookies.php:16
-msgid "Saves the visitors preferences selected in the Consent Banner."
-msgstr ""
-"Speichert die Einstellungen der Besucher, die in der Consent-Banner "
-"ausgewählt wurden."
+#: settings/consent.php:284
+msgid "1 month"
+msgstr "1 Monat"
 
 #: data/consent-cookies.php:19 data/consent-cookies.php:124
 #: data/consent-cookies.php:259 data/consent-cookies.php:282
 msgid "1 Year"
 msgstr "1 Jahr"
 
-#: data/consent-cookies.php:35
-msgid "WordPress"
-msgstr "WordPress"
-
-#: data/consent-cookies.php:36 data/consent-cookies.php:57
-#: data/consent-cookies.php:78 data/consent-cookies.php:99
-#: data/consent-cookies.php:120
-msgid "No transmission to third parties"
-msgstr "Keine Übermittlung an Drittanbieter"
-
-#: data/consent-cookies.php:37
-msgid "Test if cookie can be set. Remember User session."
-msgstr "Teste, ob ein Cookie gesetzt werden kann. Benutzersitzung speichern."
-
-#: data/consent-cookies.php:40 data/consent-cookies.php:61
-#: data/consent-cookies.php:82 data/consent-cookies.php:103
-msgid "Session"
-msgstr "Session"
-
-#: data/consent-cookies.php:56
-msgid "SimpleSAML"
-msgstr "SimpleSAML"
-
-#: data/consent-cookies.php:58
-msgid "Used to manage WebSSO session state."
-msgstr "Dient zur Verwaltung des WebSSO-Sitzungsstatus."
-
-#: data/consent-cookies.php:77
-msgid "PHPSESSID"
-msgstr "PHPSESSID"
-
-#: data/consent-cookies.php:79
-msgid "Preserves user session state across page requests."
-msgstr "Bewahrt den Status der Benutzersitzung über Seitenanfragen hinweg."
-
-#: data/consent-cookies.php:98
-msgid "RSVP"
-msgstr "RSVP"
-
-#: data/consent-cookies.php:100
-msgid "Used to manage RSVP session state."
-msgstr "Dient zur Verwaltung des RSVP-Sitzungsstatus."
-
-#: data/consent-cookies.php:119
-msgid "RRZE Rate Button"
-msgstr "RRZE Rate-Button"
-
-#: data/consent-cookies.php:121
-msgid "Used to manage the rating counter."
-msgstr "Wird verwendet, um den Bewertungszähler zu verwalten."
-
-#: data/consent-cookies.php:140
-msgid "Siteimprove Analytics"
-msgstr "Siteimprove Analytics"
-
-#: data/consent-cookies.php:141
-msgid "Rosenheimer Str. 143 C, 81671 Munich, Germany"
-msgstr "Rosenheimer Str. 143 C, 81671 München, Deutschland"
-
-#: data/consent-cookies.php:142
-msgid "Used to help record the visitor’s use of the website."
-msgstr ""
-"Wird verwendet, um die Nutzung der Website durch den Besucher zu erfassen."
-
 #: data/consent-cookies.php:145
 msgid "1000 Days"
 msgstr "1000 Tage"
-
-#: data/consent-cookies.php:161
-msgid "Twitter"
-msgstr "Twitter"
-
-#: data/consent-cookies.php:162
-msgid ""
-"Twitter International Company, One Cumberland Place, Fenian Street, Dublin "
-"2, D02 AX07, Ireland"
-msgstr ""
-"Twitter International Company, One Cumberland Place, Fenian Street, Dublin "
-"2, D02 AX07, Irland"
-
-#: data/consent-cookies.php:163
-msgid "Used to unblock Twitter content."
-msgstr "Wird verwendet, um Twitter-Inhalte zu entsperren."
-
-#: data/consent-cookies.php:169
-msgid "Unlimited"
-msgstr "Unbegrenzt"
-
-#: data/consent-cookies.php:185
-msgid "YouTube"
-msgstr "YouTube"
-
-#: data/consent-cookies.php:186
-msgid "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland"
-msgstr "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland"
-
-#: data/consent-cookies.php:187
-msgid "Used to unblock YouTube content."
-msgstr "Wird verwendet, um Youtube-Inhalte zu entsperren."
-
-#: data/consent-cookies.php:194
-msgid "6 Months"
-msgstr "6 Monate"
-
-#: data/consent-cookies.php:210
-msgid "Vimeo"
-msgstr "Vimeo"
-
-#: data/consent-cookies.php:211
-msgid "Vimeo Inc., 555 West 18th Street, New York, New York 10011, USA"
-msgstr ""
-"Vimeo Inc., 555 West 18th Street, New York, New York 10011, Vereinigte "
-"Staaten"
-
-#: data/consent-cookies.php:212
-msgid "Used to unblock Vimeo content."
-msgstr "Wird verwendet, um Vimeo-Inhalte zu entsperren."
 
 #: data/consent-cookies.php:215 data/consent-cookies.php:236
 msgid "2 Years"
 msgstr "2 Jahre"
 
-#: data/consent-cookies.php:231
-msgid "Slideshare"
-msgstr "Slideshare"
-
-#: data/consent-cookies.php:232
-msgid "Scribd, Inc., 460 Bryant St, 100, San Francisco, CA 94107-2594 USA"
-msgstr ""
-"Scribd, Inc., 460 Bryant St, 100, San Francisco, CA 94107-2594 Vereinigten "
-"Staten"
-
-#: data/consent-cookies.php:233
-msgid "Used to unblock Slideshare content."
-msgstr "Wird verwendet, um Slideshare-Inhalte zu entsperren."
-
-#: data/consent-cookies.php:252
-msgid "BR Mediathek"
-msgstr "BR Mediathek"
-
-#: data/consent-cookies.php:253 data/consent-cookies.php:276
-msgid "Bayerischer Rundfunk, Rundfunkplatz 1, 80335 Munich, Germany"
-msgstr "Bayerischer Rundfunk, Rundfunkplatz 1, 80335 München, Deutschland"
-
-#: data/consent-cookies.php:254
-msgid "Used to unblock BR content."
-msgstr "Wird verwendet, um BR-Inhalte zu entsperren."
-
-#: data/consent-cookies.php:275
-msgid "ARD Mediathek"
-msgstr "ARD Mediathek"
-
-#: data/consent-cookies.php:277
-msgid "Used to unblock ARD content."
-msgstr "Wird verwendet, um ARD-Inhalte zu entsperren."
-
-#: includes/Consent/Banner.php:16
-msgid "Privacy policy"
-msgstr "Datenschutzerklärung"
-
-#: includes/Consent/Banner.php:38
-msgid "Individual privacy settings"
-msgstr "Individuelle Einstellungen"
-
-#: includes/Consent/Banner.php:42 settings/consent.php:185
-msgid "Privacy Settings"
-msgstr "Datenschutzeinstellungen"
-
-#: includes/Consent/Banner.php:54
-msgid "Back"
-msgstr "Zurück"
-
-#: includes/Consent/Banner.php:55
-msgid "On"
-msgstr "An"
-
-#: includes/Consent/Banner.php:56
-msgid "Off"
-msgstr "Aus"
-
-#: includes/Consent/Banner.php:57
-msgid "Show Cookie Information"
-msgstr "Cookie-Informationen anzeigen"
-
-#: includes/Consent/Banner.php:58
-msgid "Hide Cookie Information"
-msgstr "Cookie-Informationen ausblenden"
-
-#: includes/Consent/Banner.php:61
-msgid "Accept"
-msgstr "Akzeptieren"
-
-#: includes/Consent/Banner.php:62 includes/Consent/Categories/ListTable.php:103
-#: includes/Consent/Cookies/ListTable.php:137 includes/TOS/ContactForm.php:143
-#: settings/consent-categories.php:53 settings/consent-cookies.php:75
-#: settings/tos.php:58 settings/tos.php:123 settings/tos.php:271
-msgid "Name"
-msgstr "Name"
-
-#: includes/Consent/Banner.php:63 settings/consent-cookies.php:84
-msgid "Provider"
-msgstr "Anbieter"
-
-#: includes/Consent/Banner.php:64 includes/Consent/Cookies/ListTable.php:138
-#: settings/consent-cookies.php:93
-msgid "Purpose"
-msgstr "Zweck"
-
-#: includes/Consent/Banner.php:65
-msgid "Privacy Policy"
-msgstr "Datenschutzerklärung"
-
-#: includes/Consent/Banner.php:66
-msgid "Hosts"
-msgstr "Hosts"
-
-#: includes/Consent/Banner.php:67 settings/consent-cookies.php:119
-msgid "Cookie Name"
-msgstr "Cookie Name"
-
-#: includes/Consent/Banner.php:68 settings/consent-cookies.php:127
-msgid "Cookie Expiry"
-msgstr "Cookie Laufzeit"
-
-#: includes/Consent/Categories/ListTable.php:61
-#: includes/Consent/Cookies/ListTable.php:80
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: includes/Consent/Categories/ListTable.php:69
-#: includes/Consent/Categories/ListTable.php:133
-#: includes/Consent/Cookies/ListTable.php:105
-#: includes/Consent/Cookies/ListTable.php:169
-msgid "Delete"
-msgstr "Löschen"
-
-#: includes/Consent/Categories/ListTable.php:104
-#: settings/consent-categories.php:62
-msgid "Description"
-msgstr "Beschreibung"
-
-#: includes/Consent/Categories/ListTable.php:105
-#: includes/Consent/Cookies/ListTable.php:140
-#: settings/consent-categories.php:46 settings/consent-cookies.php:54
-#: settings/consent.php:39 settings/network.php:65
-msgid "Status"
-msgstr "Status"
-
-#: includes/Consent/Categories/ListTable.php:106
-#: settings/consent-categories.php:71
-msgid "Preselected"
-msgstr "Vorausgewählt"
-
-#: includes/Consent/Categories/ListTable.php:107
-#: includes/Consent/Cookies/ListTable.php:141
-#: settings/consent-categories.php:78 settings/consent-cookies.php:61
-msgid "Position"
-msgstr "Position"
-
-#: includes/Consent/Categories/Options.php:29
-msgid "Edit Consent Category"
-msgstr "Consent-Kategorie bearbeiten"
-
-#: includes/Consent/Categories/Options.php:56
-msgid "No consent category selected."
-msgstr "Keine Consent-Kategorie ausgewählt."
-
-#. translators: %s: ID field value.
-#: includes/Consent/Categories/Options.php:109
-#: includes/Consent/Cookies/Options.php:174
-msgid "ID value %s already exists. Please enter a new ID."
-msgstr "ID-Wert %s existiert bereits. Bitte geben Sie eine neue ID ein."
-
-#: includes/Consent/Categories/Options.php:133
-msgid "Consent category updated."
-msgstr "Consent-Kategorie aktualisiert."
-
-#: includes/Consent/Categories/Options.php:133
-msgid "Consent category added."
-msgstr "Consent-Kategorie hinzugefügt."
-
-#: includes/Consent/Categories/Options.php:137
-msgid "&larr; Go to consent categories List"
-msgstr "&larr; Zurück zu den Consent-Kategorien"
-
-#: includes/Consent/Categories/Options.php:189
-#: includes/Consent/Cookies/Options.php:254
-msgid "Add New"
-msgstr "Erstellen"
-
-#: includes/Consent/Categories/Options.php:193
-#: includes/Consent/Cookies/Options.php:258
-msgid "Search"
-msgstr "Suchen"
-
-#. translators: %s: Number of consent categories.
-#: includes/Consent/Categories/Options.php:238
-msgctxt "consent categories"
-msgid "%s category deleted."
-msgid_plural "%s categories deleted."
-msgstr[0] "%s Kategorie gelöscht."
-msgstr[1] "%s Kategorien gelöscht."
-
-#: includes/Consent/ContentBlocker.php:307
-msgid "privacy policy"
-msgstr "Datenschutzerklärung"
-
-#: includes/Consent/ContentBlocker.php:309
-msgid "Display external content"
-msgstr "Externen Inhalt anzeigen"
-
-#. translators: %s: Name of the service provider.
-#: includes/Consent/ContentBlocker.php:312
-msgid ""
-"At this point content of an external provider (source: %s) is integrated. "
-"When displaying, data may be transferred to third parties or cookies may be "
-"stored, therefore your consent is required."
-msgstr ""
-"An dieser Stelle sind Inhalte eines externen Anbieters (%s) eingebunden. "
-"Beim Anzeigen können Daten an Dritte übertragen oder Cookies gespeichert "
-"werden, deshalb ist Ihre Zustimmung erforderlich."
-
-#. translators: %s: Privacy policy link.
-#: includes/Consent/ContentBlocker.php:317
-msgid ""
-"You can find more information and the possibility to revoke your consent in "
-"our %s."
-msgstr ""
-"Weitere Informationen und die Möglichkeit zum Widerruf finden Sie in unserer "
-"%s."
-
-#: includes/Consent/ContentBlocker.php:320
-msgid "I agree"
-msgstr "Ich stimme zu"
-
-#: includes/Consent/Cookies/ListTable.php:88
-#: includes/Consent/Cookies/ListTable.php:167
-msgid "Enable"
-msgstr "Aktivieren"
-
-#: includes/Consent/Cookies/ListTable.php:96
-#: includes/Consent/Cookies/ListTable.php:168
-msgid "Disable"
-msgstr "Deaktivieren"
-
-#: includes/Consent/Cookies/ListTable.php:139 settings/consent-cookies.php:46
-msgid "Category"
-msgstr "Kategorie"
-
-#: includes/Consent/Cookies/Options.php:31
-msgid "Edit Consent Cookie"
-msgstr "Consent-Cookie bearbeiten"
-
-#: includes/Consent/Cookies/Options.php:121
-msgid "No consent cookie selected."
-msgstr "Keine Consent-Cookie ausgewählt."
-
-#: includes/Consent/Cookies/Options.php:198
-msgid "Consent cookie updated."
-msgstr "Consent-Cookie aktualisiert."
-
-#: includes/Consent/Cookies/Options.php:198
-msgid "Consent cookie added."
-msgstr "Consent-Cookie hinzugefügt."
-
-#: includes/Consent/Cookies/Options.php:202
-msgid "&larr; Go to consent cookies list"
-msgstr "&larr; Zurück zu den Consent-Cookies"
-
-#. translators: %s: Number of consent cookies.
-#: includes/Consent/Cookies/Options.php:303
-msgctxt "consent cookies"
-msgid "%s cookie enabled."
-msgid_plural "%s cookies enabled."
-msgstr[0] "%s Cookie aktiviert."
-msgstr[1] "%s Cookies aktiviert."
-
-#. translators: %s: Number of consent cookies.
-#: includes/Consent/Cookies/Options.php:333
-msgctxt "consent cookies"
-msgid "%s cookie disabled."
-msgid_plural "%s cookies disabled."
-msgstr[0] "%s Cookie deaktiviert."
-msgstr[1] "%s Cookies deaktiviert."
-
-#. translators: %s: Number of consent cookies.
-#: includes/Consent/Cookies/Options.php:363
-msgctxt "consent cookies"
-msgid "%s cookie deleted."
-msgid_plural "%s cookies deleted."
-msgstr[0] "%s Cookie gelöscht."
-msgstr[1] "%s Cookies gelöscht."
-
-#: includes/Consent/Shortcode.php:56 includes/Consent/Shortcode.php:57
-msgid "Yes, I agree."
-msgstr "Ja, ich stimme zu."
-
-#: includes/Fields.php:413
-msgid "&mdash; Select &mdash;"
-msgstr "&mdash; Auswählen &mdash;"
-
-#. translators: %s: Label of the field.
-#: includes/ListSettings.php:604 includes/Settings.php:626
-msgid "The field %s is required."
-msgstr "Das Feld %s ist erforderlich."
-
-#. translators: 1: Invalid value, 2: Label of the field.
-#: includes/ListSettings.php:614 includes/Settings.php:636
-msgid "The value %1$s of the field %2$s is not valid."
-msgstr "Der Wert %1$s des Feldes %2$s ist ungültig."
-
-#: includes/ListSettings.php:789
-msgid "Number of items per page:"
-msgstr "Einträge pro Seite:"
-
-#: includes/Main.php:66 includes/Main.php:67 settings/network.php:14
-#: settings/network.php:17
-msgid "Legal"
-msgstr "Rechtliches"
-
-#: includes/Main.php:125 settings/tos.php:14 settings/tos.php:17
-msgid "Legal Mandatory Information"
-msgstr "Rechtliche Pflichtangaben"
-
-#. translators: %s: Link of the settings page.
-#: includes/Main.php:129
-msgid ""
-"One or more mandatory fields of the legal settings have not been filled. "
-"Please fill in these fields as soon as possible in the following link: %s."
-msgstr ""
-"Ein oder mehrere Pflichtfelder der Rechtliches-Einstellungen wurden nicht "
-"ausgefüllt. Bitte füllen Sie diese Felder so schnell wie möglich unter "
-"folgendem Link aus: %s."
-
-#. translators: %s: Permalink of the page that overrides the endpoint.
-#: includes/Main.php:140
-msgid ""
-"The output of this settings page is overwritten by the content of the "
-"following page: %s."
-msgstr ""
-"Die Ausgabe dieser Einstellungsseite wird durch den Inhalt der folgenden "
-"Seite überschrieben: %s."
-
-#: includes/Network/Options.php:148
-msgid "Settings saved."
-msgstr "Die Einstellungen wurden gespeichert."
-
-#: includes/Network/Options.php:150
-msgid "Dismiss this notice."
-msgstr "Diese Meldung ausblenden."
-
-#: includes/Settings.php:696
-msgid "yy-mm-dd"
-msgstr "yy-mm-dd"
-
-#: includes/TOS/ContactForm.php:74
-msgid "The message could not be sent."
-msgstr "Die Nachricht konnte nicht gesendet werden."
-
-#: includes/TOS/ContactForm.php:81
-msgid "Thank you for your message. It was sent successfully."
-msgstr "Danke für Ihre Nachricht. Sie wurde erfolgreich gesendet."
-
-#: includes/TOS/ContactForm.php:141
-msgid "The following message was entered in the accessibility feedback form."
-msgstr ""
-"Die folgende Nachricht wurde im Feedback-Formular zur Barrierefreiheit "
-"eingegeben."
-
-#: includes/TOS/ContactForm.php:142
-msgid "From"
-msgstr "Absender"
-
-#: includes/TOS/ContactForm.php:144
-msgid "Email Addresse"
-msgstr "E-Mail-Adresse"
-
-#: includes/TOS/ContactForm.php:148
-msgid "User Agent"
-msgstr "Verwendeter User-Agent"
-
-#: includes/TOS/ContactForm.php:151
-msgid "Sending Time"
-msgstr "Absendezeit"
-
-#: includes/TOS/ContactForm.php:151
-msgid "d/m/Y - g:i a"
-msgstr "d.m.Y - H:i"
-
-#: includes/TOS/ContactForm.php:152
-msgid "Website Form"
-msgstr "Website-Form"
-
-#: includes/TOS/ContactForm.php:153
-msgid "Message entered by the sender"
-msgstr "Vom Absender eingegebene Nachricht"
-
-#: includes/TOS/ContactForm.php:160
-msgid "Go to the website"
-msgstr "Website aufrufen"
-
-#: includes/TOS/ContactForm.php:161
-msgid "Dashboard"
-msgstr "Dashboard"
-
-#: includes/TOS/ContactForm.php:169
-msgid "Please enter a name."
-msgstr "Bitte geben Sie einen Namen an."
-
-#: includes/TOS/ContactForm.php:172
-msgid ""
-"The email address field must be filled out and contain a correctly spelled "
-"email address."
-msgstr ""
-"Die Feld der E-Mail-Adresse muss ausgefüllt sein und eine korrekt "
-"geschriebene E-Mailadresse enthalten."
-
-#: includes/TOS/ContactForm.php:174
-msgid "The specified e-mail address is not correct."
-msgstr "Die angegebene E-Mailadresse ist nicht korrekt."
-
-#: includes/TOS/ContactForm.php:177
-msgid "Please enter a text."
-msgstr "Bitte geben Sie einen Text an."
-
-#: includes/TOS/ContactForm.php:180
-msgid "Please enter a number as solution."
-msgstr "Bitte geben Sie eine Zahl als Lösung ein."
-
-#: includes/TOS/ContactForm.php:182
-msgid "The entered number is wrong."
-msgstr "Die eingegebene Zahl ist falsch."
-
-#: includes/TOS/ContactForm.php:205
-msgid "Error"
-msgstr "Fehler"
-
-#: includes/TOS/ContactForm.php:226
-msgid "zero"
-msgstr "Null"
-
-#: includes/TOS/ContactForm.php:227
-msgid "one"
-msgstr "Eins"
-
-#: includes/TOS/ContactForm.php:228
-msgid "two"
-msgstr "Zwei"
-
-#: includes/TOS/ContactForm.php:229
-msgid "three"
-msgstr "Drei"
-
-#: includes/TOS/ContactForm.php:230
-msgid "four"
-msgstr "Vier"
-
-#: includes/TOS/ContactForm.php:231
-msgid "five"
-msgstr "Fünf"
-
-#: includes/TOS/ContactForm.php:232
-msgid "six"
-msgstr "Sechs"
-
-#: includes/TOS/ContactForm.php:233
-msgid "seven"
-msgstr "Sieben"
-
-#: includes/TOS/ContactForm.php:234
-msgid "eight"
-msgstr "Acht"
-
-#: includes/TOS/ContactForm.php:235
-msgid "nine"
-msgstr "Neun"
-
-#: includes/TOS/Endpoint.php:24 settings/tos.php:28
-msgid "Imprint"
-msgstr "Impressum"
-
-#: includes/TOS/Endpoint.php:25 settings/tos.php:255
-msgid "Privacy"
-msgstr "Datenschutz"
-
-#: includes/TOS/Endpoint.php:26 settings/tos.php:425
-msgid "Accessibility"
-msgstr "Barrierefreiheit"
-
-#: includes/TOS/Endpoint.php:124
-msgid "and"
-msgstr "und"
-
-#: includes/TOS/Endpoint.php:282
-msgid "Not Found"
-msgstr "Nicht gefunden"
-
-#: includes/TOS/Options.php:212
-msgid "Bundesebene Deutschland (Öffentlicher Dienst)"
-msgstr "Bundesebene Deutschland (Öffentlicher Dienst)"
-
-#: includes/TOS/Options.php:224
-msgid "Baden-Württemberg"
-msgstr "Baden-Württemberg"
-
-#: includes/TOS/Options.php:233
-msgid "Bayern"
-msgstr "Bayern"
-
-#: includes/TOS/Options.php:247
-msgid "Berlin"
-msgstr "Berlin"
-
-#: includes/TOS/Options.php:258
-msgid "Brandenburg"
-msgstr "Brandenburg"
-
-#: includes/TOS/Options.php:269
-msgid "Bremen"
-msgstr "Bremen"
-
-#: includes/TOS/Options.php:280
-msgid "Hamburg"
-msgstr "Hamburg"
-
-#: includes/TOS/Options.php:290
-msgid "Hessen"
-msgstr "Hessen"
-
-#: includes/TOS/Options.php:301
-msgid "Mecklenburg-Vorpommern"
-msgstr "Mecklenburg-Vorpommern"
-
-#: includes/TOS/Options.php:312
-msgid "Niedersachsen"
-msgstr "Niedersachsen"
-
-#: includes/TOS/Options.php:321
-msgid "Nordrhein-Westfalen"
-msgstr "Nordrhein-Westfalen"
-
-#: includes/TOS/Options.php:330
-msgid "Rheinland-Pfalz"
-msgstr "Rheinland-Pfalz"
-
-#: includes/TOS/Options.php:341
-msgid "Saarland"
-msgstr "Saarland"
-
-#: includes/TOS/Options.php:352
-msgid "Sachsen"
-msgstr "Sachsen"
-
-#: includes/TOS/Options.php:361
-msgid "Sachsen-Anhalt"
-msgstr "Sachsen-Anhalt"
-
-#: includes/TOS/Options.php:372
-msgid "Schleswig-Holstein"
-msgstr "Schleswig-Holstein"
-
-#: includes/TOS/Options.php:383
-msgid "Thüringen"
-msgstr "Thüringen"
-
-#. translators: 1: Server PHP version number, 2: Required PHP version number.
-#: rrze-legal.php:75
-msgid ""
-"The server is running PHP version %1$s. The Plugin requires at least PHP "
-"version %2$s."
-msgstr ""
-"The server is running PHP version %1$s. The Plugin requires at least PHP "
-"version %2$s."
-
-#. translators: 1: Server WordPress version number, 2: Required WordPress version number.
-#: rrze-legal.php:82
-msgid ""
-"The server is running WordPress version %1$s. The Plugin requires at least "
-"WordPress version %2$s."
-msgstr ""
-"The server is running WordPress version %1$s. The Plugin requires at least "
-"WordPress version %2$s."
-
-#. translators: 1: The plugin name, 2: The error string.
-#: rrze-legal.php:101 rrze-legal.php:237
-msgid "Plugins: %1$s: %2$s"
-msgstr "Plugins: %1$s: %2$s"
-
-#: rrze-legal.php:208
-msgid ""
-"The \"rrze-tos\" plugin is networkwide activated. Please deactivate the "
-"\"rrze-tos\" plugin as it will be replaced by the \"rrze-legal\" plugin."
-msgstr ""
-"Das Plugin „rrze-tos“ ist netzwerkweit aktiviert. Bitte deaktivieren Sie das "
-"Plugin „rrze-tos“, da es durch das Plugin „rrze-legal“ ersetzt wird."
-
-#: settings/consent-categories.php:14 settings/consent-categories.php:17
-#: settings/consent-categories.php:24
-msgid "Consent Categories"
-msgstr "Consent-Kategorien"
-
-#: settings/consent-categories.php:28
-msgid "Add New Category"
-msgstr "Erstellen"
-
-#: settings/consent-categories.php:33 settings/consent-cookies.php:33
-msgid "ID"
-msgstr "ID"
-
-#: settings/consent-categories.php:34 settings/consent-cookies.php:34
-msgid ""
-"The <strong>ID</strong> must be at least 3 characters long and may only "
-"contain <code>a-z_-</code> characters."
-msgstr ""
-"Die <strong>ID</strong> muss mindestens 3 Zeichen lang sein und darf nur "
-"<code>a-z_-</code> Zeichen enthalten."
-
-#: settings/consent-categories.php:47
-msgid ""
-"The status of this <strong>Consent Category</strong>. If enabled (Status: "
-"Enabled) it is displayed to the visitor in the <strong>Consent Banner</"
-"strong>"
-msgstr ""
-"Der Status dieser <strong>Consent-Kategorie</strong>. Falls aktiviert "
-"(Status: Aktiviert) wird es dem Besucher im <strong>Consent-Banner</strong> "
-"angezeigt"
-
-#: settings/consent-categories.php:54
-msgid ""
-"Enter a name for this <strong>Consent Category</strong>. It is displayed to "
-"the visitor in the <strong>Consent Banner</strong>."
-msgstr ""
-"Geben Sie einen Namen für diese <strong>Consent-Kategorie</strong> ein. Sie "
-"wird dem Besucher im <strong>Consent-Banner</strong> angezeigt."
-
-#: settings/consent-categories.php:63
-msgid ""
-"Enter a description for this <strong>Consent Category</strong>. It is "
-"displayed to the visitor in the <strong>Consent Banner</strong>."
-msgstr ""
-"Geben Sie eine Beschreibung für diese <strong>Consent-Kategorie</strong> "
-"ein. Sie wird dem Besucher im <strong>Consent-Banner</strong> angezeigt."
-
-#: settings/consent-categories.php:72
-msgid ""
-"If enabled (Status: Enabled) this <strong>Consent Category</strong> is "
-"preselected in the <strong>Consent Banner</strong>. The visitor can deselect "
-"it"
-msgstr ""
-"Wenn aktiviert (Status: Aktiviert), ist diese <strong>Content-Kategorie</"
-"strong> im <strong>Content-Banner</strong> vorausgewählt. Der Besucher kann "
-"es abwählen"
-
-#: settings/consent-categories.php:79
-msgid ""
-"Determine the position where this <strong>Consent Category</strong> is "
-"displayed. Order follows natural numbers."
-msgstr ""
-"Bestimmen Sie die Position, an der diese <strong>Consent-Kategorie</strong> "
-"angezeigt wird. Die Reihenfolge folgt den natürlichen Zahlen."
-
-#: settings/consent-cookies.php:14 settings/consent-cookies.php:17
-#: settings/consent-cookies.php:24
-msgid "Consent Cookies"
-msgstr "Consent-Cookies"
-
-#: settings/consent-cookies.php:28
-msgid "Add New Cookie"
-msgstr "Erstellen"
-
-#: settings/consent-cookies.php:47
-msgid ""
-"The <strong>Consent Category</strong> the <strong>Cookie</strong> is part of."
-msgstr ""
-"Die <strong>Consent-Kategorie</strong>, zu der das <strong>Cookie</strong> "
-"gehört."
-
-#: settings/consent-cookies.php:55
-msgid ""
-"The status of this <strong>Cookie</strong>. If enabled (Status: Enabled) it "
-"is displayed to the visitor in the <strong>Consent Banner</strong>"
-msgstr ""
-"Der Status dieses <strong>Cookies</strong>. Falls aktiviert (Status: "
-"Aktiviert) wird es dem Besucher im <strong>Consent Banner</strong> angezeigt"
-
-#: settings/consent-cookies.php:62
-msgid ""
-"Determine the position where this <strong>Cookie</strong> is displayed in "
-"the <strong>Consent Category</strong>. Order follows natural numbers."
-msgstr ""
-"Bestimmen Sie die Position, an der dieses <strong>Cookie</strong> in der "
-"<strong>Consent-Kategorie</strong> angezeigt wird. Die Reihenfolge folgt den "
-"natürlichen Zahlen."
-
-#: settings/consent-cookies.php:76
-msgid "Insert a name for this <strong>Cookie</strong>."
-msgstr "Geben Sie einen Namen für dieses <strong>Cookie</strong> ein."
-
-#: settings/consent-cookies.php:85
-msgid "Insert the provider of this <strong>Cookie</strong>."
-msgstr "Fügen Sie den Anbieter dieses <strong>Cookies</strong> ein."
-
-#: settings/consent-cookies.php:94
-msgid "Explain the purpose of this <strong>Cookie</strong> to the visitors."
-msgstr "Erklären Sie den Besuchern den Zweck dieses <strong>Cookie</strong>."
-
-#: settings/consent-cookies.php:102
-msgid "Privacy Policy URL"
-msgstr "Datenschutz URL"
-
-#: settings/consent-cookies.php:103
-msgid ""
-"Provide a URL to the privacy policy of the provider of the <strong>Cookie</"
-"strong>."
-msgstr ""
-"Geben Sie eine URL zur Datenschutzrichtlinie des Anbieters des "
-"<strong>Cookie</strong> an."
-
-#: settings/consent-cookies.php:111
-msgid "Host(s)"
-msgstr "Host(s)"
-
-#: settings/consent-cookies.php:112
-msgid "Insert the host(s) of this <strong>Cookie</strong>."
-msgstr "Fügen Sie den/die Host(s) dieses <strong>Cookies</strong> ein."
-
-#: settings/consent-cookies.php:120
-msgid ""
-"Provide the technical name of the <strong>Cookie</strong>. Separate multiple "
-"cookie names with a comma."
-msgstr ""
-"Geben Sie den technischen Namen des <strong>Cookies</strong> an. Trennen Sie "
-"mehrere Cookie-Namen durch ein Komma."
-
-#: settings/consent-cookies.php:128
-msgid "Provide the expiry date of the <strong>Cookie</strong>."
-msgstr "Geben Sie die Laufzeit des <strong>Cookies</strong> an."
-
-#: settings/consent-cookies.php:136
-msgid "Enqueued Script Name"
-msgstr "Name des enqueued Skripts"
-
-#: settings/consent-cookies.php:137
-msgid ""
-"Name of the enqueued script. It is required if you want to block the script. "
-"Separate multiple names with a comma."
-msgstr ""
-"Name des enqueued Skripts. Es ist erforderlich, wenn Sie das Skript "
-"blockieren möchten. Trennen Sie mehrere Namen durch ein Komma."
-
-#: settings/consent-cookies.php:144
-msgid "Block Enqueued Script"
-msgstr "Enqueued Skript blockieren"
-
-#: settings/consent-cookies.php:145
-msgid "The enqueued script will be blocked"
-msgstr "Das enqueued Skript wird blockiert"
-
-#: settings/consent-cookies.php:151
-msgid "Prioritize Opt-in Code"
-msgstr "Opt-in-Code priorisieren"
-
-#: settings/consent-cookies.php:152
-msgid ""
-"The <strong>Opt-in Code</strong> is loaded in <head> and is executed before "
-"the page is fully loaded"
-msgstr ""
-"Der <strong>Opt-in Code</strong> wird in <head> geladen und ausgeführt, "
-"bevor die Seite vollständig geladen ist"
-
-#: settings/consent-cookies.php:158
-msgid "Asynchronous Opt-Out Code"
-msgstr "Asynchroner Opt-Out-Code"
-
-#: settings/consent-cookies.php:159
-msgid ""
-"The <strong>Opt-Out Code</strong> contains asynchronous JavaScript code that "
-"needs to executed to finish the Opt-Out"
-msgstr ""
-"Der <strong>Opt-Out-Code</strong> enthält asynchronen JavaScript-Code, der "
-"ausgeführt werden muss, um das Opt-Out abzuschließen"
-
-#: settings/consent-cookies.php:165 settings/consent-cookies.php:181
-msgid "Opt-in Code"
-msgstr "Opt-in-Code"
-
-#: settings/consent-cookies.php:166 settings/consent-cookies.php:182
-msgid "This code will be executed after the visitor gives their consent."
-msgstr ""
-"Dieser Code wird ausgeführt, nachdem der Besucher seine Zustimmung gegeben "
-"hat."
-
-#: settings/consent-cookies.php:173
-msgid "Opt-out Code"
-msgstr "Opt-out-Code"
-
-#: settings/consent-cookies.php:174
-msgid ""
-"This code will be executed only if the visitor did opt-in previously and "
-"chooses to opt-out. It is executed once."
-msgstr ""
-"Dieser Code wird nur ausgeführt, wenn der Besucher sich zuvor angemeldet "
-"(Opt-In) hat und sich für die Abmeldung (Opt-Out) entscheidet. Es wird "
-"einmal ausgeführt."
-
-#: settings/consent-cookies.php:189
-msgid "Fallback Code"
-msgstr "Fallback-Code"
-
-#: settings/consent-cookies.php:190
-msgid "This code will always be executed."
-msgstr "Dieser Code wird immer ausgeführt."
-
-#: settings/consent.php:14 settings/consent.php:17
-msgid "Consent Banner"
-msgstr "Consent-Banner"
-
-#: settings/consent.php:24
-msgid "Consent Settings"
-msgstr "Consent-Einstellungen"
-
-#: settings/consent.php:28 settings/network.php:59
-msgid "Banner"
-msgstr "Banner"
-
-#: settings/consent.php:30
-msgid "General consent banner settings."
-msgstr "Allgemeine Einstellungen für das Content-Banner."
-
-#: settings/consent.php:34 settings/consent.php:243 settings/consent.php:267
-msgid "General Settings"
-msgstr "Allgemeine Einstellungen"
-
-#: settings/consent.php:40 settings/network.php:66
-msgid ""
-"Activates the Consent Banner. Displays the <strong>Banner</strong> and "
-"blocks iframes and other external media"
-msgstr ""
-"Aktiviert das Consent-Banner. Zeigt das <strong>Banner</strong> an und "
-"blockiert Iframes und andere externe Medien"
-
-#: settings/consent.php:47
-msgid "Test Mode"
-msgstr "Testmodus"
-
-#: settings/consent.php:48
-msgid ""
-"Test the consent banner settings without having to enable <strong>Banner "
-"Status</strong>"
-msgstr ""
-"Testen Sie die Einstellungen des Content-Banners, ohne den <strong>Banner-"
-"Status</strong> aktivieren zu müssen"
-
-#: settings/consent.php:54 settings/network.php:72
-msgid "Update Consent Cookie Version & Force Re-Selection"
-msgstr "Consent-Cookie-Version aktualisieren und erneute Auswahl erzwingen"
-
-#. translators: %s: Consent cookie version.
-#: settings/consent.php:57 settings/network.php:75
-msgid ""
-"Updates the version of the cookie of Consent Cookie. This will cause the "
-"<strong>Consent Banner</strong> to reappear for visitors who have already "
-"selected an option. <strong>Current Consent Cookie Version: %s </strong>"
-msgstr ""
-"Aktualisiert die Version des Standard-Cookies. Dadurch wird das "
-"<strong>Consent-Banner</strong> für Besucher, die bereits eine Option "
-"ausgewählt haben, erneut angezeigt. <strong>Aktuelle Version des Standard-"
-"Cookies: %s </strong>"
-
-#: settings/consent.php:65 settings/network.php:83
-msgid "Cookies for Bots/Crawlers"
-msgstr "Cookies für Bots/Crawler"
+#: settings/consent.php:285
+msgid "3 months"
+msgstr "3 Monate"
+
+#: data/consent-cookies.php:194
+msgid "6 Months"
+msgstr "6 Monate"
 
 #: settings/consent.php:66 settings/network.php:84
 msgid "A bot/crawler is treated like a visitor who accepted all cookies"
 msgstr ""
 "Ein Bot/Crawler wird wie ein Besucher behandelt, der alle Cookies akzeptiert "
 "hat.“"
-
-#: settings/consent.php:72 settings/network.php:90
-msgid "Respect \"Do Not Track\""
-msgstr "Respektiere „Do Not Track“"
 
 #: settings/consent.php:73 settings/network.php:91
 msgid ""
@@ -1099,33 +70,62 @@ msgstr ""
 "das <strong>Content-Banner</strong> nicht und das System wählt automatisch "
 "die Option <strong>„Ablehnen“</strong>"
 
-#: settings/consent.php:79 settings/network.php:97
-msgid "Reload After Opt-Out"
-msgstr "Nach Opt-Out neu laden"
+#: includes/Consent/Banner.php:61
+msgid "Accept"
+msgstr "Akzeptieren"
 
-#: settings/consent.php:80 settings/network.php:98
+#: settings/consent.php:208
+msgid "Accept all"
+msgstr "Alle akzeptieren"
+
+#: settings/consent.php:205
+msgid "Accept All Button Text"
+msgstr "Text der Schaltfläche „Alle akzeptieren“"
+
+#: settings/consent.php:217
+msgid "Accept only essential cookies"
+msgstr "Nur essentielle Cookies akzeptieren"
+
+#: settings/tos.php:718 includes/TOS/Endpoint.php:26
+msgid "Accessibility"
+msgstr "Barrierefreiheit"
+
+#: settings/tos.php:880
+msgid "Accessibility Feedback Form"
+msgstr "Feedback-Formular zur Barrierefreiheit"
+
+#: settings/consent.php:272
+msgid "Activate"
+msgstr "Aktivieren"
+
+#: settings/consent.php:273
+msgid "Activate consent log"
+msgstr "Cookie-Einwilligungsprotokoll aktivieren"
+
+#: settings/consent.php:40 settings/network.php:66
 msgid ""
-"If activated the website will be reloaded after the visitor saves their "
-"consent"
+"Activates the Consent Banner. Displays the <strong>Banner</strong> and "
+"blocks iframes and other external media"
 msgstr ""
-"Wenn aktiviert, wird die Website neu geladen, nachdem der Besucher seine "
-"Einwilligung gespeichert hat"
+"Aktiviert das Consent-Banner. Zeigt das <strong>Banner</strong> an und "
+"blockiert Iframes und andere externe Medien"
 
-#: settings/consent.php:86 settings/network.php:104
-msgid "Ignore Preselected Categories"
-msgstr "Vorgewählte Kategorien ignorieren"
+#: settings/tos.php:522 settings/tos.php:697
+msgid "Add a New Section"
+msgstr "Hinzufügen eines neuen Abschnitts"
 
-#: settings/consent.php:87 settings/network.php:105
-msgid ""
-"If activated, no <strong>Categories</strong> are preselected in the "
-"<strong>Consent Banner</strong>"
-msgstr ""
-"Wenn aktiviert, werden keine <strong>Kategorien</strong> im <strong>Consent "
-"Banner</strong> vorausgewählt"
+#: includes/Consent/Cookies/Options.php:254
+#: includes/Consent/Categories/Options.php:189
+msgid "Add New"
+msgstr "Erstellen"
 
-#: settings/consent.php:93
-msgid "Hide On URL"
-msgstr "Auf URL ausblenden"
+#: settings/consent-categories.php:28
+msgid "Add New Category"
+msgstr "Erstellen"
+
+#: settings/consent-cookies.php:28
+msgid "Add New Cookie"
+msgstr "Erstellen"
 
 #: settings/consent.php:94
 msgid ""
@@ -1135,54 +135,247 @@ msgstr ""
 "Fügen Sie eine URL pro Zeile hinzu. Das <strong>Consent-Banner</strong> wird "
 "auf diesen URLs nicht angezeigt."
 
-#: settings/consent.php:101 settings/network.php:111
-msgid "Cookies For IP Addresses"
-msgstr "Cookies für IP-Adressen"
+#: settings/tos.php:165 settings/tos.php:383 settings/tos.php:599
+#: settings/tos.php:954
+msgid "Additional address line."
+msgstr "Zusätzliche Angabe zur Anschrift"
 
-#: settings/consent.php:102 settings/network.php:112
+#: settings/tos.php:693
+msgid "Additional information about the privacy policy."
+msgstr "Zusätzliche Informationen zur Datenschutzerklärung."
+
+#: settings/tos.php:839
+msgid "Alternatives"
+msgstr "Alternative Zugangswege"
+
+#: includes/TOS/Endpoint.php:130
+msgid "and"
+msgstr "und"
+
+#: data/consent-cookies.php:275
+msgid "ARD Mediathek"
+msgstr "ARD Mediathek"
+
+#: settings/consent-cookies.php:158
+msgid "Asynchronous Opt-Out Code"
+msgstr "Asynchroner Opt-Out-Code"
+
+#. %s: Name of the service provider.
+#: includes/Consent/ContentBlocker.php:314
+#, php-format
 msgid ""
-"These IP addresses are treated as a visitor who accepted all cookies. Add "
-"one IP address per line."
+"At this point content of an external provider (source: %s) is integrated. "
+"When displaying, data may be transferred to third parties or cookies may be "
+"stored, therefore your consent is required."
 msgstr ""
-"Diese IP-Adressen werden als Besucher behandelt, die alle Cookies akzeptiert "
-"haben. Fügen Sie pro Zeile eine IP-Adresse hinzu."
+"An dieser Stelle sind Inhalte eines externen Anbieters (%s) eingebunden. "
+"Beim Anzeigen können Daten an Dritte übertragen oder Cookies gespeichert "
+"werden, deshalb ist Ihre Zustimmung erforderlich."
 
-#: settings/consent.php:112
-msgid "Cookie Settings"
-msgstr "Cookie Einstellungen"
+#: includes/Consent/Banner.php:54
+msgid "Back"
+msgstr "Zurück"
+
+#: settings/consent.php:28 settings/network.php:59
+msgid "Banner"
+msgstr "Banner"
+
+#: data/consent-cookies.php:253 data/consent-cookies.php:276
+msgid "Bayerischer Rundfunk, Rundfunkplatz 1, 80335 Munich, Germany"
+msgstr "Bayerischer Rundfunk, Rundfunkplatz 1, 80335 München, Deutschland"
+
+#: settings/tos.php:338
+msgid "BIC-Code"
+msgstr "BIC-Code"
+
+#: settings/consent-cookies.php:144
+msgid "Block Enqueued Script"
+msgstr "Enqueued Skript blockieren"
+
+#: data/consent-cookies.php:252
+msgid "BR Mediathek"
+msgstr "BR Mediathek"
+
+#: settings/tos.php:164 settings/tos.php:382 settings/tos.php:598
+#: settings/tos.php:953
+msgid "c/o"
+msgstr "c/o"
+
+#: settings/consent-cookies.php:46 includes/Consent/Cookies/ListTable.php:139
+msgid "Category"
+msgstr "Kategorie"
+
+#: settings/tos.php:113 settings/tos.php:188 settings/tos.php:281
+#: settings/tos.php:402 settings/tos.php:620 settings/tos.php:976
+msgid "City"
+msgstr "Stadt"
+
+#: settings/tos.php:738
+msgid ""
+"Completely compliant: the content is fully compliant with the accessibility "
+"standard without exceptions"
+msgstr ""
+"Vollständig konform: Der Inhalt entspricht ohne Ausnahmen vollständig dem "
+"Standard für Barrierefreiheit"
+
+#: settings/tos.php:729
+msgid "Compliance Status"
+msgstr "Konformitätsstatus"
+
+#: settings/consent.php:179
+msgid ""
+"Configuration of the cookie banner content such as the headline, notice text "
+"and buttons text."
+msgstr ""
+"Konfiguration des Cookie-Bannerinhalts wie Überschrift, Hinweistext und "
+"Schaltflächentext."
+
+#: settings/consent.php:14 settings/consent.php:17
+msgid "Consent Banner"
+msgstr "Consent-Banner"
+
+#: settings/consent-categories.php:14 settings/consent-categories.php:17
+#: settings/consent-categories.php:24
+msgid "Consent Categories"
+msgstr "Consent-Kategorien"
+
+#. %s: Number of consent categories.
+#: includes/Consent/Categories/Options.php:238
+#, php-format
+msgctxt "consent categories"
+msgid "%s category deleted."
+msgid_plural "%s categories deleted."
+msgstr[0] "%s Kategorie gelöscht."
+msgstr[1] "%s Kategorien gelöscht."
+
+#: includes/Consent/Categories/Options.php:133
+msgid "Consent category added."
+msgstr "Consent-Kategorie hinzugefügt."
+
+#: includes/Consent/Categories/Options.php:133
+msgid "Consent category updated."
+msgstr "Consent-Kategorie aktualisiert."
+
+#: includes/Consent/Cookies/Options.php:198
+msgid "Consent cookie added."
+msgstr "Consent-Cookie hinzugefügt."
 
 #: settings/consent.php:113
 msgid "Consent cookie settings."
 msgstr "Cookie-Einstellungen zustimmen."
 
-#: settings/consent.php:117
-msgid "Domain"
-msgstr "Domain"
+#: includes/Consent/Cookies/Options.php:198
+msgid "Consent cookie updated."
+msgstr "Consent-Cookie aktualisiert."
 
-#: settings/consent.php:118
-msgid ""
-"Specify the domain for which the cookie is valid. Example: If you enter "
-"<strong><em>example.com</em></strong> the cookie is also valid for "
-"subdomains like <strong><em>shop.example.com</em></strong>"
+#: settings/consent-cookies.php:14 settings/consent-cookies.php:17
+#: settings/consent-cookies.php:24
+msgid "Consent Cookies"
+msgstr "Consent-Cookies"
+
+#. %s: Number of consent cookies.
+#: includes/Consent/Cookies/Options.php:363
+#, php-format
+msgctxt "consent cookies"
+msgid "%s cookie deleted."
+msgid_plural "%s cookies deleted."
+msgstr[0] "%s Cookie gelöscht."
+msgstr[1] "%s Cookies gelöscht."
+
+#. %s: Number of consent cookies.
+#: includes/Consent/Cookies/Options.php:333
+#, php-format
+msgctxt "consent cookies"
+msgid "%s cookie disabled."
+msgid_plural "%s cookies disabled."
+msgstr[0] "%s Cookie deaktiviert."
+msgstr[1] "%s Cookies deaktiviert."
+
+#. %s: Number of consent cookies.
+#: includes/Consent/Cookies/Options.php:303
+#, php-format
+msgctxt "consent cookies"
+msgid "%s cookie enabled."
+msgid_plural "%s cookies enabled."
+msgstr[0] "%s Cookie aktiviert."
+msgstr[1] "%s Cookies aktiviert."
+
+#: settings/consent.php:24
+msgid "Consent Settings"
+msgstr "Consent-Einstellungen"
+
+#: settings/tos.php:892
+msgid "Contact Address"
+msgstr "Adresse"
+
+#: settings/tos.php:859
+msgid "Contact Email Addresse"
+msgstr "E-Mail-Adresse"
+
+#: settings/tos.php:214
+msgid "Contact email for problems concerning the website."
 msgstr ""
-"Geben Sie die Domäne an, für die das Cookie gültig ist. Beispiel: Wenn Sie "
-"<strong><em>beispiel.de</em></strong> eingeben, gilt das Cookie auch für "
-"Subdomains wie <strong><em>shop.beispiel.de</em></strong>"
+"E-Mailadresse für die Meldung technischer oder inhaltlicher Probleme mit der "
+"Website"
 
-#: settings/consent.php:127
-msgid "Path"
-msgstr "Pfad"
+#: settings/tos.php:148
+msgid "Contact email for the responsible person or the organization."
+msgstr "Kontakt-E-Mail für die verantwortliche Person oder die Organisation."
 
-#. translators: %s: Default website url path.
-#: settings/consent.php:130
+#: settings/tos.php:635
+msgid "Contact Form"
+msgstr "Kontaktformular"
+
+#: settings/tos.php:349
+msgid "Contact informations for IT Security."
+msgstr "Kontaktinformationen um die IT-Sicherheit zu erreichen."
+
+#: settings/tos.php:886
+msgid "Contact number for telephone assistance."
+msgstr "Kontaktnummer für telefonische Hilfestellung."
+
+#: settings/tos.php:852
+msgid "Contact Person"
+msgstr "Ansprechpartner"
+
+#: settings/tos.php:885
+msgid "Contact Phone"
+msgstr "Telefon"
+
+#: settings/tos.php:224
+msgid "Contact phone number for problems concerning the website."
+msgstr "Kontakttelefonnummer bei Problemen mit der Website."
+
+#: settings/tos.php:158
+msgid "Contact phone number for the responsible person or the organization."
+msgstr "Telefonnummer der verantwortlichen Person oder Organisation."
+
+#: settings/tos.php:515 settings/tos.php:534 settings/tos.php:708
+#: settings/consent.php:178
+msgid "Content"
+msgstr "Inhalt"
+
+#: settings/consent.php:236
+msgid "Content Blocker"
+msgstr "Inhaltsblocker"
+
+#: data/consent-categories.php:40
 msgid ""
-"The path for which the cookie is valid. Default path: <strong>%s</strong>"
+"Content from video platforms and social media platforms is blocked by "
+"default. If External Media cookies are accepted, access to those contents no "
+"longer requires manual consent."
 msgstr ""
-"Der Pfad, für den das Cookie gültig ist. Standard-Pfad: <strong>%s</strong>"
+"Inhalte von Videoplattformen und Social-Media-Plattformen werden "
+"standardmäßig blockiert. Wenn Cookies von externen Medien akzeptiert werden, "
+"bedarf der Zugriff auf diese Inhalte keiner manuellen Einwilligung mehr."
 
-#: settings/consent.php:141
-msgid "Secure"
-msgstr "Secure"
+#: settings/tos.php:535 settings/tos.php:709
+msgid "Content of the new, additional section."
+msgstr "Inhalt des neuen, zusätzlichen Abschnitts."
+
+#: settings/consent-cookies.php:127 includes/Consent/Banner.php:68
+msgid "Cookie Expiry"
+msgstr "Cookie Laufzeit"
 
 #: settings/consent.php:142
 msgid ""
@@ -1196,51 +389,350 @@ msgstr ""
 msgid "Cookie Lifetime in Days"
 msgstr "Cookie Laufzeit in Tagen"
 
-#: settings/consent.php:149
-msgid ""
-"Number of days until the visitor will be asked again to choose their cookie "
-"perference."
-msgstr ""
-"Anzahl der Tage, bis der Besucher erneut aufgefordert wird, seine Cookie-"
-"Präferenz zu wählen."
-
 #: settings/consent.php:162
 msgid "Cookie Lifetime in Days - Essential Only"
 msgstr "Cookie Laufzeit in Tagen - Nur Essenziell"
 
-#: settings/consent.php:163
+#: settings/consent-cookies.php:119 includes/Consent/Banner.php:67
+msgid "Cookie Name"
+msgstr "Cookie Name"
+
+#: settings/consent.php:112
+msgid "Cookie Settings"
+msgstr "Cookie Einstellungen"
+
+#: settings/consent.php:65 settings/network.php:83
+msgid "Cookies for Bots/Crawlers"
+msgstr "Cookies für Bots/Crawler"
+
+#: settings/consent.php:101 settings/network.php:111
+msgid "Cookies For IP Addresses"
+msgstr "Cookies für IP-Adressen"
+
+#: data/tos.php:199
+msgid "Cooperation between different institutions"
+msgstr "Kooperation aus verschiedenen Einrichtungen"
+
+#: settings/tos.php:770
+msgid "Creation Date"
+msgstr "Erstellungsdatum"
+
+#: settings/tos.php:818
 msgid ""
-"Number of days until the visitor will be asked again to choose their cookie "
-"preference, if the visitor has only given consent to essential cookies."
+"Currently there is no textual description for directions describing maps or "
+"maps."
 msgstr ""
-"Anzahl der Tage, bis der Besucher erneut aufgefordert wird, seine Cookie-"
-"Präferenz auszuwählen, wenn der Besucher nur seine Zustimmung zu "
-"essentiellen Cookies gegeben hat."
+"Zu mittels Karten oder Kartenbildern eingebundenen Anfahrtsbeschreibungen "
+"fehlt derzeit die textuelle Beschreibung."
 
-#: settings/consent.php:178 settings/tos.php:218 settings/tos.php:237
-#: settings/tos.php:415
-msgid "Content"
-msgstr "Inhalt"
+#: includes/TOS/ContactForm.php:151
+msgid "d/m/Y - g:i a"
+msgstr "d.m.Y - H:i"
 
-#: settings/consent.php:179
-msgid ""
-"Configuration of the cookie banner content such as the headline, notice text "
-"and buttons text."
-msgstr ""
-"Konfiguration des Cookie-Bannerinhalts wie Überschrift, Hinweistext und "
-"Schaltflächentext."
+#: includes/TOS/ContactForm.php:161
+msgid "Dashboard"
+msgstr "Dashboard"
 
-#: settings/consent.php:183
-msgid "Headline"
-msgstr "Überschrift"
+#: settings/tos.php:125
+msgid "Data for contacting in legal terms."
+msgstr "Daten zur Kontaktaufnahme in rechtlicher Hinsicht."
+
+#: settings/tos.php:200
+msgid "Data for contacting the content of the website."
+msgstr "Daten zur Kontaktaufnahme hinsichtlich der Inhalte des Webauftritts."
+
+#: settings/tos.php:554
+msgid "Data Protection Officer"
+msgstr "Datenschutzbeauftragter"
+
+#: settings/tos.php:734
+msgid "Declaration of Conformity"
+msgstr "Konformitätserklärung"
+
+#: data/consent-cookies.php:14
+msgid "Default Cookie"
+msgstr "Standard-Cookie"
+
+#: includes/Consent/Cookies/ListTable.php:105
+#: includes/Consent/Cookies/ListTable.php:169
+#: includes/Consent/Categories/ListTable.php:69
+#: includes/Consent/Categories/ListTable.php:133
+msgid "Delete"
+msgstr "Löschen"
+
+#: settings/consent-categories.php:62
+#: includes/Consent/Categories/ListTable.php:104
+msgid "Description"
+msgstr "Beschreibung"
 
 #: settings/consent.php:191
 msgid "Description Text"
 msgstr "Beschreibung"
 
-#: settings/consent.php:198
-msgid "Preference Text"
-msgstr "Einstellungstext"
+#: settings/consent-categories.php:79
+msgid ""
+"Determine the position where this <strong>Consent Category</strong> is "
+"displayed. Order follows natural numbers."
+msgstr ""
+"Bestimmen Sie die Position, an der diese <strong>Consent-Kategorie</strong> "
+"angezeigt wird. Die Reihenfolge folgt den natürlichen Zahlen."
+
+#: settings/consent-cookies.php:62
+msgid ""
+"Determine the position where this <strong>Cookie</strong> is displayed in "
+"the <strong>Consent Category</strong>. Order follows natural numbers."
+msgstr ""
+"Bestimmen Sie die Position, an der dieses <strong>Cookie</strong> in der "
+"<strong>Consent-Kategorie</strong> angezeigt wird. Die Reihenfolge folgt den "
+"natürlichen Zahlen."
+
+#: includes/Consent/Cookies/ListTable.php:96
+#: includes/Consent/Cookies/ListTable.php:168
+msgid "Disable"
+msgstr "Deaktivieren"
+
+#: includes/Network/Options.php:150
+msgid "Dismiss this notice."
+msgstr "Diese Meldung ausblenden."
+
+#: includes/Consent/ContentBlocker.php:311
+msgid "Display external content"
+msgstr "Externen Inhalt anzeigen"
+
+#: settings/tos.php:233 settings/tos.php:902
+msgid "Displays the supervisory authority."
+msgstr "Zeigt die Aufsichtsbehörde an."
+
+#: settings/tos.php:662
+msgid "Do you offer a newsletter or mailing list?"
+msgstr "Bieten Sie einen Newsletter oder eine Mailingliste an?"
+
+#: settings/tos.php:636
+msgid ""
+"Do you use a contact form on this website? (The accessibility declaration "
+"offers one, so the answer is usually \"yes\")."
+msgstr ""
+"Nutzen Sie auf dieser Website ein Kontaktformular? (Die "
+"Zugänglichkeitserklärung bietet eine, daher lautet die Antwort in der Regel "
+"\"Ja”)."
+
+#: settings/tos.php:649
+msgid ""
+"Do you use forms to sign up for events or other functions that require "
+"registration?"
+msgstr ""
+"Verwenden Sie Formulare, um sich für Veranstaltungen oder andere Funktionen "
+"anzumelden, die eine Registrierung erfordern?"
+
+#: settings/consent.php:117
+msgid "Domain"
+msgstr "Domain"
+
+#: settings/tos.php:314
+msgid "DUNS Number"
+msgstr "DUNS Nummer"
+
+#: includes/Consent/Cookies/ListTable.php:80
+#: includes/Consent/Categories/ListTable.php:61
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: includes/Consent/Categories/Options.php:29
+msgid "Edit Consent Category"
+msgstr "Consent-Kategorie bearbeiten"
+
+#: includes/Consent/Cookies/Options.php:31
+msgid "Edit Consent Cookie"
+msgstr "Consent-Cookie bearbeiten"
+
+#: settings/tos.php:124
+msgid "Editorially responsible person"
+msgstr "Redaktionell verantwortliche Person"
+
+#: settings/tos.php:139
+#| msgid ""
+#| "Legally responsible person for the website. (This is usually the chair "
+#| "owner or facility manager)."
+msgid ""
+"Editorially responsible person for the website. (This is usually the chair "
+"owner or facility manager)."
+msgstr ""
+"Rechtlich verantwortliche Person für die Website. (Dies ist in der Regel der "
+"Lehrstuhlinhaber oder Einrichtungsleiter). "
+
+#: includes/TOS/ContactForm.php:234
+msgid "eight"
+msgstr "Acht"
+
+#: settings/tos.php:78 settings/tos.php:147 settings/tos.php:212
+#: settings/tos.php:246 settings/tos.php:362 settings/tos.php:576
+#: settings/tos.php:915
+msgid "Email"
+msgstr "E-Mail"
+
+#: includes/TOS/ContactForm.php:144
+msgid "Email Addresse"
+msgstr "E-Mail-Adresse"
+
+#: settings/tos.php:869
+msgid "Email CC"
+msgstr "E-Mail CC"
+
+#: settings/tos.php:878
+msgid "Email Subject"
+msgstr "E-Mail Betreff"
+
+#: settings/tos.php:817
+msgid "Embedded videos currently have no subtitles or transcription available."
+msgstr ""
+"Zu eingebundenen Videos stehen derzeit keine Untertitel oder Transkription "
+"zur Verfügung."
+
+#: includes/Consent/Cookies/ListTable.php:88
+#: includes/Consent/Cookies/ListTable.php:167
+msgid "Enable"
+msgstr "Aktivieren"
+
+#: settings/consent-cookies.php:136
+msgid "Enqueued Script Name"
+msgstr "Name des enqueued Skripts"
+
+#: settings/consent-categories.php:63
+msgid ""
+"Enter a description for this <strong>Consent Category</strong>. It is "
+"displayed to the visitor in the <strong>Consent Banner</strong>."
+msgstr ""
+"Geben Sie eine Beschreibung für diese <strong>Consent-Kategorie</strong> ein."
+" Sie wird dem Besucher im <strong>Consent-Banner</strong> angezeigt."
+
+#: settings/tos.php:853
+msgid ""
+"Enter a name for the responsible contact person for complaints or requests "
+"for help about lack of accessibility."
+msgstr ""
+"Geben Sie hier einen Namen für den zuständigen Ansprechpartner für "
+"Beschwerden oder Hilfeanfragen über mangelnde Zugänglichkeit an."
+
+#: settings/consent-categories.php:54
+msgid ""
+"Enter a name for this <strong>Consent Category</strong>. It is displayed to "
+"the visitor in the <strong>Consent Banner</strong>."
+msgstr ""
+"Geben Sie einen Namen für diese <strong>Consent-Kategorie</strong> ein. Sie "
+"wird dem Besucher im <strong>Consent-Banner</strong> angezeigt."
+
+#: settings/tos.php:322
+msgid "EORI Number"
+msgstr "EORI Nummer"
+
+#: includes/TOS/ContactForm.php:205
+msgid "Error"
+msgstr "Fehler"
+
+#: data/consent-categories.php:12
+msgid "Essential"
+msgstr "Essenziell"
+
+#: data/consent-categories.php:13
+msgid ""
+"Essential cookies enable basic functions and are necessary for the proper "
+"function of the website."
+msgstr ""
+"Essenzielle Cookies ermöglichen grundlegende Funktionen und sind für die "
+"einwandfreie Funktion der Website erforderlich."
+
+#: settings/network.php:49
+msgid "Exceptions"
+msgstr "Ausnahmen"
+
+#: settings/consent-cookies.php:94
+msgid "Explain the purpose of this <strong>Cookie</strong> to the visitors."
+msgstr "Erklären Sie den Besuchern den Zweck dieses <strong>Cookie</strong>."
+
+#: data/tos.php:202
+msgid "External institution"
+msgstr "Externe Einrichtung"
+
+#: data/consent-categories.php:39
+msgid "External Media"
+msgstr "Externe Medien"
+
+#: settings/tos.php:677
+msgid "External Service Providers"
+msgstr "Externe Dienstleister"
+
+#: settings/consent-cookies.php:189
+msgid "Fallback Code"
+msgstr "Fallback-Code"
+
+#: settings/network.php:41
+msgid "FAU domains"
+msgstr "FAU-Domains"
+
+#: settings/tos.php:92 settings/tos.php:260 settings/tos.php:591
+#: settings/tos.php:929
+msgid "Fax Number"
+msgstr "Faxnummer"
+
+#: settings/tos.php:847
+msgid "Feedback Mechanism"
+msgstr "Feedback-Mechanismus"
+
+#: settings/tos.php:804
+msgid "Fill out explanations manually"
+msgstr "Erklärungen manuell ausfüllen"
+
+#: includes/TOS/ContactForm.php:231
+msgid "five"
+msgstr "Fünf"
+
+#: includes/TOS/ContactForm.php:230
+msgid "four"
+msgstr "Vier"
+
+#: includes/TOS/ContactForm.php:142
+msgid "From"
+msgstr "Absender"
+
+#: settings/network.php:28
+msgid "General"
+msgstr "Grundeinstellungen"
+
+#: settings/consent.php:30
+msgid "General consent banner settings."
+msgstr "Allgemeine Einstellungen für das Content-Banner."
+
+#: settings/network.php:61
+msgid "General network settings for consent banner."
+msgstr "Allgemeine Netzwerkeinstellungen für Einwilligungsbanner."
+
+#: settings/network.php:30
+msgid "General network settings."
+msgstr "Allgemeine Netzwerkeinstellungen."
+
+#: settings/consent.php:34 settings/consent.php:243 settings/consent.php:267
+msgid "General Settings"
+msgstr "Allgemeine Einstellungen"
+
+#: includes/TOS/ContactForm.php:160
+msgid "Go to the website"
+msgstr "Website aufrufen"
+
+#: data/consent-cookies.php:186
+msgid "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland"
+msgstr "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland"
+
+#: settings/tos.php:819
+msgid ""
+"Graphics or images contained in the pages are currently not completely "
+"supplemented by text descriptions."
+msgstr ""
+"In den Seiten enthaltene Grafiken oder Bilder sind derzeit nicht vollständig "
+"durch Textbeschreibungen ergänzt worden."
+
+#: settings/consent.php:183
+msgid "Headline"
+msgstr "Überschrift"
 
 #: settings/consent.php:200
 msgid ""
@@ -1252,337 +744,78 @@ msgstr ""
 "Einwilligung zu ganzen Kategorien geben oder sich weitere Informationen "
 "anzeigen lassen und bestimmte Cookies auswählen."
 
-#: settings/consent.php:205
-msgid "Accept All Button Text"
-msgstr "Text der Schaltfläche „Alle akzeptieren“"
+#: includes/Consent/Banner.php:58
+msgid "Hide Cookie Information"
+msgstr "Cookie-Informationen ausblenden"
 
-#: settings/consent.php:208
-msgid "Accept all"
-msgstr "Alle akzeptieren"
+#: settings/consent.php:93
+msgid "Hide On URL"
+msgstr "Auf URL ausblenden"
 
-#: settings/consent.php:214
-msgid "Refuse Button Text"
-msgstr "Text der Schaltfläche „Ablehnen”"
-
-#: settings/consent.php:217
-msgid "Accept only essential cookies"
-msgstr "Nur essentielle Cookies akzeptieren"
-
-#: settings/consent.php:223
-msgid "Save Preference Button Text"
-msgstr "Text der Schaltfläche „Speichern”"
-
-#: settings/consent.php:226
-msgid "Save"
-msgstr "Speichern"
-
-#: settings/consent.php:236
-msgid "Content Blocker"
-msgstr "Inhaltsblocker"
-
-#: settings/consent.php:238
-msgid "Manage settings related to content blocking."
-msgstr ""
-"Verwalten Sie Einstellungen im Zusammenhang mit der Inhaltsblockierung."
+#: settings/consent-cookies.php:111
+msgid "Host(s)"
+msgstr "Host(s)"
 
 #: settings/consent.php:248
 msgid "Host(s) Allow List"
 msgstr "Zulassungsliste für Hosts"
 
-#: settings/consent.php:249
+#: includes/Consent/Banner.php:66
+msgid "Hosts"
+msgstr "Hosts"
+
+#. Author URI of the plugin
+msgid "https://blogs.fau.de/webworking/"
+msgstr "https://blogs.fau.de/webworking/"
+
+#. URI of the plugin
+msgid "https://gitlab.rrze.fau.de/rrze-webteam/rrze-legal"
+msgstr "https://gitlab.rrze.fau.de/rrze-webteam/rrze-legal"
+
+#: includes/Consent/ContentBlocker.php:322
+msgid "I agree"
+msgstr "Ich stimme zu"
+
+#: settings/tos.php:330
+msgid "IBAN"
+msgstr "IBAN"
+
+#: settings/consent-cookies.php:33 settings/consent-categories.php:33
+msgid "ID"
+msgstr "ID"
+
+#: settings/tos.php:290
+msgid "Id Numbers"
+msgstr "ID-Nummern"
+
+#: settings/tos.php:291
+msgid "ID Numbers and Banking informations of the organization."
+msgstr "ID-Nummern und Bankinformationen der Organisation."
+
+#. %s: ID field value.
+#: includes/Consent/Cookies/Options.php:174
+#: includes/Consent/Categories/Options.php:109
+#, php-format
+msgid "ID value %s already exists. Please enter a new ID."
+msgstr "ID-Wert %s existiert bereits. Bitte geben Sie eine neue ID ein."
+
+#: settings/consent.php:80 settings/network.php:98
 msgid ""
-"One host per line. When a host is recognized (for example within the src-"
-"attribute of an iframe) the content will not be blocked."
+"If activated the website will be reloaded after the visitor saves their "
+"consent"
 msgstr ""
-"Ein Host pro Zeile. Wenn ein Host erkannt wird (z. B. im src-Attribut eines "
-"Iframes), wird der Inhalt nicht blockiert."
+"Wenn aktiviert, wird die Website neu geladen, nachdem der Besucher seine "
+"Einwilligung gespeichert hat"
 
-#: settings/consent.php:260
-msgid "Log"
-msgstr "Protokoll"
-
-#: settings/consent.php:262
-msgid "Manage settings related to consents logs."
-msgstr ""
-"Verwalten Sie Einstellungen im Zusammenhang mit Einwilligungen und "
-"Protokollen."
-
-#: settings/consent.php:272
-msgid "Activate"
-msgstr "Aktivieren"
-
-#: settings/consent.php:273
-msgid "Activate consent log"
-msgstr "Cookie-Einwilligungsprotokoll aktivieren"
-
-#: settings/consent.php:279
-msgid "Purge Interval"
-msgstr "Löschintervall"
-
-#: settings/consent.php:280
-msgid "Purge consent logs after an amount of time."
-msgstr "Cookie-Einwilligungsprotokolle nach einer gewissen Zeit löschen."
-
-#: settings/consent.php:284
-msgid "1 month"
-msgstr "1 Monat"
-
-#: settings/consent.php:285
-msgid "3 months"
-msgstr "3 Monate"
-
-#: settings/network.php:24
-msgid "Network Legal Settings"
-msgstr "Rechtliches &mdash; Netzwerkeinstellungen"
-
-#: settings/network.php:28
-msgid "General"
-msgstr "Grundeinstellungen"
-
-#: settings/network.php:30
-msgid "General network settings."
-msgstr "Allgemeine Netzwerkeinstellungen."
-
-#: settings/network.php:34
-msgid "Overwrite Endpoints"
-msgstr "Endpoints überschreiben"
-
-#: settings/network.php:35
+#: settings/consent.php:87 settings/network.php:105
 msgid ""
-"Websites may create their own, manually created web pages for the legal "
-"text. These then have priority over the automatically created texts and are "
-"shown instead"
+"If activated, no <strong>Categories</strong> are preselected in the <strong>"
+"Consent Banner</strong>"
 msgstr ""
-"Websites dürfen eigene, manuell erstelle Websiten für die Rechtstext "
-"erstellen. Diese haben dann Vorrang vor den automatisch erstellten Texten "
-"und werden statdessen gezeigt"
+"Wenn aktiviert, werden keine <strong>Kategorien</strong> im <strong>Consent "
+"Banner</strong> vorausgewählt"
 
-#: settings/network.php:41
-msgid "FAU domains"
-msgstr "FAU-Domains"
-
-#: settings/network.php:42
-msgid ""
-"Websites belonging to FAU domains will use the default FAU data for some "
-"sections."
-msgstr ""
-"Websites, die zu FAU-Domains gehören, verwenden für einige Bereiche die "
-"Standarddaten der FAU."
-
-#: settings/network.php:49
-msgid "Exceptions"
-msgstr "Ausnahmen"
-
-#: settings/network.php:50
-msgid ""
-"List of website IDs that are exempt from the network settings. Enter one "
-"website ID per line."
-msgstr ""
-"Liste der Website-IDs, die von den Netzwerkeinstellungen ausgenommen sind. "
-"Geben Sie eine Website-ID pro Zeile ein."
-
-#: settings/network.php:61
-msgid "General network settings for consent banner."
-msgstr "Allgemeine Netzwerkeinstellungen für Einwilligungsbanner."
-
-#: settings/tos.php:24
-msgid "Legal Mandatory Information Settings"
-msgstr "Gesetzliche Pflichtangabeneinstellungen"
-
-#. translators: %s: Url of the endpoint page.
-#: settings/tos.php:32 settings/tos.php:259 settings/tos.php:429
-msgid "The output of this settings page is available at the following link: %s"
-msgstr ""
-"Die Ausgabe dieser Einstellungsseite ist unter folgendem Link verfügbar: %s"
-
-#: settings/tos.php:38
-msgid "Scope"
-msgstr "Umfang"
-
-#: settings/tos.php:43
-msgid "Websites"
-msgstr "Webauftritte"
-
-#: settings/tos.php:44
-msgid ""
-"If this imprint applies to more than one website, add here the domain namens "
-"of the other websites. Please enter one domain name per line."
-msgstr ""
-"Wenn dieses Impressum für mehr als eine Website gilt, fügen Sie hier die "
-"Domain-Namen der anderen Websites hinzu. Bitte geben Sie einen Domainnamen "
-"pro Zeile ein."
-
-#: settings/tos.php:53
-msgid "Responsible Person"
-msgstr "Verantwortliche Person"
-
-#: settings/tos.php:54
-msgid "Data for contacting in legal terms."
-msgstr "Daten zur Kontaktaufnahme in rechtlicher Hinsicht."
-
-#: settings/tos.php:59
-msgid ""
-"Legally responsible person for the website. (This is usually the chair owner "
-"or facility manager)."
-msgstr ""
-"Rechtlich verantwortliche Person für die Website. (Dies ist in der Regel der "
-"Lehrstuhlinhaber oder Facility Manager)."
-
-#: settings/tos.php:67 settings/tos.php:131 settings/tos.php:280
-msgid "Email"
-msgstr "E-Mail"
-
-#: settings/tos.php:75 settings/tos.php:288
-msgid "Street Name & House Number"
-msgstr "Straße und Hausnummer"
-
-#: settings/tos.php:82 settings/tos.php:295
-msgid "Postal Code"
-msgstr "Postleitzahl"
-
-#: settings/tos.php:89 settings/tos.php:302
-msgid "City"
-msgstr "Stadt"
-
-#: settings/tos.php:96 settings/tos.php:141 settings/tos.php:309
-msgid "Phone"
-msgstr "Telefon"
-
-#: settings/tos.php:102 settings/tos.php:315
-msgid "Fax Number"
-msgstr "Faxnummer"
-
-#: settings/tos.php:108
-msgid "Organization"
-msgstr "Organisation"
-
-#: settings/tos.php:118
-msgid "Webmaster"
-msgstr "Webmaster"
-
-#: settings/tos.php:119
-msgid "Data for contacting the content of the website."
-msgstr "Daten zur Kontaktaufnahme hinsichtlich der Inhalte des Webauftritts."
-
-#: settings/tos.php:124
-msgid "Name of the webmaster or the responsible web editor."
-msgstr "Name des Webmasters oder der zuständigen Webredaktion."
-
-#: settings/tos.php:149 settings/tos.php:399
-msgid "Optional Information"
-msgstr "Optionale Angabe"
-
-#: settings/tos.php:150
-msgid ""
-"This option allows you to change predefined paragraphs, as well as to add "
-"another self-phrased paragraph.<br>Note: Official FAU facilities should have "
-"all of the following options enabled."
-msgstr ""
-"Mit dieser Option können Sie vordefinierte Absätze ändern und einen weiteren "
-"selbst formulierten Absatz hinzufügen.<br>Hinweis: Offizielle Einrichtungen "
-"der FAU sollten alle folgenden Optionen aktiviert haben."
-
-#: settings/tos.php:154
-msgid "Reference to the University Management"
-msgstr "Verweis auf die Universitätsleitung"
-
-#: settings/tos.php:155
-msgid ""
-"Official representative of the university and its outward institutions is "
-"the president. For this purpose, a corresponding paragraph is displayed."
-msgstr ""
-"Offizieller Vertreter der Universität und ihrer äußeren Institutionen ist "
-"der Präsident. Dazu wird ein entsprechender Absatz angezeigt."
-
-#: settings/tos.php:158 settings/tos.php:171 settings/tos.php:184
-#: settings/tos.php:197 settings/tos.php:210 settings/tos.php:229
-#: settings/tos.php:332 settings/tos.php:345 settings/tos.php:358
-#: settings/tos.php:407
-msgid "Yes"
-msgstr "Ja"
-
-#: settings/tos.php:159 settings/tos.php:172 settings/tos.php:185
-#: settings/tos.php:198 settings/tos.php:211 settings/tos.php:230
-#: settings/tos.php:333 settings/tos.php:346 settings/tos.php:359
-#: settings/tos.php:408
-msgid "No"
-msgstr "Nein"
-
-#: settings/tos.php:167
-msgid "Supervisory Authority"
-msgstr "Aufsichtsbehörde"
-
-#: settings/tos.php:168
-msgid "Displays the supervisory authority."
-msgstr "Zeigt die Aufsichtsbehörde an."
-
-#: settings/tos.php:180
-msgid "Identification Numbers"
-msgstr "Identifikationsnummern"
-
-#: settings/tos.php:181
-msgid ""
-"Display of public and official identification numbers of the university."
-msgstr ""
-"Anzeige der öffentlichen und amtlichen Identifikationsnummern der "
-"Universität."
-
-#: settings/tos.php:193
-msgid "IT Security"
-msgstr "IT-Sicherheit"
-
-#: settings/tos.php:194
-msgid "Note and contact details for reporting IT security incidents."
-msgstr "Hinweis und Kontaktdaten für die Meldung von IT-Sicherheitsvorfällen."
-
-#: settings/tos.php:206
-msgid "Image Rights"
-msgstr "Bildrechte"
-
-#: settings/tos.php:207
-msgid "Insert free text field for image rights?"
-msgstr "Freitextfeld für Bildrechte einfügen?"
-
-#: settings/tos.php:219
-msgid "Optional paragraph for the description of any image rights used."
-msgstr "Optionaler Absatz zur Beschreibung der verwendeten Bildrechte."
-
-#: settings/tos.php:225 settings/tos.php:404
-msgid "Add a New Section"
-msgstr "Hinzufügen eines neuen Abschnitts"
-
-#: settings/tos.php:238 settings/tos.php:416
-msgid "Content of the new, additional section."
-msgstr "Inhalt des neuen, zusätzlichen Abschnitts."
-
-#: settings/tos.php:243
-msgid "Whistleblower System URL"
-msgstr "URL des Hinweisgebersystems"
-
-#: settings/tos.php:244
-msgid "If there is a whistleblower system, this can be linked here."
-msgstr ""
-"Falls es ein Hinweisgebersystem gibt, kann dieses hier verlinkt werden."
-
-#: settings/tos.php:265
-msgid "Data Protection Officer"
-msgstr "Datenschutzbeauftragter"
-
-#: settings/tos.php:267
-msgid ""
-"The designation, position and tasks of a data protection officer (DPO) "
-"within an organization are described in Articles 37, 38 and 39 of the "
-"European Union (EU) General Data Protection Regulation (GDPR)."
-msgstr ""
-"Die Benennung, Position und Aufgaben eines Datenschutzbeauftragten (DSB) "
-"innerhalb einer Organisation sind in den Artikeln 37, 38 und 39 der "
-"Datenschutz-Grundverordnung (DSGVO) der Europäischen Union (EU) beschrieben."
-
-#: settings/tos.php:323
-msgid "Services"
-msgstr "Dienstleistungen"
-
-#: settings/tos.php:324
+#: settings/tos.php:631
 msgid ""
 "If any of the following services are used, enable them to generate a "
 "corresponding notice in the privacy policy."
@@ -1590,44 +823,17 @@ msgstr ""
 "Wenn einer der folgenden Dienste verwendet wird, ermöglichen Sie es ihnen, "
 "einen entsprechenden Hinweis in der Datenschutzerklärung zu generieren."
 
-#: settings/tos.php:328
-msgid "Contact Form"
-msgstr "Kontaktformular"
-
-#: settings/tos.php:329
+#: settings/consent-categories.php:72
 msgid ""
-"Do you use a contact form on this website? (The accessibility declaration "
-"offers one, so the answer is usually \"yes\")."
+"If enabled (Status: Enabled) this <strong>Consent Category</strong> is "
+"preselected in the <strong>Consent Banner</strong>. The visitor can deselect "
+"it"
 msgstr ""
-"Nutzen Sie auf dieser Website ein Kontaktformular? (Die "
-"Zugänglichkeitserklärung bietet eine, daher lautet die Antwort in der Regel "
-"\"Ja”)."
+"Wenn aktiviert (Status: Aktiviert), ist diese <strong>Content-"
+"Kategorie</strong> im <strong>Content-Banner</strong> vorausgewählt. Der "
+"Besucher kann es abwählen"
 
-#: settings/tos.php:341
-msgid "Registration/Registration Forms"
-msgstr "Anmeldung/Anmeldeformulare"
-
-#: settings/tos.php:342
-msgid ""
-"Do you use forms to sign up for events or other functions that require "
-"registration?"
-msgstr ""
-"Verwenden Sie Formulare, um sich für Veranstaltungen oder andere Funktionen "
-"anzumelden, die eine Registrierung erfordern?"
-
-#: settings/tos.php:354
-msgid "Newsletter/Mailinglist"
-msgstr "Newsletter/Mailingliste"
-
-#: settings/tos.php:355
-msgid "Do you offer a newsletter or mailing list?"
-msgstr "Bieten Sie einen Newsletter oder eine Mailingliste an?"
-
-#: settings/tos.php:384
-msgid "External Service Providers"
-msgstr "Externe Dienstleister"
-
-#: settings/tos.php:385
+#: settings/tos.php:678
 msgid ""
 "If external service providers are used to include content on the website, "
 "they must also be included in the privacy policy."
@@ -1636,252 +842,34 @@ msgstr ""
 "einzubinden, müssen diese ebenfalls in die Datenschutzerklärung einbezogen "
 "werden."
 
-#: settings/tos.php:389
-msgid "Service Providers"
-msgstr "Externe Dienstleister"
-
-#: settings/tos.php:400
-msgid "Additional information about the privacy policy."
-msgstr "Zusätzliche Informationen zur Datenschutzerklärung."
-
-#: settings/tos.php:435
-msgid "General Information"
-msgstr "Allgemeine Informationen"
-
-#: settings/tos.php:436
-msgid ""
-"All public sector bodies are obliged to make their websites and / or mobile "
-"applications accessible in accordance with Directive (EU) 2016/2102 of the "
-"European Parliament and of the Council, or implementation in their "
-"respective national legislation. It also includes the provision of an "
-"Accessibility Declaration of Conformity, in which all web site and app "
-"operators must publicly state the status of the website and explain the "
-"reasons for which barriers exist."
-msgstr ""
-"Alle öffentlichen Stellen sind gemäß der Richtlinie (EU) 2016/2102 des "
-"Europäischen Parlaments und des Rates, bzw. der Umsetzung in der jeweiligen "
-"Landesgesetzgebung dazu verpflichtet, ihre Webauftritte und/ oder mobilen "
-"Anwendungen barrierefrei zugänglich zu machen. HIerzu gehört auch die "
-"Bereitstellung einer Konformitätserklärung zur Barrierefreiheit, in der alle "
-"Betreiber von Webauftritten und Apps den Status der Webseite öffentlich "
-"angeben und erläutern müssen, aus welchen Gründen welche Barrieren vorhanden "
-"sind."
-
-#: settings/tos.php:440
-msgid "Legal Area"
-msgstr "Rechtsraum"
-
-#: settings/tos.php:441
-msgid ""
-"Selection of the legal area to which the operator of the website belongs."
-msgstr ""
-"Auswahl des Rechtsraumes, zu welcher der Betreiber des Webangebots gehört."
-
-#: settings/tos.php:450
-msgid "Compliance Status"
-msgstr "Konformitätsstatus"
-
-#: settings/tos.php:451
-msgid ""
-"Officially stated status of the website, as well as its contents regarding "
-"the fulfillment of the legal requirements."
-msgstr ""
-"Offiziell anzugebender Status des Webauftritts, sowie dessen Inhalten "
-"hinsichtlich der Erfüllung der gesetzlichen Anforderungen."
-
-#: settings/tos.php:455
-msgid "Declaration of Conformity"
-msgstr "Konformitätserklärung"
-
-#: settings/tos.php:456
-msgid ""
-"State of conformity in accordance with EU Directive 2102 and local "
-"legislation."
-msgstr ""
-"Stand der Konformität gemäß der EU-Richtlinie 2102 und der lokalen "
-"Gesetzgebung."
-
-#: settings/tos.php:459
-msgid ""
-"Completely compliant: the content is fully compliant with the accessibility "
-"standard without exceptions"
-msgstr ""
-"Vollständig konform: Der Inhalt entspricht ohne Ausnahmen vollständig dem "
-"Standard für Barrierefreiheit"
-
-#: settings/tos.php:460
-msgid ""
-"Partially Compliant: Some parts of the content are not fully compliant with "
-"the accessibility standard"
-msgstr ""
-"Teilweise konform: Einige Teile des Inhalts entsprechen nicht vollständig "
-"dem Standard für Barrierefreiheit"
-
-#: settings/tos.php:461
-msgid ""
-"Non-compliant: The content does not comply with the accessibility standard"
-msgstr ""
-"Nicht konform: Der Inhalt entspricht nicht dem Standard für Barrierefreiheit"
-
-#: settings/tos.php:462
-msgid "Unknown: Content was not rated or rating results are not available"
-msgstr ""
-"Unbekannt: Der Inhalt wurde nicht bewertet oder die Bewertungsergebnisse "
-"sind nicht verfügbar"
-
-#: settings/tos.php:480
-msgid "Method"
-msgstr "Methode"
-
-#: settings/tos.php:483
-msgid "Self-Evaluation"
-msgstr "Selbstbewertung"
-
-#: settings/tos.php:484
-msgid "Third party rating"
-msgstr "Bewertung durch Dritte"
-
-#: settings/tos.php:491
-msgid "Creation Date"
-msgstr "Erstellungsdatum"
-
-#: settings/tos.php:499
-msgid "Last Review Date"
-msgstr "Datum der letzten Überprüfung"
-
-#: settings/tos.php:507
-msgid "Report URL"
-msgstr "URL des Berichts"
-
-#: settings/tos.php:508
+#: settings/tos.php:787
 msgid "If there is a detailed review, this can be linked here."
 msgstr ""
 "Falls es einen ausführlichen Testbericht gibt, kann dieser hier verlinkt "
 "werden."
 
-#: settings/tos.php:517
-msgid "Statement"
-msgstr "Erklärung"
-
-#: settings/tos.php:518
-msgid "List and explain the problems with the implementation of accessibility."
-msgstr ""
-"Auflistung und Erläuterung der Probleme bei der Umsetzung der "
-"Barrierefreiheit."
-
-#: settings/tos.php:522
-msgid "Input Assistance For Non-Accessible Content"
-msgstr "Eingabehilfe zu nicht barrierefreie Inhalte"
-
-#: settings/tos.php:525
-msgid "Fill out explanations manually"
-msgstr "Erklärungen manuell ausfüllen"
-
-#: settings/tos.php:526
-msgid "Use input help and supplement it with manual entries"
-msgstr "Eingabehilfe nutzen und durch manuelle Eingaben ergänzen"
-
-#: settings/tos.php:532
-msgid "Non-Accessible Content (Selection List)"
-msgstr "Nicht barrierefrei zugängliche Inhalte (Auswahl)"
-
-#: settings/tos.php:533
+#: settings/tos.php:46
 msgid ""
-"Selection of the most common deficiencies that a website can have. However, "
-"when choosing one or more of the above-mentioned deficiencies, please "
-"provide below a plausible justification why this deficiency exists and which "
-"alternatives are available in order to access the content nevertheless."
+"If this imprint applies to more than one website, add here the domain namens "
+"of the other websites. Please enter one domain name per line."
 msgstr ""
-"Auswahl der gängsten Mängel, die eine Webseite aufweisen kann. Bitte geben "
-"Sie bei AUswahl einer oder mehrerer oben genannter Mängel dennoch unten eine "
-"jeweils plausible Begründung ein, warum dieser Mangel vorhanden ist und "
-"welche Alternativen vorhanden sind, um dennoch an die Inhalte zu gelangen."
+"Wenn dieses Impressum für mehr als eine Website gilt, fügen Sie hier die "
+"Domain-Namen der anderen Websites hinzu. Bitte geben Sie einen Domainnamen "
+"pro Zeile ein."
 
-#: settings/tos.php:536
-msgid ""
-"PDF documents created before 23.09.2018 could not yet be converted to an "
-"accessible format."
-msgstr ""
-"PDF-Dokumente, die vor dem 23.09.2018 erstellt wurden, konnten noch nicht "
-"auf ein barrierefreies Format umgestellt werden."
+#: settings/consent.php:86 settings/network.php:104
+msgid "Ignore Preselected Categories"
+msgstr "Vorgewählte Kategorien ignorieren"
 
-#: settings/tos.php:537
-msgid ""
-"PDF documents created after 23.09.2018 do not yet have an accessible format."
-msgstr ""
-"PDF-Dokumente, die nach dem 23.09.2018 erstellt wurden, sind noch nicht "
-"barrierefrei zugänglich."
+#: settings/tos.php:503
+msgid "Image Rights"
+msgstr "Bildrechte"
 
-#: settings/tos.php:538
-msgid ""
-"Some documents have been provided by third parties (for example, the "
-"Examination Office, other FAU bodies, ministries, etc.). These documents are "
-"not available in an accessible version."
-msgstr ""
-"Einige Dokumente wurden von Dritten (z.B. Prüfungsamt, andere Einrichtungen "
-"der FAU, Ministerien, u.a.) bereitgestellt. Diese Dokumente liegen nicht in "
-"einer barrierefreien Fassung vor."
+#: settings/tos.php:30 includes/TOS/Endpoint.php:24
+msgid "Imprint"
+msgstr "Impressum"
 
-#: settings/tos.php:539
-msgid "Embedded videos currently have no subtitles or transcription available."
-msgstr ""
-"Zu eingebundenen Videos stehen derzeit keine Untertitel oder Transkription "
-"zur Verfügung."
-
-#: settings/tos.php:540
-msgid ""
-"Currently there is no textual description for directions describing maps or "
-"maps."
-msgstr ""
-"Zu mittels Karten oder Kartenbildern eingebundenen Anfahrtsbeschreibungen "
-"fehlt derzeit die textuelle Beschreibung."
-
-#: settings/tos.php:541
-msgid ""
-"Graphics or images contained in the pages are currently not completely "
-"supplemented by text descriptions."
-msgstr ""
-"In den Seiten enthaltene Grafiken oder Bilder sind derzeit nicht vollständig "
-"durch Textbeschreibungen ergänzt worden."
-
-#: settings/tos.php:542
-msgid "Tables are used for the purpose of optical design."
-msgstr "Es werden Tabellen zum Zwecke der optischen Gestaltung verwendet."
-
-#: settings/tos.php:543
-msgid ""
-"When using multilingual content on a page, sometimes the languages ​​are not "
-"correctly marked in HTML."
-msgstr ""
-"Bei der Verwendung von mehrsprachigen Inhalten auf einer Seite, werden die "
-"Sprachen teilweise nicht korrekt in HTML gekennzeichnet."
-
-#: settings/tos.php:544
-msgid ""
-"The font color in the logo with the full title of the website does not have "
-"enough contrast."
-msgstr ""
-"Die Schriftfarbe im Logo mit dem ausgeschriebenen Titel des Webauftritts ist "
-"nicht kontrastreich genug."
-
-#: settings/tos.php:549
-msgid "Non-Accessible Content (Free Text)"
-msgstr "Nicht barrierefrei zugängliche Inhalte (Freitext)"
-
-#: settings/tos.php:550
-msgid ""
-"The website owner is obliged to publicly list all non-accessible components "
-"of the website and its contents. These must be specified here."
-msgstr ""
-"Der Gesetzgeber verpflichtet dazu, alle nicht barrierefreien Bestandteile "
-"des Webauftritts und der Inhalte öffentlich aufzulisten. Diese müssen hier "
-"angegeben werden."
-
-#: settings/tos.php:555
-msgid "Reason"
-msgstr "Begründung"
-
-#: settings/tos.php:556
+#: settings/tos.php:834
 msgid ""
 "In addition to the pure list of non-accessible contents, a justification for "
 "each of the above points should also be provided as to why barrier-free "
@@ -1896,11 +884,17 @@ msgstr ""
 "Prioritäten, Zeit oder Unkenntnis“. Diese Punkte dürfen daher nicht als "
 "Begründung verwendet werden."
 
-#: settings/tos.php:561
-msgid "Alternatives"
-msgstr "Alternative Zugangswege"
+#: includes/Main.php:143
+msgid ""
+"In order to operate this website, it is mandatory that all necessary legal "
+"texts are available. Websites that do not provide this information or "
+"provide this information completely may be deactivated."
+msgstr ""
+"Für den Betrieb dieses Webauftritts ist es zwingend vorgeschrieben, dass "
+"alle notwendigen rechtlichen Pflichttexte vorgehalten werden. Webauftritte, "
+"die diese Angaben nicht oder vollständig machen, können deaktiviert werden."
 
-#: settings/tos.php:562
+#: settings/tos.php:840
 msgid ""
 "Indicate here whether and which alternatives are available to obtain the "
 "above inaccessible content. This can be, for example, the contact via the "
@@ -1911,33 +905,482 @@ msgstr ""
 "die Kontaktaufnahme über das Feedback-Formular sein oder die Angabe einer "
 "Stelle, die Hilfe leistet."
 
-#: settings/tos.php:569
-msgid "Feedback Mechanism"
-msgstr "Feedback-Mechanismus"
+#: settings/tos.php:1003
+msgid ""
+"Indicate whether the website is operated by an institution affiliated with "
+"the university or by another institution."
+msgstr ""
+"Geben Sie an, ob die Website von einer der Universität angegliederten "
+"Einrichtung oder einer anderen externen Einrichtung ausserhalb der "
+"Universität betrieben wird."
 
-#: settings/tos.php:570
+#: includes/Consent/Banner.php:38
+msgid "Individual privacy settings"
+msgstr "Individuelle Einstellungen"
+
+#: settings/tos.php:411
+msgid ""
+"Information about a system in accordance with the Whistleblower Protection "
+"Act."
+msgstr "Informationen zu einem System im Sinne des Hinweisgeberschutzgesetzes."
+
+#: settings/tos.php:801
+msgid "Input Assistance For Non-Accessible Content"
+msgstr "Eingabehilfe zu nicht barrierefreie Inhalte"
+
+#: settings/consent-cookies.php:76
+msgid "Insert a name for this <strong>Cookie</strong>."
+msgstr "Geben Sie einen Namen für dieses <strong>Cookie</strong> ein."
+
+#: settings/tos.php:504
+msgid "Insert free text field for image rights?"
+msgstr "Freitextfeld für Bildrechte einfügen?"
+
+#: settings/consent-cookies.php:112
+msgid "Insert the host(s) of this <strong>Cookie</strong>."
+msgstr "Fügen Sie den/die Host(s) dieses <strong>Cookies</strong> ein."
+
+#: settings/consent-cookies.php:85
+msgid "Insert the provider of this <strong>Cookie</strong>."
+msgstr "Fügen Sie den Anbieter dieses <strong>Cookies</strong> ein."
+
+#: settings/tos.php:348
+msgid "IT Security"
+msgstr "IT-Sicherheit"
+
+#: settings/tos.php:778
+msgid "Last Review Date"
+msgstr "Datum der letzten Überprüfung"
+
+#: settings/network.php:14 settings/network.php:17 includes/Main.php:65
+#: includes/Main.php:66
+msgid "Legal"
+msgstr "Rechtliches"
+
+#. 1: Url of the settings page, 2: Title of the settings page.
+#: settings/tos.php:14 settings/tos.php:17 includes/Main.php:127
+msgid "Legal Mandatory Information"
+msgstr "Rechtliche Pflichtangaben"
+
+#. Description of the plugin
+msgid "Legal Mandatory Information & GDPR."
+msgstr "Gesetzliche Pflichtangaben & DSGVO."
+
+#: settings/tos.php:24
+msgid "Legal Mandatory Information Settings"
+msgstr "Gesetzliche Pflichtangabeneinstellungen"
+
+#: settings/tos.php:69
+msgid "Legal representative"
+msgstr "Gesetzlicher Vertreter"
+
+#: settings/tos.php:56
+msgid "Legal representatives"
+msgstr "Gesetzliche Vertreter"
+
+#: settings/tos.php:797
+msgid "List and explain the problems with the implementation of accessibility."
+msgstr ""
+"Auflistung und Erläuterung der Probleme bei der Umsetzung der "
+"Barrierefreiheit."
+
+#: settings/network.php:50
+msgid ""
+"List of website IDs that are exempt from the network settings. Enter one "
+"website ID per line."
+msgstr ""
+"Liste der Website-IDs, die von den Netzwerkeinstellungen ausgenommen sind. "
+"Geben Sie eine Website-ID pro Zeile ein."
+
+#: settings/consent.php:260
+msgid "Log"
+msgstr "Protokoll"
+
+#: settings/consent.php:262
+msgid "Manage settings related to consents logs."
+msgstr ""
+"Verwalten Sie Einstellungen im Zusammenhang mit Einwilligungen und "
+"Protokollen."
+
+#: settings/consent.php:238
+msgid "Manage settings related to content blocking."
+msgstr ""
+"Verwalten Sie Einstellungen im Zusammenhang mit der Inhaltsblockierung."
+
+#: settings/tos.php:57
+msgid "Mandatory legal information about the legal representatives."
+msgstr "Obligatorische rechtliche Angaben zu den gesetzlichen Vertretern."
+
+#: data/consent-categories.php:30
+msgid "Marketing"
+msgstr "Marketing"
+
+#: data/consent-categories.php:31
+msgid ""
+"Marketing cookies are used by third-party advertisers or publishers to "
+"display personalized ads. They do this by tracking visitors across websites."
+msgstr ""
+"Marketing-Cookies werden von Drittanbietern oder Publishern verwendet, um "
+"personalisierte Werbung anzuzeigen. Sie tun dies, indem sie Besucher über "
+"Websites hinweg verfolgen."
+
+#: includes/TOS/ContactForm.php:153
+msgid "Message entered by the sender"
+msgstr "Vom Absender eingegebene Nachricht"
+
+#: settings/tos.php:759
+msgid "Method"
+msgstr "Methode"
+
+#: settings/tos.php:138 settings/tos.php:204 settings/tos.php:237
+#: settings/tos.php:353 settings/tos.php:906 settings/consent-cookies.php:75
+#: settings/consent-categories.php:53 includes/TOS/ContactForm.php:143
+#: includes/Consent/Banner.php:62 includes/Consent/Cookies/ListTable.php:137
+#: includes/Consent/Categories/ListTable.php:103
+msgid "Name"
+msgstr "Name"
+
+#: settings/tos.php:559
+msgid "Name (Office)"
+msgstr "Einrichtungsname"
+
+#: settings/tos.php:568
+msgid "Name (Person)"
+msgstr "Name (Person)"
+
+#: settings/consent-cookies.php:137
+msgid ""
+"Name of the enqueued script. It is required if you want to block the script. "
+"Separate multiple names with a comma."
+msgstr ""
+"Name des enqueued Skripts. Es ist erforderlich, wenn Sie das Skript "
+"blockieren möchten. Trennen Sie mehrere Namen durch ein Komma."
+
+#: settings/tos.php:70
+msgid "Name of the legal representative."
+msgstr "Name des gesetzlichen Vertreters."
+
+#: settings/tos.php:205
+msgid ""
+"Name of the webmaster or the technical contact for the website. This can be "
+"also a servicepoint."
+msgstr ""
+"Name des Webmasters oder des technischen Ansprechpartners für die Website. "
+"Dies kann auch der Name einer Servicestelle sein."
+
+#: settings/network.php:24
+msgid "Network Legal Settings"
+msgstr "Rechtliches &mdash; Netzwerkeinstellungen"
+
+#: settings/tos.php:661
+msgid "Newsletter/Mailinglist"
+msgstr "Newsletter/Mailingliste"
+
+#: includes/TOS/ContactForm.php:235
+msgid "nine"
+msgstr "Neun"
+
+#: settings/tos.php:508 settings/tos.php:527 settings/tos.php:640
+#: settings/tos.php:653 settings/tos.php:666 settings/tos.php:701
+msgid "No"
+msgstr "Nein"
+
+#: includes/Consent/Categories/Options.php:56
+msgid "No consent category selected."
+msgstr "Keine Consent-Kategorie ausgewählt."
+
+#: includes/Consent/Cookies/Options.php:121
+msgid "No consent cookie selected."
+msgstr "Keine Consent-Cookie ausgewählt."
+
+#: data/consent-cookies.php:36 data/consent-cookies.php:57
+#: data/consent-cookies.php:78 data/consent-cookies.php:99
+#: data/consent-cookies.php:120
+msgid "No transmission to third parties"
+msgstr "Keine Übermittlung an Drittanbieter"
+
+#: settings/tos.php:827
+msgid "Non-Accessible Content (Free Text)"
+msgstr "Nicht barrierefrei zugängliche Inhalte (Freitext)"
+
+#: settings/tos.php:811
+msgid "Non-Accessible Content (Selection List)"
+msgstr "Nicht barrierefrei zugängliche Inhalte (Auswahl)"
+
+#: settings/tos.php:740
+msgid ""
+"Non-compliant: The content does not comply with the accessibility standard"
+msgstr ""
+"Nicht konform: Der Inhalt entspricht nicht dem Standard für Barrierefreiheit"
+
+#: includes/TOS/Endpoint.php:293
+msgid "Not Found"
+msgstr "Nicht gefunden"
+
+#: settings/consent.php:149
+msgid ""
+"Number of days until the visitor will be asked again to choose their cookie "
+"perference."
+msgstr ""
+"Anzahl der Tage, bis der Besucher erneut aufgefordert wird, seine Cookie-"
+"Präferenz zu wählen."
+
+#: settings/consent.php:163
+msgid ""
+"Number of days until the visitor will be asked again to choose their cookie "
+"preference, if the visitor has only given consent to essential cookies."
+msgstr ""
+"Anzahl der Tage, bis der Besucher erneut aufgefordert wird, seine Cookie-"
+"Präferenz auszuwählen, wenn der Besucher nur seine Zustimmung zu "
+"essentiellen Cookies gegeben hat."
+
+#: includes/ListSettings.php:796
+msgid "Number of items per page:"
+msgstr "Einträge pro Seite:"
+
+#: includes/Consent/Banner.php:56
+msgid "Off"
+msgstr "Aus"
+
+#: settings/tos.php:730
+msgid ""
+"Officially stated status of the website, as well as its contents regarding "
+"the fulfillment of the legal requirements."
+msgstr ""
+"Offiziell anzugebender Status des Webauftritts, sowie dessen Inhalten "
+"hinsichtlich der Erfüllung der gesetzlichen Anforderungen."
+
+#: includes/Consent/Banner.php:55
+msgid "On"
+msgstr "An"
+
+#: includes/TOS/ContactForm.php:227
+msgid "one"
+msgstr "Eins"
+
+#: settings/consent.php:249
+msgid ""
+"One host per line. When a host is recognized (for example within the src-"
+"attribute of an iframe) the content will not be blocked."
+msgstr ""
+"Ein Host pro Zeile. Wenn ein Host erkannt wird (z. B. im src-Attribut eines "
+"Iframes), wird der Inhalt nicht blockiert."
+
+#. %s: Link of the settings page.
+#: includes/Main.php:134
+#, php-format
+msgid ""
+"One or more mandatory fields of the legal settings have not been filled. "
+"Please fill in these fields as soon as possible in the following link: %s."
+msgstr ""
+"Ein oder mehrere Pflichtfelder für die allgemein vorgeschriebenen "
+"Rechtsangaben (Impressum, Datenschutz und Barrierefreiheit) wurden nicht "
+"ausgefüllt. Bitte füllen Sie diese Felder so schnell wie möglich unter "
+"folgendem Link aus: %s."
+
+#: settings/tos.php:848
 msgid "Opportunities to contact for accessibility issues and errors."
 msgstr ""
 "Möglichkeiten zur Kontaktaufnahme bei Problemen und Fehlern zur "
 "Barrierefreiheit."
 
-#: settings/tos.php:574
-msgid "Contact Person"
-msgstr "Ansprechpartner"
+#: settings/consent-cookies.php:165 settings/consent-cookies.php:181
+msgid "Opt-in Code"
+msgstr "Opt-in-Code"
 
-#: settings/tos.php:575
+#: settings/consent-cookies.php:173
+msgid "Opt-out Code"
+msgstr "Opt-out-Code"
+
+#: settings/tos.php:870
+msgid "Optional additional email address."
+msgstr "Optionale zusätzliche E-Mail-Adresse."
+
+#: settings/tos.php:440 settings/tos.php:692
+msgid "Optional Information"
+msgstr "Optionale Angabe"
+
+#: settings/tos.php:516
+msgid "Optional paragraph for the description of any image rights used."
+msgstr "Optionaler Absatz zur Beschreibung der verwendeten Bildrechte."
+
+#: settings/tos.php:129 settings/tos.php:1002
+msgid "Organization"
+msgstr "Organisation"
+
+#: settings/tos.php:61
+msgid "Organization name"
+msgstr "Einrichtungsname"
+
+#: settings/tos.php:991 settings/tos.php:996
+msgid "Organizational Affiliation"
+msgstr "Organisatorische Zugehörigkeit"
+
+#: settings/network.php:34
+msgid "Overwrite Endpoints"
+msgstr "Endpoints überschreiben"
+
+#: data/consent-cookies.php:15
+msgid "Owner of this website"
+msgstr "Eigentümer dieser Website"
+
+#: settings/tos.php:739
 msgid ""
-"Enter a name for the responsible contact person for complaints or requests "
-"for help about lack of accessibility."
+"Partially Compliant: Some parts of the content are not fully compliant with "
+"the accessibility standard"
 msgstr ""
-"Geben Sie hier einen Namen für den zuständigen Ansprechpartner für "
-"Beschwerden oder Hilfeanfragen über mangelnde Zugänglichkeit an."
+"Teilweise konform: Einige Teile des Inhalts entsprechen nicht vollständig "
+"dem Standard für Barrierefreiheit"
 
-#: settings/tos.php:581
-msgid "Contact Email Addresse"
-msgstr "E-Mail-Adresse"
+#: settings/consent.php:127
+msgid "Path"
+msgstr "Pfad"
 
-#: settings/tos.php:582
+#: settings/tos.php:815
+msgid "PDF documents could not yet be converted to an accessible format."
+msgstr ""
+"PDF-Dokumente konnten nicht in ein barrierefreies Format konvertiert werden."
+
+#: settings/tos.php:86 settings/tos.php:157 settings/tos.php:223
+#: settings/tos.php:254 settings/tos.php:376 settings/tos.php:585
+#: settings/tos.php:923
+msgid "Phone"
+msgstr "Telefon"
+
+#: data/consent-cookies.php:77
+msgid "PHPSESSID"
+msgstr "PHPSESSID"
+
+#: includes/TOS/ContactForm.php:169
+msgid "Please enter a name."
+msgstr "Bitte geben Sie einen Namen an."
+
+#: includes/TOS/ContactForm.php:180
+msgid "Please enter a number as solution."
+msgstr "Bitte geben Sie eine Zahl als Lösung ein."
+
+#: includes/TOS/ContactForm.php:177
+msgid "Please enter a text."
+msgstr "Bitte geben Sie einen Text an."
+
+#: includes/Main.php:141
+msgid "Please note"
+msgstr "Bitte beachten"
+
+#: settings/tos.php:1003
+msgid ""
+"Please notice, that by chosing the organisation, additional data, like the "
+"name of the legal representative contact or the data policy officer are "
+"updated automatically."
+msgstr ""
+"Bitte beachten Sie, dass durch die Auswahl der Organisation zusätzliche "
+"Daten, wie der Name des gesetzlichen Vertreters oder des "
+"Datenschutzbeauftragten automatisch aktualisiert werden. "
+
+#. 1: The plugin name, 2: The error string.
+#: rrze-legal.php:103 rrze-legal.php:255
+#, php-format
+msgid "Plugins: %1$s: %2$s"
+msgstr "Plugins: %1$s: %2$s"
+
+#: settings/consent-cookies.php:61 settings/consent-categories.php:78
+#: includes/Consent/Cookies/ListTable.php:141
+#: includes/Consent/Categories/ListTable.php:107
+msgid "Position"
+msgstr "Position"
+
+#: settings/tos.php:893
+msgid "Postal address as an alternative to email address."
+msgstr "Postanschrift als Alternative zur E-Mail-Adresse."
+
+#: settings/tos.php:105 settings/tos.php:179 settings/tos.php:273
+#: settings/tos.php:395 settings/tos.php:613 settings/tos.php:968
+msgid "Postal Code"
+msgstr "Postleitzahl"
+
+#: settings/consent.php:198
+msgid "Preference Text"
+msgstr "Einstellungstext"
+
+#: settings/consent-categories.php:71
+#: includes/Consent/Categories/ListTable.php:106
+msgid "Preselected"
+msgstr "Vorausgewählt"
+
+#: data/consent-cookies.php:79
+msgid "Preserves user session state across page requests."
+msgstr "Bewahrt den Status der Benutzersitzung über Seitenanfragen hinweg."
+
+#: settings/consent-cookies.php:151
+msgid "Prioritize Opt-in Code"
+msgstr "Opt-in-Code priorisieren"
+
+#: settings/tos.php:544 includes/TOS/Endpoint.php:25
+msgid "Privacy"
+msgstr "Datenschutz"
+
+#: includes/Consent/Banner.php:65
+msgid "Privacy Policy"
+msgstr "Datenschutzerklärung"
+
+#: includes/Consent/Banner.php:16
+msgid "Privacy policy"
+msgstr "Datenschutzerklärung"
+
+#: includes/Consent/ContentBlocker.php:309
+msgid "privacy policy"
+msgstr "Datenschutzerklärung"
+
+#: settings/consent-cookies.php:102
+msgid "Privacy Policy URL"
+msgstr "Datenschutz URL"
+
+#: settings/consent.php:185 includes/Consent/Banner.php:42
+msgid "Privacy Settings"
+msgstr "Datenschutzeinstellungen"
+
+#: settings/consent-cookies.php:103
+msgid ""
+"Provide a URL to the privacy policy of the provider of the <strong>"
+"Cookie</strong>."
+msgstr ""
+"Geben Sie eine URL zur Datenschutzrichtlinie des Anbieters des <strong>"
+"Cookie</strong> an."
+
+#: settings/consent-cookies.php:128
+msgid "Provide the expiry date of the <strong>Cookie</strong>."
+msgstr "Geben Sie die Laufzeit des <strong>Cookies</strong> an."
+
+#: settings/consent-cookies.php:120
+msgid ""
+"Provide the technical name of the <strong>Cookie</strong>. Separate multiple "
+"cookie names with a comma."
+msgstr ""
+"Geben Sie den technischen Namen des <strong>Cookies</strong> an. Trennen Sie "
+"mehrere Cookie-Namen durch ein Komma."
+
+#: settings/consent-cookies.php:84 includes/Consent/Banner.php:63
+msgid "Provider"
+msgstr "Anbieter"
+
+#: settings/consent.php:280
+msgid "Purge consent logs after an amount of time."
+msgstr "Cookie-Einwilligungsprotokolle nach einer gewissen Zeit löschen."
+
+#: settings/consent.php:279
+msgid "Purge Interval"
+msgstr "Löschintervall"
+
+#: settings/consent-cookies.php:93 includes/Consent/Banner.php:64
+#: includes/Consent/Cookies/ListTable.php:138
+msgid "Purpose"
+msgstr "Zweck"
+
+#: settings/tos.php:833
+msgid "Reason"
+msgstr "Begründung"
+
+#: settings/tos.php:860
 msgid ""
 "Recipient email address for complaints or requests for help about lack of "
 "accessibility. Please note: If a request about the possibility of contact "
@@ -1953,154 +1396,654 @@ msgstr ""
 "ob im Rahmen der Überwachung gegenüber dem Betreiber des Webauftritts (also "
 "Ihnen) Maßnahmen erforderlich sind."
 
-#: settings/tos.php:591
-msgid "Email CC"
-msgstr "E-Mail CC"
+#: settings/consent.php:214
+msgid "Refuse Button Text"
+msgstr "Text der Schaltfläche „Ablehnen”"
 
-#: settings/tos.php:592
-msgid "Optional additional email address."
-msgstr "Optionale zusätzliche E-Mail-Adresse."
+#: settings/tos.php:648
+msgid "Registration/Registration Forms"
+msgstr "Anmeldung/Anmeldeformulare"
 
-#: settings/tos.php:600
-msgid "Email Subject"
-msgstr "E-Mail Betreff"
+#: settings/consent.php:79 settings/network.php:97
+msgid "Reload After Opt-Out"
+msgstr "Nach Opt-Out neu laden"
 
-#: settings/tos.php:602
-msgid "Accessibility Feedback Form"
-msgstr "Feedback-Formular zur Barrierefreiheit"
+#: settings/tos.php:786
+msgid "Report URL"
+msgstr "URL des Berichts"
 
-#: settings/tos.php:607
-msgid "Contact Phone"
-msgstr "Telefon"
+#: settings/consent.php:72 settings/network.php:90
+msgid "Respect \"Do Not Track\""
+msgstr "Respektiere „Do Not Track“"
 
-#: settings/tos.php:608
-msgid "Contact number for telephone assistance."
-msgstr "Kontaktnummer für telefonische Hilfestellung."
+#: data/consent-cookies.php:141
+msgid "Rosenheimer Str. 143 C, 81671 Munich, Germany"
+msgstr "Rosenheimer Str. 143 C, 81671 München, Deutschland"
 
-#: settings/tos.php:614
-msgid "Contact Address"
-msgstr "Adresse"
+#. Name of the plugin
+msgid "RRZE Legal"
+msgstr "RRZE Rechtliches"
 
-#: settings/tos.php:615
-msgid "Postal address as an alternative to email address."
-msgstr "Postanschrift als Alternative zur E-Mail-Adresse."
+#: data/consent-cookies.php:119
+msgid "RRZE Rate Button"
+msgstr "RRZE Rate-Button"
 
-#~ msgid "Overwrite endpoints with pages that have the same title"
-#~ msgstr "Überschreiben von Endpoints mit Seiten, die denselben Titel haben"
+#. Author of the plugin
+msgid "RRZE Webteam"
+msgstr "RRZE-Webteam"
 
-#~ msgid "Corona Contact Tracking"
-#~ msgstr "Corona Kontaktverfolgung"
+#: data/consent-cookies.php:98
+msgid "RSVP"
+msgstr "RSVP"
 
-#~ msgid "Display the data on Corona contact tracking for events."
-#~ msgstr ""
-#~ "Zeigen Sie die Daten zur Corona-Kontaktverfolgung für Veranstaltungen an."
+#: settings/consent.php:226
+msgid "Save"
+msgstr "Speichern"
 
-#~ msgid "Instagram"
-#~ msgstr "Instagram"
+#: settings/consent.php:223
+msgid "Save Preference Button Text"
+msgstr "Text der Schaltfläche „Speichern”"
 
-#~ msgid ""
-#~ "Meta Platforms Ireland Limited, 4 Grand Canal Square, Dublin 2, Ireland"
-#~ msgstr ""
-#~ "Meta Platforms Ireland Limited, 4 Grand Canal Square, Dublin 2, Irland"
+#: data/consent-cookies.php:16
+msgid "Saves the visitors preferences selected in the Consent Banner."
+msgstr ""
+"Speichert die Einstellungen der Besucher, die in der Consent-Banner "
+"ausgewählt wurden."
 
-#~ msgid "Used to unblock Instagram content."
-#~ msgstr "Wird verwendet, um Instagram-Inhalte zu entsperren."
+#: settings/tos.php:40
+msgid "Scope"
+msgstr "Umfang"
 
-#~ msgid "Facebook"
-#~ msgstr "Facebook"
+#: data/consent-cookies.php:232
+msgid "Scribd, Inc., 460 Bryant St, 100, San Francisco, CA 94107-2594 USA"
+msgstr ""
+"Scribd, Inc., 460 Bryant St, 100, San Francisco, CA 94107-2594 Vereinigten "
+"Staten"
 
-#~ msgid "Used to unblock Facebook content."
-#~ msgstr "Wird verwendet, um Facebook-Inhalte zu entsperren."
+#: includes/Consent/Cookies/Options.php:258
+#: includes/Consent/Categories/Options.php:193
+msgid "Search"
+msgstr "Suchen"
 
-#~ msgid "Google Maps"
-#~ msgstr "Google Maps"
+#: settings/consent.php:141
+msgid "Secure"
+msgstr "Secure"
 
-#~ msgid "Used to unblock Google Maps content."
-#~ msgstr "Wird zum Entsperren von Google-Maps-Inhalten verwendet."
+#: settings/tos.php:812
+msgid ""
+"Selection of the most common deficiencies that a website can have. However, "
+"when choosing one or more of the above-mentioned deficiencies, please "
+"provide below a plausible justification why this deficiency exists and which "
+"alternatives are available in order to access the content nevertheless."
+msgstr ""
+"Auswahl der gängsten Mängel, die eine Webseite aufweisen kann. Bitte geben "
+"Sie bei AUswahl einer oder mehrerer oben genannter Mängel dennoch unten eine "
+"jeweils plausible Begründung ein, warum dieser Mangel vorhanden ist und "
+"welche Alternativen vorhanden sind, um dennoch an die Inhalte zu gelangen."
 
-#~ msgid "OpenStreetMap"
-#~ msgstr "OpenStreetMap"
+#: settings/tos.php:762
+msgid "Self-Evaluation"
+msgstr "Selbstbewertung"
 
-#~ msgid ""
-#~ "Openstreetmap Foundation, St John’s Innovation Centre, Cowley Road, "
-#~ "Cambridge CB4 0WS, United Kingdom"
-#~ msgstr ""
-#~ "Openstreetmap Foundation, St John’s Innovation Centre, Cowley Road, "
-#~ "Cambridge CB4 0WS, Großbritannien"
+#: includes/TOS/ContactForm.php:151
+msgid "Sending Time"
+msgstr "Absendezeit"
 
-#~ msgid "Used to unblock OpenStreetMap content."
-#~ msgstr "Wird zum Entsperren von OpenStreetMap-Inhalten verwendet."
+#: settings/tos.php:682
+msgid "Service Providers"
+msgstr "Externe Dienstleister"
 
-#~ msgid "1-10 Years"
-#~ msgstr "1-10 Jahre"
+#: settings/tos.php:630
+msgid "Services"
+msgstr "Dienstleistungen"
 
-#~ msgid ""
-#~ "We use cookies to measure marketing efforts and improve our services. "
-#~ "Please review the cookie settings and confirm your choice."
-#~ msgstr ""
-#~ "Wir verwenden Cookies, um Marketingbemühungen zu messen und unsere "
-#~ "Dienstleistungen zu verbessern. Bitte überprüfen Sie die Cookie-"
-#~ "Einstellungen und bestätigen Sie Ihre Auswahl."
+#: data/consent-cookies.php:40 data/consent-cookies.php:61
+#: data/consent-cookies.php:82 data/consent-cookies.php:103
+msgid "Session"
+msgstr "Session"
 
-#~ msgid "Default Values"
-#~ msgstr "Standardwerte"
+#: includes/Network/Options.php:148
+msgid "Settings saved."
+msgstr "Die Einstellungen wurden gespeichert."
 
-#~ msgid ""
-#~ "Content from the external media provider %1$s has been blocked on this "
-#~ "website due to your privacy settings. You can find more information about "
-#~ "this in our %2$s."
-#~ msgstr ""
-#~ "Inhalte des externen Medienanbieters %1$s wurden auf dieser Website "
-#~ "aufgrund Ihrer Datenschutzeinstellungen blockiert. Weitere Informationen "
-#~ "dazu finden Sie in unserer %2$s."
+#: includes/TOS/ContactForm.php:233
+msgid "seven"
+msgstr "Sieben"
 
-#~ msgid "Cookie Before Consent"
-#~ msgstr "Cookie vor Einwilligung"
+#: includes/Consent/Banner.php:57
+msgid "Show Cookie Information"
+msgstr "Cookie-Informationen anzeigen"
 
-#~ msgid "A cookie is set before the visitor's consent"
-#~ msgstr "Ein Cookie wird vor der Einwilligung des Besuchers gesetzt"
+#: data/consent-cookies.php:56
+msgid "SimpleSAML"
+msgstr "SimpleSAML"
 
-#~ msgid "Reload After Consent"
-#~ msgstr "Nach Einwilligung neu laden"
+#: data/consent-cookies.php:140
+msgid "Siteimprove Analytics"
+msgstr "Siteimprove Analytics"
 
-#~ msgid ""
-#~ "This content is blocked due to your content consent on this website. By "
-#~ "loading the content, you agree to provider's privacy policy."
-#~ msgstr ""
-#~ "Dieser Inhalt ist aufgrund Ihrer Inhaltszustimmung auf dieser Website "
-#~ "blockiert. Mit dem Laden des Inhalts stimmen Sie der Datenschutzerklärung "
-#~ "des Anbieters zu."
+#: includes/TOS/ContactForm.php:232
+msgid "six"
+msgstr "Sechs"
 
-#~ msgid "Cookie Details"
-#~ msgstr "Cookie-Details"
+#: data/consent-cookies.php:231
+msgid "Slideshare"
+msgstr "Slideshare"
 
-#~ msgid "Privacy Preference"
-#~ msgstr "Datenschutz Einwilligung"
+#: settings/tos.php:816
+msgid ""
+"Some documents have been provided by third parties. These documents are not "
+"available in an accessible version."
+msgstr ""
+"Einige Dokumente wurden von Dritten bereitgestellt. Diese Dokumente sind "
+"nicht in einer barrierefreien Version verfügbar."
 
-#~ msgid "Show Accept All Button"
-#~ msgstr "Schaltfläche „Alle akzeptieren“ anzeigen"
+#: settings/consent.php:118
+msgid ""
+"Specify the domain for which the cookie is valid. Example: If you enter "
+"<strong><em>example.com</em></strong> the cookie is also valid for "
+"subdomains like <strong><em>shop.example.com</em></strong>"
+msgstr ""
+"Geben Sie die Domäne an, für die das Cookie gültig ist. Beispiel: Wenn Sie "
+"<strong><em>beispiel.de</em></strong> eingeben, gilt das Cookie auch für "
+"Subdomains wie <strong><em>shop.beispiel.de</em></strong>"
 
-#~ msgid ""
-#~ "Shows a button, with which the visitor can accept all <strong>Cookies</"
-#~ "strong>"
-#~ msgstr ""
-#~ "Zeigt eine Schaltfläche, mit dem der Besucher alle <strong>Cookies</"
-#~ "strong> akzeptieren kann"
+#: settings/tos.php:735
+msgid ""
+"State of conformity in accordance with EU Directive 2102 and local "
+"legislation."
+msgstr ""
+"Stand der Konformität gemäß der EU-Richtlinie 2102 und der lokalen "
+"Gesetzgebung."
 
-#~ msgid "Accept Button Text"
-#~ msgstr "Schaltflächentext akzeptieren"
+#: settings/tos.php:796
+msgid "Statement"
+msgstr "Erklärung"
 
-#~ msgid "I accept"
-#~ msgstr "Ich akzeptiere"
+#: data/consent-categories.php:21
+msgid "Statistics"
+msgstr "Statistiken"
 
-#~ msgid "Revoke Consent Button Text"
-#~ msgstr "Text der Schaltfläche \"Einwilligung widerrufen”"
+#: data/consent-categories.php:22
+msgid ""
+"Statistics cookies collect information anonymously. This information helps "
+"us to understand how our visitors use our website."
+msgstr ""
+"Statistik-Cookies erfassen Informationen anonym. Diese Informationen helfen "
+"uns zu verstehen, wie unsere Besucher unsere Website nutzen."
 
-#~ msgid ""
-#~ "Button for revoking a previously given consent (output via shortcode)."
-#~ msgstr ""
-#~ "Schaltfläche zum Widerruf einer zuvor erteilten Einwilligung (Ausgabe per "
-#~ "Shortcode)."
+#: settings/consent-cookies.php:54 settings/consent.php:39
+#: settings/network.php:65 settings/consent-categories.php:46
+#: includes/Consent/Cookies/ListTable.php:140
+#: includes/Consent/Categories/ListTable.php:105
+msgid "Status"
+msgstr "Status"
 
-#~ msgid "Revoke Consent"
-#~ msgstr "Einwilligung widerrufen"
+#: settings/tos.php:98 settings/tos.php:172 settings/tos.php:266
+#: settings/tos.php:389 settings/tos.php:606 settings/tos.php:961
+msgid "Street Name & House Number"
+msgstr "Straße und Hausnummer"
+
+#: settings/tos.php:232 settings/tos.php:901
+msgid "Supervisory Authority"
+msgstr "Aufsichtsbehörde"
+
+#: settings/tos.php:820
+msgid "Tables are used for the purpose of optical design."
+msgstr "Es werden Tabellen zum Zwecke der optischen Gestaltung verwendet."
+
+#: settings/tos.php:306
+msgid "Tax Number"
+msgstr "Steuernummer"
+
+#: data/consent-cookies.php:37
+msgid "Test if cookie can be set. Remember User session."
+msgstr "Teste, ob ein Cookie gesetzt werden kann. Benutzersitzung speichern."
+
+#: settings/consent.php:47
+msgid "Test Mode"
+msgstr "Testmodus"
+
+#: settings/consent.php:48
+msgid ""
+"Test the consent banner settings without having to enable <strong>Banner "
+"Status</strong>"
+msgstr ""
+"Testen Sie die Einstellungen des Content-Banners, ohne den <strong>Banner-"
+"Status</strong> aktivieren zu müssen"
+
+#: includes/TOS/ContactForm.php:81
+msgid "Thank you for your message. It was sent successfully."
+msgstr "Danke für Ihre Nachricht. Sie wurde erfolgreich gesendet."
+
+#: rrze-legal.php:210
+msgid ""
+"The \"rrze-tos\" plugin is networkwide activated. Please deactivate the "
+"\"rrze-tos\" plugin as it will be replaced by the \"rrze-legal\" plugin."
+msgstr ""
+"Das Plugin „rrze-tos“ ist netzwerkweit aktiviert. Bitte deaktivieren Sie das "
+"Plugin „rrze-tos“, da es durch das Plugin „rrze-legal“ ersetzt wird."
+
+#: settings/consent-cookies.php:47
+msgid ""
+"The <strong>Consent Category</strong> the <strong>Cookie</strong> is part of."
+msgstr ""
+"Die <strong>Consent-Kategorie</strong>, zu der das <strong>Cookie</strong> "
+"gehört."
+
+#: settings/consent-cookies.php:34 settings/consent-categories.php:34
+msgid ""
+"The <strong>ID</strong> must be at least 3 characters long and may only "
+"contain <code>a-z_-</code> characters."
+msgstr ""
+"Die <strong>ID</strong> muss mindestens 3 Zeichen lang sein und darf nur "
+"<code>a-z_-</code> Zeichen enthalten."
+
+#: settings/consent-cookies.php:152
+msgid ""
+"The <strong>Opt-in Code</strong> is loaded in <head> and is executed before "
+"the page is fully loaded"
+msgstr ""
+"Der <strong>Opt-in Code</strong> wird in <head> geladen und ausgeführt, "
+"bevor die Seite vollständig geladen ist"
+
+#: settings/consent-cookies.php:159
+msgid ""
+"The <strong>Opt-Out Code</strong> contains asynchronous JavaScript code that "
+"needs to executed to finish the Opt-Out"
+msgstr ""
+"Der <strong>Opt-Out-Code</strong> enthält asynchronen JavaScript-Code, der "
+"ausgeführt werden muss, um das Opt-Out abzuschließen"
+
+#: settings/tos.php:555
+msgid ""
+"The designation, position and tasks of a data protection officer (DPO) "
+"within an organization are described in Articles 37, 38 and 39 of the "
+"European Union (EU) General Data Protection Regulation (GDPR)."
+msgstr ""
+"Die Benennung, Position und Aufgaben eines Datenschutzbeauftragten (DSB) "
+"innerhalb einer Organisation sind in den Artikeln 37, 38 und 39 der "
+"Datenschutz-Grundverordnung (DSGVO) der Europäischen Union (EU) beschrieben."
+
+#: includes/TOS/ContactForm.php:172
+msgid ""
+"The email address field must be filled out and contain a correctly spelled "
+"email address."
+msgstr ""
+"Die Feld der E-Mail-Adresse muss ausgefüllt sein und eine korrekt "
+"geschriebene E-Mailadresse enthalten."
+
+#: settings/consent-cookies.php:145
+msgid "The enqueued script will be blocked"
+msgstr "Das enqueued Skript wird blockiert"
+
+#: includes/TOS/ContactForm.php:182
+msgid "The entered number is wrong."
+msgstr "Die eingegebene Zahl ist falsch."
+
+#. %s: Label of the field.
+#: includes/ListSettings.php:611 includes/Settings.php:609
+#, php-format
+msgid "The field %s is required."
+msgstr "Das Feld %s ist erforderlich."
+
+#: includes/TOS/ContactForm.php:141
+msgid "The following message was entered in the accessibility feedback form."
+msgstr ""
+"Die folgende Nachricht wurde im Feedback-Formular zur Barrierefreiheit "
+"eingegeben."
+
+#: settings/tos.php:822
+msgid ""
+"The font color in the logo with the full title of the website does not have "
+"enough contrast."
+msgstr ""
+"Die Schriftfarbe im Logo mit dem ausgeschriebenen Titel des Webauftritts ist "
+"nicht kontrastreich genug."
+
+#: includes/TOS/ContactForm.php:74
+msgid "The message could not be sent."
+msgstr "Die Nachricht konnte nicht gesendet werden."
+
+#: settings/tos.php:130
+msgid "The name of the department, chair or other facility"
+msgstr "Der Name der Abteilung, des Lehrstuhls oder einer anderen Einrichtung"
+
+#. %s: Url of the endpoint page.
+#: settings/tos.php:34 settings/tos.php:548 settings/tos.php:722
+#, php-format
+msgid "The output of this settings page is available at the following link: %s"
+msgstr ""
+"Die Ausgabe dieser Einstellungsseite ist unter folgendem Link verfügbar: %s"
+
+#. %s: Permalink of the page that overrides the endpoint.
+#: includes/Main.php:155
+#, php-format
+msgid ""
+"The output of this settings page is overwritten by the content of the "
+"following page: %s."
+msgstr ""
+"Die Ausgabe dieser Einstellungsseite wird durch den Inhalt der folgenden "
+"Seite überschrieben: %s."
+
+#. %s: Default website url path.
+#: settings/consent.php:130
+#, php-format
+msgid ""
+"The path for which the cookie is valid. Default path: <strong>%s</strong>"
+msgstr ""
+"Der Pfad, für den das Cookie gültig ist. Standard-Pfad: <strong>%s</strong>"
+
+#. 1: Server PHP version number, 2: Required PHP version number.
+#: rrze-legal.php:77
+#, php-format
+msgid ""
+"The server is running PHP version %1$s. The Plugin requires at least PHP "
+"version %2$s."
+msgstr ""
+"The server is running PHP version %1$s. The Plugin requires at least PHP "
+"version %2$s."
+
+#. 1: Server WordPress version number, 2: Required WordPress version number.
+#: rrze-legal.php:84
+#, php-format
+msgid ""
+"The server is running WordPress version %1$s. The Plugin requires at least "
+"WordPress version %2$s."
+msgstr ""
+"The server is running WordPress version %1$s. The Plugin requires at least "
+"WordPress version %2$s."
+
+#: includes/TOS/ContactForm.php:174
+msgid "The specified e-mail address is not correct."
+msgstr "Die angegebene E-Mailadresse ist nicht korrekt."
+
+#: settings/consent-categories.php:47
+msgid ""
+"The status of this <strong>Consent Category</strong>. If enabled (Status: "
+"Enabled) it is displayed to the visitor in the <strong>Consent "
+"Banner</strong>"
+msgstr ""
+"Der Status dieser <strong>Consent-Kategorie</strong>. Falls aktiviert "
+"(Status: Aktiviert) wird es dem Besucher im <strong>Consent-Banner</strong> "
+"angezeigt"
+
+#: settings/consent-cookies.php:55
+msgid ""
+"The status of this <strong>Cookie</strong>. If enabled (Status: Enabled) it "
+"is displayed to the visitor in the <strong>Consent Banner</strong>"
+msgstr ""
+"Der Status dieses <strong>Cookies</strong>. Falls aktiviert (Status: "
+"Aktiviert) wird es dem Besucher im <strong>Consent Banner</strong> angezeigt"
+
+#. 1: Invalid value, 2: Label of the field.
+#: includes/ListSettings.php:621 includes/Settings.php:619
+#, php-format
+msgid "The value %1$s of the field %2$s is not valid."
+msgstr "Der Wert %1$s des Feldes %2$s ist ungültig."
+
+#: settings/tos.php:828
+msgid ""
+"The website owner is obliged to publicly list all non-accessible components "
+"of the website and its contents. These must be specified here."
+msgstr ""
+"Der Gesetzgeber verpflichtet dazu, alle nicht barrierefreien Bestandteile "
+"des Webauftritts und der Inhalte öffentlich aufzulisten. Diese müssen hier "
+"angegeben werden."
+
+#: settings/consent.php:102 settings/network.php:112
+msgid ""
+"These IP addresses are treated as a visitor who accepted all cookies. Add "
+"one IP address per line."
+msgstr ""
+"Diese IP-Adressen werden als Besucher behandelt, die alle Cookies akzeptiert "
+"haben. Fügen Sie pro Zeile eine IP-Adresse hinzu."
+
+#: settings/tos.php:763
+msgid "Third party rating"
+msgstr "Bewertung durch Dritte"
+
+#: settings/consent-cookies.php:190
+msgid "This code will always be executed."
+msgstr "Dieser Code wird immer ausgeführt."
+
+#: settings/consent-cookies.php:166 settings/consent-cookies.php:182
+msgid "This code will be executed after the visitor gives their consent."
+msgstr ""
+"Dieser Code wird ausgeführt, nachdem der Besucher seine Zustimmung gegeben "
+"hat."
+
+#: settings/consent-cookies.php:174
+msgid ""
+"This code will be executed only if the visitor did opt-in previously and "
+"chooses to opt-out. It is executed once."
+msgstr ""
+"Dieser Code wird nur ausgeführt, wenn der Besucher sich zuvor angemeldet "
+"(Opt-In) hat und sich für die Abmeldung (Opt-Out) entscheidet. Es wird "
+"einmal ausgeführt."
+
+#: includes/Main.php:145
+msgid "This message was first displayed recorded on:"
+msgstr "Diese Nachricht wurde erstmals aufgezeichnet angezeigt am:"
+
+#: settings/tos.php:441
+msgid ""
+"This option allows you to change predefined paragraphs, as well as to add "
+"another self-phrased paragraph.<br>Note: Official FAU facilities should have "
+"all of the following options enabled."
+msgstr ""
+"Mit dieser Option können Sie vordefinierte Absätze ändern und einen weiteren "
+"selbst formulierten Absatz hinzufügen.<br>Hinweis: Offizielle Einrichtungen "
+"der FAU sollten alle folgenden Optionen aktiviert haben."
+
+#: includes/TOS/ContactForm.php:229
+msgid "three"
+msgstr "Drei"
+
+#: settings/tos.php:418
+msgid "Title"
+msgstr "Titel"
+
+#: data/consent-cookies.php:161
+msgid "Twitter"
+msgstr "Twitter"
+
+#: data/consent-cookies.php:162
+msgid ""
+"Twitter International Company, One Cumberland Place, Fenian Street, Dublin 2,"
+" D02 AX07, Ireland"
+msgstr ""
+"Twitter International Company, One Cumberland Place, Fenian Street, Dublin 2,"
+" D02 AX07, Irland"
+
+#: includes/TOS/ContactForm.php:228
+msgid "two"
+msgstr "Zwei"
+
+#: data/tos.php:91
+msgid "University of Technology Nuremberg "
+msgstr "University of Technology Nuremberg "
+
+#: data/tos.php:140
+msgid "Universitätsklinikum Erlangen"
+msgstr "Universitätsklinikum Erlangen"
+
+#: settings/tos.php:741
+msgid "Unknown: Content was not rated or rating results are not available"
+msgstr ""
+"Unbekannt: Der Inhalt wurde nicht bewertet oder die Bewertungsergebnisse "
+"sind nicht verfügbar"
+
+#: data/consent-cookies.php:169
+msgid "Unlimited"
+msgstr "Unbegrenzt"
+
+#: settings/consent.php:54 settings/network.php:72
+msgid "Update Consent Cookie Version & Force Re-Selection"
+msgstr "Consent-Cookie-Version aktualisieren und erneute Auswahl erzwingen"
+
+#. %s: Consent cookie version.
+#: settings/consent.php:57 settings/network.php:75
+#, php-format
+msgid ""
+"Updates the version of the cookie of Consent Cookie. This will cause the "
+"<strong>Consent Banner</strong> to reappear for visitors who have already "
+"selected an option. <strong>Current Consent Cookie Version: %s </strong>"
+msgstr ""
+"Aktualisiert die Version des Standard-Cookies. Dadurch wird das <strong>"
+"Consent-Banner</strong> für Besucher, die bereits eine Option ausgewählt "
+"haben, erneut angezeigt. <strong>Aktuelle Version des Standard-Cookies: %s "
+"</strong>"
+
+#: settings/tos.php:371 settings/tos.php:426 settings/tos.php:935
+msgid "URL"
+msgstr "URL"
+
+#: settings/tos.php:941
+msgid "URL (concerning LAW)"
+msgstr "URL (zum anhängigen Gesetz)"
+
+#: settings/tos.php:947
+msgid "URL (concerning VO)"
+msgstr "URL (zur anhängigen Verordnung)"
+
+#: settings/tos.php:805
+msgid "Use input help and supplement it with manual entries"
+msgstr "Eingabehilfe nutzen und durch manuelle Eingaben ergänzen"
+
+#: data/consent-cookies.php:142
+msgid "Used to help record the visitor’s use of the website."
+msgstr ""
+"Wird verwendet, um die Nutzung der Website durch den Besucher zu erfassen."
+
+#: data/consent-cookies.php:100
+msgid "Used to manage RSVP session state."
+msgstr "Dient zur Verwaltung des RSVP-Sitzungsstatus."
+
+#: data/consent-cookies.php:121
+msgid "Used to manage the rating counter."
+msgstr "Wird verwendet, um den Bewertungszähler zu verwalten."
+
+#: data/consent-cookies.php:58
+msgid "Used to manage WebSSO session state."
+msgstr "Dient zur Verwaltung des WebSSO-Sitzungsstatus."
+
+#: data/consent-cookies.php:277
+msgid "Used to unblock ARD content."
+msgstr "Wird verwendet, um ARD-Inhalte zu entsperren."
+
+#: data/consent-cookies.php:254
+msgid "Used to unblock BR content."
+msgstr "Wird verwendet, um BR-Inhalte zu entsperren."
+
+#: data/consent-cookies.php:233
+msgid "Used to unblock Slideshare content."
+msgstr "Wird verwendet, um Slideshare-Inhalte zu entsperren."
+
+#: data/consent-cookies.php:163
+msgid "Used to unblock Twitter content."
+msgstr "Wird verwendet, um Twitter-Inhalte zu entsperren."
+
+#: data/consent-cookies.php:212
+msgid "Used to unblock Vimeo content."
+msgstr "Wird verwendet, um Vimeo-Inhalte zu entsperren."
+
+#: data/consent-cookies.php:187
+msgid "Used to unblock YouTube content."
+msgstr "Wird verwendet, um Youtube-Inhalte zu entsperren."
+
+#: includes/TOS/ContactForm.php:148
+msgid "User Agent"
+msgstr "Verwendeter User-Agent"
+
+#: settings/tos.php:298
+#| msgid "Identification Numbers"
+msgid "VAT identification number"
+msgstr "Umsatzsteuer-Identifikationsnummer"
+
+#: data/consent-cookies.php:210
+msgid "Vimeo"
+msgstr "Vimeo"
+
+#: data/consent-cookies.php:211
+msgid "Vimeo Inc., 555 West 18th Street, New York, New York 10011, USA"
+msgstr ""
+"Vimeo Inc., 555 West 18th Street, New York, New York 10011, Vereinigte "
+"Staaten"
+
+#: settings/tos.php:199
+msgid "Webmaster"
+msgstr "Webmaster"
+
+#: includes/TOS/ContactForm.php:152
+msgid "Website Form"
+msgstr "Website-Form"
+
+#: settings/tos.php:45
+msgid "Websites"
+msgstr "Webauftritte"
+
+#: settings/network.php:42
+msgid ""
+"Websites belonging to FAU domains will use the default FAU data for some "
+"sections."
+msgstr ""
+"Websites, die zu FAU-Domains gehören, verwenden für einige Bereiche die "
+"Standarddaten der FAU."
+
+#: settings/network.php:35
+msgid ""
+"Websites may create their own, manually created web pages for the legal text."
+" These then have priority over the automatically created texts and are shown "
+"instead"
+msgstr ""
+"Websites dürfen eigene, manuell erstelle Websiten für die Rechtstext "
+"erstellen. Diese haben dann Vorrang vor den automatisch erstellten Texten "
+"und werden statdessen gezeigt"
+
+#: settings/tos.php:821
+msgid ""
+"When using multilingual content on a page, sometimes the languages ​​are not "
+"correctly marked in HTML."
+msgstr ""
+"Bei der Verwendung von mehrsprachigen Inhalten auf einer Seite, werden die "
+"Sprachen teilweise nicht korrekt in HTML gekennzeichnet."
+
+#: settings/tos.php:410
+msgid "Whistleblower protection"
+msgstr "Hinweisgeberschutz"
+
+#: data/consent-cookies.php:35
+msgid "WordPress"
+msgstr "WordPress"
+
+#: settings/tos.php:507 settings/tos.php:526 settings/tos.php:639
+#: settings/tos.php:652 settings/tos.php:665 settings/tos.php:700
+msgid "Yes"
+msgstr "Ja"
+
+#: includes/Consent/Shortcode.php:56 includes/Consent/Shortcode.php:57
+msgid "Yes, I agree."
+msgstr "Ja, ich stimme zu."
+
+#. %s: Privacy policy link.
+#: includes/Consent/ContentBlocker.php:319
+#, php-format
+msgid ""
+"You can find more information and the possibility to revoke your consent in "
+"our %s."
+msgstr ""
+"Weitere Informationen und die Möglichkeit zum Widerruf finden Sie in unserer "
+"%s."
+
+#: data/consent-cookies.php:185
+msgid "YouTube"
+msgstr "YouTube"
+
+#: includes/Settings.php:671
+msgid "yy-mm-dd"
+msgstr "yy-mm-dd"
+
+#: includes/TOS/ContactForm.php:226
+msgid "zero"
+msgstr "Null"

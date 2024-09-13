@@ -51,7 +51,7 @@ class Options extends Settings {
         if ($this->optionName === '' || $this->settingsFilename === '') {
             return;
         }
-        Debug::log("loaded Settings, file: ".$this->settingsFilename);
+   //     Debug::log("loaded Settings, file: ".$this->settingsFilename);
         include_once(plugin()->getPath() . "settings/{$this->settingsFilename}.php");
         $this->settings = $settings ?? [];    
         $this->staticdata = $this->loadStaticData();
@@ -63,7 +63,7 @@ class Options extends Settings {
 
         $this->setFields();
         $this->setOptions();
-        
+   //     $this->checkRequiredTOSData();
     }
 
 
@@ -110,15 +110,8 @@ class Options extends Settings {
      * @return void
      */
     public function adminEnqueueTOSScripts()  {
-        wp_register_script(
-            'rrze-legal-tos-settings',
-            plugins_url('build/tos.js', plugin()->getBasename()),
-            ['jquery'],
-            plugin()->getVersion()
-        );
-        wp_localize_script('rrze-legal-tos-settings', 'legalSettings', [
-            'optionName' => $this->optionName
-        ]);
+        wp_register_script('rrze-legal-tos-settings', plugins_url('build/tos.js', plugin()->getBasename()), ['jquery'], plugin()->getVersion());
+        wp_localize_script('rrze-legal-tos-settings', 'legalSettings', [ 'optionName' => $this->optionName ]);
     }
 
     public function setFAUDpoSection()  {
@@ -237,7 +230,7 @@ class Options extends Settings {
              $datascope = $this->options['scope_context'];
 // Debug::log("setOptions - SET SCOPE by options: $datascope ");
         } elseif ((isset($defaults['scope_context'])) && (!empty($defaults['scope_context']))) {
-             Debug::log("setOptions - SET SCOPE by defaults: $datascope ");
+//             Debug::log("setOptions - SET SCOPE by defaults: $datascope ");
 
             $datascope  = $defaults['scope_context'];
             $this->options['scope_context'] = $datascope;
@@ -496,6 +489,46 @@ class Options extends Settings {
         return []; 
     }
     
+     public function checkRequiredTOSData() {
+        $options = $this->options;
+        $errorlist = array();
+        $found = false;
+        Debug::log("checkRequiredTOSData ");
+         
+         
+        foreach ($this->fields as $key => $field) {
+            $slug = explode('_', $key)[0];
+            $required = isset($field['required']) ? (bool) $field['required'] : false;
+            if ($options[$key] === '' && $required) {
+                $errorlist[] = $key;
+                $found = true;
+            }     
+        }
+        if ($found) {
+           if ((isset($options['error_timestamp'])) && (!empty($options['error_timestamp']))) {
+                //already set, do thing
+                    Debug::log("Error Timestamp already set; ".$options['error_timestamp']);
+               return;
 
+           } else {
+                $this->options['error_timestamp'] = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), current_time('timestamp') );
+                Debug::log("Set the Timestamp of error to ".$this->options['error_timestamp']);             
+                 update_option($this->optionName, $this->options);
+           }
+           
+        } elseif ((isset($options['error_timestamp'])) && (!empty($options['error_timestamp']))) {
+                    // remove existing entry
+                Debug::log("Remove Error Timestamp ");
+                $this->options['error_timestamp'] = "";
+
+              update_option($this->optionName, $this->options);
+                
+          
+
+         }
+ 
+    }
+    
+    
  
 }

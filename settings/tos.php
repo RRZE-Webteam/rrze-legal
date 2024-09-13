@@ -23,39 +23,7 @@ $settings = [
     'settings' => [
         'title' => __('Legal Mandatory Information Settings', 'rrze-legal'),
         'sections' => [
-             [
-                'id' => 'scope',
-                'title' => __('Organizational Affiliation', 'rrze-legal'),
-                'hide_title' => true,
-                'description' => __('Affiliation','rrze-legal'),
-                'subsections' => [
-                    [
-                        'id' => 'scope',
-                        'title' => __('Scope', 'rrze-legal'),
-                        'hide_title' => true,
-                        'description' => __('Please indicate whether the website is operated by an institution affiliated with the university or by another institution.', 'rrze-legal'),
-                        'fields' => [
-                            [
-                                'name' => 'context',
-                                'label' => __('Organizational assignment', 'rrze-legal'),
-                                'description' => __('Select the organization form this website belongs to', 'rrze-legal'),
-                                'type' => 'select',
-                                // optionlist filled by data/tos.php
-           //                     'options' => [
-           //                         'fau' => __('Friedrich-Alexander-Universität Erlangen-Nürnberg', 'rrze-legal'),
-           //                         'utn' => __('University of Technology Nuremberg ', 'rrze-legal'),
-           //                         'uk' => __('Universitätsklinikum Erlangen', 'rrze-legal'),
-           //                         'stw' => __('Studierendenwerk Erlangen-Nürnberg', 'rrze-legal'),
-           //                         'cooperation'  => __('Cooperation between different institutions', 'rrze-legal'),
-           //                         'external' => __('External institution', 'rrze-legal'),
-           //                     ],
-                                'default' => 'fau'
-                            ]
-                           
-                        ],
-                    ],
-                ],
-             ],
+             
             
             [
                 'id' => 'imprint',
@@ -158,7 +126,8 @@ $settings = [
                         'fields' => [
                             [
                                 'name' => 'responsible_person_organization',
-                                'label' => __('Organization (Department, Chair or other facility)', 'rrze-legal'),
+                                'label' => __('Organization', 'rrze-legal'),
+                                'description'   => __('The name of the department, chair or other facility','rrze-legal'),
                                 'type' => 'text',
                                 'default' => tos()->getSiteUrlHost(),
                                 'sanitize_callback' => 'sanitize_text_field',
@@ -176,7 +145,9 @@ $settings = [
                             [
                                 'name' => 'responsible_person_email',
                                 'label' => __('Email', 'rrze-legal'),
+                                'description'   => __('Contact email for the responsible person or the organization.','rrze-legal'),
                                 'type' => 'email',
+                                  'required' => true,
                                 'sanitize_callback' => function ($input) {
                                     return tos()->validateEmail($input);
                                 },
@@ -184,14 +155,17 @@ $settings = [
                             [
                                 'name' => 'responsible_person_phone',
                                 'label' => __('Phone', 'rrze-legal'),
+                                'description'   => __('Contact phone number for the responsible person or the organization.','rrze-legal'),
                                 'type' => 'tel',
                                 'sanitize_callback' => 'sanitize_text_field',
-                            ],
+                            ],    
                             [
-                                'name' => 'responsible_person_fax',
-                                'label' => __('Fax Number', 'rrze-legal'),
-                                'type' => 'tel',
+                                'name' => 'responsible_person_co',
+                                'label' => __('c/o', 'rrze-legal'),
+                                'description'   => __('Additional address line.','rrze-legal'),
+                                'type' => 'text',
                                 'sanitize_callback' => 'sanitize_text_field',
+                                'required' => false,
                             ],
                             [
                                 'name' => 'responsible_person_street',
@@ -237,6 +211,7 @@ $settings = [
                                 'name' => 'webmaster_email',
                                 'label' => __('Email', 'rrze-legal'),
                                 'type' => 'email',
+                                'description'   => __('Contact email for problems concerning the website.','rrze-legal'),
                                 'default' => get_option('admin_email'),
                                 'sanitize_callback' => function ($input) {
                                     return tos()->validateEmail($input);
@@ -246,6 +221,7 @@ $settings = [
                             [
                                 'name' => 'webmaster_phone',
                                 'label' => __('Phone', 'rrze-legal'),
+                                'description'   => __('Contact phone number for problems concerning the website.','rrze-legal'),
                                 'type' => 'tel',
                                 'sanitize_callback' => 'sanitize_text_field',
                             ],
@@ -319,7 +295,7 @@ $settings = [
                             
                             [
                                 'name' => 'id_numbers_ustg',
-                                'label' => __('Umsatzsteuer-Identifikationsnummer', 'rrze-legal'),
+                                'label' => __('VAT identification number', 'rrze-legal'),
                                 'type' => 'text',
                                 'default' => '',
                                 'sanitize_callback' => 'sanitize_text_field',
@@ -403,7 +379,8 @@ $settings = [
                             ],
                             [
                                 'name' => 'it_security_postal_co',
-                                'label' => __('CO', 'rrze-legal'),
+                                'label' => __('c/o', 'rrze-legal'),
+                                'description'   => __('Additional address line.','rrze-legal'),
                                 'type' => 'text',
                                 'sanitize_callback' => 'sanitize_text_field',
                             ],
@@ -430,8 +407,8 @@ $settings = [
                     ],    
                     [
                         'id' => 'whistleblower_system',
-                        'title' => __('Hinweisgeberschutz', 'rrze-legal'),
-                        'description' => __('Angaben zu einem System gemäß Hinweisgeberschutzgesetz.', 'rrze-legal'),
+                        'title' => __('Whistleblower protection', 'rrze-legal'),
+                        'description' => __('Information about a system in accordance with the Whistleblower Protection Act.', 'rrze-legal'),
                         'fields' => [
                             
           
@@ -618,7 +595,8 @@ $settings = [
                                         
                             [
                                 'name' => 'dpo_postal_co',
-                                'label' => __('C/O', 'rrze-legal'),
+                                'label' => __('c/o', 'rrze-legal'),
+                                'description'   => __('Additional address line.','rrze-legal'),
                                 'type' => 'text',
                                 'sanitize_callback' => 'sanitize_text_field',
                             ],         
@@ -972,7 +950,8 @@ $settings = [
                             ], 
                              [
                                 'name' => 'supervisory_authority_postal_co',
-                                'label' => __('C/O Address', 'rrze-legal'),
+                                'label' => __('c/o', 'rrze-legal'),
+                                'description'   => __('Additional address line.','rrze-legal'),
                                 'type' => 'text',
                                 'sanitize_callback' => 'sanitize_text_field',
                                 'required' => true,
@@ -1007,6 +986,37 @@ $settings = [
                                         
                 ],
             ],
+            [
+                'id' => 'scope',
+                'title' => __('Organizational Affiliation', 'rrze-legal'),
+                'hide_title' => true,
+                'subsections' => [
+                    [
+                        'id' => 'scope',
+                        'title' => __('Organizational Affiliation', 'rrze-legal'),
+                        'hide_title' => true,
+                        
+                        'fields' => [
+                            [
+                                'name' => 'context',
+                                'label' => __('Organization', 'rrze-legal'),
+                                'description' => __('Indicate whether the website is operated by an institution affiliated with the university or by another institution.','rrze-legal').'<br>'.__('Please notice, that by chosing the organisation, additional data, like the name of the legal representative contact or the data policy officer are updated automatically.', 'rrze-legal'),
+                                'type' => 'select',
+                                // optionlist filled by data/tos.php
+           //                     'options' => [
+           //                         'fau' => __('Friedrich-Alexander-Universität Erlangen-Nürnberg', 'rrze-legal'),
+           //                         'utn' => __('University of Technology Nuremberg ', 'rrze-legal'),
+           //                         'uk' => __('Universitätsklinikum Erlangen', 'rrze-legal'),
+           //                         'cooperation'  => __('Cooperation between different institutions', 'rrze-legal'),
+           //                         'external' => __('External institution', 'rrze-legal'),
+           //                     ],
+                                'default' => 'fau'
+                            ]
+                           
+                        ],
+                    ],
+                ],
+             ],
         ],
     ],
 ];

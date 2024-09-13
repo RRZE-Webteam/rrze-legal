@@ -26,9 +26,9 @@
         "packages-update": "wp-scripts packages-update"
     },
     "name": "rrze-legal",
-    "version": "2.7.4",
+    "version": "2.7.5",
     "description": "Generator für rechtliche Pflichtangaben auf einem Webauftritt.",
     "main": "webpack.config.js",
-    "author": "Wolfgang Wiese <wolfgang.wiese@fau.de> (https://www.rrze.fau.de/)",
+    "author": "RRZE Webteam <webmaster@fau.de> (https://www.rrze.fau.de/)",
     "license": "GPL-3.0-or-later"
 }
