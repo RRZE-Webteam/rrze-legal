@@ -20,11 +20,11 @@ if (is_plugin_active('rrze-elements/rrze-elements.php')) {
     <main id="main" class="site-main">
         <article id="rrze-tos">
             <header class="entry-header">
-                <?php printf('<h1 class="entry-title">%s</h1>', $title); ?>
+                <?php printf('<h1 class="entry-title">%s</h1>', esc_html($title)); ?>
             </header><!-- .entry-header -->
             <div class="entry-content">
                 <div class="rrze-tos">
-                    <?php echo $content; ?>
+                    <?php echo wp_kses($content,'post'); ?>
                 </div>
             </div><!-- .entry-content -->
         </article><!-- #rrze-tos -->

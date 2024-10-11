@@ -1,19 +1,9 @@
-# RRZE-LEGAL
+[![Aktuelle Version](https://img.shields.io/github/package-json/v/rrze-webteam/rrze-legal/main?label=Version)](https://github.com/RRZE-Webteam/rrze-legal) [![Release Version](https://img.shields.io/github/v/release/rrze-webteam/rrze-legal?label=Release+Version)](https://github.com/rrze-webteam/rrze-legal/releases/) [![GitHub License](https://img.shields.io/github/license/rrze-webteam/rrze-legal)](https://github.com/RRZE-Webteam/rrze-legal) [![GitHub issues](https://img.shields.io/github/issues/RRZE-Webteam/rrze-legal)](https://github.com/RRZE-Webteam/rrze-legal/issues)
+![GitHub milestone details](https://img.shields.io/github/milestones/progress-percent/RRZE-Webteam/RRZE-legal/3)
+
+# RRZE Legal 
 
 Generator für rechtliche Pflichtangaben auf einem Webauftritt.
-
-
-## Download 
-
-GitHub-Repo: https://github.com/RRZE-Webteam/rrze-legal/
-
-
-## Autor 
-RRZE-Webteam , http://www.rrze.fau.de
-
-## Copryright
-
-GNU General Public License v3.0 
 
 
 ## Zweck 

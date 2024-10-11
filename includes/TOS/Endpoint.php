@@ -7,8 +7,7 @@ defined('ABSPATH') || exit;
 use RRZE\Legal\{Locale, Template};
 use function RRZE\Legal\{plugin, tos};
 
-class Endpoint
-{
+class Endpoint {
     /**
      * Class constructor.
      */
@@ -136,16 +135,8 @@ class Endpoint
         $options['imprint_scope_websites'] = $value;
         // Set default domain option
         $options['is_default_domain'] = tos()->isCurrentSiteInDefaultDomains() ? '1' : '0';
-        // Legal area
-        $legalArea = $options['accessibility_general_legal_area'] ?? '';
-        foreach (tos()->getLegalAreaData() as $key => $area) {
-            if ($legalArea == $key) {
-                foreach ($area as $_key => $_value) {
-                    $options['accessibility_' . $_key] = $_value;
-                }
-                break;
-            }
-        }
+
+   
         // Set accessibility conformity
         self::setAccessibilityConformity($options);
         // Set accessibility compliance method
