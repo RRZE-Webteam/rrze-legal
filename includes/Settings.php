@@ -363,7 +363,7 @@ class Settings {
             $count++;
         }
         if ($count < 2) {
-            echo $html;
+            echo wp_kses($html, 'post');
             return;
         }
 
@@ -383,7 +383,7 @@ class Settings {
             );
         }
         $html .= '</h2>' . PHP_EOL;
-        echo $html;
+        echo wp_kses($html, 'post');
     }
 
     /**
@@ -396,7 +396,7 @@ class Settings {
             if ($this->pagePrefix . $sectionId != $this->currentTab) {
                 continue;
             }
-            echo '<form id="', $this->pagePrefix . $sectionId . '" method="post" action="options.php">';
+            echo wp_kses('<form id="'. $this->pagePrefix . $sectionId . '" method="post" action="options.php">', 'post');
             settings_errors();
             do_settings_sections($this->settingsPrefix . $section['id']);
             settings_fields($this->settingsPrefix . $section['id']);
@@ -437,7 +437,7 @@ class Settings {
         if (!empty($section['description'])) {
             $section['description'] = '<p>' . $section['description'] . '</p>';
             $callback = function () use ($section) {
-                echo $section['description'];
+                echo wp_kses($section['description'], 'post');
             };
         } elseif (isset($section['callback'])) {
             $callback = $section['callback'];
@@ -483,7 +483,7 @@ class Settings {
             if (!empty($subsection['description'])) {
                 $subsection['description'] = '<div class="inside">' . $subsection['description'] . '</div>';
                 $callback = function () use ($subsection) {
-                    echo $subsection['description'];
+                    echo wp_kses($subsection['description'],'post');
                 };
             } elseif (isset($subsection['callback'])) {
                 $callback = $subsection['callback'];

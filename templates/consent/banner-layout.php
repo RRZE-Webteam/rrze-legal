@@ -21,7 +21,7 @@ defined('ABSPATH') || exit;
                             <div class="col-12">
                                 <div class="_rrzelegal-flex-center">
                                     <span role="heading" aria-level="3" class="_rrzelegal-h3" id="BannerTextHeadline">
-                                        <?php echo $bannerTextHeadline; ?>
+                                        <?php echo esc_html($bannerTextHeadline); ?>
                                     </span>
                                 </div>
 
@@ -32,7 +32,7 @@ defined('ABSPATH') || exit;
                                 <?php
                                 if (! empty($categories)) { ?>
                                     <fieldset>
-                                        <legend class="sr-only"><?php echo $bannerTextHeadline; ?></legend>
+                                        <legend class="sr-only"><?php echo esc_html($bannerTextHeadline); ?></legend>
                                         <ul>
                                             <?php
                                             foreach ($categories as $category) {
@@ -41,11 +41,11 @@ defined('ABSPATH') || exit;
                                                         <label class="_rrzelegal-checkbox">
                                                             <?php echo $category['name']; ?>
                                                             <input
-                                                                id="checkbox-<?php echo $category['id']; ?>"
+                                                                id="checkbox-<?php echo esc_attr($category['id']); ?>"
                                                                 tabindex="0"
                                                                 type="checkbox"
                                                                 name="cookieGroup[]"
-                                                                value="<?php echo $category['id']; ?>"
+                                                                value="<?php echo esc_attr($category['id']); ?>"
                                                                 <?php echo !empty($category['preselected']) ? ' checked' : ''; ?>
                                                                 <?php echo $category['id'] === 'essential' ? ' disabled' : ''; ?>
                                                                 data-rrzelegal-cookie-checkbox
@@ -70,7 +70,7 @@ defined('ABSPATH') || exit;
                                         class="_rrzelegal-btn _rrzelegal-btn-accept-all _rrzelegal-cursor"
                                         data-cookie-accept-all
                                     >
-                                        <?php echo $bannerPreferenceTextAcceptAllButton; ?>
+                                        <?php echo esc_html($bannerPreferenceTextAcceptAllButton); ?>
                                     </a>
                                 </p>
 
@@ -83,7 +83,7 @@ defined('ABSPATH') || exit;
                                         class="_rrzelegal-btn _rrzelegal-cursor"
                                         data-cookie-accept
                                     >
-                                        <?php echo $bannerPreferenceTextSaveButton; ?>
+                                        <?php echo esc_html($bannerPreferenceTextSaveButton); ?>
                                     </a>
                                 </p>
 
@@ -95,29 +95,29 @@ defined('ABSPATH') || exit;
                                         role="button"
                                         data-cookie-refuse
                                     >
-                                        <?php echo $bannerTextRefuseLink; ?>
+                                        <?php echo esc_html($bannerTextRefuseLink); ?>
                                     </a>
                                 </p>
 
                                 <p class="_rrzelegal-manage-btn">
                                     <a href="#" tabindex="0" data-cookie-individual>
-                                        <?php echo $bannerTextManageLink; ?>
+                                        <?php echo esc_html($bannerTextManageLink); ?>
                                     </a>
                                 </p>
 
                                 <p class="_rrzelegal-legal">
-                                    <a href="<?php echo $imprintUrl; ?>" tabindex="0">
-                                        <?php echo $imprintLinkText; ?>
+                                    <a href="<?php echo esc_html($imprintUrl); ?>" tabindex="0">
+                                        <?php echo esc_html($imprintLinkText); ?>
                                     </a>
                                                                         
                                     <span class="_rrzelegal-separator"></span>
-                                    <a href="<?php echo $privacyPolicyUrl; ?>" tabindex="0">
-                                        <?php echo $privacyPolicyLinkText; ?>
+                                    <a href="<?php echo esc_url($privacyPolicyUrl); ?>" tabindex="0">
+                                        <?php echo esc_html($privacyPolicyLinkText); ?>
                                     </a>
 
                                     <span class="_rrzelegal-separator"></span>
-                                    <a href="<?php echo $accessibilityUrl; ?>" tabindex="0">
-                                        <?php echo $accessibilityLinkText; ?>
+                                    <a href="<?php echo esc_url($accessibilityUrl); ?>" tabindex="0">
+                                        <?php echo esc_html($accessibilityLinkText); ?>
                                     </a>                                    
 
                                 </p>

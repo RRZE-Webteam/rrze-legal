@@ -310,7 +310,7 @@ class Options extends Settings {
             if (!empty($subsection['description'])) {
                 $subsection['description'] = '<div class="inside">' . $subsection['description'] . '</div>';
                 $callback = function () use ($subsection) {
-                    echo $subsection['description'];
+                    echo wp_kses($subsection['description'], 'post');
                 };
             } elseif (isset($subsection['callback'])) {
                 $callback = $subsection['callback'];
@@ -327,7 +327,7 @@ class Options extends Settings {
             
             
             $args = array(
-                  "before_section" =>  '<div class="'.$startclass.'">',
+                  "before_section" =>  '<div class="'.esc_attr($startclass).'">',
                   "after_section"   => '</div>',
                   "section_class" => "subsection-".$this->settingsPrefix . $sectionId . '_' . $subsection['id']
             );

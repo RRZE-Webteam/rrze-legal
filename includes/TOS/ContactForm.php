@@ -201,10 +201,13 @@ class ContactForm
         } else {
             if ($_POST && $formError instanceof \WP_Error && is_wp_error($message)) {
                 foreach ($formError->get_error_messages() as $error) {
-                    echo '<div class="alert alert-warning" role="alert">';
-                    echo '<strong>' . __('Error', 'rrze-legal') . '</strong>:';
-                    echo esc_html($error) . '<br/>';
-                    echo '</div>';
+                    
+                    $res =  '<div class="alert alert-warning" role="alert">';
+                    $res .=  '<strong>' . __('Error', 'rrze-legal') . '</strong>:';
+                    $res =  esc_html($error) . '<br/>';
+                    $res =  '</div>';
+                    echo wp_kses($res, 'post');
+                    
                 }
             }
         }

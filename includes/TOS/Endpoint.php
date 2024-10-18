@@ -281,7 +281,7 @@ class Endpoint {
             load_template($template);
             exit;
         } else {
-            wp_die(__('Not Found', 'rrze-legal'), 404);
+            wp_die(wp_kses(__('Not Found', 'rrze-legal'), 'post'), 404);
         }
     }
 

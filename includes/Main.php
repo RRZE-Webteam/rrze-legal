@@ -136,15 +136,15 @@ class Main {
         );
 
         
-                
-        echo "<div class='notice notice-warning rrze-legal-dashboardalert'>";
-        echo "<h2>".__('Please note','rrze-legal')."</h2>";
-        echo '<p class="details">'.$message.'</p>';
-        echo "<p>".__('In order to operate this website, it is mandatory that all necessary legal texts are available. Websites that do not provide this information or provide this information completely may be deactivated.', 'rrze-legal')."</p>";
+        $res = "<div class='notice notice-warning rrze-legal-dashboardalert'>";
+        $res .= "<h2>".__('Please note','rrze-legal')."</h2>";
+        $res .= '<p class="details">'.$message.'</p>';
+        $res .= "<p>".__('In order to operate this website, it is mandatory that all necessary legal texts are available. Websites that do not provide this information or provide this information completely may be deactivated.', 'rrze-legal')."</p>";
         if ((isset($options['error_timestamp'])) && (!empty($options['error_timestamp']))) {
-            echo '<p>'.__('This message was first displayed recorded on:', 'rrze-legal').' '.$options['error_timestamp'].'</p>';
+            $res .= '<p>'.__('This message was first displayed recorded on:', 'rrze-legal').' '.$options['error_timestamp'].'</p>';
         }
-        echo "</div>";
+        $res .= "</div>";
+        echo wp_kses($res, 'post');
     }
     
    
@@ -155,6 +155,8 @@ class Main {
             __('The output of this settings page is overwritten by the content of the following page: %s.', 'rrze-legal'),
             $link
         );
-        echo "<div class='notice notice-warning is-dismissible'><p>{$message}</p></div>";
+        
+        
+        echo wp_kses("<div class='notice notice-warning is-dismissible'><p>{$message}</p></div>", 'post');
     }
 }

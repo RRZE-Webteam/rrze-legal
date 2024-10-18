@@ -5,6 +5,10 @@
 
 Generator für rechtliche Pflichtangaben auf einem Webauftritt.
 
+## Version
+
+Version: 2.7.5
+
 
 ## Zweck 
 

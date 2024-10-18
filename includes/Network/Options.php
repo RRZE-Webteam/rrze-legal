@@ -89,7 +89,7 @@ class Options extends Settings
                 $queryArgs,
                 network_admin_url('edit.php')
             );
-            echo '<form id="', $this->pagePrefix . $sectionId . '" method="post" action="' . $action . '">';
+            echo '<form id="'. esc_attr($this->pagePrefix . $sectionId) . '" method="post" action="' . esc_attr($action) . '">';
             wp_nonce_field('rrze-legal-network', 'rrze-legal-network-nonce');
             do_settings_sections($this->settingsPrefix . $section['id']);
             settings_fields($this->settingsPrefix . $section['id']);
@@ -145,9 +145,9 @@ class Options extends Settings
     {
         if (isset($_GET['page']) && $_GET['page'] == $this->optionsMenu->slug && isset($_GET['updated'])) {
             echo '<div id="message" class="updated notice is-dismissible"><p>',
-            __('Settings saved.', 'rrze-legal'),
+            esc_html(__('Settings saved.', 'rrze-legal')),
             '</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">',
-            __('Dismiss this notice.', 'rrze-legal'),
+            esc_html(__('Dismiss this notice.', 'rrze-legal')),
             '</span></button></div>';
         }
     }
