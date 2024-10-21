@@ -393,8 +393,8 @@ class ListSettings
         settings_errors();
         foreach ($this->sections as $section) {
             $sectionId = str_replace('_', '-', $section['id']);
-            echo '<form id="' . esc_attr($this->pagePrefix . $sectionId). '" method="post">',
-            wp_nonce_field($page . '-' . $action, $action . '-nonce', false, false);
+            echo '<form id="' . esc_attr($this->pagePrefix . $sectionId). '" method="post">';
+            echo wp_kses(wp_nonce_field($page . '-' . $action, $action . '-nonce', false, false), 'post');
             echo '<input type="hidden" name="page" value="' . esc_attr($page) . '">';
             echo $id ? '<input type="hidden" name="id" value="' . esc_attr($id) . '">' : '';
             do_settings_sections($this->settingsPrefix . $section['id']);

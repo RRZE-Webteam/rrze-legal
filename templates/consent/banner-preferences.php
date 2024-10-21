@@ -126,7 +126,7 @@ defined('ABSPATH') || exit;
 
                                         <div class="d-block">
                                             <p><?php
-                                                echo $category['description']; ?></p>
+                                                echo wp_kses($category['description'],'post'); ?></p>
 
                                             <p class="text-center">
                                                 <a

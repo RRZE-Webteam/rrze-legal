@@ -189,12 +189,12 @@ class Options extends ListSettings
         esc_html__('Add New', 'rrze-legal') . '</a></h2>';
         $this->settingsErrors();
         echo '<form method="get">',
-        '<input type="hidden" name="page" value="' . $page . '">',
-        $this->listTable->search_box(__('Search', 'rrze-legal'), $page),
+        '<input type="hidden" name="page" value="' . esc_attr($page) . '">',
+        wp_kses($this->listTable->search_box(__('Search', 'rrze-legal'), $page),'post'),
         '</form>',
         '<form method="post">',
-        $this->listTable->views(),
-        $this->listTable->display(),
+        wp_kses($this->listTable->views(),'post'),
+        wp_kses($this->listTable->display(), 'post'),
         '</form>',
         '</div>';
     }

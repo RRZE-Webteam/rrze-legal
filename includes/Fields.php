@@ -142,7 +142,7 @@ class Fields
         );
         $html .= self::description($atts);
 
-        echo $html;
+        echo wp_kses($html, 'post');
     }
 
     /**
@@ -209,7 +209,7 @@ class Fields
         );
         $html .= self::description($atts);
 
-        echo $html;
+        echo wp_kses($html, 'post');
     }
 
     /**
@@ -267,7 +267,7 @@ class Fields
         );
         $html .= self::description($atts);
 
-        echo $html;
+        echo wp_kses($html, 'post');
     }
 
     /**
@@ -298,7 +298,7 @@ class Fields
         );
         $html .= self::description($atts);
 
-        echo $html;
+        echo wp_kses($html, 'post');
     }
 
     /**
@@ -334,7 +334,7 @@ class Fields
             $atts['description']
         );
 
-        echo $html;
+        echo wp_kses($html, 'post');
     }
 
     /**
@@ -363,7 +363,7 @@ class Fields
         $html .= self::description($atts);
         $html .= '</fieldset>';
 
-        echo $html;
+        echo wp_kses($html, 'post');
     }
 
     /**
@@ -396,7 +396,7 @@ class Fields
         $html .= self::description($atts);
         $html .= '</fieldset>';
 
-        echo $html;
+        echo wp_kses($html, 'post');
     }
 
     /**
@@ -427,7 +427,7 @@ class Fields
         $html .= sprintf('</select>');
         $html .= self::description($atts);
 
-        echo $html;
+        echo wp_kses($html, 'post');
     }
 
     /**
@@ -447,16 +447,16 @@ class Fields
 
         $html = wp_dropdown_pages(
             [
-                'name'              => $name,
+                'name'              => esc_attr($name),
                 'echo'              => 0,
-                'show_option_none'  => __('&mdash; Select &mdash;', 'rrze-legal'),
-                'option_none_value' => $atts['default'],
-                'selected'          => $value
+                'show_option_none'  => esc_html(__('&mdash; Select &mdash;', 'rrze-legal')),
+                'option_none_value' => esc_html($atts['default']),
+                'selected'          => esc_attr($value)
             ]
         );
         $html .= self::description($atts);
 
-        echo $html;
+        echo wp_kses($html, 'post');
     }
 
     /**
@@ -487,7 +487,7 @@ class Fields
         $html .= sprintf('</select>');
         $html .= self::description($atts);
 
-        echo $html;
+        echo wp_kses($html, 'post');
     }
 
     /**
@@ -516,6 +516,6 @@ class Fields
         echo '<div class="wpeditor-field-container">';
         wp_editor($value, $atts['section'] . '_' . $atts['name'], $editorSettings);
         echo '</div>';
-        echo self::description($atts);
+        echo wp_kses(self::description($atts), 'post');
     }
 }

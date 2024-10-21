@@ -98,12 +98,12 @@ function activation()
     if ($error = systemRequirements()) {
         deactivate_plugins(plugin_basename(__FILE__));
         wp_die(
-            sprintf(
+            esc_html(sprintf(
                 /* translators: 1: The plugin name, 2: The error string. */
                 __('Plugins: %1$s: %2$s', 'rrze-legal'),
                 plugin_basename(__FILE__),
                 $error
-            )
+            ), 'post')
         );
     }
 }
@@ -207,7 +207,7 @@ function tosPluginDeactivation()
     if (is_plugin_active_for_network('rrze-tos/rrze-tos.php')) {
         add_action('network_admin_notices', function () {
             echo '<div class="notice notice-warning"><p>',
-            __('The "rrze-tos" plugin is networkwide activated. Please deactivate the "rrze-tos" plugin as it will be replaced by the "rrze-legal" plugin.', 'rrze-legal'),
+            esc_html(__('The "rrze-tos" plugin is networkwide activated. Please deactivate the "rrze-tos" plugin as it will be replaced by the "rrze-legal" plugin.', 'rrze-legal'), 'post'),
             '</p></div>';
         });
         return false;
@@ -252,7 +252,7 @@ function loaded()
                     printf(
                         '<div class="notice notice-error"><p>' .
                             /* translators: 1: The plugin name, 2: The error string. */
-                            __('Plugins: %1$s: %2$s', 'rrze-legal') .
+                            esc_html(__('Plugins: %1$s: %2$s', 'rrze-legal'), 'post') .
                             '</p></div>',
                         esc_html($pluginName),
                         esc_html($error)

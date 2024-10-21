@@ -26,7 +26,7 @@ defined('ABSPATH') || exit;
                                 </div>
 
                                 <p id="BannerTextDescription">
-                                    <?php echo $bannerTextDescription; ?>
+                                    <?php echo wp_kses($bannerTextDescription,'post'); ?>
                                 </p>
 
                                 <?php
@@ -39,7 +39,7 @@ defined('ABSPATH') || exit;
                                                 if ($category['has_cookies']) { ?>
                                                     <li>
                                                         <label class="_rrzelegal-checkbox">
-                                                            <?php echo $category['name']; ?>
+                                                            <?php echo esc_html($category['name']); ?>
                                                             <input
                                                                 id="checkbox-<?php echo esc_attr($category['id']); ?>"
                                                                 tabindex="0"
