@@ -144,7 +144,7 @@ class Main {
             $res .= '<p>'.__('This message was first displayed recorded on:', 'rrze-legal').' '.$options['error_timestamp'].'</p>';
         }
         $res .= "</div>";
-        echo wp_kses($res, 'post');
+        echo $res;
     }
     
    
@@ -157,6 +157,6 @@ class Main {
         );
         
         
-        echo wp_kses("<div class='notice notice-warning is-dismissible'><p>{$message}</p></div>", 'post');
+        echo "<div class='notice notice-warning is-dismissible'><p>{$message}</p></div>";
     }
 }

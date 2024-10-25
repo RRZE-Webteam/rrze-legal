@@ -114,6 +114,22 @@ $data = [
                 'postal_city'      => 'München',
                 'url'               => 'https://www.stmwk.bayern.de/',
             ],
+            'imprint_whistleblower_system' => [
+                '_readonly'        => false,
+                'linktitle'         => '',
+                'url'               => ''
+            ],
+             'imprint_it_security' => [
+                '_readonly'         => false,
+                'name'              => '',
+                'email'             => '',
+                'phone'             => '',
+                'url'               => '',
+                'postal_co'         => '',
+                'postal_street'     => '',
+                'postal_code'       => '',
+                'postal_city'      => '',
+            ],
              'privacy_dpo' =>  [
                 '_readonly'        => true,
                 'email'             => 'dataprotection@utn.de',
@@ -172,6 +188,22 @@ $data = [
                 'eori'              => '',
                 'iban'              => '',
                 'bic'               => ''
+            ],
+            'imprint_it_security' => [
+                '_readonly'         => false,
+                'name'              => '',
+                'email'             => '',
+                'phone'             => '',
+                'url'               => '',
+                'postal_co'         => '',
+                'postal_street'     => '',
+                'postal_code'       => '',
+                'postal_city'      => '',
+            ],
+            'imprint_whistleblower_system' => [
+                '_readonly'        => false,
+                'linktitle'         => '',
+                'url'               => ''
             ],
               'privacy_dpo' =>  [
                 '_readonly'        => true,

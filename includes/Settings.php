@@ -363,7 +363,7 @@ class Settings {
             $count++;
         }
         if ($count < 2) {
-            echo wp_kses($html, 'post');
+            echo $html;
             return;
         }
 

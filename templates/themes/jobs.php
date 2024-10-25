@@ -21,7 +21,7 @@ if (is_plugin_active('rrze-elements/rrze-elements.php')) {
                 <main id="droppoint">
                     <h1 class="page-title"><?php echo esc_html($title); ?></h1>
                     <div id="rrze-tos">
-                        <?php echo wp_kses($content,'post'); ?>
+                        <?php echo $content; ?>
                     </div>
                 </main>
             </div>

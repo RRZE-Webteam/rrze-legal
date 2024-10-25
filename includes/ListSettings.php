@@ -394,7 +394,7 @@ class ListSettings
         foreach ($this->sections as $section) {
             $sectionId = str_replace('_', '-', $section['id']);
             echo '<form id="' . esc_attr($this->pagePrefix . $sectionId). '" method="post">';
-            echo wp_kses(wp_nonce_field($page . '-' . $action, $action . '-nonce', false, false), 'post');
+            echo wp_nonce_field($page . '-' . $action, $action . '-nonce', false, false);
             echo '<input type="hidden" name="page" value="' . esc_attr($page) . '">';
             echo $id ? '<input type="hidden" name="id" value="' . esc_attr($id) . '">' : '';
             do_settings_sections($this->settingsPrefix . $section['id']);
@@ -425,8 +425,7 @@ class ListSettings
      * Add a section to the settings page.
      * @param array $section
      */
-    protected function addSection(array $section)
-    {
+    protected function addSection(array $section) {
         $capability = isset($section['capability']) ? $section['capability'] : 'manage_options';
         if (!current_user_can($capability)) {
             return;

@@ -255,11 +255,11 @@ class Options extends ListSettings
         $this->settingsErrors();
         echo '<form method="get">',
         '<input type="hidden" name="page" value="' . esc_attr($page) . '">',
-        wp_kses($this->listTable->search_box(__('Search', 'rrze-legal'), $page),'post'),
+        $this->listTable->search_box(__('Search', 'rrze-legal'), $page),
         '</form>',
         '<form method="post">',
-        wp_kses($this->listTable->views(),'post'),
-        wp_kses($this->listTable->display(),'post'),
+        $this->listTable->views(),
+        $this->listTable->display(),
         '</form>',
         '</div>';
     }

@@ -22,7 +22,7 @@ if (is_plugin_active('rrze-elements/rrze-elements.php')) {
                     <h1 class="entry-title"><?php echo esc_html($title); ?></h1>
                 </header><!-- end .entry-header -->
                 <div id="rrze-tos">
-                    <?php echo wp_kses($content,'post'); ?>
+                    <?php echo $content; ?>
                 </div>
             </article>
         </div>

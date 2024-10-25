@@ -26,7 +26,7 @@ defined('ABSPATH') || exit;
                                 </div>
 
                                 <p id="BannerTextDescription">
-                                    <?php echo wp_kses($bannerTextDescription,'post'); ?>
+                                    <?php echo $bannerTextDescription; ?>
                                 </p>
 
                                 <?php

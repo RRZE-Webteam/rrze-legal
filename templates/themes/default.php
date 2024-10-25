@@ -17,7 +17,7 @@ if (is_plugin_active('rrze-elements/rrze-elements.php')) {
 <section id="primary" class="content-area">
     <main id="main" class="site-main">
         <div id="rrze-tos">
-            <?php echo wp_kses($content,'post'); ?>
+            <?php echo $content; ?>
         </div>
     </main>
 </section>

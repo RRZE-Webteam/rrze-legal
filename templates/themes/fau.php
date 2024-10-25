@@ -25,7 +25,7 @@ $vers = $currentTheme->get('Version');
                 <h1 id="maintop" class="screen-reader-text"><?php echo esc_html($title); ?></h1>
                 <div class="inline-box">
                     <div class="content-inline">
-                        <?php echo wp_kses($content,'post'); ?>
+                        <?php echo $content; ?>
                     </div>
                 </div>
             </main>

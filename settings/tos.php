@@ -575,7 +575,6 @@ $settings = [
                                 'type' => 'text',
                                 'sanitize_callback' => 'sanitize_text_field',
                                 'required' => true,
-                                'template' => ['' => 'privacy-no-dpo'],
                             ],
                              [
                                 'name' => 'dpo_person_name',
@@ -583,7 +582,6 @@ $settings = [
                                 'description' => '',
                                 'type' => 'text',
                                 'sanitize_callback' => 'sanitize_text_field',
-                                'template' => ['' => 'privacy-no-dpo'],
                             ],
                             [
                                 'name' => 'dpo_email',

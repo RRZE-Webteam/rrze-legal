@@ -2,9 +2,9 @@
     Public authorities are obliged to make websites and mobile applications accessible in
     accordance with Directive (EU) 2016/2102 of the European Parliament and of the Council.
     The following accessibility statement documents the implementation status of this
-    website in accordance with the {{accessibility_url_law}}<a
-        href="{{=accessibility_url_law}}">{{/accessibility_url_law}}applicable
-        legislation{{accessibility_url_law}}</a>{{/accessibility_url_law}}.
+    website in accordance with the {{accessibility_supervisory_authority_url_law}}<a
+        href="{{=accessibility_supervisory_authority_url_law}}">{{/accessibility_supervisory_authority_url_law}}applicable
+        legislation{{accessibility_supervisory_authority_url_law}}</a>{{/accessibility_supervisory_authority_url_law}}.
 
     {{websites}}
 </p>
@@ -20,7 +20,7 @@
     <p>{{=accessibility_conformity_label}}</p>
 </div>
 {{accessibility_conformity_filled}}
-<table class="nobackground" style="width: auto;">
+<table>
     {{accessibility_compliance_method_label}}
     <tr>
         <th>Methology:</th>
@@ -110,34 +110,34 @@
     monitoring vis-à-vis the obligated party.
 </p>
 <p>Contact information of the enforcement oversight body:</p>
-<p><strong>{{=accessibility_controlling}}</strong>
-    {{accessibility_controlling_namezusatz}}
-    <br>{{=accessibility_controlling_namezusatz}}
-    {{/accessibility_controlling_namezusatz}}
-</p>
+
+<p>{{=accessibility_supervisory_authority_name}}</p>
 <address>
-    {{accessibility_controlling_street}}
-    {{=accessibility_controlling_street}}<br>
-    {{/accessibility_controlling_street}}
-    {{accessibility_controlling_city}}
-    {{=accessibility_controlling_plz}}
-    {{=accessibility_controlling_city}}
-    {{/accessibility_controlling_city}}
+    {{accessibility_supervisory_authority_postal_co}}{{=accessibility_supervisory_authority_postal_co}}<br>{{/accessibility_supervisory_authority_postal_co}}
+    
+    {{accessibility_supervisory_authority_postal_street}}
+    {{=accessibility_supervisory_authority_postal_street}}<br>
+    {{/accessibility_supervisory_authority_postal_street}}
+    {{accessibility_supervisory_authority_postal_city}}
+    {{=accessibility_supervisory_authority_postal_code}}
+    {{=accessibility_supervisory_authority_postal_city}}
+    {{/accessibility_supervisory_authority_postal_city}}
 </address>
-<ul class="person-info">
-    {{accessibility_controlling_phone}}
-    <li class="person-info-phone"><span>Phone:</span> {{=accessibility_controlling_phone}}
-    </li>
-    {{/accessibility_controlling_phone}}
-    {{accessibility_controlling_fax}}
-    <li class="person-info-fax"><span>Fax:</span> {{=accessibility_controlling_fax}}</li>
-    {{/accessibility_controlling_fax}}
-    {{accessibility_controlling_email}}
-    <li class="person-info-email"><span>EMail:</span> <a
-            href="mailto:{{=accessibility_controlling_email}}">{{=accessibility_controlling_email}}</a></li>
-    {{/accessibility_controlling_email}}
-    {{accessibility_controlling_url}}
-    <li class="person-info-www"><span>Web:</span> <a
-            href="{{=accessibility_controlling_url}}">{{=accessibility_controlling_url}}</a></li>
-    {{/accessibility_controlling_url}}
+
+<ul>
+    {{accessibility_supervisory_authority_phone}}
+    <li><span>Phone:</span> <a href="tel:{{=accessibility_supervisory_authority_phone}}">{{=accessibility_supervisory_authority_phone}}</a></li>
+    {{/accessibility_supervisory_authority_phone}}
+    {{accessibility_supervisory_authority_fax}}
+    <li><span>Fax:</span> {{=accessibility_supervisory_authority_fax}}</li>
+    {{/accessibility_supervisory_authority_fax}}
+    {{accessibility_supervisory_authority_email}}
+    <li><span>EMail:</span> <a href="mailto:{{=accessibility_supervisory_authority_email}}">{{=accessibility_supervisory_authority_email}}</a></li>
+    {{/accessibility_supervisory_authority_email}}
+    {{accessibility_supervisory_authority_url}}
+    <li><span>URL:</span> <a href="{{=accessibility_supervisory_authority_url}}">{{=accessibility_supervisory_authority_url}}</a></li>
+    {{/accessibility_supervisory_authority_url}}
 </ul>
+
+
+

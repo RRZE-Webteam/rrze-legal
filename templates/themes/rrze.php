@@ -24,7 +24,7 @@ if (is_plugin_active('rrze-elements/rrze-elements.php')) {
             </header><!-- .entry-header -->
             <div class="entry-content">
                 <div class="rrze-tos">
-                    <?php echo wp_kses($content,'post'); ?>
+                    <?php echo $content; ?>
                 </div>
             </div><!-- .entry-content -->
         </article><!-- #rrze-tos -->

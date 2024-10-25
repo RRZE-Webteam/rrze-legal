@@ -18,8 +18,7 @@ class ContactForm
         $this->error = false;
     }
 
-    public function setForm()
-    {
+    public function setForm()  {
         $captcha = $this->generateCaptcha();
         $wp_nonce = wp_nonce_field('accessibility_contact_form', '_wpnonce', true, false);
 
@@ -126,8 +125,7 @@ class ContactForm
         return Template::getContent($template, $data);
     }
 
-    protected function sendMail($name, $from, $message)
-    {
+    protected function sendMail($name, $from, $message)  {
         $to = sanitize_email(tos()->getOption('accessibility_feedback', 'contact_email'));
         $subject = sanitize_text_field(tos()->getOption('accessibility_feedback', 'email_subject'));
         $headers = [
@@ -183,18 +181,15 @@ class ContactForm
         }
     }
 
-    protected function hasError()
-    {
+    protected function hasError()  {
         return $this->error !== false ? true : false;
     }
 
-    protected function getError()
-    {
+    protected function getError()  {
         return $this->error;
     }
 
-    protected function messageResponse($type, $message)
-    {
+    protected function messageResponse($type, $message) {
         global $formError;
         if ('success' === $type) {
             echo '<div class="alert alert-success">' . esc_html($message) . '</div>';
@@ -206,7 +201,7 @@ class ContactForm
                     $res .=  '<strong>' . __('Error', 'rrze-legal') . '</strong>:';
                     $res =  esc_html($error) . '<br/>';
                     $res =  '</div>';
-                    echo wp_kses($res, 'post');
+                    echo $res;
                     
                 }
             }
