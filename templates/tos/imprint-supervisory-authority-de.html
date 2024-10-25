@@ -1,10 +1,24 @@
-<h3>Zuständige Aufsichtsbehörde</h3>
+{{imprint_supervisory_authority_data}}
+<div class="supervisory">
 
+<h2>Zuständige Aufsichtsbehörde</h2>
+
+<p>{{=imprint_supervisory_authority_name}}</p>
 <address>
-    Bayerisches Staatsministerium für Wissenschaft und Kunst<br>
-    Salvatorstraße 2<br>
-    80327 München
+    {{=imprint_supervisory_authority_postal_street}}<br>
+    {{=imprint_supervisory_authority_postal_code}} {{=imprint_supervisory_authority_postal_city}}
 </address>
-<p>
-    Webseite: <a href="https://www.stmwk.bayern.de/">www.stmwk.bayern.de</a>
-</p>
+<ul>
+
+ {{imprint_supervisory_authority_phone}}
+    <li><span>Telefon:</span> <a href="tel:{{=imprint_supervisory_authority_phone}}">{{=imprint_supervisory_authority_phone}}</a></li>
+    {{/imprint_supervisory_authority_phone}}
+    {{imprint_supervisory_authority_fax}}
+    <li><span>Fax:</span> {{=imprint_supervisory_authority_fax}}</li>
+    {{/imprint_supervisory_authority_fax}}
+    {{imprint_supervisory_authority_email}}
+    <li><span>E-Mail:</span> <a href="mailto:{{=imprint_supervisory_authority_email}}">{{=imprint_supervisory_authority_email}}</a></li>
+    {{/imprint_supervisory_authority_email}}
+</ul>
+</div>
+{{/imprint_supervisory_authority_data}}

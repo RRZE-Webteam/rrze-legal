@@ -1,31 +1,43 @@
-<h3>Identifikationsnummern</h3>
-<table class="nobackground">
+{{imprint_id_numbers_exists}}
+<div class="id-numbers">
+<h2>Identifikationsnummern</h2>
+<table>
     <tbody>
+	{{imprint_id_numbers_ustg}}
         <tr>
-            <th>Umsatzsteuer-Identifikationsnummer<br>
-                (gemäß § 27a Umsatzsteuergesetz)</th>
-            <td>DE 132507686</td>
+            <th>Umsatzsteuer-Identifikationsnummer</th>
+            <td>{{=imprint_id_numbers_ustg}}</td>
         </tr>
+	{{/imprint_id_numbers_ustg}}
+	{{imprint_id_numbers_tax}}
         <tr>
             <th>Steuernummer</th>
-            <td>216/114/20045 (Finanzamt Erlangen)</td>
+            <td>{{=imprint_id_numbers_tax}}</td>
         </tr>
+	{{/imprint_id_numbers_tax}}
+	{{imprint_id_numbers_duns}}
         <tr>
             <th>DUNS-Nummer</th>
-            <td>327958716</td>
+            <td>{{=imprint_id_numbers_duns}}</td>
         </tr>
+	{{/imprint_id_numbers_duns}}
+	{{imprint_id_numbers_eori}}
         <tr>
             <th>EORI-Nummer</th>
-            <td>DE4204891</td>
+            <td>{{=imprint_id_numbers_eori}}</td>
         </tr>
+	{{/imprint_id_numbers_eori}}
+	{{imprint_id_numbers_bankdata}}
         <tr>
             <th>Bankverbindung</th>
-            <td>Bayerische Landesbank München
-                <ul>
-                    <li>SWIFT/BIC-Code: BYLADEMMXXX</li>
-                    <li>IBAN: DE66700500000301279280</li>
-                </ul>
+            <td>
+		{{imprint_id_numbers_bankname}}{{=imprint_id_numbers_bankname}}<br>{{/imprint_id_numbers_bankname}}
+		{{imprint_id_numbers_iban}}IBAN: {{=imprint_id_numbers_iban}}<br>{{/imprint_id_numbers_iban}}
+		{{imprint_id_numbers_bic}}SWIFT/BIC-Code: {{=imprint_id_numbers_bic}}<br>{{/imprint_id_numbers_bic}}
             </td>
         </tr>
+	{{/imprint_id_numbers_bankdata}}
     </tbody>
 </table>
+</div>
+{{/imprint_id_numbers_exists}}

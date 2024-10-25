@@ -1,7 +1,7 @@
 ===  RRZE Legal ===
 Plugin URI:         https://github.com/RRZE-Webteam/rrze-legal
 Update URI:         https://github.com/RRZE-Webteam/rrze-legal
-Version:            2.7.5
+Version:            2.7.6
 Requires at least:  6.6
 Tested up to:	    6.6
 Requires PHP:       8.2

@@ -22,9 +22,7 @@ $settings = [
     ],
     'settings' => [
         'title' => __('Legal Mandatory Information Settings', 'rrze-legal'),
-        'sections' => [
-             
-            
+        'sections' => [    
             [
                 'id' => 'imprint',
                 'title' => __('Imprint', 'rrze-legal'),
@@ -72,6 +70,14 @@ $settings = [
                                 'sanitize_callback' => 'sanitize_text_field',
                                 'required' => true,
                                 'template' => ['' => 'imprint-no-responsible-person'],
+                            ],
+                            [
+                                'name' => 'representation_legal-label',
+                                'label' => __('Legal form', 'rrze-legal'),
+                                'description' => __('Legal form of the institution', 'rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
                             ],
                             [
                                 'name' => 'representation_email',
@@ -325,6 +331,14 @@ $settings = [
                                 'sanitize_callback' => 'sanitize_text_field',
                                 'required' => false,
                             ],
+                             [
+                                'name' => 'id_numbers_bankname',
+                                'label' => __('Bank (Name)', 'rrze-legal'),
+                                'type' => 'text',
+                                'default' => '',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => false,
+                            ],
                             [
                                 'name' => 'id_numbers_iban',
                                 'label' => __('IBAN', 'rrze-legal'),
@@ -354,7 +368,7 @@ $settings = [
                                 'type' => 'text',
                                 'default' => '',
                                 'sanitize_callback' => 'sanitize_text_field',
-                                'required' => true,
+                                'required' => false,
                             ],
                          
                             [
@@ -364,7 +378,7 @@ $settings = [
                                 'sanitize_callback' => function ($input) {
                                     return tos()->validateEmail($input);
                                 },
-                                'required' => true,
+                                'required' => false,
                             ],
                              [
                                 'name' => 'it_security_url',
@@ -417,7 +431,7 @@ $settings = [
                                 'name' => 'whistleblower_system_linktitle',
                                 'label' => __('Title', 'rrze-legal'),
                                 'type' => 'text',
-                                'default' => '',
+                                'default' => __('Whistleblower system', 'rrze-legal'),
                                 'sanitize_callback' => 'sanitize_text_field',
                                 'required' => false,
                             ],

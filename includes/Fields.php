@@ -74,8 +74,7 @@ class Fields
      * Returns a description of the settings field.
      * @param array $atts Description attributes
      */
-    public static function description(array $atts)
-    {
+    public static function description(array $atts) {
         if (!empty($atts['description'])) {
             $desc = sprintf(
                 '<p class="description">%s</p>',
@@ -142,7 +141,7 @@ class Fields
         );
         $html .= self::description($atts);
 
-        echo wp_kses($html, 'post');
+        echo $html;
     }
 
     /**
@@ -173,8 +172,7 @@ class Fields
      * Displays a textarea field.
      * @param array $atts Settings field attributes
      */
-    public static function textarea(array $atts, string $editorType = '')
-    {
+    public static function textarea(array $atts, string $editorType = '') {
         $value = esc_textarea($atts['value']);
         $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . $atts['placeholder'] . '"' : '';
         $editorType = $editorType ? 'wpcode-' . $editorType . '-editor ' : '';
@@ -209,15 +207,14 @@ class Fields
         );
         $html .= self::description($atts);
 
-        echo wp_kses($html, 'post');
+        echo $html;
     }
 
     /**
      * Displays a html code editor input field.
      * @param array $atts Settings field attributes
      */
-    public static function htmleditor(array $atts)
-    {
+    public static function htmleditor(array $atts) {
         self::textarea($atts, 'html');
     }
 
@@ -225,8 +222,7 @@ class Fields
      * Displays a js code editor input field.
      * @param array $atts Settings field attributes
      */
-    public static function jseditor(array $atts)
-    {
+    public static function jseditor(array $atts)  {
         self::textarea($atts, 'js');
     }
 
@@ -234,8 +230,7 @@ class Fields
      * Displays a css code editor input field.
      * @param array $atts Settings field attributes
      */
-    public static function csseditor(array $atts)
-    {
+    public static function csseditor(array $atts) {
         self::textarea($atts, 'css');
     }
 
@@ -243,8 +238,7 @@ class Fields
      * Displays a number input field.
      * @param array $atts Settings field attributes
      */
-    public static function number(array $atts)
-    {
+    public static function number(array $atts) {
         $value = esc_attr($atts['value']);
         $size = $atts['size'] != '' ? $atts['size'] : 'regular';
         $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . $atts['placeholder'] . '"' : '';
@@ -267,7 +261,7 @@ class Fields
         );
         $html .= self::description($atts);
 
-        echo wp_kses($html, 'post');
+        echo $html;
     }
 
     /**
@@ -298,15 +292,14 @@ class Fields
         );
         $html .= self::description($atts);
 
-        echo wp_kses($html, 'post');
+        echo $html;
     }
 
     /**
      * Displays a checkbox input field.
      * @param array $atts Settings field attributes
      */
-    public static function checkbox(array $atts)
-    {
+    public static function checkbox(array $atts) {
         $value = $atts['value'];
 
         $html = '';
@@ -334,15 +327,14 @@ class Fields
             $atts['description']
         );
 
-        echo wp_kses($html, 'post');
+        echo $html;
     }
 
     /**
      * Displays a multi-checkbox input field.
      * @param array $atts Settings field attributes
      */
-    public static function multicheckbox(array $atts)
-    {
+    public static function multicheckbox(array $atts) {
         $value = (array) $atts['value'];
 
         $html = '<fieldset>';
@@ -363,15 +355,14 @@ class Fields
         $html .= self::description($atts);
         $html .= '</fieldset>';
 
-        echo wp_kses($html, 'post');
+        echo $html;
     }
 
     /**
      * Displays a radio input field.
      * @param array $atts Settings field attributes
      */
-    public static function radio(array $atts)
-    {
+    public static function radio(array $atts)  {
         $value = $atts['value'];
 
         $html  = '<fieldset>';
@@ -396,7 +387,7 @@ class Fields
         $html .= self::description($atts);
         $html .= '</fieldset>';
 
-        echo wp_kses($html, 'post');
+        echo $html;
     }
 
     /**
@@ -427,7 +418,7 @@ class Fields
         $html .= sprintf('</select>');
         $html .= self::description($atts);
 
-        echo wp_kses($html, 'post');
+        echo $html;
     }
 
     /**
@@ -456,15 +447,14 @@ class Fields
         );
         $html .= self::description($atts);
 
-        echo wp_kses($html, 'post');
+        echo $html;
     }
 
     /**
      * Displays a multi-selectbox field.
      * @param array   $atts Settings field attributes
      */
-    public static function multiselect(array $atts)
-    {
+    public static function multiselect(array $atts)  {
         $value = (array) $atts['value'];
 
         $html  = sprintf(
@@ -487,15 +477,14 @@ class Fields
         $html .= sprintf('</select>');
         $html .= self::description($atts);
 
-        echo wp_kses($html, 'post');
+        echo $html;
     }
 
     /**
      * Displays a rich text text box (WP editor) for a settings panel.
      * @param array $atts Settings field attributes
      */
-    public static function wpeditor($atts)
-    {
+    public static function wpeditor($atts) {
         $value = $atts['value'];
         $height = $atts['height'] > 150 ? $atts['height'] : 250;
 
@@ -516,6 +505,6 @@ class Fields
         echo '<div class="wpeditor-field-container">';
         wp_editor($value, $atts['section'] . '_' . $atts['name'], $editorSettings);
         echo '</div>';
-        echo wp_kses(self::description($atts), 'post');
+        echo self::description($atts);
     }
 }

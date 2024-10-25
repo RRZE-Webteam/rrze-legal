@@ -1,53 +1,27 @@
-{{is_default_domain}}
-<p>
-    Für die Webangebote und Webauftritte der Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU) ist der
-    Verantwortliche im Sinne der Datenschutz-Grundverordnung (DSGVO) und anderer nationaler Datenschutzgesetze sowie
-    sonstiger datenschutzrechtlicher Bestimmungen die FAU. Sie wird durch ihren Präsidenten gesetzlich vertreten.
-    Die Kontaktinformationen erhalten Sie im
-    <a href="https://www.fau.de/impressum">Impressum des zentralen Webauftritts der FAU.</a>
-</p>
-<p>
-    Für die angebotenen Inhalte auf den Webangeboten und Webauftritten der Friedrich-Alexander-Universität
-    Erlangen-Nürnberg (FAU) sind die jeweiligen Einrichtungen der FAU verantwortlich. Für Fragen im Zusammenhang mit
-    einer betreffenden Angebot wenden Sie sich bitte an den jeweiligen verantwortlichen Ansprechpartner oder die
-    jeweilige verantwortliche Ansprechpartnerin, wie er oder sie im <a href="/impressum">Impressum des Webauftritts</a>
-    genannt ist.
-</p>
 
 <h2>Name und Anschrift des Datenschutzbeauftragten</h2>
+<p>
+{{=privacy_dpo_name}}
+{{privacy_dpo_person_name}}<br>{{=privacy_dpo_person_name}}{{/privacy_dpo_person_name}}
+</p>
 
-<address>
-    Datenschutzbeauftragter FAU<br>
-    Klaus Hoogestraat<br>
-    c/o ITM Gesellschaft für IT-Management mbH<br>
-    Bürgerstraße 81<br>
-    01127 Dresden
-</address>
-
-<ul class="person-info">
-    <li class="person-info-phone"><span>Telefon:</span> +49 9131 85-25860</li>
-    <li class="person-info-email"><span>E-Mail:</span> <a
-            href="mailto:datenschutzbeauftragter@fau.de">datenschutzbeauftragter@fau.de</a></li>
-</ul>
-{{:is_default_domain}}
-<h2>Name und Anschrift des Datenschutzbeauftragten</h2>
-
+<h3>Postanschrift</h2>
 <address>
     {{=privacy_dpo_name}}<br>
-    {{=privacy_dpo_street}}<br>
-    {{=privacy_dpo_postal_code}} {{=privacy_dpo_city}}
+    {{privacy_dpo_postal_co}}{{=privacy_dpo_postal_co}}<br>{{/privacy_dpo_postal_co}}
+    {{=privacy_dpo_postal_street}}<br>
+    {{=privacy_dpo_postal_code}} {{=privacy_dpo_postal_city}}
 </address>
 
-<ul class="person-info">
+<h3>Daten zur schnellen digitalen Kontaktaufnahme</h3>
+<ul>
     {{privacy_dpo_phone}}
-    <li class="person-info-phone"><span>Telefon:</span> {{=privacy_dpo_phone}}</li>
+    <li><span>Telefon:</span> <a href="tel:{{=privacy_dpo_phone}}">{{=privacy_dpo_phone}}</a></li>
     {{/privacy_dpo_phone}}
     {{privacy_dpo_fax}}
-    <li class="person-info-fax"><span>Fax:</span> {{=privacy_dpo_fax}}</li>
+    <li><span>Fax:</span> {{=privacy_dpo_fax}}</li>
     {{/privacy_dpo_fax}}
     {{privacy_dpo_email}}
-    <li class="person-info-email"><span>E-Mail:</span> <a
-            href="mailto:{{=privacy_dpo_email}}">{{=privacy_dpo_email}}</a></li>
+    <li><span>E-Mail:</span> <a href="mailto:{{=privacy_dpo_email}}">{{=privacy_dpo_email}}</a></li>
     {{/privacy_dpo_email}}
 </ul>
-{{/is_default_domain}}

@@ -383,7 +383,7 @@ class Settings {
             );
         }
         $html .= '</h2>' . PHP_EOL;
-        echo wp_kses($html, 'post');
+        echo $html;
     }
 
     /**
@@ -396,7 +396,7 @@ class Settings {
             if ($this->pagePrefix . $sectionId != $this->currentTab) {
                 continue;
             }
-            echo wp_kses('<form id="'. $this->pagePrefix . $sectionId . '" method="post" action="options.php">', 'post');
+            echo '<form id="'. $this->pagePrefix . $sectionId . '" method="post" action="options.php">';
             settings_errors();
             do_settings_sections($this->settingsPrefix . $section['id']);
             settings_fields($this->settingsPrefix . $section['id']);

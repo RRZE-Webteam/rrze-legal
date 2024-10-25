@@ -1,8 +1,40 @@
-<div class="alert alert-info">
-    <h2>Reporting misuse of computers and network resources</h2>
-    <p>
-        Should you become aware of any kind of misuse of computers or network resources at FAU,
-        <a href="https://www.rrze.fau.de/abuse/">please inform the department responsible for computer security</a>
-        immediately.
-    </p>
+{{imprint_it_security_data}}
+<div class="alert alert-info it-security">
+    <h2>Report misuse of computers and network resources</h2>
+
+    <p>Contact point for reporting misuse of computers and network resources.</p>
+    
+    {{imprint_it_security_name}}
+    <h3>{{=imprint_it_security_name}}</h3>
+    {{/imprint_it_security_name}}
+
+<ul>
+   
+    {{imprint_it_security_email}}
+    <li><span>E-Mail:</span> <a href="mailto:{{=imprint_it_security_email}}">{{=imprint_it_security_email}}</a></li>
+    {{/imprint_it_security_email}}
+    {{imprint_it_security_url}}
+     <li><span>URL:</span> <a href="{{=imprint_it_security_url}}">{{=imprint_it_security_url}}</a></li>
+    {{/imprint_it_security_url}}
+     {{imprint_it_security_phone}}
+    <li><span>Telefon:</span> <a href="tel:{{=imprint_it_security_phone}}">{{=imprint_it_security_phone}}</a></li>
+    {{/imprint_it_security_phone}}
+</ul>
+    {{imprint_it_security_address}}
+    <h3>Postanschrift:</h3>
+<address>
+    {{=imprint_it_security_name}}<br>
+    {{imprint_it_security_postal_co}}
+    {{=imprint_it_security_postal_co}}<br>
+    {{/imprint_it_security_postal_co}}
+    {{imprint_it_security_postal_street}}
+    {{=imprint_it_security_postal_street}}<br>
+    {{/imprint_it_security_postal_street}}
+    {{imprint_it_security_postal_city}}
+    {{=imprint_it_security_postal_code}}
+    {{=imprint_it_security_postal_city}}
+    {{/imprint_it_security_postal_city}}
+</address>
+    {{/imprint_it_security_address}}
 </div>
+{{/imprint_it_security_data}}
