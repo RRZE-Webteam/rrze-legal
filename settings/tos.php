@@ -22,7 +22,7 @@ $settings = [
     ],
     'settings' => [
         'title' => __('Legal Mandatory Information Settings', 'rrze-legal'),
-        'sections' => [
+        'sections' => [    
             [
                 'id' => 'imprint',
                 'title' => __('Imprint', 'rrze-legal'),
@@ -37,26 +37,112 @@ $settings = [
                         'id' => 'scope',
                         'title' => __('Scope', 'rrze-legal'),
                         'description' => '',
-                        'fields' => [
+                        'fields' => [    
                             [
                                 'name' => 'scope_websites',
                                 'label' => __('Websites', 'rrze-legal'),
                                 'description' => __('If this imprint applies to more than one website, add here the domain namens of the other websites. Please enter one domain name per line.', 'rrze-legal'),
                                 'type' => 'textarea',
-                                'default' => tos()->getSiteUrlHost(),
+                                'default' => '',
                                 'sanitize_callback' => [tos(), 'sanitizeTextareaList'],
                             ],
                         ],
                     ],
+                    // NOTE:  'disabled' => true macht es readonly
+                    [
+                        'id' => 'representation',
+                        'title' => __('Legal representatives', 'rrze-legal'),
+                        'description' => __('Mandatory legal information about the legal representatives.', 'rrze-legal'),
+                        'fields' => [
+                            [
+                                'name' => 'representation_name',
+                                'label' => __('Organization name', 'rrze-legal'),
+                                'type' => 'text',
+                                'default' => '',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                            [
+                                'name' => 'representation_person_name',
+                                'label' => __('Legal representative', 'rrze-legal'),
+                                'description' => __('Name of the legal representative.', 'rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                                'template' => ['' => 'imprint-no-responsible-person'],
+                            ],
+                            [
+                                'name' => 'representation_legal-label',
+                                'label' => __('Legal form', 'rrze-legal'),
+                                'description' => __('Legal form of the institution', 'rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                            [
+                                'name' => 'representation_email',
+                                'label' => __('Email', 'rrze-legal'),
+                                'type' => 'email',
+                                'sanitize_callback' => function ($input) {
+                                    return tos()->validateEmail($input);
+                                },
+                            ],
+                            [
+                                'name' => 'representation_phone',
+                                'label' => __('Phone', 'rrze-legal'),
+                                'type' => 'tel',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ],
+                            [
+                                'name' => 'representation_fax',
+                                'label' => __('Fax Number', 'rrze-legal'),
+                                'type' => 'tel',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ],
+                            [
+                                'name' => 'representation_postal_street',
+                                'label' => __('Street Name & House Number', 'rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                            [
+                                'name' => 'representation_postal_code',
+                                'label' => __('Postal Code', 'rrze-legal'),
+                                'type' => 'text',
+                                 'size'  => 5,
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                            [
+                                'name' => 'representation_postal_city',
+                                'label' => __('City', 'rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                           
+                            
+                        ],
+                    ],
                     [
                         'id' => 'responsible_person',
-                        'title' => __('Responsible Person', 'rrze-legal'),
+                        'title' => __('Editorially responsible person', 'rrze-legal'),
                         'description' => __('Data for contacting in legal terms.', 'rrze-legal'),
                         'fields' => [
                             [
+                                'name' => 'responsible_person_organization',
+                                'label' => __('Organization', 'rrze-legal'),
+                                'description'   => __('The name of the department, chair or other facility','rrze-legal'),
+                                'type' => 'text',
+                                'default' => tos()->getSiteUrlHost(),
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                            [
                                 'name' => 'responsible_person_name',
                                 'label' => __('Name', 'rrze-legal'),
-                                'description' => __('Legally responsible person for the website. (This is usually the chair owner or facility manager).', 'rrze-legal'),
+                                'description' => __('Editorially responsible person for the website. (This is usually the chair owner or facility manager).', 'rrze-legal'),
                                 'type' => 'text',
                                 'sanitize_callback' => 'sanitize_text_field',
                                 'required' => true,
@@ -65,52 +151,53 @@ $settings = [
                             [
                                 'name' => 'responsible_person_email',
                                 'label' => __('Email', 'rrze-legal'),
+                                'description'   => __('Contact email for the responsible person or the organization.','rrze-legal'),
                                 'type' => 'email',
+                                  'required' => true,
                                 'sanitize_callback' => function ($input) {
                                     return tos()->validateEmail($input);
                                 },
+                            ],
+                            [
+                                'name' => 'responsible_person_phone',
+                                'label' => __('Phone', 'rrze-legal'),
+                                'description'   => __('Contact phone number for the responsible person or the organization.','rrze-legal'),
+                                'type' => 'tel',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ],    
+                            [
+                                'name' => 'responsible_person_co',
+                                'label' => __('c/o', 'rrze-legal'),
+                                'description'   => __('Additional address line.','rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => false,
                             ],
                             [
                                 'name' => 'responsible_person_street',
                                 'label' => __('Street Name & House Number', 'rrze-legal'),
                                 'type' => 'text',
                                 'sanitize_callback' => 'sanitize_text_field',
-                                'required' => true,
+                                'required' => false,
                             ],
                             [
                                 'name' => 'responsible_person_postal_code',
                                 'label' => __('Postal Code', 'rrze-legal'),
                                 'type' => 'text',
+                                'size'  => 5,
+                                'inline'    => true,
                                 'sanitize_callback' => 'sanitize_text_field',
-                                'required' => true,
+                                'required' => false,
                             ],
                             [
                                 'name' => 'responsible_person_city',
                                 'label' => __('City', 'rrze-legal'),
                                 'type' => 'text',
                                 'sanitize_callback' => 'sanitize_text_field',
-                                'required' => true,
+                                'required' => false,
                             ],
-                            [
-                                'name' => 'responsible_person_phone',
-                                'label' => __('Phone', 'rrze-legal'),
-                                'type' => 'text',
-                                'sanitize_callback' => 'sanitize_text_field',
-                            ],
-                            [
-                                'name' => 'responsible_person_fax',
-                                'label' => __('Fax Number', 'rrze-legal'),
-                                'type' => 'text',
-                                'sanitize_callback' => 'sanitize_text_field',
-                            ],
-                            [
-                                'name' => 'responsible_person_organization',
-                                'label' => __('Organization', 'rrze-legal'),
-                                'type' => 'text',
-                                'default' => tos()->getSiteUrlHost(),
-                                'sanitize_callback' => 'sanitize_text_field',
-                                'required' => true,
-                            ],
+                            
+                            
                         ],
                     ],
                     [
@@ -121,7 +208,7 @@ $settings = [
                             [
                                 'name' => 'webmaster_name',
                                 'label' => __('Name', 'rrze-legal'),
-                                'description' => __('Name of the webmaster or the responsible web editor.', 'rrze-legal'),
+                                'description' => __('Name of the webmaster or the technical contact for the website. This can be also a servicepoint.', 'rrze-legal'),
                                 'type' => 'text',
                                 'sanitize_callback' => 'sanitize_text_field',
                                 'required' => true,
@@ -130,6 +217,7 @@ $settings = [
                                 'name' => 'webmaster_email',
                                 'label' => __('Email', 'rrze-legal'),
                                 'type' => 'email',
+                                'description'   => __('Contact email for problems concerning the website.','rrze-legal'),
                                 'default' => get_option('admin_email'),
                                 'sanitize_callback' => function ($input) {
                                     return tos()->validateEmail($input);
@@ -139,16 +227,236 @@ $settings = [
                             [
                                 'name' => 'webmaster_phone',
                                 'label' => __('Phone', 'rrze-legal'),
-                                'type' => 'text',
+                                'description'   => __('Contact phone number for problems concerning the website.','rrze-legal'),
+                                'type' => 'tel',
                                 'sanitize_callback' => 'sanitize_text_field',
                             ],
                         ],
                     ],
                     [
+                        'id' => 'supervisory_authority',
+                        'title' => __('Supervisory Authority', 'rrze-legal'),
+                        'description' => __('Displays the supervisory authority.', 'rrze-legal'),
+                        'fields' => [
+                            [
+                                'name' => 'supervisory_authority_name',
+                                'label' => __('Name', 'rrze-legal'),
+                                'type' => 'text',
+                                'default' => '',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                         
+                            [
+                                'name' => 'supervisory_authority_email',
+                                'label' => __('Email', 'rrze-legal'),
+                                'type' => 'email',
+                                'sanitize_callback' => function ($input) {
+                                    return tos()->validateEmail($input);
+                                },
+                            ],
+                            [
+                                'name' => 'supervisory_authority_phone',
+                                'label' => __('Phone', 'rrze-legal'),
+                                'type' => 'tel',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ],
+                            [
+                                'name' => 'supervisory_authority_fax',
+                                'label' => __('Fax Number', 'rrze-legal'),
+                                'type' => 'tel',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ],
+                            [
+                                'name' => 'supervisory_authority_postal_street',
+                                'label' => __('Street Name & House Number', 'rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                            [
+                                'name' => 'supervisory_authority_postal_code',
+                                'label' => __('Postal Code', 'rrze-legal'),
+                                'type' => 'text',
+                                 'size'  => 5,
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                            [
+                                'name' => 'supervisory_authority_postal_city',
+                                'label' => __('City', 'rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                        ],
+                    ],    
+                    [
+                        'id' => 'id_numbers',
+                        'title' => __('Id Numbers', 'rrze-legal'),
+                        'description' => __('ID Numbers and Banking informations of the organization.', 'rrze-legal'),
+                        'fields' => [
+                            
+          
+                            
+                            [
+                                'name' => 'id_numbers_ustg',
+                                'label' => __('VAT identification number', 'rrze-legal'),
+                                'type' => 'text',
+                                'default' => '',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => false,
+                            ],
+                            [
+                                'name' => 'id_numbers_tax',
+                                'label' => __('Tax Number', 'rrze-legal'),
+                                'type' => 'text',
+                                'default' => '',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => false,
+                            ],
+                             [
+                                'name' => 'id_numbers_duns',
+                                'label' => __('DUNS Number', 'rrze-legal'),
+                                'type' => 'text',
+                                'default' => '',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => false,
+                            ],
+                             [
+                                'name' => 'id_numbers_eori',
+                                'label' => __('EORI Number', 'rrze-legal'),
+                                'type' => 'text',
+                                'default' => '',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => false,
+                            ],
+                             [
+                                'name' => 'id_numbers_bankname',
+                                'label' => __('Bank (Name)', 'rrze-legal'),
+                                'type' => 'text',
+                                'default' => '',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => false,
+                            ],
+                            [
+                                'name' => 'id_numbers_iban',
+                                'label' => __('IBAN', 'rrze-legal'),
+                                'type' => 'text',
+                                'default' => '',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => false,
+                            ],
+                             [
+                                'name' => 'id_numbers_bic',
+                                'label' => __('BIC-Code', 'rrze-legal'),
+                                'type' => 'text',
+                                'default' => '',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => false,
+                            ],
+                        ],    
+                    ],    
+                    [
+                        'id' => 'it_security',
+                        'title' => __('IT Security', 'rrze-legal'),
+                        'description' => __('Contact informations for IT Security.', 'rrze-legal'),
+                        'fields' => [
+                            [
+                                'name' => 'it_security_name',
+                                'label' => __('Name', 'rrze-legal'),
+                                'type' => 'text',
+                                'default' => '',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => false,
+                            ],
+                         
+                            [
+                                'name' => 'it_security_email',
+                                'label' => __('Email', 'rrze-legal'),
+                                'type' => 'email',
+                                'sanitize_callback' => function ($input) {
+                                    return tos()->validateEmail($input);
+                                },
+                                'required' => false,
+                            ],
+                             [
+                                'name' => 'it_security_url',
+                                'label' => __('URL', 'rrze-legal'),
+                                'type' => 'url',
+                            ],
+                            [
+                                'name' => 'it_security_phone',
+                                'label' => __('Phone', 'rrze-legal'),
+                                'type' => 'tel',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ],
+                            [
+                                'name' => 'it_security_postal_co',
+                                'label' => __('c/o', 'rrze-legal'),
+                                'description'   => __('Additional address line.','rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ],
+                            [
+                                'name' => 'it_security_postal_street',
+                                'label' => __('Street Name & House Number', 'rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ],
+                            [
+                                'name' => 'it_security_postal_code',
+                                'label' => __('Postal Code', 'rrze-legal'),
+                                'type' => 'text',
+                                 'size'  => 5,
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ],
+                            [
+                                'name' => 'it_security_postal_city',
+                                'label' => __('City', 'rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ],
+                        ],
+                    ],    
+                    [
+                        'id' => 'whistleblower_system',
+                        'title' => __('Whistleblower protection', 'rrze-legal'),
+                        'description' => __('Information about a system in accordance with the Whistleblower Protection Act.', 'rrze-legal'),
+                        'fields' => [
+                            
+          
+                            
+                            [
+                                'name' => 'whistleblower_system_linktitle',
+                                'label' => __('Title', 'rrze-legal'),
+                                'type' => 'text',
+                                'default' => __('Whistleblower system', 'rrze-legal'),
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => false,
+                            ],
+                            [
+                                'name' => 'whistleblower_system_url',
+                                'label' => __('URL', 'rrze-legal'),
+                                'type' => 'url',
+                                'default' => '',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => false,
+                            ],
+                            
+                        ],    
+                    ],                     
+                                        
+
+                                        
+                    [
                         'id' => 'optional',
                         'title' => __('Optional Information', 'rrze-legal'),
                         'description' => __('This option allows you to change predefined paragraphs, as well as to add another self-phrased paragraph.<br>Note: Official FAU facilities should have all of the following options enabled.', 'rrze-legal'),
                         'fields' => [
+                            /*
+                             * Wahl entfällt, da automatisch drin und nun änderbar
+                             * Nur noch als reminder für IF-Bedingung enthalten
                             [
                                 'name' => 'optional_representation',
                                 'label' => __('Reference to the University Management', 'rrze-legal'),
@@ -162,6 +470,7 @@ $settings = [
                                 'inline' => true,
                                 'template' => ['1' => 'imprint-representation'],
                             ],
+                            
                             [
                                 'name' => 'optional_supervisory_authority',
                                 'label' => __('Supervisory Authority', 'rrze-legal'),
@@ -201,6 +510,8 @@ $settings = [
                                 'inline' => true,
                                 'template' => ['1' => 'imprint-it-security'],
                             ],
+                             *
+                             */
                             [
                                 'name' => 'optional_image_rights',
                                 'label' => __('Image Rights', 'rrze-legal'),
@@ -237,15 +548,7 @@ $settings = [
                                 'label' => __('Content', 'rrze-legal'),
                                 'description' => __('Content of the new, additional section.', 'rrze-legal'),
                                 'type' => 'wpeditor',
-                            ],
-                            [
-                                'name' => 'optional_whistleblower_system_url',
-                                'label' => __('Whistleblower System URL', 'rrze-legal'),
-                                'description' => __('If there is a whistleblower system, this can be linked here.', 'rrze-legal'),
-                                'type' => 'text',
-                                'placeholder' => 'https://',
-                                'sanitize_callback' => 'sanitize_url',
-                            ],
+                            ]
                         ],
                     ],
                 ],
@@ -263,17 +566,22 @@ $settings = [
                     [
                         'id' => 'dpo',
                         'title' => __('Data Protection Officer', 'rrze-legal'),
-                        'hide_section' => apply_filters('rrze_legal_privacy_hide_dpo_section', false),
                         'description' => __("The designation, position and tasks of a data protection officer (DPO) within an organization are described in Articles 37, 38 and 39 of the European Union (EU) General Data Protection Regulation (GDPR).", 'rrze-legal'),
                         'fields' => [
                             [
                                 'name' => 'dpo_name',
-                                'label' => __('Name', 'rrze-legal'),
+                                'label' => __('Name (Office)', 'rrze-legal'),
                                 'description' => '',
                                 'type' => 'text',
                                 'sanitize_callback' => 'sanitize_text_field',
                                 'required' => true,
-                                'template' => ['' => 'privacy-no-dpo'],
+                            ],
+                             [
+                                'name' => 'dpo_person_name',
+                                'label' => __('Name (Person)', 'rrze-legal'),
+                                'description' => '',
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
                             ],
                             [
                                 'name' => 'dpo_email',
@@ -282,9 +590,31 @@ $settings = [
                                 'sanitize_callback' => function ($input) {
                                     return tos()->validateEmail($input);
                                 },
+                                'required' => true,
                             ],
                             [
-                                'name' => 'dpo_street',
+                                'name' => 'dpo_phone',
+                                'label' => __('Phone', 'rrze-legal'),
+                                'type' => 'tel',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ],
+                            [
+                                'name' => 'dpo_fax',
+                                'label' => __('Fax Number', 'rrze-legal'),
+                                'type' => 'tel',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ],
+                                        
+                            [
+                                'name' => 'dpo_postal_co',
+                                'label' => __('c/o', 'rrze-legal'),
+                                'description'   => __('Additional address line.','rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ],         
+                                        
+                            [
+                                'name' => 'dpo_postal_street',
                                 'label' => __('Street Name & House Number', 'rrze-legal'),
                                 'type' => 'text',
                                 'sanitize_callback' => 'sanitize_text_field',
@@ -298,24 +628,13 @@ $settings = [
                                 'required' => true,
                             ],
                             [
-                                'name' => 'dpo_city',
+                                'name' => 'dpo_postal_city',
                                 'label' => __('City', 'rrze-legal'),
                                 'type' => 'text',
                                 'sanitize_callback' => 'sanitize_text_field',
                                 'required' => true,
                             ],
-                            [
-                                'name' => 'dpo_phone',
-                                'label' => __('Phone', 'rrze-legal'),
-                                'type' => 'text',
-                                'sanitize_callback' => 'sanitize_text_field',
-                            ],
-                            [
-                                'name' => 'dpo_fax',
-                                'label' => __('Fax Number', 'rrze-legal'),
-                                'type' => 'text',
-                                'sanitize_callback' => 'sanitize_text_field',
-                            ],
+                           
                         ],
                     ],
                     [
@@ -362,21 +681,7 @@ $settings = [
                                 'inline' => true,
                                 'template' => ['1' => 'privacy-newsletter'],
                             ],
-                            /*
-                            [
-                                'name' => 'services_corona_contact_tracking',
-                                'label' => __('Corona Contact Tracking', 'rrze-legal'),
-                                'description' => __('Display the data on Corona contact tracking for events.', 'rrze-legal'),
-                                'type' => 'radio',
-                                'options' => [
-                                    '1' => __('Yes', 'rrze-legal'),
-                                    '0' => __('No', 'rrze-legal'),
-                                ],
-                                'default' => '0',
-                                'inline' => true,
-                                'template' => ['1' => 'privacy-corona-contact-tracking'],
-                            ],
-                            */
+                           
                         ],
                     ],
                     [
@@ -430,21 +735,7 @@ $settings = [
                     tos()->endpointLink('accessibility')
                 ),
                 'subsections' => [
-                    [
-                        'id' => 'general',
-                        'title' => __('General Information', 'rrze-legal'),
-                        'description' => __('All public sector bodies are obliged to make their websites and / or mobile applications accessible in accordance with Directive (EU) 2016/2102 of the European Parliament and of the Council, or implementation in their respective national legislation. It also includes the provision of an Accessibility Declaration of Conformity, in which all web site and app operators must publicly state the status of the website and explain the reasons for which barriers exist.', 'rrze-legal'),
-                        'fields' => [
-                            [
-                                'name' => 'general_legal_area',
-                                'label' => __('Legal Area', 'rrze-legal'),
-                                'description' => __('Selection of the legal area to which the operator of the website belongs.', 'rrze-legal'),
-                                'type' => 'select',
-                                'options' => tos()->getLegalAreaOptions(),
-                                'default' => 2,
-                            ],
-                        ],
-                    ],
+                    
                     [
                         'id' => 'compliance_status',
                         'title' => __('Compliance Status', 'rrze-legal'),
@@ -533,9 +824,8 @@ $settings = [
                                 'description' => __('Selection of the most common deficiencies that a website can have. However, when choosing one or more of the above-mentioned deficiencies, please provide below a plausible justification why this deficiency exists and which alternatives are available in order to access the content nevertheless.', 'rrze-legal'),
                                 'type' => 'multicheckbox',
                                 'options' => [
-                                    '1' =>  __('PDF documents created before 23.09.2018 could not yet be converted to an accessible format.', 'rrze-legal'),
-                                    '2' =>  __('PDF documents created after 23.09.2018 do not yet have an accessible format.', 'rrze-legal'),
-                                    '3' =>  __('Some documents have been provided by third parties (for example, the Examination Office, other FAU bodies, ministries, etc.). These documents are not available in an accessible version.', 'rrze-legal'),
+                                    '1' =>  __('PDF documents could not yet be converted to an accessible format.', 'rrze-legal'),
+                                    '3' =>  __('Some documents have been provided by third parties. These documents are not available in an accessible version.', 'rrze-legal'),
                                     '4' =>  __('Embedded videos currently have no subtitles or transcription available.', 'rrze-legal'),
                                     '5' =>  __('Currently there is no textual description for directions describing maps or maps.', 'rrze-legal'),
                                     '6' =>  __('Graphics or images contained in the pages are currently not completely supplemented by text descriptions.', 'rrze-legal'),
@@ -606,7 +896,7 @@ $settings = [
                                 'name' => 'feedback_contact_phone',
                                 'label' => __('Contact Phone', 'rrze-legal'),
                                 'description' => __('Contact number for telephone assistance.', 'rrze-legal'),
-                                'type' => 'text',
+                                'type' => 'tel',
                                 'sanitize_callback' => 'sanitize_text_field',
                             ],
                             [
@@ -618,8 +908,127 @@ $settings = [
                             ],
                         ],
                     ],
+                                         [
+                        'id' => 'supervisory_authority',
+                        'title' => __('Supervisory Authority', 'rrze-legal'),
+                        'description' => __('Displays the supervisory authority.', 'rrze-legal'),
+                        'fields' => [
+                            [
+                                'name' => 'supervisory_authority_name',
+                                'label' => __('Name', 'rrze-legal'),
+                                'type' => 'text',
+                                'default' => '',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                         
+                            [
+                                'name' => 'supervisory_authority_email',
+                                'label' => __('Email', 'rrze-legal'),
+                                'type' => 'email',
+                                'sanitize_callback' => function ($input) {
+                                    return tos()->validateEmail($input);
+                                },
+                            ],
+                            [
+                                'name' => 'supervisory_authority_phone',
+                                'label' => __('Phone', 'rrze-legal'),
+                                'type' => 'tel',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ],
+                            [
+                                'name' => 'supervisory_authority_fax',
+                                'label' => __('Fax Number', 'rrze-legal'),
+                                'type' => 'tel',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ],
+                            [
+                                'name' => 'supervisory_authority_url',
+                                'label' => __('URL', 'rrze-legal'),
+                                'type' => 'url',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ], 
+                             [
+                                'name' => 'supervisory_authority_url_law',
+                                'label' => __('URL (concerning LAW)', 'rrze-legal'),
+                                'type' => 'url',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ], 
+                            [
+                                'name' => 'supervisory_authority_url_vo',
+                                'label' => __('URL (concerning VO)', 'rrze-legal'),
+                                'type' => 'url',
+                                'sanitize_callback' => 'sanitize_text_field',
+                            ], 
+                             [
+                                'name' => 'supervisory_authority_postal_co',
+                                'label' => __('c/o', 'rrze-legal'),
+                                'description'   => __('Additional address line.','rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],            
+                            [
+                                'name' => 'supervisory_authority_postal_street',
+                                'label' => __('Street Name & House Number', 'rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                            [
+                                'name' => 'supervisory_authority_postal_code',
+                                'label' => __('Postal Code', 'rrze-legal'),
+                                'type' => 'text',
+                                 'size'  => 5,
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                            [
+                                'name' => 'supervisory_authority_postal_city',
+                                'label' => __('City', 'rrze-legal'),
+                                'type' => 'text',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => true,
+                            ],
+                           
+                        ],
+                    ],    
+                                        
+                                     
+                                        
                 ],
             ],
+            [
+                'id' => 'scope',
+                'title' => __('Organizational Affiliation', 'rrze-legal'),
+                'hide_title' => true,
+                'subsections' => [
+                    [
+                        'id' => 'scope',
+                        'title' => __('Organizational Affiliation', 'rrze-legal'),
+                        'hide_title' => true,
+                        
+                        'fields' => [
+                            [
+                                'name' => 'context',
+                                'label' => __('Organization', 'rrze-legal'),
+                                'description' => __('Indicate whether the website is operated by an institution affiliated with the university or by another institution.','rrze-legal').'<br>'.__('Please notice, that by chosing the organisation, additional data, like the name of the legal representative contact or the data policy officer are updated automatically.', 'rrze-legal'),
+                                'type' => 'select',
+                                // optionlist filled by data/tos.php
+           //                     'options' => [
+           //                         'fau' => __('Friedrich-Alexander-Universität Erlangen-Nürnberg', 'rrze-legal'),
+           //                         'utn' => __('University of Technology Nuremberg ', 'rrze-legal'),
+           //                         'uk' => __('Universitätsklinikum Erlangen', 'rrze-legal'),
+           //                         'cooperation'  => __('Cooperation between different institutions', 'rrze-legal'),
+           //                         'external' => __('External institution', 'rrze-legal'),
+           //                     ],
+                                'default' => 'fau'
+                            ]
+                           
+                        ],
+                    ],
+                ],
+             ],
         ],
     ],
 ];

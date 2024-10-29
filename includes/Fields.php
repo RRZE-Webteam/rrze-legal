@@ -74,8 +74,7 @@ class Fields
      * Returns a description of the settings field.
      * @param array $atts Description attributes
      */
-    public static function description(array $atts)
-    {
+    public static function description(array $atts) {
         if (!empty($atts['description'])) {
             $desc = sprintf(
                 '<p class="description">%s</p>',
@@ -91,12 +90,30 @@ class Fields
      * Displays a text input field.
      * @param array $atts Settings field attributes
      */
-    public static function text(array $atts, string $type = 'text')
-    {
+    public static function text(array $atts, string $type = 'text') {
         $value = esc_attr($atts['value']);
         $size = $atts['size'] != '' ? $atts['size'] : 'regular';
         $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . $atts['placeholder'] . '"' : '';
 
+        $length = '';
+        if ((isset($atts['size'])) && (is_numeric($atts['size']))) {
+            $length = ' size="'.$atts['size'].'"';
+        }
+        $pattern = '';
+        switch ($type) {
+            case 'tel':
+                $pattern = ' pattern="[0-9\+]{3} [0-9]{4} [0-9\-\s]+"';
+                break;
+             case 'email':
+                $pattern = ' pattern=".+@[a-z0-9\.\-]+\.[a-z]{2,6}"';
+                break;
+             case 'url':
+                $pattern = ' pattern="^https:\/\/[a-z0-9\-\.]+\.[a-z]{2,6}.*"';
+                break;
+        }
+        
+        
+        
         $html = '';
         if ($atts['disabled']) {
             $html .= sprintf(
@@ -107,8 +124,9 @@ class Fields
                 $value,
             );
         }
+        
         $html .= sprintf(
-            '<input type="%1$s" class="%2$s-text" id="%3$s" name="%4$s[%5$s_%6$s]" value="%7$s"%8$s%9$s>',
+            '<input type="%1$s" class="%2$s-text" id="%3$s" name="%4$s[%5$s_%6$s]" value="%7$s"%8$s%9$s%10$s%11$s>',
             $type,
             $size,
             $atts['id'],
@@ -117,7 +135,9 @@ class Fields
             $atts['name'],
             $value,
             $placeholder,
-            $atts['disabled'] ? ' disabled="disabled"' : ''
+            $atts['disabled'] ? ' disabled="disabled"' : '',
+            $length,
+            $pattern    
         );
         $html .= self::description($atts);
 
@@ -128,17 +148,31 @@ class Fields
      * Displays a email input field.
      * @param array $atts Settings field attributes
      */
-    public static function email(array $atts)
-    {
+    public static function email(array $atts)  {
         self::text($atts, 'email');
+    }
+    
+      /**
+     * Displays a url input field.
+     * @param array $atts Settings field attributes
+     */
+    public static function url(array $atts)  {
+        self::text($atts, 'url');
+    }
+    
+     /**
+     * Displays a tel input field.
+     * @param array $atts Settings field attributes
+     */
+    public static function tel(array $atts)  {
+        self::text($atts, 'tel');
     }
 
     /**
      * Displays a textarea field.
      * @param array $atts Settings field attributes
      */
-    public static function textarea(array $atts, string $editorType = '')
-    {
+    public static function textarea(array $atts, string $editorType = '') {
         $value = esc_textarea($atts['value']);
         $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . $atts['placeholder'] . '"' : '';
         $editorType = $editorType ? 'wpcode-' . $editorType . '-editor ' : '';
@@ -157,6 +191,9 @@ class Fields
                 $value,
             );
         }
+     
+        
+        
         $html .= sprintf(
             $format,
             $editorType,
@@ -177,8 +214,7 @@ class Fields
      * Displays a html code editor input field.
      * @param array $atts Settings field attributes
      */
-    public static function htmleditor(array $atts)
-    {
+    public static function htmleditor(array $atts) {
         self::textarea($atts, 'html');
     }
 
@@ -186,8 +222,7 @@ class Fields
      * Displays a js code editor input field.
      * @param array $atts Settings field attributes
      */
-    public static function jseditor(array $atts)
-    {
+    public static function jseditor(array $atts)  {
         self::textarea($atts, 'js');
     }
 
@@ -195,8 +230,7 @@ class Fields
      * Displays a css code editor input field.
      * @param array $atts Settings field attributes
      */
-    public static function csseditor(array $atts)
-    {
+    public static function csseditor(array $atts) {
         self::textarea($atts, 'css');
     }
 
@@ -204,8 +238,7 @@ class Fields
      * Displays a number input field.
      * @param array $atts Settings field attributes
      */
-    public static function number(array $atts)
-    {
+    public static function number(array $atts) {
         $value = esc_attr($atts['value']);
         $size = $atts['size'] != '' ? $atts['size'] : 'regular';
         $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . $atts['placeholder'] . '"' : '';
@@ -266,8 +299,7 @@ class Fields
      * Displays a checkbox input field.
      * @param array $atts Settings field attributes
      */
-    public static function checkbox(array $atts)
-    {
+    public static function checkbox(array $atts) {
         $value = $atts['value'];
 
         $html = '';
@@ -302,8 +334,7 @@ class Fields
      * Displays a multi-checkbox input field.
      * @param array $atts Settings field attributes
      */
-    public static function multicheckbox(array $atts)
-    {
+    public static function multicheckbox(array $atts) {
         $value = (array) $atts['value'];
 
         $html = '<fieldset>';
@@ -331,8 +362,7 @@ class Fields
      * Displays a radio input field.
      * @param array $atts Settings field attributes
      */
-    public static function radio(array $atts)
-    {
+    public static function radio(array $atts)  {
         $value = $atts['value'];
 
         $html  = '<fieldset>';
@@ -408,11 +438,11 @@ class Fields
 
         $html = wp_dropdown_pages(
             [
-                'name'              => $name,
+                'name'              => esc_attr($name),
                 'echo'              => 0,
-                'show_option_none'  => __('&mdash; Select &mdash;', 'rrze-legal'),
-                'option_none_value' => $atts['default'],
-                'selected'          => $value
+                'show_option_none'  => esc_html(__('&mdash; Select &mdash;', 'rrze-legal')),
+                'option_none_value' => esc_html($atts['default']),
+                'selected'          => esc_attr($value)
             ]
         );
         $html .= self::description($atts);
@@ -424,8 +454,7 @@ class Fields
      * Displays a multi-selectbox field.
      * @param array   $atts Settings field attributes
      */
-    public static function multiselect(array $atts)
-    {
+    public static function multiselect(array $atts)  {
         $value = (array) $atts['value'];
 
         $html  = sprintf(
@@ -455,8 +484,7 @@ class Fields
      * Displays a rich text text box (WP editor) for a settings panel.
      * @param array $atts Settings field attributes
      */
-    public static function wpeditor($atts)
-    {
+    public static function wpeditor($atts) {
         $value = $atts['value'];
         $height = $atts['height'] > 150 ? $atts['height'] : 250;
 

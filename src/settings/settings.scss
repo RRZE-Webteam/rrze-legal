@@ -144,10 +144,32 @@
         }
     }
 }
+#wpcontent {
+    .subsection.readonly {
+	display: none;
+	// opacity: 0.6;
+	// border-style: dotted;
+    }
+    .rrze-legal-dashboardalert {
+   
+	border-left-color: red;
+	padding: 1rem;
 
+	p {
+	    font-size: 1rem;
+	}
+	h2 {
+	    font-size: 1.2rem;
+	}
+	p.details {
+	    font-weight: bold; 
+	}
+      }
+}
 @media screen and (max-width: 782px) {
     .rrze-legal-wpeditor-container,
     #wpcontent .code-editor {
         width: 100%;
     }
 }
+

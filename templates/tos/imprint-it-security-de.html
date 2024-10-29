@@ -1,13 +1,39 @@
-<div class="alert alert-info">
-    <h2>Sicherheitsvorfälle</h2>
+{{imprint_it_security_data}}
+<div class="alert alert-info it-security">
+    <h2>Meldung von IT Sicherheitsvorfällen</h2>
 
-    <h3>Meldung über Missbrauch von Computer- und Netzwerk-Ressourcen</h3>
-    <p>
-        Sollte Ihnen irgendeine Form von Missbrauch der Computer- und
-        Netzwerk-Ressourcen an der Friedrich-Alexander-Universität Erlangen-Nürnberg
-        auffallen,
-        <a href="https://www.rrze.fau.de/abuse/">informieren Sie bitte umgehend die für IT-Sicherheit</a>
-        zuständige Stelle am RRZE.
-    </p>
+    <p>Kontaktinformationen für Sicherheitsvorfälle und zur Meldung über Missbrauch von Computer- und Netzwerk-Ressourcen.</p>
+    
+    {{imprint_it_security_name}}
+    <h3>{{=imprint_it_security_name}}</h3>
+    {{/imprint_it_security_name}}
 
+<ul>
+    {{imprint_it_security_email}}
+    <li><span>E-Mail:</span> <a href="mailto:{{=imprint_it_security_email}}">{{=imprint_it_security_email}}</a></li>
+    {{/imprint_it_security_email}}
+    {{imprint_it_security_url}}
+     <li><span>URL:</span> <a href="{{=imprint_it_security_url}}">{{=imprint_it_security_url}}</a></li>
+    {{/imprint_it_security_url}}
+     {{imprint_it_security_phone}}
+    <li><span>Telefon:</span> <a href="tel:{{=imprint_it_security_phone}}">{{=imprint_it_security_phone}}</a></li>
+    {{/imprint_it_security_phone}}
+</ul>
+    {{imprint_it_security_address}}
+    <h3>Postanschrift:</h3>
+<address>
+    {{=imprint_it_security_name}}<br>
+    {{imprint_it_security_postal_co}}
+    {{=imprint_it_security_postal_co}}<br>
+    {{/imprint_it_security_postal_co}}
+    {{imprint_it_security_postal_street}}
+    {{=imprint_it_security_postal_street}}<br>
+    {{/imprint_it_security_postal_street}}
+    {{imprint_it_security_postal_city}}
+    {{=imprint_it_security_postal_code}}
+    {{=imprint_it_security_postal_city}}
+    {{/imprint_it_security_postal_city}}
+</address>
+    {{/imprint_it_security_address}}
 </div>
+{{/imprint_it_security_data}}

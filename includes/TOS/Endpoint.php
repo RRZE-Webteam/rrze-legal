@@ -7,19 +7,16 @@ defined('ABSPATH') || exit;
 use RRZE\Legal\{Locale, Template};
 use function RRZE\Legal\{plugin, tos};
 
-class Endpoint
-{
+class Endpoint {
     /**
      * Class constructor.
      */
-    public function __construct()
-    {
+    public function __construct()  {
         add_action('init', [__CLASS__, 'addEndpoint']);
         add_action('template_redirect', [__CLASS__, 'endpointTemplateRedirect']);
     }
 
-    public static function slugsTitles()
-    {
+    public static function slugsTitles()  {
         return [
             'imprint' => __('Imprint', 'rrze-legal'),
             'privacy' => __('Privacy', 'rrze-legal'),
@@ -27,8 +24,7 @@ class Endpoint
         ];
     }
 
-    public static function defaultSlugs()
-    {
+    public static function defaultSlugs() {
         return [
             'imprint' => 'imprint',
             'privacy' => 'privacy',
@@ -36,8 +32,7 @@ class Endpoint
         ];
     }
 
-    public static function avalaibleI18nSlugs()
-    {
+    public static function avalaibleI18nSlugs()  {
         return [
             'de' => [
                 'imprint' => 'impressum',
@@ -48,14 +43,12 @@ class Endpoint
         ];
     }
 
-    public static function getSlugs()
-    {
+    public static function getSlugs()  {
         $langCode = is_user_logged_in() && is_admin() ? Locale::getUserLangCode() : Locale::getLangCode();
         return in_array($langCode, array_keys(self::avalaibleI18nSlugs())) ? self::avalaibleI18nSlugs()[$langCode] : self::defaultSlugs();
     }
 
-    public static function addEndpoint()
-    {
+    public static function addEndpoint()  {
         foreach (self::avalaibleI18nSlugs() as $slugs) {
             foreach ($slugs as $slug) {
                 add_rewrite_endpoint($slug, EP_ROOT);
@@ -63,8 +56,7 @@ class Endpoint
         }
     }
 
-    public static function endpointTemplateRedirect()
-    {
+    public static function endpointTemplateRedirect()  {
         $pagePath = '';
         $title = '';
         $prefix = '';
@@ -136,16 +128,8 @@ class Endpoint
         $options['imprint_scope_websites'] = $value;
         // Set default domain option
         $options['is_default_domain'] = tos()->isCurrentSiteInDefaultDomains() ? '1' : '0';
-        // Legal area
-        $legalArea = $options['accessibility_general_legal_area'] ?? '';
-        foreach (tos()->getLegalAreaData() as $key => $area) {
-            if ($legalArea == $key) {
-                foreach ($area as $_key => $_value) {
-                    $options['accessibility_' . $_key] = $_value;
-                }
-                break;
-            }
-        }
+
+   
         // Set accessibility conformity
         self::setAccessibilityConformity($options);
         // Set accessibility compliance method
@@ -154,6 +138,15 @@ class Endpoint
         self::setComplianceDates($options);
         // Set accessibility compliance content list
         self::setComplianceContentList($options);
+        
+        // Check if ID Numbers are present and set imprint_id_numbers_exists to true if so.
+        self::setFilledIDNumbers($options);    
+        // Check if name, email, url or phone for IT Security exists
+        self::setFilledAbuseData($options);
+        // Check if Supervisory data exists
+        self:: setFilledSupervisory($options);
+        
+        
         // Set contact form
         self::setContactForm($options);
 
@@ -200,18 +193,19 @@ class Endpoint
             $options['privacy_external_service_providers'] = '1';
         }
         // Includes other child templates
-        $_tpl = 'privacy-dpo';
-        $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-' . $langCode . '.html';
-        if (!is_readable($tpl)) {
-            $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-en.html';
+       
+        $default_active_subtemplates = ['imprint-representation', 'imprint-id-numbers', 'imprint-supervisory-authority', 'imprint-it-security', 'imprint-whistleblower-system', 'privacy-dpo', 'privacy-rights-data-subject'];
+        
+        foreach ($default_active_subtemplates as $_tpl) {
+            $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-' . $langCode . '.html';
+            if (!is_readable($tpl)) {
+                $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-en.html';
+            }
+            $options[str_replace('-', '_', $_tpl) . '_template'] = is_readable($tpl) ? self::getContent($tpl, $options) : '';
         }
-        $options[str_replace('-', '_', $_tpl) . '_template'] = is_readable($tpl) ? self::getContent($tpl, $options) : '';
-        $_tpl = 'privacy-rights-data-subject';
-        $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-' . $langCode . '.html';
-        if (!is_readable($tpl)) {
-            $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-en.html';
-        }
-        $options[str_replace('-', '_', $_tpl) . '_template'] = is_readable($tpl) ? self::getContent($tpl, $options) : '';
+        
+        
+        
         // Render all templates and get the page content
         $content = self::getContent($template, $options);
         // Search content for shortcodes and filter shortcodes through their hooks
@@ -226,14 +220,12 @@ class Endpoint
         exit;
     }
 
-    protected static function setContactForm(&$options)
-    {
+    protected static function setContactForm(&$options)  {
         $contactForm = new ContactForm();
         $options['accessibility_contact_form'] = $contactForm->setForm();
     }
 
-    protected static function setAccessibilityConformity(&$options)
-    {
+    protected static function setAccessibilityConformity(&$options)  {
         $key = $options['accessibility_compliance_status_conformity'] ?? '';
         $fields = (array) tos()->getFields()['accessibility_compliance_status_conformity'] ?? [];
         $optionsField = $fields['options'] ?? [];
@@ -244,24 +236,78 @@ class Endpoint
         $options['accessibility_conformity_alert_style'] = $styleField[$key];
     }
 
-    protected static function setComplianceMethod(&$options)
-    {
+     protected static function setFilledIDNumbers(&$options)  {
+         $filled = false;
+         
+        if (!empty($options['imprint_id_numbers_ustg'])
+            || (!empty($options['imprint_id_numbers_tax']))
+            || (!empty($options['imprint_id_numbers_duns']))
+            || (!empty($options['imprint_id_numbers_eori']))
+            || (!empty($options['imprint_id_numbers_iban']))
+            || (!empty($options['imprint_id_numbers_bic'])) ) {
+            $filled = true;
+        }
+            
+        if (!empty($options['imprint_id_numbers_bankname'])
+            || (!empty($options['imprint_id_numbers_iban']))
+            || (!empty($options['imprint_id_numbers_bic']))) {
+            $options['imprint_id_numbers_bankdata'] = true;
+        }
+        
+       $options['imprint_id_numbers_exists'] = $filled;
+
+    }
+    protected static function setFilledAbuseData(&$options)  {
+         $filled = false;
+         
+        if (!empty($options['imprint_it_security_name'])
+            || (!empty($options['imprint_it_security_email']))
+             || (!empty($options['imprint_it_security_url']))
+            || (!empty($options['imprint_it_security_phone']))) {
+            $filled = true;
+        }
+        if (!empty($options['imprint_it_security_postal_co'])
+            || (!empty($options['imprint_it_security_postal_street']))
+            || (!empty($options['imprint_it_security_postal_city']))) {
+            $options['imprint_it_security_address'] = true;
+        }
+        
+       $options['imprint_it_security_data'] = $filled;
+
+    }
+     protected static function setFilledSupervisory(&$options)  {
+         $filled = false;
+         
+        if (!empty($options['imprint_supervisory_authority_name'])
+            || (!empty($options['imprint_supervisory_authority_postal_street']))
+             || (!empty($options['imprint_supervisory_authority_postal_code']))
+            || (!empty($options['imprint_supervisory_authority_postal_city']))) {
+            $filled = true;
+        }
+      
+        
+       $options['imprint_supervisory_authority_data'] = $filled;
+
+    }
+    
+
+    
+    
+    protected static function setComplianceMethod(&$options)  {
         $key = $options['accessibility_compliance_status_method'] ?? '';
         $fields = (array) tos()->getFields()['accessibility_compliance_status_method'] ?? [];
         $optionsField = $fields['options'] ?? [];
         $options['accessibility_compliance_method_label'] =  $optionsField[$key];
     }
 
-    protected static function setComplianceDates(&$options)
-    {
+    protected static function setComplianceDates(&$options)  {
         $creationDate = $options['accessibility_compliance_status_creation_date'] ?? '';
         $options['accessibility_compliance_status_creation_date'] = $creationDate ? date_i18n(get_option('date_format'), strtotime($creationDate)) : '';
         $lastReviewDate = $options['accessibility_compliance_status_last_review_date'] ?? '';
         $options['accessibility_compliance_status_last_review_date'] = $lastReviewDate ? date_i18n(get_option('date_format'), strtotime($lastReviewDate)) : '';
     }
 
-    protected static function setComplianceContentList(&$options)
-    {
+    protected static function setComplianceContentList(&$options)  {
         $contentHelper = $options['accessibility_statement_non_accessible_content_helper'] ?? '';
         $contentList = (array) $options['accessibility_statement_non_accessible_content_list'] ?? [];
         if ($contentHelper == '0' && !empty($contentList)) {
@@ -277,8 +323,7 @@ class Endpoint
         }
     }
 
-    protected static function getContent($template, $options = [])
-    {
+    protected static function getContent($template, $options = []) {
         $content = Template::getContent($template, $options);
         $content = preg_replace('/(^|[^\n\r])[\r\n](?![\n\r])/', '$1 ', $content);
         return $content;
@@ -290,7 +335,7 @@ class Endpoint
             load_template($template);
             exit;
         } else {
-            wp_die(__('Not Found', 'rrze-legal'), 404);
+            wp_die(esc_html(__('Not Found', 'rrze-legal')), 404);
         }
     }
 

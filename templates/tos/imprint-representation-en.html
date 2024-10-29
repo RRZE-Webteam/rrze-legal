@@ -1,12 +1,37 @@
-<h3>Legal form and representation</h3>
+
+<p>{{=imprint_representation_name}}</p>
+
+<address>
+    {{imprint_representation_postal_street}}
+    {{=imprint_representation_postal_street}}<br>
+    {{/imprint_representation_postal_street}}
+    {{imprint_representation_postal_city}}
+    {{=imprint_representation_postal_code}}
+    {{=imprint_representation_postal_city}}
+    {{/imprint_representation_postal_city}}
+</address>
+<ul class="person-info">
+    {{imprint_representation_phone}}
+    <li class="person-info-phone"><span>Phone:</span> <a href="tel:{{=imprint_representation_phone}}">{{=imprint_representation_phone}}</a></li>
+    {{/imprint_representation_phone}}
+    {{imprint_representation_fax}}
+    <li class="person-info-fax"><span>Fax:</span> {{=imprint_representation_fax}}</li>
+    {{/imprint_representation_fax}}
+    {{mprint_representation_email}}
+    <li class="person-info-email"><span>E-Mail:</span> <a href="mailto:{{=mprint_representation_email}}">{{=mprint_representation_email}}</a></li>
+    {{/mprint_representation_email}}
+</ul>
+
+
+
+<h3>Legal form and representation</h3> 
 <p>
-    The <a href="https://www.fau.eu/">Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU)</a> 
-    is a state institution and also a legal personality under public law according to
-    Art. 4 Para. 1 <abbr lang="de" title="Bayerisches Hochschulinnovationsgesetz"> BayHIG</abbr>. 
-    It is legally represented by the President.
+{{imprint_representation_legal-label}}
+{{=imprint_representation_legal-label}}. 
+{{/imprint_representation_legal-label}}
+{{imprint_representation_person_name}}
+Legally represented by {{=imprint_representation_person_name}}.<br>
+The responsibility for contributions marked by name or with a separate imprint lies with the respective authors.
+{{/imprint_representation_person_name}}
 </p>
-{{imprint_responsible_person_organization}}
-<p>
-    This website ist maintained by: {{=imprint_responsible_person_organization}}.
-</p>
-{{/imprint_responsible_person_organization}}
+

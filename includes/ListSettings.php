@@ -388,15 +388,15 @@ class ListSettings
     {
         $id = $_GET['id'] ?? '';
         echo '<div class="wrap">',
-        '<h1>' . $this->settings['settings']['title'] . '</h1>';
+        '<h1>' . esc_html($this->settings['settings']['title']) . '</h1>';
         $this->settingsErrors();
         settings_errors();
         foreach ($this->sections as $section) {
             $sectionId = str_replace('_', '-', $section['id']);
-            echo '<form id="' . $this->pagePrefix . $sectionId . '" method="post">',
-            wp_nonce_field($page . '-' . $action, $action . '-nonce', false, false);
-            echo '<input type="hidden" name="page" value="' . $page . '">';
-            echo $id ? '<input type="hidden" name="id" value="' . $id . '">' : '';
+            echo '<form id="' . esc_attr($this->pagePrefix . $sectionId). '" method="post">';
+            echo wp_nonce_field($page . '-' . $action, $action . '-nonce', false, false);
+            echo '<input type="hidden" name="page" value="' . esc_attr($page) . '">';
+            echo $id ? '<input type="hidden" name="id" value="' . esc_attr($id) . '">' : '';
             do_settings_sections($this->settingsPrefix . $section['id']);
             settings_fields($this->settingsPrefix . $section['id']);
             submit_button();
@@ -425,8 +425,7 @@ class ListSettings
      * Add a section to the settings page.
      * @param array $section
      */
-    protected function addSection(array $section)
-    {
+    protected function addSection(array $section) {
         $capability = isset($section['capability']) ? $section['capability'] : 'manage_options';
         if (!current_user_can($capability)) {
             return;
@@ -437,7 +436,7 @@ class ListSettings
         if (!empty($section['description'])) {
             $section['description'] = '<p>' . $section['description'] . '</p>';
             $callback = function () use ($section) {
-                echo $section['description'];
+                echo wp_kses($section['description'],'post');
             };
         } elseif (isset($section['callback'])) {
             $callback = $section['callback'];
@@ -484,7 +483,7 @@ class ListSettings
             if (!empty($subsection['description'])) {
                 $section['description'] = '<div class="inside">' . $subsection['description'] . '</div>';
                 $callback = function () use ($subsection) {
-                    echo $subsection['description'];
+                    echo wp_kses($subsection['description'],'post');
                 };
             } elseif (isset($subsection['callback'])) {
                 $callback = $subsection['callback'];
@@ -764,9 +763,9 @@ class ListSettings
         }
         foreach ($settingsErrors as $error) {
             if ($error['type'] === 'success') {
-                printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', $error['message']);
+                printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', esc_html($error['message']));
             } else {
-                printf('<div class="notice notice-warning"><p>%s</p></div>', $error['message']);
+                printf('<div class="notice notice-warning"><p>%s</p></div>', esc_html($error['message']));
             }
         }
     }

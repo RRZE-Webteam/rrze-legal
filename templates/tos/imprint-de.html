@@ -1,8 +1,12 @@
 <h2>Herausgeber</h2>
+
+
+{{=imprint_representation_template}}
+
+
 {{imprint_responsible_person_name}}
+<h2>Inhaltliche Verantwortung</h2>
 <p>{{=imprint_responsible_person_name}}</p>
-{{:imprint_responsible_person_name}}
-{{=imprint_no_responsible_person_template}}
 {{/imprint_responsible_person_name}}
 
 <address>
@@ -14,74 +18,50 @@
     {{=imprint_responsible_person_city}}
     {{/imprint_responsible_person_city}}
 </address>
-<ul class="person-info">
+<ul>
     {{imprint_responsible_person_phone}}
-    <li class="person-info-phone"><span>Telefon: </span>
-        {{=imprint_responsible_person_phone}}</li>
+    <li><span>Telefon:</span> <a href="tel:{{=imprint_responsible_person_phone}}">{{=imprint_responsible_person_phone}}</a></li>
     {{/imprint_responsible_person_phone}}
     {{imprint_responsible_person_fax}}
-    <li class="person-info-fax"><span>Fax:</span> {{=imprint_responsible_person_fax}}</li>
+    <li><span>Fax:</span> {{=imprint_responsible_person_fax}}</li>
     {{/imprint_responsible_person_fax}}
     {{imprint_responsible_person_email}}
-    <li class="person-info-email"><span>E-Mail:</span> <a
-            href="mailto:{{=imprint_responsible_person_email}}">{{=imprint_responsible_person_email}}</a></li>
+    <li><span>E-Mail:</span> <a href="mailto:{{=imprint_responsible_person_email}}">{{=imprint_responsible_person_email}}</a></li>
     {{/imprint_responsible_person_email}}
 </ul>
 
-{{=imprint_representation_template}}
 
-<h3>Kontaktperson für den Inhalt</h3>
+<h3>Redaktion und technische Ansprechpartner</h3>
 <p>
     {{=imprint_webmaster_name}}
 </p>
-<ul class="person-info">
+<ul>
     {{imprint_webmaster_phone}}
-    <li class="person-info-phone"><span>Telefon: </span> {{=imprint_webmaster_phone}}</li>
+    <li><span>Telefon:</span> <a href="tel:{{=imprint_webmaster_phone}}">{{=imprint_webmaster_phone}}</a></li>
     {{/imprint_webmaster_phone}}
     {{imprint_webmaster_fax}}
-    <li class="person-info-fax"><span>Fax:</span> {{=imprint_webmaster_fax}}</li>
+    <li><span>Fax:</span> {{=imprint_webmaster_fax}}</li>
     {{/imprint_webmaster_fax}}
     {{imprint_webmaster_email}}
-    <li class="person-info-email"><span>E-Mail:</span> <a
-            href="mailto:{{=imprint_webmaster_email}}">{{=imprint_webmaster_email}}</a></li>
+    <li><span>E-Mail:</span> <a href="mailto:{{=imprint_webmaster_email}}">{{=imprint_webmaster_email}}</a></li>
     {{/imprint_webmaster_email}}
 </ul>
-
-{{imprint_optional_image_rights}}
-{{=imprint_optional_image_rights_content}}
-{{/imprint_optional_image_rights}}
-
-{{imprint_optional_new_section}}
-{{=imprint_optional_new_section_content}}
-{{/imprint_optional_new_section}}
 
 {{=imprint_supervisory_authority_template}}
 {{=imprint_id_numbers_template}}
 {{=imprint_it_security_template}}
 
-<br>
+{{imprint_optional_new_section}}
+{{=imprint_optional_new_section_content}}
+{{/imprint_optional_new_section}}
+
+
 [collapsibles expand-all-link="true"]
 [collapse title="Nutzungsbedingungen"]
-<h2>Nutzungsbedingungen</h2>
 <p>
     Texte, Bilder, Grafiken sowie die Gestaltung dieser Internetseiten
     können dem Urheberrecht unterliegen.
 </p>
-<p>
-    Nicht urheberrechtlich geschützt sind nach § 5 des Urheberrechtsgesetz (UrhG)
-</p>
-<ul>
-    <li>
-        Gesetze, Verordnungen, amtliche Erlasse und Bekanntmachungen
-        sowie Entscheidungen und amtlich verfasste Leitsätze zu Entscheidungen
-        und
-    </li>
-    <li>andere amtliche Werke, die im amtlichen Interesse zur allgemeinen
-        Kenntnisnahme veröffentlicht worden sind, mit der Einschränkung, dass
-        die Bestimmungen über Änderungsverbot und Quellenangabe in § 62 Abs. 1
-        bis 3 und § 63 Abs. 1 und 2 UrhG entsprechend anzuwenden sind.
-    </li>
-</ul>
 <p>
     Als Privatperson dürfen Sie urheberrechtlich geschütztes Material zum privaten
     und sonstigen eigenen Gebrauch im Rahmen des 
@@ -102,9 +82,13 @@
     nähere Auskünfte, sofern diese Rechte nicht bereits durch entsprechende
     Hinweise im Webangebot kenntlich gemacht sind.
 </p>
+
+{{imprint_optional_image_rights}}
+{{=imprint_optional_image_rights_content}}
+{{/imprint_optional_image_rights}}
+
 [/collapse]
 [collapse title="Haftungsausschluss"]
-<h2>Haftungsausschluss</h2>
 
 <p>
     {{imprint_websites_extra}}
@@ -113,9 +97,8 @@
     Dieses Impressum gilt nur für den Webauftritt unter dieser Adresse:<br>
     {{/imprint_websites_extra}}
     <strong><em>{{=imprint_scope_websites}}</em></strong>
-    <br>
-    Für die Inhalte anderer Webangebote sind die jeweiligen Einrichtungen verantwortlich.
 </p>
+
 <p>
     Alle auf dieser Internetseite bereitgestellten Informationen haben wir nach
     bestem Wissen und Gewissen erarbeitet und geprüft. Eine Gewähr für die
@@ -125,60 +108,26 @@
     zustande.
 </p>
 <p>
-    Wir haften nicht für Schäden, die durch die Nutzung dieses Internetangebots
-    entstehen. Dieser Haftungsausschluss gilt nicht, soweit die Vorschriften des 
-    <a href="http://www.gesetze-im-internet.de/bgb/__839.html">
-        § 839 des Bürgerlichen Gesetzbuches
-    </a> 
-    (Haftung bei Amtspflichtverletzung) einschlägig sind. Für etwaige Schäden,
-    die beim Aufrufen oder Herunterladen von Daten durch Schadsoftware oder der
-    Installation oder Nutzung von Software verursacht werden,
-    wird nicht gehaftet.<br>
-    Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf
-    diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
-    Nach § 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet,
-    übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach
-    Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.<br>
-    Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen
-    nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche
-    Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten
-    Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden
-    Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.<br>
-    Der Betreiber behält es sich ausdrücklich vor, einzelne Webseiten,
-    Web-Dienste oder das gesamte Angebot ohne gesonderte Ankündigung zu
-    verändern, zu ergänzen, zu löschen oder die Veröffentlichung zeitweise oder
-    endgültig einzustellen.
+    Wir haften nicht für Schäden, die durch die Nutzung dieses Internetangebots entstehen.
+    Dieser Haftungsausschluss gilt nicht, soweit die Vorschriften des § 839 BGB (Haftung bei Amtspflichtverletzung) 
+    einschlägig sind. Für etwaige Schäden, die beim Aufrufen oder Herunterladen von Daten durch Schadsoftware 
+    oder der Installation oder Nutzung von Software verursacht werden, wird nicht gehaftet.
 </p>
-[/collapse]
-[collapse title="Haftung für Links"]
-<h2>Haftung für Links</h2>
+
+<h3>Haftung für Links</h3>
 <p>
-    Unser Angebot enthält Links zu externen Webauftritte Dritter, auf deren Inhalte
-    wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch
-    keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der
-    jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten 
-    Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße
-    überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht
-    erkennbar.<br>
-    Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne
-    konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei
-    Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend
-    entfernen.
+   Von unseren eigenen Inhalten sind Querverweise (Links) auf die Webseiten anderer Anbieter zu unterscheiden. 
+   Durch diese Links ermöglichen wir lediglich den Zugang zur Nutzung fremder Inhalte nach § 8 Telemediengesetz. 
+   Bei der erstmaligen Verknüpfung mit diesen Internetangeboten haben wir diese fremden Inhalte daraufhin überprüft,
+   ob durch sie eine mögliche zivilrechtliche oder strafrechtliche Verantwortlichkeit ausgelöst wird. 
+   Wir können diese fremden Inhalte aber nicht ständig auf Veränderungen überprüfen und daher auch keine Verantwortung dafür übernehmen. 
+   Für illegale, fehlerhafte oder unvollständige Inhalte und insbesondere für Schäden, die aus der Nutzung oder Nichtnutzung 
+   von Informationen Dritter entstehen, haftet allein der jeweilige Anbieter der Seite.
+
+
 </p>
 [/collapse]
+{{=imprint_whistleblower_system_template}}
 [/collapsibles]
 
-{{imprint_optional_whistleblower_system_url}}
-<h2>Mitteilungen von Informationen über Verstöße gemäß Hinweisgeberschutzgesetz</h2>
-<p>
-    Die Meldung von Verstößen durch Hinweisgeber kann entscheidend dazu beitragen, Risiken für die öffentliche
-    Gesundheit und den Verbraucherschutz, die aus andernfalls womöglich unbemerkten Verstößen gegen Rechtsvorschriften
-    erwachsen, aufzudecken, zu verhindern, einzudämmen oder zu beseitigen.
-</p>
-<p>
-    <strong>Interne Meldestelle</strong><br>
-    <li>
-        <a href="{{=imprint_optional_whistleblower_system_url}}">Link zum Hinweisgebersystem</a>
-    </li>
-</p>
-{{/imprint_optional_whistleblower_system_url}}
+

@@ -16,16 +16,13 @@ if (is_plugin_active('rrze-elements/rrze-elements.php')) {
 }
 $currentTheme = wp_get_theme();
 $vers = $currentTheme->get('Version');
-if (version_compare($vers, "2.3", '<')) {
-    // alte Anweisung für den Hero hier....
-    get_template_part('template-parts/hero', 'small');
-}
+
 ?>
 <div id="content">
     <div class="content-container">
         <div class="content-row">
-            <main lang="<?php echo $langCode; ?>">
-                <h1 id="maintop" class="screen-reader-text"><?php echo $title; ?></h1>
+            <main lang="<?php echo esc_attr($langCode); ?>">
+                <h1 id="maintop" class="screen-reader-text"><?php echo esc_html($title); ?></h1>
                 <div class="inline-box">
                     <div class="content-inline">
                         <?php echo $content; ?>
