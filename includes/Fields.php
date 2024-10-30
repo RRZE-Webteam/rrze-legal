@@ -102,7 +102,7 @@ class Fields
         $pattern = '';
         switch ($type) {
             case 'tel':
-                $pattern = ' pattern="[0-9\+]{3} [0-9]{4} [0-9\-\s]+"';
+                $pattern = ' pattern="[0-9\+]{3} [0-9]{3,5} [0-9\-\s]+"';
                 break;
              case 'email':
                 $pattern = ' pattern=".+@[a-z0-9\.\-]+\.[a-z]{2,6}"';
