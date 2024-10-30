@@ -43,7 +43,7 @@ $settings = [
                                 'label' => __('Websites', 'rrze-legal'),
                                 'description' => __('If this imprint applies to more than one website, add here the domain namens of the other websites. Please enter one domain name per line.', 'rrze-legal'),
                                 'type' => 'textarea',
-                                'default' => '',
+                                'default' => tos()->getSiteUrlHost(),
                                 'sanitize_callback' => [tos(), 'sanitizeTextareaList'],
                             ],
                         ],
