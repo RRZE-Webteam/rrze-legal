@@ -89,7 +89,7 @@ class Banner
         ob_start();
         include $bannerTemplateFile;
         $content = ob_get_clean();
-        echo wp_kses($minifier->minify($content),'post');
+        echo $minifier->minify($content);
         echo '</script>';
 
         // Re-enable indexing
