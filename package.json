@@ -1,27 +1,27 @@
 {
-    "name": "rrze-legal",
-    "version": "2.7.3",
-    "description": "Legal Mandatory Information & GDPR.",
-    "main": "webpack.config.js",
-    "author": "RRZE Webteam <webmaster@fau.de> (https://www.rrze.fau.de/)",
-    "license": "GPL-3.0-or-later",    
-    "engines": {
-        "node": ">=22.10.0",
-        "npm": ">=10.9.0"
-    },
-    "devDependencies": {
-        "@wordpress/scripts": "latest"
-    },
-    "browserslist": [
-        "extends @wordpress/browserslist-config"
-    ],
-    "scripts": {
-        "start": "wp-scripts start",
-        "build": "wp-scripts build",
-        "format": "wp-scripts format src",
-        "lint:js": "wp-scripts lint-js src",
-        "check-engines": "wp-scripts check-engines",
-        "check-licenses": "wp-scripts check-licenses --prod --gpl2",
-        "packages-update": "wp-scripts packages-update"
-    }
+  "name": "rrze-legal",
+  "version": "2.7.4",
+  "description": "Legal Mandatory Information & GDPR.",
+  "main": "webpack.config.js",
+  "author": "RRZE Webteam <webmaster@fau.de> (https://www.rrze.fau.de/)",
+  "license": "GPL-3.0-or-later",
+  "engines": {
+    "node": ">=22.10.0",
+    "npm": ">=10.9.0"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "latest"
+  },
+  "browserslist": [
+    "extends @wordpress/browserslist-config"
+  ],
+  "scripts": {
+    "start": "wp-scripts start",
+    "build": "wp-scripts build",
+    "format": "wp-scripts format src",
+    "lint:js": "wp-scripts lint-js src",
+    "check-engines": "wp-scripts check-engines",
+    "check-licenses": "wp-scripts check-licenses --prod --gpl2",
+    "packages-update": "wp-scripts packages-update"
+  }
 }
