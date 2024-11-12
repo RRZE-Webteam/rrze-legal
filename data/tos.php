@@ -102,7 +102,7 @@ $data = [
                 'postal_street'     => 'Ulmenstraße 52i',
                 'postal_code'       => '90443',
                 'postal_city'       => 'Nürnberg ',
-                'person_name'       => 'Präsident Prof. Dr. Alexander Martin',
+                'person_name'       => 'Präsident Prof. Dr. Michael Huth',
                 'legal-label'       => 'Körperschaft des Öffentlichen Rechts'
             ],
             'imprint_supervisory_authority' => [
