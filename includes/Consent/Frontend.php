@@ -12,6 +12,11 @@ class Frontend
 {
     public static function loaded()
     {
+        $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+        if (strpos($userAgent, 'by Siteimprove.com') !== false) {
+            return;
+        }
+
         add_action('init', [__CLASS__, 'init']);
 
         // Register handler for AJAX requests
