@@ -1,6 +1,6 @@
 {
   "name": "rrze-legal",
-  "version": "2.7.8",
+  "version": "2.7.9",
   "description": "Legal Mandatory Information & GDPR.",
   "main": "webpack.config.js",
   "author": "RRZE Webteam <webmaster@fau.de> (https://www.rrze.fau.de/)",
