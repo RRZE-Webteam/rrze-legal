@@ -21,7 +21,7 @@
     "format": "wp-scripts format src",
     "lint:js": "wp-scripts lint-js src",
     "check-engines": "wp-scripts check-engines",
-    "check-licenses": "wp-scripts check-licenses --prod --gpl2",
+    "check-licenses": "wp-scripts check-licenses --prod --gpl3",
     "packages-update": "wp-scripts packages-update"
   }
 }
