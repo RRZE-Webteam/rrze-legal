@@ -14,7 +14,7 @@ $data = [
                 '_readonly'         => true,
                 'email'             => 'poststelle@fau.de',
                 'name'              => 'Friedrich-Alexander-Universität Erlangen-Nürnberg',
-                'phone'             => '+49 9131 85 0',
+                'phone'             => '',
                 'fax'               => '',
                 'postal_street'     => 'Schloßplatz 4',
                 'postal_code'       => '91054',
@@ -85,10 +85,7 @@ $data = [
                 'url_law'               => 'https://www.gesetze-bayern.de/Content/Document/BayDiG',
                 'url_vo'               => 'https://www.gesetze-bayern.de/Content/Document/BayDiV',
             ],
- 
-                        
-            
-            
+   
             
         ],
         'utn'   => [
