@@ -3,7 +3,7 @@
 /*
 Plugin Name:        RRZE Legal
 Plugin URI:         https://gitlab.rrze.fau.de/rrze-webteam/rrze-legal
-Version:            2.7.11
+Version:            2.7.12
 Description:        Legal Mandatory Information & GDPR.
 Author:             RRZE Webteam
 Author URI:         https://www.rrze.fau.de
@@ -70,17 +70,7 @@ add_action('plugins_loaded', __NAMESPACE__ . '\loaded');
  */
 function activation()
 {
-    if ($error = systemRequirements()) {
-        deactivate_plugins(plugin_basename(__FILE__));
-        wp_die(
-            sprintf(
-                /* translators: 1: The plugin name, 2: The error string. */
-                __('Plugins: %1$s: %2$s', 'rrze-legal'),
-                plugin_basename(__FILE__),
-                $error
-            )
-        );
-    }
+    //
 }
 
 /**
