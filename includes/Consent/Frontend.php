@@ -6,7 +6,6 @@ defined('ABSPATH') || exit;
 
 use RRZE\Legal\Utils;
 use function RRZE\Legal\{plugin, consent};
-use const RRZE\PrivateSite\PRIVATE_SITE_OPTION;
 
 class Frontend
 {
@@ -31,13 +30,6 @@ class Frontend
      */
     public static function init()
     {
-        if (self::rrzeAccessControlPlugin()) {
-            Cookies::setEssentialCookie();
-            return;
-        } elseif (self::rrzePrivateSitePlugin()) {
-            return;
-        }
-
         if (consent()->isBannerActive() || consent()->isTestModeActive()) {
             // Add scripts and styles
             add_action('wp_enqueue_scripts', [__CLASS__, 'enqueueScripts']);
@@ -187,10 +179,6 @@ class Frontend
             && !Utils::isPluginActiveForNetwork('rrze-private-site/rrze-private-site.php')
 
         ) {
-            return false;
-        }
-
-        if (!defined('PRIVATE_SITE_OPTION') || !get_option(PRIVATE_SITE_OPTION)) {
             return false;
         }
 
