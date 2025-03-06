@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: RRZE Legal 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-legal\n"
 "POT-Creation-Date: 2024-01-09T10:46:31+00:00\n"
-"PO-Revision-Date: 2024-10-11 15:38+0000\n"
-"Last-Translator: Wolfgang Wiese <wolfgang.wiese@fau.de>\n"
+"PO-Revision-Date: 2025-03-06 15:22+0000\n"
+"Last-Translator: \n"
 "Language-Team: Deutsch (Sie)\n"
 "Language: de_DE_formal\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: rrze-legal\n"
-"X-Loco-Version: 2.6.11; wp-6.6.2"
+"X-Loco-Version: 2.7.1; wp-6.7.2\n"
+"X-Loco-Fallback: de_DE\n"
+"X-Loco-Template: languages/rrze-legal-de_DE.po\n"
+"X-Loco-Template-Mode: PO,JSON"
 
 #: includes/Consent/Categories/Options.php:137
 msgid "&larr; Go to consent categories List"
@@ -25,7 +28,7 @@ msgstr "&larr; Zurück zu den Consent-Kategorien"
 msgid "&larr; Go to consent cookies list"
 msgstr "&larr; Zurück zu den Consent-Cookies"
 
-#: includes/Fields.php:452
+#: includes/Fields.php:443
 msgid "&mdash; Select &mdash;"
 msgstr "&mdash; Auswählen &mdash;"
 
@@ -58,7 +61,7 @@ msgstr "6 Monate"
 msgid "A bot/crawler is treated like a visitor who accepted all cookies"
 msgstr ""
 "Ein Bot/Crawler wird wie ein Besucher behandelt, der alle Cookies akzeptiert "
-"hat.“"
+"hat."
 
 #: settings/consent.php:73 settings/network.php:91
 msgid ""
@@ -86,11 +89,11 @@ msgstr "Text der Schaltfläche „Alle akzeptieren“"
 msgid "Accept only essential cookies"
 msgstr "Nur essentielle Cookies akzeptieren"
 
-#: settings/tos.php:718 includes/TOS/Endpoint.php:26
+#: settings/tos.php:747 includes/TOS/Endpoint.php:23
 msgid "Accessibility"
 msgstr "Barrierefreiheit"
 
-#: settings/tos.php:880
+#: settings/tos.php:909
 msgid "Accessibility Feedback Form"
 msgstr "Feedback-Formular zur Barrierefreiheit"
 
@@ -110,12 +113,20 @@ msgstr ""
 "Aktiviert das Consent-Banner. Zeigt das <strong>Banner</strong> an und "
 "blockiert Iframes und andere externe Medien"
 
-#: settings/tos.php:522 settings/tos.php:697
+#: settings/tos.php:536
 msgid "Add a New Section"
 msgstr "Hinzufügen eines neuen Abschnitts"
 
-#: includes/Consent/Cookies/Options.php:254
+#: settings/tos.php:709
+msgid "Add a New Section at the Beginning of the Page"
+msgstr "Neuen Abschnitt zwischen Kontaktdaten und Inhalt hinzufügen"
+
+#: settings/tos.php:726
+msgid "Add a New Section at the End of the Page"
+msgstr "Neuen Abschnitt am Ende der Seite hinzufügen"
+
 #: includes/Consent/Categories/Options.php:189
+#: includes/Consent/Cookies/Options.php:254
 msgid "Add New"
 msgstr "Erstellen"
 
@@ -135,20 +146,20 @@ msgstr ""
 "Fügen Sie eine URL pro Zeile hinzu. Das <strong>Consent-Banner</strong> wird "
 "auf diesen URLs nicht angezeigt."
 
-#: settings/tos.php:165 settings/tos.php:383 settings/tos.php:599
-#: settings/tos.php:954
+#: settings/tos.php:171 settings/tos.php:397 settings/tos.php:611
+#: settings/tos.php:983
 msgid "Additional address line."
-msgstr "Zusätzliche Angabe zur Anschrift."
+msgstr "Zusätzliche Angabe zur Anschrift"
 
-#: settings/tos.php:693
+#: settings/tos.php:705
 msgid "Additional information about the privacy policy."
 msgstr "Zusätzliche Informationen zur Datenschutzerklärung."
 
-#: settings/tos.php:839
+#: settings/tos.php:868
 msgid "Alternatives"
 msgstr "Alternative Zugangswege"
 
-#: includes/TOS/Endpoint.php:130
+#: includes/TOS/Endpoint.php:122
 msgid "and"
 msgstr "und"
 
@@ -176,6 +187,10 @@ msgstr ""
 msgid "Back"
 msgstr "Zurück"
 
+#: settings/tos.php:336
+msgid "Bank (Name)"
+msgstr "Bank (Name)"
+
 #: settings/consent.php:28 settings/network.php:59
 msgid "Banner"
 msgstr "Banner"
@@ -184,7 +199,7 @@ msgstr "Banner"
 msgid "Bayerischer Rundfunk, Rundfunkplatz 1, 80335 Munich, Germany"
 msgstr "Bayerischer Rundfunk, Rundfunkplatz 1, 80335 München, Deutschland"
 
-#: settings/tos.php:338
+#: settings/tos.php:352
 msgid "BIC-Code"
 msgstr "BIC-Code"
 
@@ -196,8 +211,8 @@ msgstr "Enqueued Skript blockieren"
 msgid "BR Mediathek"
 msgstr "BR Mediathek"
 
-#: settings/tos.php:164 settings/tos.php:382 settings/tos.php:598
-#: settings/tos.php:953
+#: settings/tos.php:170 settings/tos.php:396 settings/tos.php:610
+#: settings/tos.php:982
 msgid "c/o"
 msgstr "c/o"
 
@@ -205,12 +220,12 @@ msgstr "c/o"
 msgid "Category"
 msgstr "Kategorie"
 
-#: settings/tos.php:113 settings/tos.php:188 settings/tos.php:281
-#: settings/tos.php:402 settings/tos.php:620 settings/tos.php:976
+#: settings/tos.php:119 settings/tos.php:194 settings/tos.php:287
+#: settings/tos.php:416 settings/tos.php:632 settings/tos.php:1005
 msgid "City"
 msgstr "Stadt"
 
-#: settings/tos.php:738
+#: settings/tos.php:767
 msgid ""
 "Completely compliant: the content is fully compliant with the accessibility "
 "standard without exceptions"
@@ -218,7 +233,7 @@ msgstr ""
 "Vollständig konform: Der Inhalt entspricht ohne Ausnahmen vollständig dem "
 "Standard für Barrierefreiheit"
 
-#: settings/tos.php:729
+#: settings/tos.php:758
 msgid "Compliance Status"
 msgstr "Konformitätsstatus"
 
@@ -304,54 +319,54 @@ msgstr[1] "%s Cookies aktiviert."
 msgid "Consent Settings"
 msgstr "Consent-Einstellungen"
 
-#: settings/tos.php:892
+#: settings/tos.php:921
 msgid "Contact Address"
 msgstr "Adresse"
 
-#: settings/tos.php:859
+#: settings/tos.php:888
 msgid "Contact Email Addresse"
 msgstr "E-Mail-Adresse"
 
-#: settings/tos.php:214
+#: settings/tos.php:220
 msgid "Contact email for problems concerning the website."
 msgstr ""
 "E-Mailadresse für die Meldung technischer oder inhaltlicher Probleme mit der "
 "Website"
 
-#: settings/tos.php:148
+#: settings/tos.php:154
 msgid "Contact email for the responsible person or the organization."
 msgstr "Kontakt-E-Mail für die verantwortliche Person oder die Organisation."
 
-#: settings/tos.php:635
+#: settings/tos.php:647
 msgid "Contact Form"
 msgstr "Kontaktformular"
 
-#: settings/tos.php:349
+#: settings/tos.php:363
 msgid "Contact informations for IT Security."
 msgstr "Kontaktinformationen um die IT-Sicherheit zu erreichen."
 
-#: settings/tos.php:886
+#: settings/tos.php:915
 msgid "Contact number for telephone assistance."
 msgstr "Kontaktnummer für telefonische Hilfestellung."
 
-#: settings/tos.php:852
+#: settings/tos.php:881
 msgid "Contact Person"
 msgstr "Ansprechpartner"
 
-#: settings/tos.php:885
+#: settings/tos.php:914
 msgid "Contact Phone"
 msgstr "Telefon"
 
-#: settings/tos.php:224
+#: settings/tos.php:230
 msgid "Contact phone number for problems concerning the website."
 msgstr "Kontakttelefonnummer bei Problemen mit der Website."
 
-#: settings/tos.php:158
+#: settings/tos.php:164
 msgid "Contact phone number for the responsible person or the organization."
 msgstr "Telefonnummer der verantwortlichen Person oder Organisation."
 
-#: settings/tos.php:515 settings/tos.php:534 settings/tos.php:708
-#: settings/consent.php:178
+#: settings/tos.php:529 settings/tos.php:548 settings/tos.php:720
+#: settings/tos.php:737 settings/consent.php:178
 msgid "Content"
 msgstr "Inhalt"
 
@@ -369,7 +384,7 @@ msgstr ""
 "standardmäßig blockiert. Wenn Cookies von externen Medien akzeptiert werden, "
 "bedarf der Zugriff auf diese Inhalte keiner manuellen Einwilligung mehr."
 
-#: settings/tos.php:535 settings/tos.php:709
+#: settings/tos.php:549 settings/tos.php:721 settings/tos.php:738
 msgid "Content of the new, additional section."
 msgstr "Inhalt des neuen, zusätzlichen Abschnitts."
 
@@ -409,15 +424,15 @@ msgstr "Cookies für Bots/Crawler"
 msgid "Cookies For IP Addresses"
 msgstr "Cookies für IP-Adressen"
 
-#: data/tos.php:199
+#: data/tos.php:234
 msgid "Cooperation between different institutions"
 msgstr "Kooperation aus verschiedenen Einrichtungen"
 
-#: settings/tos.php:770
+#: settings/tos.php:799
 msgid "Creation Date"
 msgstr "Erstellungsdatum"
 
-#: settings/tos.php:818
+#: settings/tos.php:847
 msgid ""
 "Currently there is no textual description for directions describing maps or "
 "maps."
@@ -425,27 +440,27 @@ msgstr ""
 "Zu mittels Karten oder Kartenbildern eingebundenen Anfahrtsbeschreibungen "
 "fehlt derzeit die textuelle Beschreibung."
 
-#: includes/TOS/ContactForm.php:151
+#: includes/TOS/ContactForm.php:149
 msgid "d/m/Y - g:i a"
 msgstr "d.m.Y - H:i"
 
-#: includes/TOS/ContactForm.php:161
+#: includes/TOS/ContactForm.php:159
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: settings/tos.php:125
+#: settings/tos.php:131
 msgid "Data for contacting in legal terms."
 msgstr "Daten zur Kontaktaufnahme in rechtlicher Hinsicht."
 
-#: settings/tos.php:200
+#: settings/tos.php:206
 msgid "Data for contacting the content of the website."
 msgstr "Daten zur Kontaktaufnahme hinsichtlich der Inhalte des Webauftritts."
 
-#: settings/tos.php:554
+#: settings/tos.php:568
 msgid "Data Protection Officer"
 msgstr "Datenschutzbeauftragter"
 
-#: settings/tos.php:734
+#: settings/tos.php:763
 msgid "Declaration of Conformity"
 msgstr "Konformitätserklärung"
 
@@ -453,10 +468,10 @@ msgstr "Konformitätserklärung"
 msgid "Default Cookie"
 msgstr "Standard-Cookie"
 
-#: includes/Consent/Cookies/ListTable.php:105
-#: includes/Consent/Cookies/ListTable.php:169
 #: includes/Consent/Categories/ListTable.php:69
 #: includes/Consent/Categories/ListTable.php:133
+#: includes/Consent/Cookies/ListTable.php:105
+#: includes/Consent/Cookies/ListTable.php:169
 msgid "Delete"
 msgstr "Löschen"
 
@@ -499,15 +514,15 @@ msgstr "Diese Meldung ausblenden."
 msgid "Display external content"
 msgstr "Externen Inhalt anzeigen"
 
-#: settings/tos.php:233 settings/tos.php:902
+#: settings/tos.php:239 settings/tos.php:931
 msgid "Displays the supervisory authority."
 msgstr "Zeigt die Aufsichtsbehörde an."
 
-#: settings/tos.php:662
+#: settings/tos.php:674
 msgid "Do you offer a newsletter or mailing list?"
 msgstr "Bieten Sie einen Newsletter oder eine Mailingliste an?"
 
-#: settings/tos.php:636
+#: settings/tos.php:648
 msgid ""
 "Do you use a contact form on this website? (The accessibility declaration "
 "offers one, so the answer is usually \"yes\")."
@@ -516,7 +531,7 @@ msgstr ""
 "Zugänglichkeitserklärung bietet eine, daher lautet die Antwort in der Regel "
 "\"Ja”)."
 
-#: settings/tos.php:649
+#: settings/tos.php:661
 msgid ""
 "Do you use forms to sign up for events or other functions that require "
 "registration?"
@@ -528,12 +543,12 @@ msgstr ""
 msgid "Domain"
 msgstr "Domain"
 
-#: settings/tos.php:314
+#: settings/tos.php:320
 msgid "DUNS Number"
 msgstr "DUNS Nummer"
 
-#: includes/Consent/Cookies/ListTable.php:80
 #: includes/Consent/Categories/ListTable.php:61
+#: includes/Consent/Cookies/ListTable.php:80
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -545,11 +560,11 @@ msgstr "Consent-Kategorie bearbeiten"
 msgid "Edit Consent Cookie"
 msgstr "Consent-Cookie bearbeiten"
 
-#: settings/tos.php:124
+#: settings/tos.php:130
 msgid "Editorially responsible person"
 msgstr "Redaktionell verantwortliche Person"
 
-#: settings/tos.php:139
+#: settings/tos.php:145
 #| msgid ""
 #| "Legally responsible person for the website. (This is usually the chair "
 #| "owner or facility manager)."
@@ -560,29 +575,29 @@ msgstr ""
 "Rechtlich verantwortliche Person für die Website. (Dies ist in der Regel der "
 "Lehrstuhlinhaber oder Einrichtungsleiter). "
 
-#: includes/TOS/ContactForm.php:234
+#: includes/TOS/ContactForm.php:232
 msgid "eight"
 msgstr "Acht"
 
-#: settings/tos.php:78 settings/tos.php:147 settings/tos.php:212
-#: settings/tos.php:246 settings/tos.php:362 settings/tos.php:576
-#: settings/tos.php:915
+#: settings/tos.php:84 settings/tos.php:153 settings/tos.php:218
+#: settings/tos.php:252 settings/tos.php:376 settings/tos.php:588
+#: settings/tos.php:944
 msgid "Email"
 msgstr "E-Mail"
 
-#: includes/TOS/ContactForm.php:144
+#: includes/TOS/ContactForm.php:142
 msgid "Email Addresse"
 msgstr "E-Mail-Adresse"
 
-#: settings/tos.php:869
+#: settings/tos.php:898
 msgid "Email CC"
 msgstr "E-Mail CC"
 
-#: settings/tos.php:878
+#: settings/tos.php:907
 msgid "Email Subject"
 msgstr "E-Mail Betreff"
 
-#: settings/tos.php:817
+#: settings/tos.php:846
 msgid "Embedded videos currently have no subtitles or transcription available."
 msgstr ""
 "Zu eingebundenen Videos stehen derzeit keine Untertitel oder Transkription "
@@ -605,7 +620,7 @@ msgstr ""
 "Geben Sie eine Beschreibung für diese <strong>Consent-Kategorie</strong> ein."
 " Sie wird dem Besucher im <strong>Consent-Banner</strong> angezeigt."
 
-#: settings/tos.php:853
+#: settings/tos.php:882
 msgid ""
 "Enter a name for the responsible contact person for complaints or requests "
 "for help about lack of accessibility."
@@ -621,11 +636,11 @@ msgstr ""
 "Geben Sie einen Namen für diese <strong>Consent-Kategorie</strong> ein. Sie "
 "wird dem Besucher im <strong>Consent-Banner</strong> angezeigt."
 
-#: settings/tos.php:322
+#: settings/tos.php:328
 msgid "EORI Number"
 msgstr "EORI Nummer"
 
-#: includes/TOS/ContactForm.php:205
+#: includes/TOS/ContactForm.php:201
 msgid "Error"
 msgstr "Fehler"
 
@@ -649,7 +664,7 @@ msgstr "Ausnahmen"
 msgid "Explain the purpose of this <strong>Cookie</strong> to the visitors."
 msgstr "Erklären Sie den Besuchern den Zweck dieses <strong>Cookie</strong>."
 
-#: data/tos.php:202
+#: data/tos.php:237
 msgid "External institution"
 msgstr "Externe Einrichtung"
 
@@ -657,7 +672,7 @@ msgstr "Externe Einrichtung"
 msgid "External Media"
 msgstr "Externe Medien"
 
-#: settings/tos.php:677
+#: settings/tos.php:689
 msgid "External Service Providers"
 msgstr "Externe Dienstleister"
 
@@ -669,28 +684,28 @@ msgstr "Fallback-Code"
 msgid "FAU domains"
 msgstr "FAU-Domains"
 
-#: settings/tos.php:92 settings/tos.php:260 settings/tos.php:591
-#: settings/tos.php:929
+#: settings/tos.php:98 settings/tos.php:266 settings/tos.php:603
+#: settings/tos.php:958
 msgid "Fax Number"
 msgstr "Faxnummer"
 
-#: settings/tos.php:847
+#: settings/tos.php:876
 msgid "Feedback Mechanism"
 msgstr "Feedback-Mechanismus"
 
-#: settings/tos.php:804
+#: settings/tos.php:833
 msgid "Fill out explanations manually"
 msgstr "Erklärungen manuell ausfüllen"
 
-#: includes/TOS/ContactForm.php:231
+#: includes/TOS/ContactForm.php:229
 msgid "five"
 msgstr "Fünf"
 
-#: includes/TOS/ContactForm.php:230
+#: includes/TOS/ContactForm.php:228
 msgid "four"
 msgstr "Vier"
 
-#: includes/TOS/ContactForm.php:142
+#: includes/TOS/ContactForm.php:140
 msgid "From"
 msgstr "Absender"
 
@@ -714,7 +729,7 @@ msgstr "Allgemeine Netzwerkeinstellungen."
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
-#: includes/TOS/ContactForm.php:160
+#: includes/TOS/ContactForm.php:158
 msgid "Go to the website"
 msgstr "Website aufrufen"
 
@@ -722,7 +737,7 @@ msgstr "Website aufrufen"
 msgid "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland"
 msgstr "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland"
 
-#: settings/tos.php:819
+#: settings/tos.php:848
 msgid ""
 "Graphics or images contained in the pages are currently not completely "
 "supplemented by text descriptions."
@@ -764,19 +779,19 @@ msgstr "Zulassungsliste für Hosts"
 msgid "Hosts"
 msgstr "Hosts"
 
-#. Author URI of the plugin
-msgid "https://blogs.fau.de/webworking/"
-msgstr "https://blogs.fau.de/webworking/"
-
 #. URI of the plugin
 msgid "https://gitlab.rrze.fau.de/rrze-webteam/rrze-legal"
 msgstr "https://gitlab.rrze.fau.de/rrze-webteam/rrze-legal"
+
+#. Author URI of the plugin
+msgid "https://www.rrze.fau.de"
+msgstr "https://www.rrze.fau.de"
 
 #: includes/Consent/ContentBlocker.php:322
 msgid "I agree"
 msgstr "Ich stimme zu"
 
-#: settings/tos.php:330
+#: settings/tos.php:344
 msgid "IBAN"
 msgstr "IBAN"
 
@@ -784,17 +799,17 @@ msgstr "IBAN"
 msgid "ID"
 msgstr "ID"
 
-#: settings/tos.php:290
+#: settings/tos.php:296
 msgid "Id Numbers"
 msgstr "ID-Nummern"
 
-#: settings/tos.php:291
+#: settings/tos.php:297
 msgid "ID Numbers and Banking informations of the organization."
 msgstr "ID-Nummern und Bankinformationen der Organisation."
 
 #. %s: ID field value.
-#: includes/Consent/Cookies/Options.php:174
 #: includes/Consent/Categories/Options.php:109
+#: includes/Consent/Cookies/Options.php:174
 #, php-format
 msgid "ID value %s already exists. Please enter a new ID."
 msgstr "ID-Wert %s existiert bereits. Bitte geben Sie eine neue ID ein."
@@ -815,7 +830,7 @@ msgstr ""
 "Wenn aktiviert, werden keine <strong>Kategorien</strong> im <strong>Consent "
 "Banner</strong> vorausgewählt"
 
-#: settings/tos.php:631
+#: settings/tos.php:643
 msgid ""
 "If any of the following services are used, enable them to generate a "
 "corresponding notice in the privacy policy."
@@ -833,7 +848,7 @@ msgstr ""
 "Kategorie</strong> im <strong>Content-Banner</strong> vorausgewählt. Der "
 "Besucher kann es abwählen"
 
-#: settings/tos.php:678
+#: settings/tos.php:690
 msgid ""
 "If external service providers are used to include content on the website, "
 "they must also be included in the privacy policy."
@@ -842,13 +857,13 @@ msgstr ""
 "einzubinden, müssen diese ebenfalls in die Datenschutzerklärung einbezogen "
 "werden."
 
-#: settings/tos.php:787
+#: settings/tos.php:816
 msgid "If there is a detailed review, this can be linked here."
 msgstr ""
 "Falls es einen ausführlichen Testbericht gibt, kann dieser hier verlinkt "
 "werden."
 
-#: settings/tos.php:46
+#: settings/tos.php:44
 msgid ""
 "If this imprint applies to more than one website, add here the domain namens "
 "of the other websites. Please enter one domain name per line."
@@ -861,15 +876,15 @@ msgstr ""
 msgid "Ignore Preselected Categories"
 msgstr "Vorgewählte Kategorien ignorieren"
 
-#: settings/tos.php:503
+#: settings/tos.php:517
 msgid "Image Rights"
 msgstr "Bildrechte"
 
-#: settings/tos.php:30 includes/TOS/Endpoint.php:24
+#: settings/tos.php:28 includes/TOS/Endpoint.php:21
 msgid "Imprint"
 msgstr "Impressum"
 
-#: settings/tos.php:834
+#: settings/tos.php:863
 msgid ""
 "In addition to the pure list of non-accessible contents, a justification for "
 "each of the above points should also be provided as to why barrier-free "
@@ -884,7 +899,7 @@ msgstr ""
 "Prioritäten, Zeit oder Unkenntnis“. Diese Punkte dürfen daher nicht als "
 "Begründung verwendet werden."
 
-#: includes/Main.php:143
+#: includes/Main.php:152
 msgid ""
 "In order to operate this website, it is mandatory that all necessary legal "
 "texts are available. Websites that do not provide this information or "
@@ -894,7 +909,7 @@ msgstr ""
 "alle notwendigen rechtlichen Pflichttexte vorgehalten werden. Webauftritte, "
 "die diese Angaben nicht oder vollständig machen, können deaktiviert werden."
 
-#: settings/tos.php:840
+#: settings/tos.php:869
 msgid ""
 "Indicate here whether and which alternatives are available to obtain the "
 "above inaccessible content. This can be, for example, the contact via the "
@@ -905,7 +920,7 @@ msgstr ""
 "die Kontaktaufnahme über das Feedback-Formular sein oder die Angabe einer "
 "Stelle, die Hilfe leistet."
 
-#: settings/tos.php:1003
+#: settings/tos.php:1032
 msgid ""
 "Indicate whether the website is operated by an institution affiliated with "
 "the university or by another institution."
@@ -918,13 +933,13 @@ msgstr ""
 msgid "Individual privacy settings"
 msgstr "Individuelle Einstellungen"
 
-#: settings/tos.php:411
+#: settings/tos.php:425
 msgid ""
 "Information about a system in accordance with the Whistleblower Protection "
 "Act."
 msgstr "Informationen zu einem System im Sinne des Hinweisgeberschutzgesetzes."
 
-#: settings/tos.php:801
+#: settings/tos.php:830
 msgid "Input Assistance For Non-Accessible Content"
 msgstr "Eingabehilfe zu nicht barrierefreie Inhalte"
 
@@ -932,7 +947,7 @@ msgstr "Eingabehilfe zu nicht barrierefreie Inhalte"
 msgid "Insert a name for this <strong>Cookie</strong>."
 msgstr "Geben Sie einen Namen für dieses <strong>Cookie</strong> ein."
 
-#: settings/tos.php:504
+#: settings/tos.php:518
 msgid "Insert free text field for image rights?"
 msgstr "Freitextfeld für Bildrechte einfügen?"
 
@@ -944,21 +959,29 @@ msgstr "Fügen Sie den/die Host(s) dieses <strong>Cookies</strong> ein."
 msgid "Insert the provider of this <strong>Cookie</strong>."
 msgstr "Fügen Sie den Anbieter dieses <strong>Cookies</strong> ein."
 
-#: settings/tos.php:348
+#: settings/tos.php:362
 msgid "IT Security"
 msgstr "IT-Sicherheit"
 
-#: settings/tos.php:778
+#: settings/tos.php:807
 msgid "Last Review Date"
 msgstr "Datum der letzten Überprüfung"
 
-#: settings/network.php:14 settings/network.php:17 includes/Main.php:65
-#: includes/Main.php:66
+#: settings/network.php:14 settings/network.php:17 includes/Main.php:74
+#: includes/Main.php:75
 msgid "Legal"
-msgstr ""
+msgstr "Rechtliche Pflichtangaben"
+
+#: settings/tos.php:76
+msgid "Legal form"
+msgstr "Rechtsform"
+
+#: settings/tos.php:77
+msgid "Legal form of the institution"
+msgstr "Rechtsform der Einrichtung"
 
 #. 1: Url of the settings page, 2: Title of the settings page.
-#: settings/tos.php:14 settings/tos.php:17 includes/Main.php:127
+#: settings/tos.php:14 settings/tos.php:17 includes/Main.php:137
 msgid "Legal Mandatory Information"
 msgstr "Rechtliche Pflichtangaben"
 
@@ -970,15 +993,15 @@ msgstr "Gesetzliche Pflichtangaben & DSGVO."
 msgid "Legal Mandatory Information Settings"
 msgstr "Gesetzliche Pflichtangabeneinstellungen"
 
-#: settings/tos.php:69
+#: settings/tos.php:67
 msgid "Legal representative"
 msgstr "Gesetzlicher Vertreter"
 
-#: settings/tos.php:56
+#: settings/tos.php:54
 msgid "Legal representatives"
 msgstr "Gesetzliche Vertreter"
 
-#: settings/tos.php:797
+#: settings/tos.php:826
 msgid "List and explain the problems with the implementation of accessibility."
 msgstr ""
 "Auflistung und Erläuterung der Probleme bei der Umsetzung der "
@@ -1007,7 +1030,7 @@ msgid "Manage settings related to content blocking."
 msgstr ""
 "Verwalten Sie Einstellungen im Zusammenhang mit der Inhaltsblockierung."
 
-#: settings/tos.php:57
+#: settings/tos.php:55
 msgid "Mandatory legal information about the legal representatives."
 msgstr "Obligatorische rechtliche Angaben zu den gesetzlichen Vertretern."
 
@@ -1024,27 +1047,27 @@ msgstr ""
 "personalisierte Werbung anzuzeigen. Sie tun dies, indem sie Besucher über "
 "Websites hinweg verfolgen."
 
-#: includes/TOS/ContactForm.php:153
+#: includes/TOS/ContactForm.php:151
 msgid "Message entered by the sender"
 msgstr "Vom Absender eingegebene Nachricht"
 
-#: settings/tos.php:759
+#: settings/tos.php:788
 msgid "Method"
 msgstr "Methode"
 
-#: settings/tos.php:138 settings/tos.php:204 settings/tos.php:237
-#: settings/tos.php:353 settings/tos.php:906 settings/consent-cookies.php:75
-#: settings/consent-categories.php:53 includes/TOS/ContactForm.php:143
-#: includes/Consent/Banner.php:62 includes/Consent/Cookies/ListTable.php:137
-#: includes/Consent/Categories/ListTable.php:103
+#: settings/consent-cookies.php:75 settings/tos.php:144 settings/tos.php:210
+#: settings/tos.php:243 settings/tos.php:367 settings/tos.php:935
+#: settings/consent-categories.php:53 includes/TOS/ContactForm.php:141
+#: includes/Consent/Banner.php:62 includes/Consent/Categories/ListTable.php:103
+#: includes/Consent/Cookies/ListTable.php:137
 msgid "Name"
 msgstr "Name"
 
-#: settings/tos.php:559
+#: settings/tos.php:573
 msgid "Name (Office)"
 msgstr "Einrichtungsname"
 
-#: settings/tos.php:568
+#: settings/tos.php:581
 msgid "Name (Person)"
 msgstr "Name (Person)"
 
@@ -1056,11 +1079,11 @@ msgstr ""
 "Name des enqueued Skripts. Es ist erforderlich, wenn Sie das Skript "
 "blockieren möchten. Trennen Sie mehrere Namen durch ein Komma."
 
-#: settings/tos.php:70
+#: settings/tos.php:68
 msgid "Name of the legal representative."
 msgstr "Name des gesetzlichen Vertreters."
 
-#: settings/tos.php:205
+#: settings/tos.php:211
 msgid ""
 "Name of the webmaster or the technical contact for the website. This can be "
 "also a servicepoint."
@@ -1072,16 +1095,17 @@ msgstr ""
 msgid "Network Legal Settings"
 msgstr "Rechtliches &mdash; Netzwerkeinstellungen"
 
-#: settings/tos.php:661
+#: settings/tos.php:673
 msgid "Newsletter/Mailinglist"
 msgstr "Newsletter/Mailingliste"
 
-#: includes/TOS/ContactForm.php:235
+#: includes/TOS/ContactForm.php:233
 msgid "nine"
 msgstr "Neun"
 
-#: settings/tos.php:508 settings/tos.php:527 settings/tos.php:640
-#: settings/tos.php:653 settings/tos.php:666 settings/tos.php:701
+#: settings/tos.php:522 settings/tos.php:541 settings/tos.php:652
+#: settings/tos.php:665 settings/tos.php:678 settings/tos.php:713
+#: settings/tos.php:730
 msgid "No"
 msgstr "Nein"
 
@@ -1099,21 +1123,21 @@ msgstr "Keine Consent-Cookie ausgewählt."
 msgid "No transmission to third parties"
 msgstr "Keine Übermittlung an Drittanbieter"
 
-#: settings/tos.php:827
+#: settings/tos.php:856
 msgid "Non-Accessible Content (Free Text)"
 msgstr "Nicht barrierefrei zugängliche Inhalte (Freitext)"
 
-#: settings/tos.php:811
+#: settings/tos.php:840
 msgid "Non-Accessible Content (Selection List)"
 msgstr "Nicht barrierefrei zugängliche Inhalte (Auswahl)"
 
-#: settings/tos.php:740
+#: settings/tos.php:769
 msgid ""
 "Non-compliant: The content does not comply with the accessibility standard"
 msgstr ""
 "Nicht konform: Der Inhalt entspricht nicht dem Standard für Barrierefreiheit"
 
-#: includes/TOS/Endpoint.php:293
+#: includes/TOS/Endpoint.php:338
 msgid "Not Found"
 msgstr "Nicht gefunden"
 
@@ -1134,7 +1158,7 @@ msgstr ""
 "Präferenz auszuwählen, wenn der Besucher nur seine Zustimmung zu "
 "essentiellen Cookies gegeben hat."
 
-#: includes/ListSettings.php:796
+#: includes/ListSettings.php:795
 msgid "Number of items per page:"
 msgstr "Einträge pro Seite:"
 
@@ -1142,7 +1166,7 @@ msgstr "Einträge pro Seite:"
 msgid "Off"
 msgstr "Aus"
 
-#: settings/tos.php:730
+#: settings/tos.php:759
 msgid ""
 "Officially stated status of the website, as well as its contents regarding "
 "the fulfillment of the legal requirements."
@@ -1154,7 +1178,7 @@ msgstr ""
 msgid "On"
 msgstr "An"
 
-#: includes/TOS/ContactForm.php:227
+#: includes/TOS/ContactForm.php:225
 msgid "one"
 msgstr "Eins"
 
@@ -1167,7 +1191,7 @@ msgstr ""
 "Iframes), wird der Inhalt nicht blockiert."
 
 #. %s: Link of the settings page.
-#: includes/Main.php:134
+#: includes/Main.php:144
 #, php-format
 msgid ""
 "One or more mandatory fields of the legal settings have not been filled. "
@@ -1178,7 +1202,7 @@ msgstr ""
 "ausgefüllt. Bitte füllen Sie diese Felder so schnell wie möglich unter "
 "folgendem Link aus: %s."
 
-#: settings/tos.php:848
+#: settings/tos.php:877
 msgid "Opportunities to contact for accessibility issues and errors."
 msgstr ""
 "Möglichkeiten zur Kontaktaufnahme bei Problemen und Fehlern zur "
@@ -1192,27 +1216,27 @@ msgstr "Opt-in-Code"
 msgid "Opt-out Code"
 msgstr "Opt-out-Code"
 
-#: settings/tos.php:870
+#: settings/tos.php:899
 msgid "Optional additional email address."
 msgstr "Optionale zusätzliche E-Mail-Adresse."
 
-#: settings/tos.php:440 settings/tos.php:692
+#: settings/tos.php:454 settings/tos.php:704
 msgid "Optional Information"
-msgstr "Optionale Angabe"
+msgstr "Optionale Angaben"
 
-#: settings/tos.php:516
+#: settings/tos.php:530
 msgid "Optional paragraph for the description of any image rights used."
 msgstr "Optionaler Absatz zur Beschreibung der verwendeten Bildrechte."
 
-#: settings/tos.php:129 settings/tos.php:1002
+#: settings/tos.php:135 settings/tos.php:1031
 msgid "Organization"
 msgstr "Organisation"
 
-#: settings/tos.php:61
+#: settings/tos.php:59
 msgid "Organization name"
 msgstr "Einrichtungsname"
 
-#: settings/tos.php:991 settings/tos.php:996
+#: settings/tos.php:1020 settings/tos.php:1025
 msgid "Organizational Affiliation"
 msgstr "Organisatorische Zugehörigkeit"
 
@@ -1224,7 +1248,7 @@ msgstr "Endpoints überschreiben"
 msgid "Owner of this website"
 msgstr "Eigentümer dieser Website"
 
-#: settings/tos.php:739
+#: settings/tos.php:768
 msgid ""
 "Partially Compliant: Some parts of the content are not fully compliant with "
 "the accessibility standard"
@@ -1236,14 +1260,14 @@ msgstr ""
 msgid "Path"
 msgstr "Pfad"
 
-#: settings/tos.php:815
+#: settings/tos.php:844
 msgid "PDF documents could not yet be converted to an accessible format."
 msgstr ""
 "PDF-Dokumente konnten nicht in ein barrierefreies Format konvertiert werden."
 
-#: settings/tos.php:86 settings/tos.php:157 settings/tos.php:223
-#: settings/tos.php:254 settings/tos.php:376 settings/tos.php:585
-#: settings/tos.php:923
+#: settings/tos.php:92 settings/tos.php:163 settings/tos.php:229
+#: settings/tos.php:260 settings/tos.php:390 settings/tos.php:597
+#: settings/tos.php:952
 msgid "Phone"
 msgstr "Telefon"
 
@@ -1251,23 +1275,23 @@ msgstr "Telefon"
 msgid "PHPSESSID"
 msgstr "PHPSESSID"
 
-#: includes/TOS/ContactForm.php:169
+#: includes/TOS/ContactForm.php:167
 msgid "Please enter a name."
 msgstr "Bitte geben Sie einen Namen an."
 
-#: includes/TOS/ContactForm.php:180
+#: includes/TOS/ContactForm.php:178
 msgid "Please enter a number as solution."
 msgstr "Bitte geben Sie eine Zahl als Lösung ein."
 
-#: includes/TOS/ContactForm.php:177
+#: includes/TOS/ContactForm.php:175
 msgid "Please enter a text."
 msgstr "Bitte geben Sie einen Text an."
 
-#: includes/Main.php:141
+#: includes/Main.php:150
 msgid "Please note"
 msgstr "Bitte beachten"
 
-#: settings/tos.php:1003
+#: settings/tos.php:1032
 msgid ""
 "Please notice, that by chosing the organisation, additional data, like the "
 "name of the legal representative contact or the data policy officer are "
@@ -1278,23 +1302,23 @@ msgstr ""
 "Datenschutzbeauftragten automatisch aktualisiert werden. "
 
 #. 1: The plugin name, 2: The error string.
-#: rrze-legal.php:103 rrze-legal.php:255
+#: rrze-legal.php:271
 #, php-format
 msgid "Plugins: %1$s: %2$s"
 msgstr "Plugins: %1$s: %2$s"
 
 #: settings/consent-cookies.php:61 settings/consent-categories.php:78
-#: includes/Consent/Cookies/ListTable.php:141
 #: includes/Consent/Categories/ListTable.php:107
+#: includes/Consent/Cookies/ListTable.php:141
 msgid "Position"
 msgstr "Position"
 
-#: settings/tos.php:893
+#: settings/tos.php:922
 msgid "Postal address as an alternative to email address."
 msgstr "Postanschrift als Alternative zur E-Mail-Adresse."
 
-#: settings/tos.php:105 settings/tos.php:179 settings/tos.php:273
-#: settings/tos.php:395 settings/tos.php:613 settings/tos.php:968
+#: settings/tos.php:111 settings/tos.php:185 settings/tos.php:279
+#: settings/tos.php:409 settings/tos.php:625 settings/tos.php:997
 msgid "Postal Code"
 msgstr "Postleitzahl"
 
@@ -1315,7 +1339,7 @@ msgstr "Bewahrt den Status der Benutzersitzung über Seitenanfragen hinweg."
 msgid "Prioritize Opt-in Code"
 msgstr "Opt-in-Code priorisieren"
 
-#: settings/tos.php:544 includes/TOS/Endpoint.php:25
+#: settings/tos.php:558 includes/TOS/Endpoint.php:22
 msgid "Privacy"
 msgstr "Datenschutz"
 
@@ -1376,11 +1400,11 @@ msgstr "Löschintervall"
 msgid "Purpose"
 msgstr "Zweck"
 
-#: settings/tos.php:833
+#: settings/tos.php:862
 msgid "Reason"
 msgstr "Begründung"
 
-#: settings/tos.php:860
+#: settings/tos.php:889
 msgid ""
 "Recipient email address for complaints or requests for help about lack of "
 "accessibility. Please note: If a request about the possibility of contact "
@@ -1400,7 +1424,7 @@ msgstr ""
 msgid "Refuse Button Text"
 msgstr "Text der Schaltfläche „Ablehnen”"
 
-#: settings/tos.php:648
+#: settings/tos.php:660
 msgid "Registration/Registration Forms"
 msgstr "Anmeldung/Anmeldeformulare"
 
@@ -1408,7 +1432,7 @@ msgstr "Anmeldung/Anmeldeformulare"
 msgid "Reload After Opt-Out"
 msgstr "Nach Opt-Out neu laden"
 
-#: settings/tos.php:786
+#: settings/tos.php:815
 msgid "Report URL"
 msgstr "URL des Berichts"
 
@@ -1422,7 +1446,7 @@ msgstr "Rosenheimer Str. 143 C, 81671 München, Deutschland"
 
 #. Name of the plugin
 msgid "RRZE Legal"
-msgstr ""
+msgstr "RRZE Legal"
 
 #: data/consent-cookies.php:119
 msgid "RRZE Rate Button"
@@ -1450,7 +1474,7 @@ msgstr ""
 "Speichert die Einstellungen der Besucher, die in der Consent-Banner "
 "ausgewählt wurden."
 
-#: settings/tos.php:40
+#: settings/tos.php:38
 msgid "Scope"
 msgstr "Umfang"
 
@@ -1460,8 +1484,8 @@ msgstr ""
 "Scribd, Inc., 460 Bryant St, 100, San Francisco, CA 94107-2594 Vereinigten "
 "Staten"
 
-#: includes/Consent/Cookies/Options.php:258
 #: includes/Consent/Categories/Options.php:193
+#: includes/Consent/Cookies/Options.php:258
 msgid "Search"
 msgstr "Suchen"
 
@@ -1469,7 +1493,7 @@ msgstr "Suchen"
 msgid "Secure"
 msgstr "Secure"
 
-#: settings/tos.php:812
+#: settings/tos.php:841
 msgid ""
 "Selection of the most common deficiencies that a website can have. However, "
 "when choosing one or more of the above-mentioned deficiencies, please "
@@ -1481,19 +1505,19 @@ msgstr ""
 "jeweils plausible Begründung ein, warum dieser Mangel vorhanden ist und "
 "welche Alternativen vorhanden sind, um dennoch an die Inhalte zu gelangen."
 
-#: settings/tos.php:762
+#: settings/tos.php:791
 msgid "Self-Evaluation"
 msgstr "Selbstbewertung"
 
-#: includes/TOS/ContactForm.php:151
+#: includes/TOS/ContactForm.php:149
 msgid "Sending Time"
 msgstr "Absendezeit"
 
-#: settings/tos.php:682
+#: settings/tos.php:694
 msgid "Service Providers"
 msgstr "Externe Dienstleister"
 
-#: settings/tos.php:630
+#: settings/tos.php:642
 msgid "Services"
 msgstr "Dienstleistungen"
 
@@ -1506,7 +1530,7 @@ msgstr "Session"
 msgid "Settings saved."
 msgstr "Die Einstellungen wurden gespeichert."
 
-#: includes/TOS/ContactForm.php:233
+#: includes/TOS/ContactForm.php:231
 msgid "seven"
 msgstr "Sieben"
 
@@ -1522,7 +1546,7 @@ msgstr "SimpleSAML"
 msgid "Siteimprove Analytics"
 msgstr "Siteimprove Analytics"
 
-#: includes/TOS/ContactForm.php:232
+#: includes/TOS/ContactForm.php:230
 msgid "six"
 msgstr "Sechs"
 
@@ -1530,7 +1554,7 @@ msgstr "Sechs"
 msgid "Slideshare"
 msgstr "Slideshare"
 
-#: settings/tos.php:816
+#: settings/tos.php:845
 msgid ""
 "Some documents have been provided by third parties. These documents are not "
 "available in an accessible version."
@@ -1548,7 +1572,7 @@ msgstr ""
 "<strong><em>beispiel.de</em></strong> eingeben, gilt das Cookie auch für "
 "Subdomains wie <strong><em>shop.beispiel.de</em></strong>"
 
-#: settings/tos.php:735
+#: settings/tos.php:764
 msgid ""
 "State of conformity in accordance with EU Directive 2102 and local "
 "legislation."
@@ -1556,7 +1580,7 @@ msgstr ""
 "Stand der Konformität gemäß der EU-Richtlinie 2102 und der lokalen "
 "Gesetzgebung."
 
-#: settings/tos.php:796
+#: settings/tos.php:825
 msgid "Statement"
 msgstr "Erklärung"
 
@@ -1573,26 +1597,26 @@ msgstr ""
 "uns zu verstehen, wie unsere Besucher unsere Website nutzen."
 
 #: settings/consent-cookies.php:54 settings/consent.php:39
-#: settings/network.php:65 settings/consent-categories.php:46
-#: includes/Consent/Cookies/ListTable.php:140
+#: settings/consent-categories.php:46 settings/network.php:65
 #: includes/Consent/Categories/ListTable.php:105
+#: includes/Consent/Cookies/ListTable.php:140
 msgid "Status"
 msgstr "Status"
 
-#: settings/tos.php:98 settings/tos.php:172 settings/tos.php:266
-#: settings/tos.php:389 settings/tos.php:606 settings/tos.php:961
+#: settings/tos.php:104 settings/tos.php:178 settings/tos.php:272
+#: settings/tos.php:403 settings/tos.php:618 settings/tos.php:990
 msgid "Street Name & House Number"
 msgstr "Straße und Hausnummer"
 
-#: settings/tos.php:232 settings/tos.php:901
+#: settings/tos.php:238 settings/tos.php:930
 msgid "Supervisory Authority"
 msgstr "Aufsichtsbehörde"
 
-#: settings/tos.php:820
+#: settings/tos.php:849
 msgid "Tables are used for the purpose of optical design."
 msgstr "Es werden Tabellen zum Zwecke der optischen Gestaltung verwendet."
 
-#: settings/tos.php:306
+#: settings/tos.php:312
 msgid "Tax Number"
 msgstr "Steuernummer"
 
@@ -1612,11 +1636,11 @@ msgstr ""
 "Testen Sie die Einstellungen des Content-Banners, ohne den <strong>Banner-"
 "Status</strong> aktivieren zu müssen"
 
-#: includes/TOS/ContactForm.php:81
+#: includes/TOS/ContactForm.php:80
 msgid "Thank you for your message. It was sent successfully."
 msgstr "Danke für Ihre Nachricht. Sie wurde erfolgreich gesendet."
 
-#: rrze-legal.php:210
+#: rrze-legal.php:175
 msgid ""
 "The \"rrze-tos\" plugin is networkwide activated. Please deactivate the "
 "\"rrze-tos\" plugin as it will be replaced by the \"rrze-legal\" plugin."
@@ -1655,7 +1679,7 @@ msgstr ""
 "Der <strong>Opt-Out-Code</strong> enthält asynchronen JavaScript-Code, der "
 "ausgeführt werden muss, um das Opt-Out abzuschließen"
 
-#: settings/tos.php:555
+#: settings/tos.php:569
 msgid ""
 "The designation, position and tasks of a data protection officer (DPO) "
 "within an organization are described in Articles 37, 38 and 39 of the "
@@ -1665,7 +1689,7 @@ msgstr ""
 "innerhalb einer Organisation sind in den Artikeln 37, 38 und 39 der "
 "Datenschutz-Grundverordnung (DSGVO) der Europäischen Union (EU) beschrieben."
 
-#: includes/TOS/ContactForm.php:172
+#: includes/TOS/ContactForm.php:170
 msgid ""
 "The email address field must be filled out and contain a correctly spelled "
 "email address."
@@ -1677,23 +1701,23 @@ msgstr ""
 msgid "The enqueued script will be blocked"
 msgstr "Das enqueued Skript wird blockiert"
 
-#: includes/TOS/ContactForm.php:182
+#: includes/TOS/ContactForm.php:180
 msgid "The entered number is wrong."
 msgstr "Die eingegebene Zahl ist falsch."
 
 #. %s: Label of the field.
-#: includes/ListSettings.php:611 includes/Settings.php:609
+#: includes/Settings.php:609 includes/ListSettings.php:610
 #, php-format
 msgid "The field %s is required."
 msgstr "Das Feld %s ist erforderlich."
 
-#: includes/TOS/ContactForm.php:141
+#: includes/TOS/ContactForm.php:139
 msgid "The following message was entered in the accessibility feedback form."
 msgstr ""
 "Die folgende Nachricht wurde im Feedback-Formular zur Barrierefreiheit "
 "eingegeben."
 
-#: settings/tos.php:822
+#: settings/tos.php:851
 msgid ""
 "The font color in the logo with the full title of the website does not have "
 "enough contrast."
@@ -1701,23 +1725,23 @@ msgstr ""
 "Die Schriftfarbe im Logo mit dem ausgeschriebenen Titel des Webauftritts ist "
 "nicht kontrastreich genug."
 
-#: includes/TOS/ContactForm.php:74
+#: includes/TOS/ContactForm.php:73
 msgid "The message could not be sent."
 msgstr "Die Nachricht konnte nicht gesendet werden."
 
-#: settings/tos.php:130
+#: settings/tos.php:136
 msgid "The name of the department, chair or other facility"
 msgstr "Der Name der Abteilung, des Lehrstuhls oder einer anderen Einrichtung"
 
 #. %s: Url of the endpoint page.
-#: settings/tos.php:34 settings/tos.php:548 settings/tos.php:722
+#: settings/tos.php:32 settings/tos.php:562 settings/tos.php:751
 #, php-format
 msgid "The output of this settings page is available at the following link: %s"
 msgstr ""
 "Die Ausgabe dieser Einstellungsseite ist unter folgendem Link verfügbar: %s"
 
 #. %s: Permalink of the page that overrides the endpoint.
-#: includes/Main.php:155
+#: includes/Main.php:166
 #, php-format
 msgid ""
 "The output of this settings page is overwritten by the content of the "
@@ -1735,26 +1759,32 @@ msgstr ""
 "Der Pfad, für den das Cookie gültig ist. Standard-Pfad: <strong>%s</strong>"
 
 #. 1: Server PHP version number, 2: Required PHP version number.
-#: rrze-legal.php:77
+#: rrze-legal.php:230
 #, php-format
+#| msgid ""
+#| "The server is running PHP version %1$s. The Plugin requires at least PHP "
+#| "version %2$s."
 msgid ""
-"The server is running PHP version %1$s. The Plugin requires at least PHP "
+"The server is running PHP version %1$s. The plugin requires at least PHP "
 "version %2$s."
 msgstr ""
-"The server is running PHP version %1$s. The Plugin requires at least PHP "
-"version %2$s."
+"Auf dem Server läuft PHP Version %1$s. Das Plugin erfordert mindestens PHP "
+"Version %2$s."
 
 #. 1: Server WordPress version number, 2: Required WordPress version number.
-#: rrze-legal.php:84
+#: rrze-legal.php:222
 #, php-format
+#| msgid ""
+#| "The server is running WordPress version %1$s. The Plugin requires at "
+#| "least WordPress version %2$s."
 msgid ""
-"The server is running WordPress version %1$s. The Plugin requires at least "
+"The server is running WordPress version %1$s. The plugin requires at least "
 "WordPress version %2$s."
 msgstr ""
-"The server is running WordPress version %1$s. The Plugin requires at least "
-"WordPress version %2$s."
+"Auf dem Server läuft WordPress Version %1$s. Das Plugin erfordert mindestens "
+"WordPress Version %2$s."
 
-#: includes/TOS/ContactForm.php:174
+#: includes/TOS/ContactForm.php:172
 msgid "The specified e-mail address is not correct."
 msgstr "Die angegebene E-Mailadresse ist nicht korrekt."
 
@@ -1777,12 +1807,12 @@ msgstr ""
 "Aktiviert) wird es dem Besucher im <strong>Consent Banner</strong> angezeigt"
 
 #. 1: Invalid value, 2: Label of the field.
-#: includes/ListSettings.php:621 includes/Settings.php:619
+#: includes/Settings.php:619 includes/ListSettings.php:620
 #, php-format
 msgid "The value %1$s of the field %2$s is not valid."
 msgstr "Der Wert %1$s des Feldes %2$s ist ungültig."
 
-#: settings/tos.php:828
+#: settings/tos.php:857
 msgid ""
 "The website owner is obliged to publicly list all non-accessible components "
 "of the website and its contents. These must be specified here."
@@ -1799,7 +1829,7 @@ msgstr ""
 "Diese IP-Adressen werden als Besucher behandelt, die alle Cookies akzeptiert "
 "haben. Fügen Sie pro Zeile eine IP-Adresse hinzu."
 
-#: settings/tos.php:763
+#: settings/tos.php:792
 msgid "Third party rating"
 msgstr "Bewertung durch Dritte"
 
@@ -1822,11 +1852,11 @@ msgstr ""
 "(Opt-In) hat und sich für die Abmeldung (Opt-Out) entscheidet. Es wird "
 "einmal ausgeführt."
 
-#: includes/Main.php:145
+#: includes/Main.php:154
 msgid "This message was first displayed recorded on:"
 msgstr "Diese Nachricht wurde erstmals aufgezeichnet angezeigt am:"
 
-#: settings/tos.php:441
+#: settings/tos.php:455
 msgid ""
 "This option allows you to change predefined paragraphs, as well as to add "
 "another self-phrased paragraph.<br>Note: Official FAU facilities should have "
@@ -1836,11 +1866,11 @@ msgstr ""
 "selbst formulierten Absatz hinzufügen.<br>Hinweis: Offizielle Einrichtungen "
 "der FAU sollten alle folgenden Optionen aktiviert haben."
 
-#: includes/TOS/ContactForm.php:229
+#: includes/TOS/ContactForm.php:227
 msgid "three"
 msgstr "Drei"
 
-#: settings/tos.php:418
+#: settings/tos.php:432
 msgid "Title"
 msgstr "Titel"
 
@@ -1856,19 +1886,19 @@ msgstr ""
 "Twitter International Company, One Cumberland Place, Fenian Street, Dublin 2,"
 " D02 AX07, Irland"
 
-#: includes/TOS/ContactForm.php:228
+#: includes/TOS/ContactForm.php:226
 msgid "two"
 msgstr "Zwei"
 
-#: data/tos.php:91
+#: data/tos.php:92
 msgid "University of Technology Nuremberg "
 msgstr "University of Technology Nuremberg "
 
-#: data/tos.php:140
+#: data/tos.php:158
 msgid "Universitätsklinikum Erlangen"
 msgstr "Universitätsklinikum Erlangen"
 
-#: settings/tos.php:741
+#: settings/tos.php:770
 msgid "Unknown: Content was not rated or rating results are not available"
 msgstr ""
 "Unbekannt: Der Inhalt wurde nicht bewertet oder die Bewertungsergebnisse "
@@ -1895,19 +1925,19 @@ msgstr ""
 "haben, erneut angezeigt. <strong>Aktuelle Version des Standard-Cookies: %s "
 "</strong>"
 
-#: settings/tos.php:371 settings/tos.php:426 settings/tos.php:935
+#: settings/tos.php:385 settings/tos.php:440 settings/tos.php:964
 msgid "URL"
 msgstr "URL"
 
-#: settings/tos.php:941
+#: settings/tos.php:970
 msgid "URL (concerning LAW)"
 msgstr "URL (zum anhängigen Gesetz)"
 
-#: settings/tos.php:947
+#: settings/tos.php:976
 msgid "URL (concerning VO)"
 msgstr "URL (zur anhängigen Verordnung)"
 
-#: settings/tos.php:805
+#: settings/tos.php:834
 msgid "Use input help and supplement it with manual entries"
 msgstr "Eingabehilfe nutzen und durch manuelle Eingaben ergänzen"
 
@@ -1952,11 +1982,11 @@ msgstr "Wird verwendet, um Vimeo-Inhalte zu entsperren."
 msgid "Used to unblock YouTube content."
 msgstr "Wird verwendet, um Youtube-Inhalte zu entsperren."
 
-#: includes/TOS/ContactForm.php:148
+#: includes/TOS/ContactForm.php:146
 msgid "User Agent"
 msgstr "Verwendeter User-Agent"
 
-#: settings/tos.php:298
+#: settings/tos.php:304
 #| msgid "Identification Numbers"
 msgid "VAT identification number"
 msgstr "Umsatzsteuer-Identifikationsnummer"
@@ -1971,15 +2001,15 @@ msgstr ""
 "Vimeo Inc., 555 West 18th Street, New York, New York 10011, Vereinigte "
 "Staaten"
 
-#: settings/tos.php:199
+#: settings/tos.php:205
 msgid "Webmaster"
 msgstr "Webmaster"
 
-#: includes/TOS/ContactForm.php:152
+#: includes/TOS/ContactForm.php:150
 msgid "Website Form"
 msgstr "Website-Form"
 
-#: settings/tos.php:45
+#: settings/tos.php:43
 msgid "Websites"
 msgstr "Webauftritte"
 
@@ -2001,7 +2031,7 @@ msgstr ""
 "erstellen. Diese haben dann Vorrang vor den automatisch erstellten Texten "
 "und werden statdessen gezeigt"
 
-#: settings/tos.php:821
+#: settings/tos.php:850
 msgid ""
 "When using multilingual content on a page, sometimes the languages ​​are not "
 "correctly marked in HTML."
@@ -2009,16 +2039,21 @@ msgstr ""
 "Bei der Verwendung von mehrsprachigen Inhalten auf einer Seite, werden die "
 "Sprachen teilweise nicht korrekt in HTML gekennzeichnet."
 
-#: settings/tos.php:410
+#: settings/tos.php:424
 msgid "Whistleblower protection"
 msgstr "Hinweisgeberschutz"
+
+#: settings/tos.php:434
+msgid "Whistleblower system"
+msgstr "Whistleblower-System"
 
 #: data/consent-cookies.php:35
 msgid "WordPress"
 msgstr "WordPress"
 
-#: settings/tos.php:507 settings/tos.php:526 settings/tos.php:639
-#: settings/tos.php:652 settings/tos.php:665 settings/tos.php:700
+#: settings/tos.php:521 settings/tos.php:540 settings/tos.php:651
+#: settings/tos.php:664 settings/tos.php:677 settings/tos.php:712
+#: settings/tos.php:729
 msgid "Yes"
 msgstr "Ja"
 
@@ -2044,6 +2079,6 @@ msgstr "YouTube"
 msgid "yy-mm-dd"
 msgstr "yy-mm-dd"
 
-#: includes/TOS/ContactForm.php:226
+#: includes/TOS/ContactForm.php:224
 msgid "zero"
 msgstr "Null"

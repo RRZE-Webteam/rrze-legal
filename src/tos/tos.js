@@ -27,9 +27,11 @@ jQuery(document).ready(function ($) {
         }
     }
 
-    function privacyNewSection() {
-        let inputName = `${legalSettings.optionName}[privacy_optional_new_section]`;
-        let wpWrap = "wp-privacy_optional_new_section_content-wrap";
+    function privacyNewSection(region = '') {
+        if (region != '')
+            region = `_${region}`;
+        let inputName = `${legalSettings.optionName}[privacy_optional_new_section${region}]`;
+        let wpWrap = `wp-privacy_optional_new_section_content${region}-wrap`;
         let input = $(
             `input[name='${inputName}']:checked`,
             "#rrze-legal-privacy"
@@ -63,9 +65,15 @@ jQuery(document).ready(function ($) {
         imprintNewSection();
     });
 
-    privacyNewSection();
+    privacyNewSection('top');
+    privacyNewSection('');
     $("#rrze-legal-privacy input[type='radio']").on("change", function () {
-        privacyNewSection();
+        let region = '';
+        let name = $(this).attr('name');
+        if (name.indexOf("new_section_top") >= 0) {
+            region = 'top';
+        }
+        privacyNewSection(region);
     });
 
     accessibilityHelperSection();

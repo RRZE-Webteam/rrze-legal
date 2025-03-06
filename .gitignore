@@ -15,3 +15,6 @@ composer.lock
 *.pot
 ### Tmp ###
 _tmp/
+### Translation Backups ###
+*.po~
+*.pot~
