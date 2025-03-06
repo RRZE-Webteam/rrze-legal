@@ -705,8 +705,25 @@ $settings = [
                         'description' => __('Additional information about the privacy policy.', 'rrze-legal'),
                         'fields' => [
                             [
+                                'name' => 'optional_new_section_top',
+                                'label' => __('Add a New Section at the Beginning of the Page', 'rrze-legal'),
+                                'type' => 'radio',
+                                'options' => [
+                                    '1' => __('Yes', 'rrze-legal'),
+                                    '0' => __('No', 'rrze-legal'),
+                                ],
+                                'default' => '0',
+                                'inline' => true,
+                            ],
+                            [
+                                'name' => 'optional_new_section_content_top',
+                                'label' => __('Content', 'rrze-legal'),
+                                'description' => __('Content of the new, additional section.', 'rrze-legal'),
+                                'type' => 'wpeditor',
+                            ],
+                            [
                                 'name' => 'optional_new_section',
-                                'label' => __('Add a New Section', 'rrze-legal'),
+                                'label' => __('Add a New Section at the End of the Page', 'rrze-legal'),
                                 'type' => 'radio',
                                 'options' => [
                                     '1' => __('Yes', 'rrze-legal'),
