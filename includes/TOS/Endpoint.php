@@ -44,7 +44,7 @@ class Endpoint {
     }
 
     public static function getSlugs()  {
-        $langCode = is_user_logged_in() && is_admin() ? Locale::getUserLangCode() : Locale::getLangCode();
+        $langCode = Locale::getLangCode();
         return in_array($langCode, array_keys(self::avalaibleI18nSlugs())) ? self::avalaibleI18nSlugs()[$langCode] : self::defaultSlugs();
     }
 
@@ -62,7 +62,7 @@ class Endpoint {
         $prefix = '';
         $locale = Locale::getLocale();
         $defaultLocale = Locale::getDefaultLocale();
-        $langCode = is_user_logged_in() && is_admin() ? Locale::getUserLangCode() : Locale::getLangCode();
+        $langCode = Locale::getLangCode();
 
         global $wp;
         $url = site_url($wp->request);
@@ -357,7 +357,7 @@ class Endpoint {
         }
         $locale = Locale::getLocale();
         $defaultLocale = Locale::getDefaultLocale();
-        $langCode = is_user_logged_in() && is_admin() ? Locale::getUserLangCode() : Locale::getLangCode();
+        $langCode = Locale::getLangCode();
         $slugs = self::getSlugs();
         $langSegment = $locale != $defaultLocale ? $langCode . '/' : '';
         return site_url($langSegment . $slugs[$slug] . '/');

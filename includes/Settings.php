@@ -225,7 +225,7 @@ class Settings {
      * @return array
      */
     protected function setOptions() {
-        $langCode = is_user_logged_in() && is_admin() ? Locale::getUserLangCode() : Locale::getLangCode();
+        $langCode = Locale::getLangCode();
         $this->optionName = $this->optionName . '_' . $langCode;
         $defaults = $this->defaultOptions();
         $options = get_option($this->optionName);
