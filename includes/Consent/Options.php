@@ -38,7 +38,7 @@ class Options extends Settings {
 
     public function bannerDefaultDescription()
     {
-        $langCode = is_user_logged_in() && is_admin() ? Locale::getUserLangCode() : Locale::getLangCode();
+        $langCode = Locale::getLangCode();
         $tpl = plugin()->getPath(Template::CONSENT_PATH) . 'banner-default-description' . '-' . $langCode . '.html';
         if (!is_readable($tpl)) {
             $tpl = plugin()->getPath(Template::CONSENT_PATH) . 'banner-default-description-en.html';

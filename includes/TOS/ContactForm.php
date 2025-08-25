@@ -119,7 +119,7 @@ class ContactForm
             $data = $defaultData;
         }
 
-        $langCode = is_user_logged_in() && is_admin() ? Locale::getUserLangCode() : Locale::getLangCode();
+        $langCode = Locale::getLangCode();
         $_tpl = 'accessibility-contact-form';
         $template = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-' . $langCode . '.html';
         return Template::getContent($template, $data);
