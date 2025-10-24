@@ -14,12 +14,9 @@ if (is_plugin_active('rrze-elements/rrze-elements.php')) {
     wp_enqueue_script('rrze-accordions');
 }
 ?>
-<section id="primary" class="content-area">
-    <main id="main" class="site-main">
-        <div id="rrze-tos">
-            <?php echo $content; ?>
-        </div>
+    <main id="rrze-tos"  lang="<?php echo esc_attr($langCode); ?>">
+        <h1><?php echo esc_html( $title ); ?></h1>
+         <?php echo $content; ?>
     </main>
-</section>
 <?php
 get_footer();
