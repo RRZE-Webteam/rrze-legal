@@ -27,6 +27,9 @@ class Template
             'rrze-2015',
             'rrze-2019',
         ],
+        'fau-elemental.php' => [
+            'FAU-Elemental',
+        ],
         'events.php' => [
             'FAU-Events',
         ],
