@@ -57,7 +57,7 @@ $data = [
             'imprint_whistleblower_system' => [
                 '_readonly'        => true,
                 'linktitle'         => 'Hinweisgebersystem der FAU',
-                'url'               => 'https://fau.whistletrust.eu/startWhistleProcess.php'
+                'url'               => 'https://fau-meldestelle.hinweis.digital/'
             ],
             'privacy_dpo' =>  [
                 '_readonly'        => true,

@@ -17,7 +17,7 @@ if (is_plugin_active('rrze-elements/rrze-elements.php')) {
 
 ?>
 
-<main id="primary" class="site-main" lang="<?php echo esc_attr($langCode); ?>">
+<main lang="<?php echo esc_attr($langCode); ?>">
   <header class="page-header">
     <h1 class="wp-block-post-title">
       <?php echo esc_html( $title ); ?>
