@@ -7,7 +7,7 @@ Generator für rechtliche Pflichtangaben auf einem Webauftritt.
 
 ## Version
 
-Version: 2.8.2
+Version: 2.8.5
 
 
 ## Zweck 
