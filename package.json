@@ -1,6 +1,6 @@
 {
   "name": "rrze-legal",
-  "version": "2.8.5",
+  "version": "2.8.6",
   "description": "Legal Mandatory Information & GDPR.",
   "main": "webpack.config.js",
   "author": "RRZE Webteam <webmaster@fau.de> (https://www.rrze.fau.de/)",
@@ -10,7 +10,7 @@
     "npm": ">=10.9.0"
   },
   "devDependencies": {
-    "@wordpress/scripts": "latest"
+    "@wordpress/scripts": "^31.1.0"
   },
   "browserslist": [
     "extends @wordpress/browserslist-config"

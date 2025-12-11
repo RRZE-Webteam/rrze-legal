@@ -322,7 +322,7 @@ class ContentBlocker {
         $button = __('I agree', 'rrze-legal');
 
         return sprintf(
-            '<aside class="_rrzelegal-content-blocker"><div class="_rrzelegal-default"><h1>%1$s</h1><p>%2$s</p><p>%3$s</p><p><a class="_rrzelegal-btn" href="#" data-rrzelegal-cookie-unblock role="button">%4$s</a></p></div></aside>',
+            '<aside class="_rrzelegal-content-blocker" aria-label="%1$s"><div class="_rrzelegal-default"><p class="_rrzelegal-notice-title">%1$s</p><p>%2$s</p><p>%3$s</p><p><a class="_rrzelegal-btn" href="#" data-rrzelegal-cookie-unblock role="button">%4$s</a></p></div></aside>',
             $header,
             $firstText,
             $secondText,
