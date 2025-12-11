@@ -10,7 +10,7 @@
     "npm": ">=10.9.0"
   },
   "devDependencies": {
-    "@wordpress/scripts": "latest"
+    "@wordpress/scripts": "^31.1.0"
   },
   "browserslist": [
     "extends @wordpress/browserslist-config"

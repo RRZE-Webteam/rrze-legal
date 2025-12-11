@@ -39,6 +39,7 @@ $data = [
                 'tax'               => '216/114/20045 (Finanzamt Erlangen)',
                 'duns'              => '327958716',
                 'eori'              => 'DE4204891',              
+                'kontoinhaber'      => 'Freistaat Bayern',
                 'bankname'          => 'Bayerische Landesbank München',             
                 'iban'              => 'DE66700500000301279280',
                 'bic'               => 'BYLADEMMXXX'

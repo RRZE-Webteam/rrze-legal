@@ -331,9 +331,9 @@ $settings = [
                                 'sanitize_callback' => 'sanitize_text_field',
                                 'required' => false,
                             ],
-                             [
-                                'name' => 'id_numbers_bankname',
-                                'label' => __('Bank (Name)', 'rrze-legal'),
+                            [
+                                'name' => 'id_numbers_kontoinhaber',
+                                'label' => __('Account holder', 'rrze-legal'),
                                 'type' => 'text',
                                 'default' => '',
                                 'sanitize_callback' => 'sanitize_text_field',
@@ -342,6 +342,14 @@ $settings = [
                             [
                                 'name' => 'id_numbers_iban',
                                 'label' => __('IBAN', 'rrze-legal'),
+                                'type' => 'text',
+                                'default' => '',
+                                'sanitize_callback' => 'sanitize_text_field',
+                                'required' => false,
+                            ],
+                            [
+                                'name' => 'id_numbers_bankname',
+                                'label' => __('Bank (Name)', 'rrze-legal'),
                                 'type' => 'text',
                                 'default' => '',
                                 'sanitize_callback' => 'sanitize_text_field',

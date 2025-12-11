@@ -248,9 +248,9 @@ class Endpoint {
             $filled = true;
         }
             
-        if (!empty($options['imprint_id_numbers_bankname'])
-            || (!empty($options['imprint_id_numbers_iban']))
-            || (!empty($options['imprint_id_numbers_bic']))) {
+        if ((!empty($options['imprint_id_numbers_kontoinhaber']))
+            && (!empty($options['imprint_id_numbers_iban']))
+            && (!empty($options['imprint_id_numbers_bic']))) {
             $options['imprint_id_numbers_bankdata'] = true;
         }
         

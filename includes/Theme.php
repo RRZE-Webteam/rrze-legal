@@ -26,6 +26,8 @@ class Theme
         ],
         'events' => [
             'FAU-Events',
+            'FAU-Events-UTN',
+            'FAU-Events UTN'
         ],
         'jobs' => [
             'fau-jobportal-theme',
