@@ -20,7 +20,7 @@ $data = [
                 'postal_code'       => '91058',
                 'postal_city'       => 'Erlangen',
                 'person_name'       => 'Präsident Prof. Dr. Joachim Hornegger',
-                'legal-label'       => 'Körperschaft des Öffentlichen Rechts',
+                'legal-label'       => 'Die Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU) ist eine Körperschaft des Öffentlichen Rechts und zugleich staatliche Einrichtung nach Art. 4 Abs. 1 Bayerisches Hochschulinnovationsgesetz (BayHIG)',
             ],
             'imprint_supervisory_authority' => [
                 '_readonly'        => true,
@@ -101,7 +101,7 @@ $data = [
                 'postal_code'       => '90461',
                 'postal_city'       => 'Nürnberg ',
                 'person_name'       => 'Präsident Prof. Dr. Michael Huth',
-                'legal-label'       => 'Körperschaft des Öffentlichen Rechts'
+                'legal-label'       => 'Die Technische Universität Nürnberg (UTN) ist eine Körperschaft des Öffentlichen Rechts und zugleich staatliche Einrichtung nach Art. 4 Abs. 1 Bayerisches Hochschulinnovationsgesetz (BayHIG)'
             ],
             'imprint_supervisory_authority' => [
                 '_readonly'        => true,
@@ -168,7 +168,7 @@ $data = [
                 'postal_code'       => '91054',
                 'postal_city'       => 'Erlangen',
                 'person_name'       => 'Ärztlicher Direktor Prof. Dr. med. Dr. h. c. Heinrich Iro',
-                'legal-label'       => 'Körperschaft des Öffentlichen Rechts'
+                'legal-label'       => 'Das Universitätsklinikum Erlangen ist eine Körperschaft des Öffentlichen Rechts'
             ],
             'imprint_supervisory_authority' => [
                 '_readonly'        => true,
