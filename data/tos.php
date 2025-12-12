@@ -20,7 +20,7 @@ $data = [
                 'postal_code'       => '91058',
                 'postal_city'       => 'Erlangen',
                 'person_name'       => 'Präsident Prof. Dr. Joachim Hornegger',
-                'legal-label'       => 'Die Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU) ist eine Körperschaft des Öffentlichen Rechts und zugleich staatliche Einrichtung nach Art. 4 Abs. 1 Bayerisches Hochschulinnovationsgesetz (BayHIG)',
+                'legal-label'       => 'Die Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU) ist staatliche Einrichtung und zugleich Körperschaft des Öffentlichen Rechts nach Art. 4 Abs. 1 Bayerisches Hochschulinnovationsgesetz (BayHIG)',
             ],
             'imprint_supervisory_authority' => [
                 '_readonly'        => true,
@@ -101,7 +101,7 @@ $data = [
                 'postal_code'       => '90461',
                 'postal_city'       => 'Nürnberg ',
                 'person_name'       => 'Präsident Prof. Dr. Michael Huth',
-                'legal-label'       => 'Die Technische Universität Nürnberg (UTN) ist eine Körperschaft des Öffentlichen Rechts und zugleich staatliche Einrichtung nach Art. 4 Abs. 1 Bayerisches Hochschulinnovationsgesetz (BayHIG)'
+                'legal-label'       => 'Die Technische Universität Nürnberg (UTN) ist staatliche Einrichtung und zugleich Körperschaft des Öffentlichen Rechts nach Art. 4 Abs. 1 Bayerisches Hochschulinnovationsgesetz (BayHIG)'
             ],
             'imprint_supervisory_authority' => [
                 '_readonly'        => true,
