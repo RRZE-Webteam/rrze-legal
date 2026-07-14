@@ -47,9 +47,10 @@ $settings = [
                     [
                         'name' => 'exceptions',
                         'label' => __('Exceptions', 'rrze-legal'),
-                        'description' => __('List of website IDs that are exempt from the network settings. Enter one website ID per line.', 'rrze-legal'),
+                        'description' => __('List of website IDs that are exempt from the network settings if websites are not allowed to override endpoints. Enter one website ID per line.', 'rrze-legal'),
                         'type' => 'textarea',
                         'default' => '',
+                        'disabled' => network()->isOverwriteEndpointsEnabled(),
                         'sanitize_callback' => [network(), 'sanitizeTextareaSitesList'],
                     ],
                 ],

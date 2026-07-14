@@ -90,10 +90,14 @@ class Main
         $slugs = Endpoint::getSlugs();
         $published = [];
         if (tos()->overwriteEndpoints()) {
-            foreach (array_keys($slugs) as $slug) {
+            foreach ($slugs as $endpoint => $slug) {
+                if (!tos()->isManualPageAllowed($endpoint)) {
+                    continue;
+                }
+
                 $page = get_page_by_path($slug);
                 if (!is_null($page) && $page->post_status == 'publish') {
-                    $published[$slug] = $page->ID;
+                    $published[$endpoint] = $page->ID;
                 }
             }
         }

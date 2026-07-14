@@ -4,7 +4,7 @@ namespace RRZE\Legal\Network;
 
 defined('ABSPATH') || exit;
 
-use RRZE\Legal\Settings;
+use RRZE\Legal\{Settings, Utils};
 use function RRZE\Legal\plugin;
 
 class Options extends Settings
@@ -32,6 +32,7 @@ class Options extends Settings
         $this->optionsPage = (object) $this->settings['options_page']['page'];
         $this->optionsMenu = (object) $this->settings['options_page']['menu'];
         $this->sections = (object) $this->settings['settings']['sections'];
+        $this->setNetworkMenuParent();
 
         $this->setFields();
         $this->setOptions();
@@ -51,6 +52,32 @@ class Options extends Settings
 
         add_action('network_admin_edit_rrze-legal-network-action', [$this, 'save']);
         add_action('network_admin_notices', [$this, 'adminNotices']);
+    }
+
+    protected function setNetworkMenuParent()
+    {
+        if (Utils::isPluginActiveForNetwork('rrze-settings/rrze-settings.php')) {
+            $this->optionsParent->slug = 'rrze-settings';
+        }
+    }
+
+    protected function getNetworkMenuBaseUrl(): string
+    {
+        if ($this->optionsParent->slug === 'settings.php') {
+            return network_admin_url('settings.php');
+        }
+
+        return network_admin_url('admin.php');
+    }
+
+    public function isOverwriteEndpointsEnabled(): bool
+    {
+        $options = (array) get_site_option($this->optionName);
+        if (!array_key_exists('network_general_overwrite_endpoints', $options)) {
+            return true;
+        }
+
+        return (bool) $options['network_general_overwrite_endpoints'];
     }
 
     /**
@@ -136,7 +163,7 @@ class Options extends Settings
         }
         wp_redirect(add_query_arg(
             $queryArgs,
-            network_admin_url('settings.php')
+            $this->getNetworkMenuBaseUrl()
         ));
         exit;
     }

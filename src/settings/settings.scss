@@ -150,6 +150,18 @@
 	// opacity: 0.6;
 	// border-style: dotted;
     }
+    .subsection.rrze-legal-manual-page-disabled {
+        opacity: 0.45;
+
+        input,
+        select,
+        textarea,
+        button,
+        .wp-editor-wrap,
+        .CodeMirror {
+            pointer-events: none;
+        }
+    }
     .rrze-legal-dashboardalert {
    
 	border-left-color: red;
@@ -172,4 +184,3 @@
         width: 100%;
     }
 }
-

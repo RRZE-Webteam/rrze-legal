@@ -34,6 +34,22 @@ $settings = [
                 ),
                 'subsections' => [
                     [
+                        'id' => 'manual_page',
+                        'title' => __('Manual Page', 'rrze-legal'),
+                        'description' => '',
+                        'hide_section' => !tos()->canConfigureManualPages(),
+                        'fields' => [
+                            [
+                                'name' => 'allow_manual_page',
+                                'label' => __('Manuelle Seite erlauben', 'rrze-legal'),
+                                'description' => __('Diese Seite darf durch eine normale Seite mit gleichem Slug überschrieben werden. Sollte eine Seite existieren mit dem Slug wird diese gezeigt und nicht die generierte Seite.', 'rrze-legal'),
+                                'notice' => tos()->manualPageNotice('imprint'),
+                                'type' => 'checkbox',
+                                'default' => false,
+                            ],
+                        ],
+                    ],
+                    [
                         'id' => 'scope',
                         'title' => __('Scope', 'rrze-legal'),
                         'description' => '',
@@ -572,6 +588,22 @@ $settings = [
                 ),
                 'subsections' => [
                     [
+                        'id' => 'manual_page',
+                        'title' => __('Manual Page', 'rrze-legal'),
+                        'description' => '',
+                        'hide_section' => !tos()->canConfigureManualPages(),
+                        'fields' => [
+                            [
+                                'name' => 'allow_manual_page',
+                                'label' => __('Manuelle Seite erlauben', 'rrze-legal'),
+                                'description' => __('Diese Seite darf durch eine normale Seite mit gleichem Slug überschrieben werden. Sollte eine Seite existieren mit dem Slug wird diese gezeigt und nicht die generierte Seite.', 'rrze-legal'),
+                                'notice' => tos()->manualPageNotice('privacy'),
+                                'type' => 'checkbox',
+                                'default' => false,
+                            ],
+                        ],
+                    ],
+                    [
                         'id' => 'dpo',
                         'title' => __('Data Protection Officer', 'rrze-legal'),
                         'description' => __("The designation, position and tasks of a data protection officer (DPO) within an organization are described in Articles 37, 38 and 39 of the European Union (EU) General Data Protection Regulation (GDPR).", 'rrze-legal'),
@@ -760,7 +792,22 @@ $settings = [
                     tos()->endpointLink('accessibility')
                 ),
                 'subsections' => [
-                    
+                    [
+                        'id' => 'manual_page',
+                        'title' => __('Manual Page', 'rrze-legal'),
+                        'description' => '',
+                        'hide_section' => !tos()->canConfigureManualPages(),
+                        'fields' => [
+                            [
+                                'name' => 'allow_manual_page',
+                                'label' => __('Manuelle Seite erlauben', 'rrze-legal'),
+                                'description' => __('Diese Seite darf durch eine normale Seite mit gleichem Slug überschrieben werden. Sollte eine Seite existieren mit dem Slug wird diese gezeigt und nicht die generierte Seite.', 'rrze-legal'),
+                                'notice' => tos()->manualPageNotice('accessibility'),
+                                'type' => 'checkbox',
+                                'default' => false,
+                            ],
+                        ],
+                    ],
                     [
                         'id' => 'compliance_status',
                         'title' => __('Compliance Status', 'rrze-legal'),

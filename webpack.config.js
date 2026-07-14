@@ -1,5 +1,4 @@
 const defaults = require("@wordpress/scripts/config/webpack.config");
-const webpack = require("webpack");
 
 /**
  * WP-Scripts Webpack config.
@@ -15,11 +14,4 @@ module.exports = {
         banner: "./src/banner/index.js",
         prioritize: "./src/prioritize/index.js",
     },
-    plugins: [
-        ...defaults.plugins,
-        new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery",
-        }),
-    ],
 };

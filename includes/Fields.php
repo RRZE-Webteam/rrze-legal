@@ -35,6 +35,7 @@ class Fields
         'sanitize_callback' => null,
         'required' => false,
         'errors' => '',
+        'notice' => '',
     ];
 
     /**
@@ -326,6 +327,9 @@ class Fields
             '%s</label>',
             $atts['description']
         );
+        if (!empty($atts['notice'])) {
+            $html .= $atts['notice'];
+        }
 
         echo $html;
     }

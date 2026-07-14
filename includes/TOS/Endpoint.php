@@ -13,6 +13,7 @@ class Endpoint {
      */
     public function __construct()  {
         add_action('init', [__CLASS__, 'addEndpoint']);
+        add_filter('request', [__CLASS__, 'manualPageRequest'], 0);
         add_action('template_redirect', [__CLASS__, 'endpointTemplateRedirect']);
     }
 
@@ -56,55 +57,36 @@ class Endpoint {
         }
     }
 
-    public static function endpointTemplateRedirect()  {
-        $pagePath = '';
-        $title = '';
-        $prefix = '';
-        $locale = Locale::getLocale();
-        $defaultLocale = Locale::getDefaultLocale();
-        $langCode = Locale::getLangCode();
-
-        global $wp;
-        $url = site_url($wp->request);
-        $segments = explode('/', $url);
-        $urlSlug = $segments[array_key_last($segments)];
-
-        foreach (self::avalaibleI18nSlugs() as $lang => $slugs) {
-            foreach ($slugs as $key => $slug) {
-                if ($urlSlug == $slug && $langCode != $lang) {
-                    $r = self::avalaibleI18nSlugs()[$langCode][$key];
-                    $langSegment = $defaultLocale != $locale ? $langCode . '/' : '';
-                    wp_redirect(site_url($langSegment . $r));
-                    exit;
-                } elseif ($urlSlug == $slug && $langCode == $lang) {
-                    $pagePath = $slug;
-                    $title = self::slugsTitles()[$key];
-                    $prefix = self::defaultSlugs()[$key];
-                    break 2;
-                }
-            }
+    public static function manualPageRequest(array $queryVars): array {
+        $requestData = self::getRootEndpointRequestData();
+        if (empty($requestData)) {
+            return $queryVars;
         }
 
-        if (!$pagePath || !$title || !$prefix) {
+        $page = self::getAllowedManualPage($requestData['endpoint'], $requestData['page_path']);
+        if (!($page instanceof \WP_Post)) {
+            return $queryVars;
+        }
+
+        return [
+            'page_id' => $page->ID,
+        ];
+    }
+
+    public static function endpointTemplateRedirect()  {
+        $langCode = Locale::getLangCode();
+        $requestData = self::getRootEndpointRequestData();
+
+        if (empty($requestData)) {
             return;
         }
 
-        add_filter('pre_get_document_title', fn () => ($title));
-
-        if (tos()->overwriteEndpoints()) {
-            $page = get_page_by_path($pagePath);
-            if (!is_null($page) && $page->post_status == 'publish') {
-                // Replaces double line breaks with paragraph elements
-                $content = wpautop($page->post_content);
-                // Search content for shortcodes and filter shortcodes through their hooks
-                // Shortcodes inside HTML elements will be skipped
-                $content = do_shortcode($content);
-                // Render the page with the content
-                $template = plugin()->getPath(Template::THEMES_PATH) . Template::getThemeFilename();
-                include($template);
-                exit;
-            }
+        if (self::getAllowedManualPage($requestData['endpoint'], $requestData['page_path']) instanceof \WP_Post) {
+            return;
         }
+
+        add_filter('pre_get_document_title', [__CLASS__, 'documentTitle']);
+
         // Get the options
         $options = tos()->getOptions();
         // Adjustments
@@ -151,9 +133,9 @@ class Endpoint {
         self::setContactForm($options);
 
         // Get the parent template
-        $template = plugin()->getPath(Template::TOS_PATH) . $prefix . '-' . $langCode . '.html';
+        $template = plugin()->getPath(Template::TOS_PATH) . $requestData['endpoint'] . '-' . $langCode . '.html';
         if (!is_readable($template)) {
-            $template = plugin()->getPath(Template::TOS_PATH) . $prefix . '-en.html';
+            $template = plugin()->getPath(Template::TOS_PATH) . $requestData['endpoint'] . '-en.html';
         }
         if (!is_readable($template)) {
             self::error404();
@@ -218,6 +200,79 @@ class Endpoint {
         }
         include($template);
         exit;
+    }
+
+    public static function documentTitle(): string {
+        $requestData = self::getRootEndpointRequestData();
+        return $requestData['title'] ?? '';
+    }
+
+    protected static function getRootEndpointRequestData(): array {
+        $locale = Locale::getLocale();
+        $defaultLocale = Locale::getDefaultLocale();
+        $langCode = Locale::getLangCode();
+        $urlSlug = self::getRootEndpointSlug();
+
+        foreach (self::avalaibleI18nSlugs() as $lang => $slugs) {
+            foreach ($slugs as $key => $slug) {
+                if ($urlSlug == $slug && $langCode != $lang) {
+                    $redirectSlug = self::avalaibleI18nSlugs()[$langCode][$key];
+                    $langSegment = $defaultLocale != $locale ? $langCode . '/' : '';
+                    wp_redirect(site_url($langSegment . $redirectSlug));
+                    exit;
+                }
+                if ($urlSlug == $slug && $langCode == $lang) {
+                    return [
+                        'page_path' => $slug,
+                        'title' => self::slugsTitles()[$key],
+                        'endpoint' => self::defaultSlugs()[$key],
+                    ];
+                }
+            }
+        }
+
+        return [];
+    }
+
+    protected static function getRootEndpointSlug(): string {
+        global $wp;
+
+        $request = isset($wp->request) ? trim((string) $wp->request, '/') : '';
+        if ($request === '') {
+            return '';
+        }
+
+        $segments = explode('/', $request);
+        if (count($segments) === 1) {
+            return $segments[0];
+        }
+
+        $locale = Locale::getLocale();
+        $defaultLocale = Locale::getDefaultLocale();
+        $langCode = Locale::getLangCode();
+
+        if ($defaultLocale !== $locale && count($segments) === 2 && $segments[0] === $langCode) {
+            return $segments[1];
+        }
+
+        return '';
+    }
+
+    protected static function getAllowedManualPage(string $endpoint, string $pagePath): ?\WP_Post {
+        if (!tos()->isManualPageAllowed($endpoint)) {
+            return null;
+        }
+
+        $page = get_page_by_path($pagePath, OBJECT, 'page');
+        if (!($page instanceof \WP_Post)) {
+            return null;
+        }
+
+        if ($page->post_status !== 'publish') {
+            return null;
+        }
+
+        return $page;
     }
 
     protected static function setContactForm(&$options)  {

@@ -111,7 +111,11 @@ class Options extends Settings {
      */
     public function adminEnqueueTOSScripts()  {
         wp_register_script('rrze-legal-tos-settings', plugins_url('build/tos.js', plugin()->getBasename()), ['jquery'], plugin()->getVersion());
-        wp_localize_script('rrze-legal-tos-settings', 'legalSettings', [ 'optionName' => $this->optionName ]);
+        wp_localize_script('rrze-legal-tos-settings', 'legalSettings', [
+            'dateFormat' => __('yy-mm-dd', 'rrze-legal'),
+            'optionName' => $this->optionName,
+            'manualPages' => $this->getManualPageSettings(),
+        ]);
     }
 
     public function setFAUDpoSection()  {
@@ -137,6 +141,90 @@ class Options extends Settings {
             return (bool) network()->getOption('network_general', 'overwrite_endpoints');
         }
         return true;
+    }
+
+    public function canConfigureManualPages(): bool {
+        if (!is_multisite()) {
+            return true;
+        }
+
+        return $this->overwriteEndpoints();
+    }
+
+    public function isManualPageAllowed(string $endpoint): bool {
+        if (!$this->canConfigureManualPages()) {
+            return false;
+        }
+
+        return (bool) $this->getOption($endpoint, 'allow_manual_page');
+    }
+
+    public function hasPublishedManualPage(string $endpoint): bool {
+        $page = $this->getManualPage($endpoint);
+        if (!($page instanceof \WP_Post)) {
+            return false;
+        }
+
+        return $page->post_status === 'publish';
+    }
+
+    public function manualPageNotice(string $endpoint): string {
+        $page = $this->getManualPage($endpoint);
+        if (!($page instanceof \WP_Post)) {
+            return '';
+        }
+
+        $slugs = Endpoint::getSlugs();
+        $slug = $slugs[$endpoint] ?? '';
+        $editUrl = get_edit_post_link($page->ID, '');
+        $editLink = $editUrl ? sprintf(
+            '<a href="%1$s">%2$s</a>',
+            esc_url($editUrl),
+            esc_html__('Seite bearbeiten', 'rrze-legal')
+        ) : '';
+
+        $statusMessage = $page->post_status === 'publish'
+            ? __('Wenn "Manuelle Seite erlauben" aktiviert ist, wird diese Seite statt der generierten Seite angezeigt.', 'rrze-legal')
+            : __('Diese Seite überschreibt den Endpoint erst, wenn sie veröffentlicht ist und "Manuelle Seite erlauben" aktiviert ist.', 'rrze-legal');
+
+        $message = sprintf(
+            /* translators: 1: endpoint slug, 2: edit page link, 3: status message. */
+            __('Es existiert eine Seite mit dem Slug %1$s. %3$s %2$s', 'rrze-legal'),
+            '<code>' . esc_html($slug) . '</code>',
+            $editLink,
+            esc_html($statusMessage)
+        );
+
+        return '<div class="notice notice-info inline rrze-legal-manual-page-notice"><p>' . $message . '</p></div>';
+    }
+
+    protected function getManualPage(string $endpoint): ?\WP_Post {
+        $slugs = Endpoint::getSlugs();
+        if (!isset($slugs[$endpoint])) {
+            return null;
+        }
+
+        $page = get_page_by_path($slugs[$endpoint], OBJECT, 'page');
+        if (!($page instanceof \WP_Post)) {
+            return null;
+        }
+
+        return $page;
+    }
+
+    public function isManualPageOverriding(string $endpoint): bool {
+        return $this->isManualPageAllowed($endpoint) && $this->hasPublishedManualPage($endpoint);
+    }
+
+    protected function getManualPageSettings(): array {
+        $settings = [];
+        foreach (array_keys(Endpoint::defaultSlugs()) as $endpoint) {
+            $settings[$endpoint] = [
+                'exists' => $this->hasPublishedManualPage($endpoint),
+                'overrides' => $this->isManualPageOverriding($endpoint),
+            ];
+        }
+        return $settings;
     }
 
     public function getFAUDomains() {
@@ -316,10 +404,14 @@ class Options extends Settings {
             }
             
             $readonly = $this->isReadonlySubsection($sectionId . '_' . $subsection['id']);
+            $manualPageOverridden = $subsection['id'] !== 'manual_page' && $this->isManualPageOverriding($sectionId);
             
             $startclass = "subsection subsection-".$sectionId . '_' . $subsection['id'];
             if ($readonly) {
                 $startclass .= " readonly";
+            }
+            if ($manualPageOverridden) {
+                $startclass .= " rrze-legal-manual-page-disabled";
             }
             
             
@@ -395,6 +487,7 @@ class Options extends Settings {
                 'sanitize_callback' => $option['sanitize_callback'] ?? null,
                 'required' => $required,
                 'errors' => get_settings_errors($this->settingsPrefix . $section),
+                'notice' => $option['notice'] ?? '',
             ];
 
             $atts = Fields::matchAtts($atts);

@@ -1,12 +1,17 @@
-Plugin Name:        RRZE Legal
-Plugin URI:         https://gitlab.rrze.fau.de/rrze-webteam/rrze-legal
-Version:            2.8.10
-Description:        Legal Mandatory Information & GDPR.
-Author:             RRZE Webteam
-Author URI:         https://www.rrze.fau.de
-License:            GNU General Public License Version 3
-License URI:        https://www.gnu.org/licenses/gpl-3.0.html
-Text Domain:        rrze-legal
-Domain Path:        /languages
-Requires at least:  6.7
-Requires PHP:       8.2
+=== Plugin Name: RRZE Legal ===
+Version: 2.8.11
+Plugin URI: https://github.com/RRZE-Webteam/rrze-legal
+GitHub Issue URL: https://github.com/RRZE-Webteam/rrze-legal/issues
+Author: RRZE-Webteam <webmaster@fau.de>
+Author URI: https://www.wp.rrze.fau.de
+Licence: GNU General Public License v3
+Licence URI: http://www.gnu.org/licenses/gpl-3.0.html
+Requires at least: 6.9.4
+Tested up to: 7.0
+Requires PHP: 8.3
+Text Domain: rrze-legal
+Tags: Plugin, WordPress, Legal, DSGVO, GDPR, Consent, RRZE, FAU
+
+== Description ==
+
+Legal Mandatory Information & GDPR.
