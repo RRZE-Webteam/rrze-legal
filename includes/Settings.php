@@ -304,6 +304,9 @@ class Settings {
             if (isset($option['capability']) && !current_user_can($option['capability'])) {
                 continue;
             }
+            if (isset($option['hide_field']) && (bool) $option['hide_field']) {
+                continue;
+            }
             if (isset($option['name'])) {
                 $this->fields[$sectionId . '_' . $option['name']] = $option;
             }
@@ -516,6 +519,9 @@ class Settings {
                 continue;
             }
             $name = $option['name'] ?? '';
+            if (isset($option['hide_field']) && (bool) $option['hide_field']) {
+                continue;
+            }
             if (!isset($this->fields[$sectionId . '_' . $option['name']])) {
                 continue;
             }

@@ -177,6 +177,14 @@
 	    font-weight: bold; 
 	}
       }
+
+    .rrze-legal-consent-technical-toggle {
+        margin-top: 0.25rem;
+    }
+
+    .rrze-legal-consent-technical-fields[hidden] {
+        display: none;
+    }
 }
 @media screen and (max-width: 782px) {
     .rrze-legal-wpeditor-container,

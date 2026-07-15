@@ -5,7 +5,7 @@ namespace RRZE\Legal;
 defined('ABSPATH') || exit;
 
 $data = [
-    'version' => 2,
+    'version' => 3,
     'items' => [
         'default' => [
             'id' => 'default',
@@ -109,6 +109,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 5,
+            'plugin_slug' => 'rrze-rsvp/rrze-rsvp.php',
             'status' => consent()->isServiceProviderActive('rrze_rsvp'),
             'static' => true,
         ],
@@ -130,6 +131,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 6,
+            'plugin_slug' => 'rrze_ratebutton/rrze_ratebutton.php',
             'status' => consent()->isServiceProviderActive('rrze_ratebutton'),
             'static' => true,
         ],
@@ -151,6 +153,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 1,
+            'plugin_slug' => 'rrze-siteimprove/rrze-siteimprove.php',
             'status' => consent()->isServiceProviderActive('siteimprove_analytics'),
             'static' => true,
         ],
@@ -265,6 +268,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 5,
+            'plugin_slug' => 'rrze-video/rrze-video.php',
             'status' => consent()->isServiceProviderActive('brmediathek'),
             'static' => true,
         ],
@@ -288,6 +292,7 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 6,
+            'plugin_slug' => 'rrze-video/rrze-video.php',
             'status' => consent()->isServiceProviderActive('ardmediathek'),
             'static' => true,
         ],

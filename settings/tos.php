@@ -726,12 +726,17 @@ $settings = [
                     ],
                     [
                         'id' => 'external_services',
-                        'title' => __('External Service Providers', 'rrze-legal'),
-                        'description' => __('If external service providers are used to include content on the website, they must also be included in the privacy policy.', 'rrze-legal'),
+                        'title' => __('Verwendete Cookies und Services', 'rrze-legal'),
+                        'description' => sprintf(
+                            '%1$s<br><a href="%2$s">%3$s</a>',
+                            __('If cookies or external services are used on the website, they must also be included in the privacy policy.', 'rrze-legal'),
+                            esc_url(admin_url('admin.php?page=consent-cookies')),
+                            __('Consent-Cookies verwalten', 'rrze-legal')
+                        ),
                         'fields' => [
                             [
                                 'name' => 'service_providers',
-                                'label' => __('Service Providers', 'rrze-legal'),
+                                'label' => __('Aktive Komponenten', 'rrze-legal'),
                                 'description' => '',
                                 'type' => 'multicheckbox',
                                 'options' => tos()->getServiceProvidersOptions(),

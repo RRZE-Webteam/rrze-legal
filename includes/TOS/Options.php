@@ -73,7 +73,7 @@ class Options extends Settings {
             $consentCookiesOptionName = consentCookies()->getOptionName();
             $consentCookiesOptions = consentCookies()->getOptions();
             foreach ($consentCookiesOptions as $key => $value) {
-                if ($value['category'] === 'essential') {
+                if (($value['category'] ?? '') === 'essential') {
                     continue;
                 }
                 if (isset($serviceProviders[$key])) {
@@ -274,10 +274,10 @@ class Options extends Settings {
         $providers = [];
         $options = consentCookies()->getOptions();
         foreach ($options as $key => $value) {
-            $category = $value['category'] ?? '';
-            if ($category !== 'essential') {
-                $providers[$key] = $value['name'];
+            if (($value['category'] ?? '') === 'essential') {
+                continue;
             }
+            $providers[$key] = $value['name'];
         }
         ksort($providers);
         return $providers;
@@ -287,8 +287,7 @@ class Options extends Settings {
         $default = [];
         $options = consentCookies()->getOptions();
         foreach ($options as $key => $value) {
-            $category = $value['category'] ?? '';
-            if ($category === 'essential') {
+            if (($value['category'] ?? '') === 'essential') {
                 continue;
             }
             $status = !empty($value['status']) ? '1' : '0';
@@ -311,6 +310,9 @@ class Options extends Settings {
         $options = $options !== false ? $options : [];
         $options = wp_parse_args($options, $defaults);
         $this->options = array_intersect_key($options, $defaults);
+        if (isset($this->fields['privacy_service_providers'])) {
+            $this->options['privacy_service_providers'] = $this->getServiceProvidersStatus();
+        }
         
  
         if ((isset($this->options['scope_context'])) && (!empty($this->options['scope_context']))) {

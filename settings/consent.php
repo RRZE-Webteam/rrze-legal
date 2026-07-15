@@ -40,7 +40,7 @@ $settings = [
                                 'description' => __('Activates the Consent Banner. Displays the <strong>Banner</strong> and blocks iframes and other external media', 'rrze-legal'),
                                 'type' => 'checkbox',
                                 'default' => false,
-                                'disabled' => consent()->hasNetworkPriority(),
+                                'hide_field' => consent()->hasNetworkPriority(),
                             ],
                             [
                                 'name' => 'test_mode',

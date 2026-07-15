@@ -69,9 +69,8 @@ class Options extends Settings {
         }
     }
 
-    public function hasNetworkPriority()
-    {
-        return $this->isPluginActiveForNetwork && !network()->hasException() ? true : false;
+    public function hasNetworkPriority() {
+        return $this->isPluginActiveForNetwork && (bool) network()->getOption('network_banner', 'status');
     }
 
     public function getCookieVersion()

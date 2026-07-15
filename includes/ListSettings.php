@@ -334,6 +334,7 @@ class ListSettings
     {
         wp_enqueue_style('rrze-legal-settings');
         wp_enqueue_style('rrze-legal-consent-settings');
+        wp_enqueue_script('rrze-legal-settings');
 
         $page = $_REQUEST['page'] ?? '';
         $action = $_REQUEST['action'] ?? '';
@@ -503,10 +504,10 @@ class ListSettings
     /**
      * Add fields to the settings page.
      * @param string $sectionId
-     * @param string $subsectionId
+     * @param array $subsection
      * @return void
      */
-    protected function addFields(string $sectionId, string $subsectionId = '')
+    protected function addFields(string $sectionId, array $subsection = [])
     {
         $action = $_GET['action'] ?? '';
         $disableFields = [];
@@ -536,6 +537,12 @@ class ListSettings
             }
             if ($name == 'id' && $value == 'default') {
                 $disableFields = array_merge(['settings[prioritize]'], $disableFields);
+            }
+            if (!empty($option['hide_when_plugin_slug']) && $this->getOption($sectionId, 'plugin_slug') !== '') {
+                continue;
+            }
+            if ($name == 'status' && $this->getOption($sectionId, 'plugin_slug') !== '') {
+                $disabled = true;
             }
             if (in_array($name, $disableFields)) {
                 $disabled = true;

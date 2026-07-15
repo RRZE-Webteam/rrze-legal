@@ -4,7 +4,7 @@ namespace RRZE\Legal\Consent\Cookies;
 
 defined('ABSPATH') || exit;
 
-use RRZE\Legal\ListSettings;
+use RRZE\Legal\{ListSettings, Locale, Utils};
 use function RRZE\Legal\{tos, consentCategories};
 
 class Options extends ListSettings
@@ -22,6 +22,12 @@ class Options extends ListSettings
         add_filter('rrze_legal_section_consent_edit_new_title', [$this, 'sectionTitle']);
     }
 
+    public function loaded()
+    {
+        parent::loaded();
+        $this->syncPluginDependentStatuses();
+    }
+
     public function sectionTitle($title)
     {
         $page = $_GET['page'] ?? '';
@@ -29,23 +35,66 @@ class Options extends ListSettings
         $id = $_GET['id'] ?? '';
         if ($page == 'consent-cookies' && $action == 'consent-edit' && $id) {
             $title = __('Edit Consent Cookie', 'rrze-legal');
+            $items = get_option('rrze_legal_consent_cookies_' . Locale::getLangCode(), []);
+            $name = isset($items[$id]['name']) ? wp_strip_all_tags((string) $items[$id]['name']) : '';
+            $label = $name !== '' ? $name : $id;
+            $title = sprintf(
+                /* translators: 1: Consent cookie name, 2: Consent cookie ID. */
+                __('Edit Consent Cookie: %1$s (%2$s)', 'rrze-legal'),
+                $label,
+                $id
+            );
         }
         return $title;
+    }
+
+    public function sanitizeId($input)
+    {
+        return $this->validateId($input);
+    }
+
+    public function sanitizePosition($input)
+    {
+        return $this->validateIntRange($input, 1, 99);
+    }
+
+    public function technicalSectionToggle()
+    {
+        printf(
+            '<p><button type="button" class="button rrze-legal-consent-technical-toggle" aria-expanded="false">%s</button></p>',
+            esc_html__('Technische Angaben anzeigen', 'rrze-legal')
+        );
     }
 
     protected function postSanitizeOptions($input, $hasError)
     {
         if (!$hasError) {
+            $input = $this->setPluginDependentInputStatus($input);
             $tosOptionName = tos()->getOptionName();
             $tosOptions = tos()->getOptions();
             $cookieId = $input['consent_cookies_id'] ?? '';
             $cookieStatus = $input['consent_cookies_status'] ?? '';
             $cookieStatus = $cookieStatus ? '1' : '0';
-            if (!empty($tosOptions['privacy_service_providers'][$cookieId])) {
+            $cookieCategory = $input['consent_cookies_category'] ?? '';
+            if ($cookieId !== '' && $cookieCategory !== 'essential') {
                 $tosOptions['privacy_service_providers'][$cookieId] = $cookieStatus;
+                update_option($tosOptionName, $tosOptions);
+            } elseif ($cookieId !== '' && isset($tosOptions['privacy_service_providers'][$cookieId])) {
+                unset($tosOptions['privacy_service_providers'][$cookieId]);
                 update_option($tosOptionName, $tosOptions);
             }
         }
+        return $input;
+    }
+
+    protected function setPluginDependentInputStatus(array $input): array
+    {
+        $pluginSlug = trim((string) ($input['consent_cookies_plugin_slug'] ?? ''));
+        if ($pluginSlug === '') {
+            return $input;
+        }
+
+        $input['consent_cookies_status'] = $this->isPluginActive($pluginSlug) ? '1' : '0';
         return $input;
     }
 
@@ -286,12 +335,61 @@ class Options extends ListSettings
         return $data;
     }
 
+    protected function syncPluginDependentStatuses(): void
+    {
+        $staticItems = $this->getStaticData()['items'] ?? [];
+        $changed = false;
+
+        foreach ($this->options as $key => $item) {
+            if (empty($item['plugin_slug']) && !empty($staticItems[$key]['plugin_slug'])) {
+                $this->options[$key]['plugin_slug'] = $staticItems[$key]['plugin_slug'];
+                $item['plugin_slug'] = $staticItems[$key]['plugin_slug'];
+                $changed = true;
+            }
+
+            $pluginSlug = trim((string) ($item['plugin_slug'] ?? ''));
+            if ($pluginSlug === '') {
+                continue;
+            }
+
+            $status = $this->isPluginActive($pluginSlug) ? '1' : '0';
+            if (($this->options[$key]['status'] ?? '') !== $status) {
+                $this->options[$key]['status'] = $status;
+                $changed = true;
+            }
+        }
+
+        if ($changed) {
+            update_option($this->optionName, $this->options);
+            $this->syncTosServiceProviders();
+        }
+    }
+
+    protected function isPluginActive(string $pluginSlug): bool
+    {
+        return Utils::isPluginActive($pluginSlug) || Utils::isPluginActiveForNetwork($pluginSlug);
+    }
+
+    protected function syncTosServiceProviders(): void
+    {
+        $tosOptionName = tos()->getOptionName();
+        $tosOptions = tos()->getOptions();
+        foreach ($this->options as $key => $item) {
+            if (($item['category'] ?? '') === 'essential') {
+                unset($tosOptions['privacy_service_providers'][$key]);
+                continue;
+            }
+            $tosOptions['privacy_service_providers'][$key] = $item['status'];
+        }
+        update_option($tosOptionName, $tosOptions);
+    }
+
     public function enableItems(string $ids)
     {
         $ids = explode(',', $ids);
         $count = 0;
         foreach ($ids as $id) {
-            if (isset($this->options[$id])) {
+            if (isset($this->options[$id]) && empty($this->options[$id]['plugin_slug'])) {
                 $this->options[$id]['status'] = '1';
                 $count += 1;
             }
@@ -321,7 +419,7 @@ class Options extends ListSettings
         $ids = explode(',', $ids);
         $count = 0;
         foreach ($ids as $id) {
-            if (isset($this->options[$id])) {
+            if (isset($this->options[$id]) && empty($this->options[$id]['plugin_slug'])) {
                 $this->options[$id]['status'] = '0';
                 $count += 1;
             }
@@ -381,7 +479,8 @@ class Options extends ListSettings
         $tosOptionName = tos()->getOptionName();
         $tosOptions = tos()->getOptions();
         foreach ($this->options as $key => $item) {
-            if ($item['category'] === 'essential') {
+            if (($item['category'] ?? '') === 'essential') {
+                unset($tosOptions['privacy_service_providers'][$key]);
                 continue;
             }
             $tosOptions['privacy_service_providers'][$key] = $item['status'];
