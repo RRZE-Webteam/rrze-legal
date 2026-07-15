@@ -8,6 +8,8 @@ use RRZE\Legal\{Locale, Template};
 use function RRZE\Legal\{plugin, tos};
 
 class Endpoint {
+    protected static array $currentEndpointRequestData = [];
+
     /**
      * Class constructor.
      */
@@ -85,6 +87,8 @@ class Endpoint {
             return;
         }
 
+        self::$currentEndpointRequestData = $requestData;
+        add_action('admin_bar_menu', [__CLASS__, 'adminBarEditLink'], 80);
         add_filter('pre_get_document_title', [__CLASS__, 'documentTitle']);
 
         // Get the options
@@ -200,6 +204,35 @@ class Endpoint {
         }
         include($template);
         exit;
+    }
+
+    public static function adminBarEditLink(\WP_Admin_Bar $wpAdminBar): void {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+        if (empty(self::$currentEndpointRequestData['endpoint'])) {
+            return;
+        }
+
+        $endpoint = self::$currentEndpointRequestData['endpoint'];
+        $href = add_query_arg(
+            [
+                'page' => 'legal',
+                'current-tab' => tos()->getPagePrefix() . $endpoint,
+            ],
+            admin_url('admin.php')
+        );
+
+        $wpAdminBar->add_node(
+            [
+                'id' => 'edit',
+                'title' => __('Bearbeiten', 'rrze-legal'),
+                'href' => $href,
+                'meta' => [
+                    'title' => __('Legal-Einstellungen bearbeiten', 'rrze-legal'),
+                ],
+            ]
+        );
     }
 
     public static function documentTitle(): string {
