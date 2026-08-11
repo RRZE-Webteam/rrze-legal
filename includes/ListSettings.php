@@ -722,12 +722,13 @@ class ListSettings
      * @param string $type
      * @return void
      */
-    public function addSettingsError(string $message, string $type = 'error')
+    public function addSettingsError(string $message, string $type = 'error', bool $allowHtml = false)
     {
         global $rrzeLegalSettingsErrors;
         $rrzeLegalSettingsErrors[] = [
             'type' => $type,
             'message' => $message,
+            'allow_html' => $allowHtml,
         ];
     }
 
@@ -769,10 +770,11 @@ class ListSettings
             return;
         }
         foreach ($settingsErrors as $error) {
+            $message = !empty($error['allow_html']) ? wp_kses_post($error['message']) : esc_html($error['message']);
             if ($error['type'] === 'success') {
-                printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', esc_html($error['message']));
+                printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', $message);
             } else {
-                printf('<div class="notice notice-warning"><p>%s</p></div>', esc_html($error['message']));
+                printf('<div class="notice notice-warning"><p>%s</p></div>', $message);
             }
         }
     }

@@ -342,18 +342,36 @@ class Fields
         $value = (array) $atts['value'];
 
         $html = '<fieldset>';
-        foreach ($atts['options'] as $key => $label) {
+        foreach ($atts['options'] as $key => $option) {
+            $label = is_array($option) ? ($option['label'] ?? '') : $option;
+            $description = is_array($option) ? ($option['description'] ?? '') : '';
+            $disabled = is_array($option) ? !empty($option['disabled']) : false;
+            $checked = !empty($value[$key]);
+            if ($disabled && $checked) {
+                $html .= sprintf(
+                    '<input type="hidden" name="%1$s[%2$s_%3$s][%4$s]" value="1">',
+                    $atts['option_name'],
+                    $atts['section'],
+                    $atts['name'],
+                    $key
+                );
+            }
             $html .= '<label>';
             $html .= sprintf(
-                '<input type="checkbox" id="%1$s-%5$s" name="%2$s[%3$s_%4$s][%5$s]" value="1" %6$s>',
+                '<input type="checkbox" id="%1$s-%5$s" name="%2$s[%3$s_%4$s][%5$s]" value="1" %6$s%7$s>',
                 $atts['id'],
                 $atts['option_name'],
                 $atts['section'],
                 $atts['name'],
                 $key,
-                checked(true, !empty($value[$key]), false)
+                checked(true, $checked, false),
+                $disabled ? ' disabled="disabled"' : ''
             );
-            $html .= sprintf('%s</label><br>', $label);
+            $html .= sprintf('%s</label>', $label);
+            if ($description !== '') {
+                $html .= sprintf('<p class="description">%s</p>', $description);
+            }
+            $html .= '<br>';
         }
 
         $html .= self::description($atts);

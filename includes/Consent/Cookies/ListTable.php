@@ -30,6 +30,10 @@ class ListTable extends \WP_List_Table
      */
     protected function column_cb($item)
     {
+        if (!consentCookies()->canToggleItem($item)) {
+            return '';
+        }
+
         return sprintf(
             '<input type="checkbox" name="id[%1$s]" value="%1$s" />',
             $item['id']
@@ -80,24 +84,26 @@ class ListTable extends \WP_List_Table
                 __('Edit', 'rrze-legal')
             ),
         ];
-        if (empty($item['status'])) {
-            $actions = array_merge($actions, [
-                'delete' => sprintf(
-                    '<a href="%1$s">%2$s</a>',
-                    $enableUrl,
-                    __('Enable', 'rrze-legal')
-                ),
-            ]);
-        } else {
-            $actions = array_merge($actions, [
-                'delete' => sprintf(
-                    '<a href="%1$s">%2$s</a>',
-                    $disableUrl,
-                    __('Disable', 'rrze-legal')
-                ),
-            ]);
+        if (consentCookies()->canToggleItem($item)) {
+            if (empty($item['status'])) {
+                $actions = array_merge($actions, [
+                    'enable' => sprintf(
+                        '<a href="%1$s">%2$s</a>',
+                        $enableUrl,
+                        __('Enable', 'rrze-legal')
+                    ),
+                ]);
+            } else {
+                $actions = array_merge($actions, [
+                    'disable' => sprintf(
+                        '<a href="%1$s">%2$s</a>',
+                        $disableUrl,
+                        __('Disable', 'rrze-legal')
+                    ),
+                ]);
+            }
         }
-        if (empty($item['static'])) {
+        if (empty($item['static']) && consentCookies()->canEditRestrictedTechnicalFields()) {
             $actions = array_merge($actions, [
                 'delete' => sprintf(
                     '<a href="%1$s">%2$s</a>',
@@ -166,8 +172,10 @@ class ListTable extends \WP_List_Table
         $actions = [
             'enable' => __('Enable', 'rrze-legal'),
             'disable' => __('Disable', 'rrze-legal'),
-            'delete' => __('Delete', 'rrze-legal'),
         ];
+        if (consentCookies()->canEditRestrictedTechnicalFields()) {
+            $actions['delete'] = __('Delete', 'rrze-legal');
+        }
         return $actions;
     }
 
@@ -186,8 +194,11 @@ class ListTable extends \WP_List_Table
                 case 'disable':
                     consentCookies()->disableItems($ids);
                     break;
+                case 'delete':
                 case 'trash':
-                    consentCookies()->deleteItems($ids);
+                    if (consentCookies()->canEditRestrictedTechnicalFields()) {
+                        consentCookies()->deleteItems($ids);
+                    }
                     break;
             }
         } elseif (!empty($id) && !empty($_wpnonce)) {
@@ -203,7 +214,8 @@ class ListTable extends \WP_List_Table
                 consentCookies()->disableItems($id);
             } elseif (
                 'trash' === $this->current_action() &&
-                wp_verify_nonce($_wpnonce, 'consent-trash-' . $id)
+                wp_verify_nonce($_wpnonce, 'consent-trash-' . $id) &&
+                consentCookies()->canEditRestrictedTechnicalFields()
             ) {
                 consentCookies()->deleteItems($id);
             }

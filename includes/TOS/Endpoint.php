@@ -5,7 +5,7 @@ namespace RRZE\Legal\TOS;
 defined('ABSPATH') || exit;
 
 use RRZE\Legal\{Locale, Template};
-use function RRZE\Legal\{plugin, tos};
+use function RRZE\Legal\{plugin, tos, consentCookies};
 
 class Endpoint {
     protected static array $currentEndpointRequestData = [];
@@ -159,21 +159,21 @@ class Endpoint {
                 }
             }
         }
-        // Includes service providers templates
+        // Includes service providers.
         $options['privacy_external_service_providers'] = '';
         $options['service_providers_template'] = [];
+        $consentCookiesOptions = consentCookies()->getOptions();
         foreach (tos()->getServiceProvidersStatus() as $key => $value) {
-            if ($value) {
-                $tpl = plugin()->getPath(Template::TOS_PATH) .
-                    sprintf('service-providers/%1$s-cookie-%2$s.html', str_replace('_', '-', $key), $langCode);
-                if (!is_readable($tpl)) {
-                    $tpl = plugin()->getPath(Template::TOS_PATH) .
-                        sprintf('service-providers/%s-cookie-en.html', str_replace('_', '-', $key));
-                }
-                if (is_readable($tpl)) {
-                    $options['service_providers_template'][$key] = is_readable($tpl) ? self::getContent($tpl) : '';
-                }
+            if (empty($value) || empty($consentCookiesOptions[$key])) {
+                continue;
             }
+            if (
+                consentCookies()->hasPluginDependency($consentCookiesOptions[$key]) &&
+                !consentCookies()->isPluginDependencyActive($consentCookiesOptions[$key])
+            ) {
+                continue;
+            }
+            $options['service_providers_template'][$key] = self::getServiceProviderContent($key, $consentCookiesOptions[$key], $langCode);
         }
         if (!empty($options['service_providers_template'])) {
             $options['privacy_external_service_providers'] = '1';
@@ -204,6 +204,152 @@ class Endpoint {
         }
         include($template);
         exit;
+    }
+
+    protected static function getServiceProviderContent(string $key, array $data, string $langCode): string
+    {
+        $name = wp_strip_all_tags((string) ($data['name'] ?? $key));
+        $id = sanitize_key((string) ($data['id'] ?? $key));
+        $text = self::getLocalizedServiceProviderText($data, $langCode);
+
+        $content = sprintf(
+            '[accordion-item title="%1$s" name="%2$s"]',
+            esc_attr($name),
+            esc_attr($id)
+        );
+        $content .= "\n" . sprintf('<h3>%s</h3>', esc_html($name)) . "\n";
+        $content .= self::formatPlainTextParagraphs($text);
+        $content .= self::getServiceProviderCookieInformation($data, $langCode);
+        $content .= self::getServiceProviderConsentSwitch($id, $langCode);
+        $content .= '[/accordion-item]';
+
+        return $content;
+    }
+
+    protected static function getLocalizedServiceProviderText(array $data, string $langCode): string
+    {
+        $primaryKey = $langCode === 'de' ? 'privacy_text_de' : 'privacy_text_en';
+        $fallbackKey = $langCode === 'de' ? 'privacy_text_en' : 'privacy_text_de';
+        $text = (string) ($data[$primaryKey] ?? '');
+        if ($text === '') {
+            $text = (string) ($data[$fallbackKey] ?? '');
+        }
+        if ($text === '') {
+            $text = (string) ($data['purpose'] ?? '');
+        }
+        return $text;
+    }
+
+    protected static function formatPlainTextParagraphs(string $text): string
+    {
+        $text = str_replace(["\r\n", "\r"], "\n", trim($text));
+        if ($text === '') {
+            return '';
+        }
+
+        $paragraphs = preg_split("/\n{2,}/", $text);
+        $content = '';
+        foreach ($paragraphs as $paragraph) {
+            $paragraph = trim($paragraph);
+            if ($paragraph === '') {
+                continue;
+            }
+            $content .= '<p>' . nl2br(esc_html($paragraph), false) . '</p>' . "\n";
+        }
+        return $content;
+    }
+
+    protected static function getServiceProviderCookieInformation(array $data, string $langCode): string
+    {
+        $labels = self::getServiceProviderLabels($langCode);
+        $items = [
+            $labels['provider'] => esc_html((string) ($data['provider'] ?? '')),
+            $labels['privacy_policy_url'] => self::formatServiceProviderPrivacyUrl($data['privacy_policy_url'] ?? ''),
+            $labels['hosts'] => self::formatServiceProviderList($data['hosts'] ?? ''),
+            $labels['cookie_name'] => esc_html((string) ($data['cookie_name'] ?? '')),
+            $labels['cookie_expiry'] => esc_html((string) ($data['cookie_expiry'] ?? '')),
+        ];
+
+        $content = "\n" . sprintf('<h4>%s</h4>', esc_html($labels['cookie_information'])) . "\n<ul>\n";
+        foreach ($items as $label => $value) {
+            $value = trim((string) $value);
+            if ($value === '') {
+                continue;
+            }
+            $content .= sprintf(
+                '<li><strong>%1$s:</strong> %2$s</li>',
+                esc_html($label),
+                $value
+            ) . "\n";
+        }
+        $content .= "</ul>\n";
+
+        return $content;
+    }
+
+    protected static function formatServiceProviderPrivacyUrl(string $url): string
+    {
+        $url = trim($url);
+        if ($url === '') {
+            return '';
+        }
+        return sprintf(
+            '<a href="%1$s" rel="noopener noreferrer">%2$s</a>',
+            esc_url($url),
+            esc_html($url)
+        );
+    }
+
+    protected static function formatServiceProviderList($value): string
+    {
+        if (is_array($value)) {
+            $items = $value;
+        } else {
+            $items = preg_split('/[\r\n,]+/', (string) $value);
+        }
+
+        $items = array_map('trim', $items);
+        $items = array_filter($items);
+        $items = array_map('esc_html', $items);
+
+        return implode(', ', $items);
+    }
+
+    protected static function getServiceProviderConsentSwitch(string $id, string $langCode): string
+    {
+        $text = $langCode === 'de'
+            ? __('Sie können Ihre Einwilligung jederzeit über die folgende Option ändern.', 'rrze-legal')
+            : __('You can change your consent at any time using the following option.', 'rrze-legal');
+
+        return sprintf(
+            "<h4>%1\$s</h4>\n<p>%2\$s</p>\n[rrzelegal_consent type=\"switch-consent\" id=\"%3\$s\"]\n",
+            esc_html($langCode === 'de' ? __('Widerspruchs- und Beseitigungsmöglichkeit', 'rrze-legal') : __('Objection and removal option', 'rrze-legal')),
+            esc_html($text),
+            esc_attr($id)
+        );
+    }
+
+    protected static function getServiceProviderLabels(string $langCode): array
+    {
+        if ($langCode === 'de') {
+            return [
+                'cookie_information' => __('Cookie-Informationen', 'rrze-legal'),
+                'provider' => __('Anbieter', 'rrze-legal'),
+                'privacy_policy_url' => __('Datenschutzerklärung', 'rrze-legal'),
+                'hosts' => __('Hosts', 'rrze-legal'),
+                'cookie_name' => __('Cookie-Name', 'rrze-legal'),
+                'cookie_expiry' => __('Cookie-Laufzeit', 'rrze-legal'),
+            ];
+        }
+
+        return [
+            'cookie_information' => __('Cookie information', 'rrze-legal'),
+            'provider' => __('Provider', 'rrze-legal'),
+            'privacy_policy_url' => __('Privacy policy', 'rrze-legal'),
+            'hosts' => __('Hosts', 'rrze-legal'),
+            'cookie_name' => __('Cookie name', 'rrze-legal'),
+            'cookie_expiry' => __('Cookie expiry', 'rrze-legal'),
+        ];
     }
 
     public static function adminBarEditLink(\WP_Admin_Bar $wpAdminBar): void {

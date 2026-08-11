@@ -324,6 +324,47 @@ class Options extends Settings
         return (int) get_site_option('rrze_legal_consent_cookie_version', 1);
     }
 
+    public function sanitizePositiveInteger($input): int {
+        $value = absint($input);
+        return $value > 0 ? $value : 1;
+    }
+
+    public function getTosNoticeWarningDays(): int {
+        return $this->getTosNoticeDays('tos_notice_warning_days', 7);
+    }
+
+    public function getTosNoticeErrorDays(): int {
+        return $this->getTosNoticeDays('tos_notice_error_days', 30);
+    }
+
+    public function getTosNoticeWarningText(): string {
+        return $this->getTosNoticeText(
+            'tos_notice_warning_text',
+            __('Eine weitergehende Nichtbearbeitung der Daten führt zu einer Meldung beim CMS Betreiber.', 'rrze-legal')
+        );
+    }
+
+    public function getTosNoticeErrorText(): string {
+        return $this->getTosNoticeText(
+            'tos_notice_error_text',
+            __('Der CMS Betreiber wurde informiert.', 'rrze-legal')
+        );
+    }
+
+    public function isTosNoticeAcknowledgementRequired(): bool {
+        return (bool) $this->getOption('network_general', 'tos_notice_require_acknowledgement', false);
+    }
+
+    protected function getTosNoticeDays(string $name, int $default): int {
+        $value = absint($this->getOption('network_general', $name, $default));
+        return $value > 0 ? $value : $default;
+    }
+
+    protected function getTosNoticeText(string $name, string $default): string {
+        $value = trim((string) $this->getOption('network_general', $name, $default));
+        return $value !== '' ? $value : $default;
+    }
+
     public function updateCookieVersion()
     {
         $currentVersion = $this->getCookieVersion();

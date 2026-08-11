@@ -15,7 +15,7 @@ $settings = [
         ],
         'menu' => [
             'title' => __('Consent Cookies', 'rrze-legal'),
-            'capability' => apply_filters('rrze_legal_consent_capability', 'manage_options'),
+            'capability' => 'manage_options',
             'slug' => 'consent-cookies',
             'position' => 20,
         ],
@@ -32,7 +32,7 @@ $settings = [
                         'id' => 'general',
                         'title' => '',
                         'hide_title' => true,
-                        'description' => '',
+                        'callback' => [consentCookies(), 'pluginDependencyEditNotice'],
                         'fields' => [
                             [
                                 'name' => 'status',
@@ -97,12 +97,46 @@ $settings = [
                                 'required' => true,
                             ],
                             [
+                                'name' => 'privacy_text_de',
+                                'label' => __('Text für Datenschutzerklärung (DE)', 'rrze-legal'),
+                                'description' => __('Reiner Text ohne HTML. Leerzeilen werden bei der Ausgabe automatisch als Absätze dargestellt.', 'rrze-legal'),
+                                'type' => 'textarea',
+                                'default' => '',
+                                'sanitize_callback' => 'sanitize_textarea_field',
+                            ],
+                            [
+                                'name' => 'privacy_text_en',
+                                'label' => __('Text für Datenschutzerklärung (EN)', 'rrze-legal'),
+                                'description' => __('Plain text without HTML. Blank lines are automatically rendered as paragraphs.', 'rrze-legal'),
+                                'type' => 'textarea',
+                                'default' => '',
+                                'sanitize_callback' => 'sanitize_textarea_field',
+                            ],
+                            [
                                 'name' => 'privacy_policy_url',
                                 'label' => __('Privacy Policy URL', 'rrze-legal'),
                                 'description' => __('Provide a URL to the privacy policy of the provider of the <strong>Cookie</strong>.', 'rrze-legal'),
                                 'type' => 'text',
                                 'placeholder' => 'https://',
                                 'sanitize_callback' => 'sanitize_url',
+                                'required' => true,
+                            ],
+                        ],
+                    ],
+                    [
+                        'id' => 'technical',
+                        'title' => __('Technische Angaben (Erweiterte Einstellungen)', 'rrze-legal'),
+                        'callback' => [consentCookies(), 'technicalSectionToggle'],
+                        'fields' => [
+                            [
+                                'name' => 'id',
+                                'label' => __('ID', 'rrze-legal'),
+                                'description' => __('The <strong>ID</strong> must be at least 3 characters long and may only contain <code>a-z_-</code> characters.', 'rrze-legal'),
+                                'type' => 'text',
+                                'default' => '',
+                                'size' => 'normal',
+                                'disabled' => false,
+                                'sanitize_callback' => [consentCookies(), 'sanitizeId'],
                                 'required' => true,
                             ],
                             [
@@ -130,24 +164,6 @@ $settings = [
                                 'sanitize_callback' => 'sanitize_text_field',
                                 'required' => true,
                             ],
-                        ],
-                    ],
-                    [
-                        'id' => 'technical',
-                        'title' => __('Technische Angaben (Erweiterte Einstellungen)', 'rrze-legal'),
-                        'callback' => [consentCookies(), 'technicalSectionToggle'],
-                        'fields' => [
-                            [
-                                'name' => 'id',
-                                'label' => __('ID', 'rrze-legal'),
-                                'description' => __('The <strong>ID</strong> must be at least 3 characters long and may only contain <code>a-z_-</code> characters.', 'rrze-legal'),
-                                'type' => 'text',
-                                'default' => '',
-                                'size' => 'normal',
-                                'disabled' => false,
-                                'sanitize_callback' => [consentCookies(), 'sanitizeId'],
-                                'required' => true,
-                            ],
                             [
                                 'name' => 'plugin_slug',
                                 'label' => __('Plugin-Slug', 'rrze-legal'),
@@ -155,6 +171,7 @@ $settings = [
                                 'type' => 'text',
                                 'default' => '',
                                 'sanitize_callback' => 'sanitize_text_field',
+                                'capability' => consentCookies()->restrictedTechnicalFieldsCapability(),
                             ],
                             [
                                 'name' => 'enqueued_script_handles',
@@ -163,6 +180,7 @@ $settings = [
                                 'type' => 'text',
                                 'default' => '',
                                 'sanitize_callback' => 'sanitize_text_field',
+                                'capability' => consentCookies()->restrictedTechnicalFieldsCapability(),
                             ],
                             [
                                 'name' => 'block_enqueued_script',
@@ -170,6 +188,7 @@ $settings = [
                                 'description' => __('The enqueued script will be blocked', 'rrze-legal'),
                                 'type' => 'checkbox',
                                 'default' => '0',
+                                'capability' => consentCookies()->restrictedTechnicalFieldsCapability(),
                             ],
                             [
                                 'name' => 'prioritize',
@@ -177,6 +196,7 @@ $settings = [
                                 'description' => __('The <strong>Opt-in Code</strong> is loaded in <head> and is executed before the page is fully loaded', 'rrze-legal'),
                                 'type' => 'checkbox',
                                 'default' => '0',
+                                'capability' => consentCookies()->restrictedTechnicalFieldsCapability(),
                             ],
                             [
                                 'name' => 'async_opt_out_code',
@@ -184,6 +204,7 @@ $settings = [
                                 'description' => __('The <strong>Opt-Out Code</strong> contains asynchronous JavaScript code that needs to executed to finish the Opt-Out', 'rrze-legal'),
                                 'type' => 'checkbox',
                                 'default' => '0',
+                                'capability' => consentCookies()->restrictedTechnicalFieldsCapability(),
                             ],
                             [
                                 'name' => 'opt_in_js',
@@ -192,6 +213,7 @@ $settings = [
                                 'type' => 'htmleditor',
                                 'default' => '',
                                 'sanitize_callback' => 'stripslashes',
+                                'capability' => consentCookies()->restrictedTechnicalFieldsCapability(),
                             ],
                             [
                                 'name' => 'opt_out_js',
@@ -200,6 +222,7 @@ $settings = [
                                 'type' => 'htmleditor',
                                 'default' => '',
                                 'sanitize_callback' => 'stripslashes',
+                                'capability' => consentCookies()->restrictedTechnicalFieldsCapability(),
                             ],
                             [
                                 'name' => 'fallback_js',
@@ -208,6 +231,7 @@ $settings = [
                                 'type' => 'htmleditor',
                                 'default' => '',
                                 'sanitize_callback' => 'stripslashes',
+                                'capability' => consentCookies()->restrictedTechnicalFieldsCapability(),
                             ],
                         ],
                     ],
