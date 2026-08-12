@@ -180,7 +180,7 @@ class Endpoint {
         }
         // Includes other child templates
        
-        $default_active_subtemplates = ['imprint-representation', 'imprint-id-numbers', 'imprint-supervisory-authority', 'imprint-it-security', 'imprint-whistleblower-system', 'privacy-dpo', 'privacy-rights-data-subject'];
+        $default_active_subtemplates = ['imprint-representation', 'imprint-id-numbers', 'imprint-supervisory-authority', 'imprint-it-security', 'imprint-whistleblower-system', 'privacy-dpo', 'privacy-general', 'privacy-technical-notices', 'privacy-rights-data-subject'];
         
         foreach ($default_active_subtemplates as $_tpl) {
             $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-' . $langCode . '.html';
@@ -197,6 +197,7 @@ class Endpoint {
         // Search content for shortcodes and filter shortcodes through their hooks
         // Shortcodes inside HTML elements will be skipped
         $content = do_shortcode($content);
+        $title = $requestData['title'] ?? '';
         // Render the page with the content
         $template = plugin()->getPath(Template::THEMES_PATH) . Template::getThemeFilename();
         if (!is_readable($template)) {
@@ -212,16 +213,10 @@ class Endpoint {
         $id = sanitize_key((string) ($data['id'] ?? $key));
         $text = self::getLocalizedServiceProviderText($data, $langCode);
 
-        $content = sprintf(
-            '[accordion-item title="%1$s" name="%2$s"]',
-            esc_attr($name),
-            esc_attr($id)
-        );
-        $content .= "\n" . sprintf('<h3>%s</h3>', esc_html($name)) . "\n";
+        $content = sprintf('<h3>%s</h3>', esc_html($name)) . "\n";
         $content .= self::formatPlainTextParagraphs($text);
         $content .= self::getServiceProviderCookieInformation($data, $langCode);
         $content .= self::getServiceProviderConsentSwitch($id, $langCode);
-        $content .= '[/accordion-item]';
 
         return $content;
     }
@@ -317,13 +312,11 @@ class Endpoint {
 
     protected static function getServiceProviderConsentSwitch(string $id, string $langCode): string
     {
-        $text = $langCode === 'de'
-            ? __('Sie können Ihre Einwilligung jederzeit über die folgende Option ändern.', 'rrze-legal')
-            : __('You can change your consent at any time using the following option.', 'rrze-legal');
+        $text = __('You can change your consent at any time using the following option.', 'rrze-legal');
 
         return sprintf(
             "<h4>%1\$s</h4>\n<p>%2\$s</p>\n[rrzelegal_consent type=\"switch-consent\" id=\"%3\$s\"]\n",
-            esc_html($langCode === 'de' ? __('Widerspruchs- und Beseitigungsmöglichkeit', 'rrze-legal') : __('Objection and removal option', 'rrze-legal')),
+            esc_html__('Objection and removal option', 'rrze-legal'),
             esc_html($text),
             esc_attr($id)
         );
@@ -334,8 +327,8 @@ class Endpoint {
         if ($langCode === 'de') {
             return [
                 'cookie_information' => __('Cookie-Informationen', 'rrze-legal'),
-                'provider' => __('Anbieter', 'rrze-legal'),
-                'privacy_policy_url' => __('Datenschutzerklärung', 'rrze-legal'),
+                'provider' => __('Provider', 'rrze-legal'),
+                'privacy_policy_url' => __('Privacy policy', 'rrze-legal'),
                 'hosts' => __('Hosts', 'rrze-legal'),
                 'cookie_name' => __('Cookie-Name', 'rrze-legal'),
                 'cookie_expiry' => __('Cookie-Laufzeit', 'rrze-legal'),
@@ -372,10 +365,10 @@ class Endpoint {
         $wpAdminBar->add_node(
             [
                 'id' => 'edit',
-                'title' => __('Bearbeiten', 'rrze-legal'),
+                'title' => __('Edit', 'rrze-legal'),
                 'href' => $href,
                 'meta' => [
-                    'title' => __('Legal-Einstellungen bearbeiten', 'rrze-legal'),
+                    'title' => __('Edit legal settings', 'rrze-legal'),
                 ],
             ]
         );

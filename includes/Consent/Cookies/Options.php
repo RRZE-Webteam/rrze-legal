@@ -62,7 +62,7 @@ class Options extends ListSettings
     {
         printf(
             '<p><button type="button" class="button rrze-legal-consent-technical-toggle" aria-expanded="false">%s</button></p>',
-            esc_html__('Technische Angaben anzeigen', 'rrze-legal')
+            esc_html__('Show technical information', 'rrze-legal')
         );
     }
 
@@ -83,7 +83,7 @@ class Options extends ListSettings
             esc_html(
                 sprintf(
                     /* translators: %s: Plugin slug. */
-                    __('Das abhängige Plugin "%s" ist derzeit nicht aktiviert. Dieses Consent-Cookie wird deshalb nicht angezeigt.', 'rrze-legal'),
+                    __('The dependent plugin "%s" is currently not active. This consent cookie is therefore not displayed.', 'rrze-legal'),
                     $pluginSlug
                 )
             )
@@ -360,7 +360,7 @@ class Options extends ListSettings
         do_action(
             'rrze.log.info',
             sprintf(
-                'RRZE Legal: Admin %1$s hat Consent-Cookie "%2$s" (ID: %3$s) auf Website %4$d %5$s.',
+                'RRZE Legal: Admin %1$s %5$s consent cookie "%2$s" (ID: %3$s) on site %4$d.',
                 $userLabel,
                 $name,
                 $id,
@@ -374,16 +374,16 @@ class Options extends ListSettings
     {
         switch ($action) {
             case 'added':
-                return 'neu angelegt';
+                return 'created';
             case 'enabled':
-                return 'aktiviert';
+                return 'enabled';
             case 'disabled':
-                return 'deaktiviert';
+                return 'disabled';
             case 'deleted':
-                return 'gelöscht';
+                return 'deleted';
             case 'updated':
             default:
-                return 'geändert';
+                return 'updated';
         }
     }
 

@@ -96,7 +96,7 @@ class Frontend {
         return [
          'by Siteimprove.com',
          'RRZE CheckBot'
-        // künftig:
+        // Future additions:
         // 'Some Other Crawler',
         // 'AnotherBot/1.0'
         ];

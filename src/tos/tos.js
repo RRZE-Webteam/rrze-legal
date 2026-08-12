@@ -52,6 +52,20 @@ function rrzeLegalTosReady($) {
         }
     }
 
+    function privacyPreambleSection() {
+        var inputName = getOptionName("privacy_optional_section_praeambel");
+        var wpWrap = "wp-privacy_optional_section_praeambel_content-wrap";
+        var input = $(
+            "input[name='" + inputName + "']:checked",
+            "#rrze-legal-privacy"
+        ).val();
+        if ("1" === input) {
+            $("#" + wpWrap).parents("tr").show();
+        } else {
+            $("#" + wpWrap).parents("tr").hide();
+        }
+    }
+
     function accessibilityHelperSection() {
         var inputName = getOptionName("accessibility_statement_non_accessible_content_helper");
         var input = $(
@@ -185,11 +199,16 @@ function rrzeLegalTosReady($) {
         imprintNewSection();
     });
 
+    privacyPreambleSection();
     privacyNewSection("top");
     privacyNewSection("");
     $("#rrze-legal-privacy input[type='radio']").on("change", function rrzeLegalPrivacyRadioChange() {
         var region = "";
         var name = $(this).attr("name");
+        if (name.indexOf("section_praeambel") >= 0) {
+            privacyPreambleSection();
+            return;
+        }
         if (name.indexOf("new_section_top") >= 0) {
             region = "top";
         }

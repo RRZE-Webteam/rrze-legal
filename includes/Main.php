@@ -68,6 +68,7 @@ class Main {
 
         // Notices for the administrator
         add_action('admin_init', [$this, 'adminInit']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueueRequiredTOSNoticeAssets']);
         add_action('admin_post_rrze_legal_ack_tos_notice', [$this, 'acknowledgeRequiredTOSNotice']);
     }
 
@@ -120,14 +121,14 @@ class Main {
         $current = $current && strpos($current, $pagePrefix) === 0 ? substr($current, strlen($pagePrefix)) : '';
         $current = $current == '' ? array_key_first($slugs) : $current;
 
-        if (!empty($this->requiredTOSIssues)) {
+        if (!empty($this->requiredTOSIssues) && $this->isDashboardPage()) {
             if (current_user_can('manage_options')) {
                 $notice_menu_inline_css = " #adminmenu li#toplevel_page_legal {background-color: red;color: white;} ";
                 wp_add_inline_style('wp-admin', $notice_menu_inline_css);
             }
             add_action('admin_notices', [$this, 'requiredTOSFieldNotice']);
             if ($this->mustAcknowledgeRequiredTOSNotice()) {
-                add_action('admin_footer', [$this, 'requiredTOSAcknowledgementDialog']);
+                add_action('admin_footer', [$this, 'requiredTOSAcknowledgementBackdrop']);
             }
         }
         if ($currentPage == 'legal' && isset($published[$current])) {
@@ -136,10 +137,15 @@ class Main {
         }
     }
 
+    protected function isDashboardPage(): bool {
+        global $pagenow;
+        return $pagenow === 'index.php';
+    }
+
 
     public function requiredTOSFieldNotice() {
-        wp_enqueue_style('rrze-legal-settings');
         $canEdit = current_user_can('manage_options');
+        $mustAcknowledge = $this->mustAcknowledgeRequiredTOSNotice();
         $firstReported = tos()->formatRequiredDataNoticeTimestamp($this->requiredTOSFirstReported);
         $settingsLink = sprintf(
             '<a href="%1$s">%2$s</a>',
@@ -147,7 +153,16 @@ class Main {
             esc_html__('Legal Mandatory Information', 'rrze-legal')
         );
 
-        echo '<div class="notice notice-warning rrze-legal-dashboardalert">';
+        $classes = 'notice notice-warning rrze-legal-dashboardalert';
+        if ($mustAcknowledge) {
+            $classes .= ' rrze-legal-required-ack-dialog';
+        }
+
+        printf(
+            '<div class="%1$s"%2$s>',
+            esc_attr($classes),
+            $mustAcknowledge ? ' role="dialog" aria-modal="true"' : ''
+        );
         echo '<h2>' . esc_html__('Please note', 'rrze-legal') . '</h2>';
 
         if ($canEdit) {
@@ -176,7 +191,16 @@ class Main {
         $this->requiredTOSNoticeEscalationText();
 
         $this->requiredTOSIssuesList($canEdit);
+        if ($mustAcknowledge) {
+            $this->requiredTOSAcknowledgementForm();
+        }
         echo '</div>';
+    }
+
+    public function enqueueRequiredTOSNoticeAssets(): void {
+        if (!empty($this->requiredTOSIssues) && $this->isDashboardPage()) {
+            wp_enqueue_style('rrze-legal-settings');
+        }
     }
 
     protected function requiredTOSNoticeEscalationText(): void {
@@ -241,7 +265,7 @@ class Main {
         $siteName = get_bloginfo('name');
 
         return sprintf(
-            'RRZE Legal: TOS-Daten wurden seit %1$s nicht vollständig oder korrekt gesetzt. Site: %2$s (ID %3$d, URL %4$s).',
+            'RRZE Legal: TOS data has not been fully or correctly set since %1$s. Site: %2$s (ID %3$d, URL %4$s).',
             $firstReported,
             $siteName,
             get_current_blog_id(),
@@ -264,16 +288,13 @@ class Main {
     }
 
     protected function hasAcknowledgedRequiredTOSNotice(): bool {
-        $acknowledgedTimestamp = (int) get_user_meta(
-            get_current_user_id(),
-            $this->getRequiredTOSNoticeAcknowledgementMetaKey(),
-            true
-        );
+        $cookieName = $this->getRequiredTOSNoticeAcknowledgementCookieName();
+        $acknowledgedTimestamp = isset($_COOKIE[$cookieName]) ? absint($_COOKIE[$cookieName]) : 0;
 
         return $acknowledgedTimestamp === (int) $this->requiredTOSFirstReported;
     }
 
-    protected function getRequiredTOSNoticeAcknowledgementMetaKey(): string {
+    protected function getRequiredTOSNoticeAcknowledgementCookieName(): string {
         return 'rrze_legal_required_tos_notice_ack_' . get_current_blog_id();
     }
 
@@ -289,45 +310,51 @@ class Main {
             wp_die(esc_html__('Please confirm that you have read the notice.', 'rrze-legal'));
         }
 
-        update_user_meta(
-            get_current_user_id(),
-            'rrze_legal_required_tos_notice_ack_' . get_current_blog_id(),
-            $timestamp
-        );
+        $this->setRequiredTOSNoticeAcknowledgementCookie($timestamp);
 
         $redirectTo = esc_url_raw((string) ($_POST['redirect_to'] ?? admin_url()));
         wp_safe_redirect($redirectTo !== '' ? $redirectTo : admin_url());
         exit;
     }
 
-    public function requiredTOSAcknowledgementDialog(): void {
-        $firstReported = tos()->formatRequiredDataNoticeTimestamp($this->requiredTOSFirstReported);
+    protected function setRequiredTOSNoticeAcknowledgementCookie(int $timestamp): void {
+        $path = parse_url(admin_url(), PHP_URL_PATH);
+        if (!is_string($path) || $path === '') {
+            $path = '/';
+        }
+
+        setcookie(
+            $this->getRequiredTOSNoticeAcknowledgementCookieName(),
+            (string) $timestamp,
+            [
+                'expires' => time() + DAY_IN_SECONDS,
+                'path' => $path,
+                'domain' => defined('COOKIE_DOMAIN') && COOKIE_DOMAIN ? (string) COOKIE_DOMAIN : '',
+                'secure' => is_ssl(),
+                'httponly' => true,
+                'samesite' => 'Lax',
+            ]
+        );
+    }
+
+    public function requiredTOSAcknowledgementBackdrop(): void {
+        echo '<div class="rrze-legal-required-ack-backdrop" role="presentation"></div>';
+    }
+
+    protected function requiredTOSAcknowledgementForm(): void {
         $redirectTo = isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : admin_url();
 
-        echo '<div class="rrze-legal-required-ack-backdrop" role="presentation"></div>';
-        echo '<div class="rrze-legal-required-ack-dialog" role="dialog" aria-modal="true" aria-labelledby="rrze-legal-required-ack-title">';
         echo '<form method="post" action="' . esc_url(admin_url('admin-post.php')) . '">';
         echo '<input type="hidden" name="action" value="rrze_legal_ack_tos_notice">';
         echo '<input type="hidden" name="rrze_legal_tos_notice_timestamp" value="' . esc_attr((string) $this->requiredTOSFirstReported) . '">';
         echo '<input type="hidden" name="redirect_to" value="' . esc_url($redirectTo) . '">';
         wp_nonce_field('rrze_legal_ack_tos_notice', 'rrze_legal_ack_tos_notice_nonce');
-        echo '<h2 id="rrze-legal-required-ack-title">' . esc_html__('Legal mandatory information is missing', 'rrze-legal') . '</h2>';
-        echo '<p>' . esc_html__('The legal mandatory information for this website has been missing or incomplete for too long. Please read and confirm this notice before continuing in the backend.', 'rrze-legal') . '</p>';
-        if ($firstReported !== '') {
-            printf(
-                '<p>%1$s %2$s</p>',
-                esc_html__('This message was first displayed on:', 'rrze-legal'),
-                esc_html($firstReported)
-            );
-        }
-        $this->requiredTOSNoticeEscalationText();
         echo '<label class="rrze-legal-required-ack-confirm">';
         echo '<input type="checkbox" name="rrze_legal_tos_notice_confirm" value="1" required>';
         echo ' ' . esc_html__('I have read this notice.', 'rrze-legal');
         echo '</label>';
         submit_button(__('Continue', 'rrze-legal'), 'primary', 'submit', false);
         echo '</form>';
-        echo '</div>';
     }
 
     protected function requiredTOSIssuesList(bool $canEdit): void {
@@ -337,7 +364,7 @@ class Main {
 
         printf(
             '<details class="rrze-legal-required-issues"><summary>%s</summary><ul>',
-            esc_html__('Mängelliste anzeigen', 'rrze-legal')
+            esc_html__('Show issue list', 'rrze-legal')
         );
 
         foreach ($this->requiredTOSIssues as $issue) {

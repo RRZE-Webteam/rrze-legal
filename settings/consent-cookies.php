@@ -45,7 +45,7 @@ $settings = [
                             [
                                 'name' => 'position',
                                 'label' => __('Position', 'rrze-legal'),
-                                'description' => __('Reihenfolge in der Datenschutzerklärung', 'rrze-legal'),
+                                'description' => __('Order in the privacy policy', 'rrze-legal'),
                                 'placeholder' => '1',
                                 'min' => '1',
                                 'max' => '99',
@@ -58,7 +58,7 @@ $settings = [
                     ],
                     [
                         'id' => 'privacy',
-                        'title' => __('Datenschutz-Informationen', 'rrze-legal'),
+                        'title' => __('Privacy Information', 'rrze-legal'),
                         'description' => '',
                         'fields' => [
                             [
@@ -98,15 +98,15 @@ $settings = [
                             ],
                             [
                                 'name' => 'privacy_text_de',
-                                'label' => __('Text für Datenschutzerklärung (DE)', 'rrze-legal'),
-                                'description' => __('Reiner Text ohne HTML. Leerzeilen werden bei der Ausgabe automatisch als Absätze dargestellt.', 'rrze-legal'),
+                                'label' => __('Privacy Policy Text (DE)', 'rrze-legal'),
+                                'description' => __('Plain text without HTML. Blank lines are automatically rendered as paragraphs.', 'rrze-legal'),
                                 'type' => 'textarea',
                                 'default' => '',
                                 'sanitize_callback' => 'sanitize_textarea_field',
                             ],
                             [
                                 'name' => 'privacy_text_en',
-                                'label' => __('Text für Datenschutzerklärung (EN)', 'rrze-legal'),
+                                'label' => __('Privacy Policy Text (EN)', 'rrze-legal'),
                                 'description' => __('Plain text without HTML. Blank lines are automatically rendered as paragraphs.', 'rrze-legal'),
                                 'type' => 'textarea',
                                 'default' => '',
@@ -125,7 +125,7 @@ $settings = [
                     ],
                     [
                         'id' => 'technical',
-                        'title' => __('Technische Angaben (Erweiterte Einstellungen)', 'rrze-legal'),
+                        'title' => __('Technical Information (Advanced Settings)', 'rrze-legal'),
                         'callback' => [consentCookies(), 'technicalSectionToggle'],
                         'fields' => [
                             [
@@ -167,7 +167,7 @@ $settings = [
                             [
                                 'name' => 'plugin_slug',
                                 'label' => __('Plugin-Slug', 'rrze-legal'),
-                                'description' => __('Optional. Wenn ein Plugin-Slug angegeben ist, wird der Status automatisch aus der Aktivierung dieses Plugins abgeleitet und nicht manuell gesetzt.', 'rrze-legal'),
+                                'description' => __('Optional. If a plugin slug is provided, the status is automatically derived from the activation of this plugin and cannot be set manually.', 'rrze-legal'),
                                 'type' => 'text',
                                 'default' => '',
                                 'sanitize_callback' => 'sanitize_text_field',

@@ -41,8 +41,8 @@ $settings = [
                         'fields' => [
                             [
                                 'name' => 'allow_manual_page',
-                                'label' => __('Manuelle Seite erlauben', 'rrze-legal'),
-                                'description' => __('Diese Seite darf durch eine normale Seite mit gleichem Slug überschrieben werden. Sollte eine Seite existieren mit dem Slug wird diese gezeigt und nicht die generierte Seite.', 'rrze-legal'),
+                                'label' => __('Allow manual page', 'rrze-legal'),
+                                'description' => __('This page may be overridden by a regular page with the same slug. If a page with this slug exists, it will be shown instead of the generated page.', 'rrze-legal'),
                                 'notice' => tos()->manualPageNotice('imprint'),
                                 'type' => 'checkbox',
                                 'default' => false,
@@ -479,8 +479,8 @@ $settings = [
                         'description' => __('This option allows you to change predefined paragraphs, as well as to add another self-phrased paragraph.<br>Note: Official FAU facilities should have all of the following options enabled.', 'rrze-legal'),
                         'fields' => [
                             /*
-                             * Wahl entfällt, da automatisch drin und nun änderbar
-                             * Nur noch als reminder für IF-Bedingung enthalten
+                             * Selection removed because it is now included automatically and editable.
+                             * Kept only as a reminder for conditional logic.
                             [
                                 'name' => 'optional_representation',
                                 'label' => __('Reference to the University Management', 'rrze-legal'),
@@ -595,8 +595,8 @@ $settings = [
                         'fields' => [
                             [
                                 'name' => 'allow_manual_page',
-                                'label' => __('Manuelle Seite erlauben', 'rrze-legal'),
-                                'description' => __('Diese Seite darf durch eine normale Seite mit gleichem Slug überschrieben werden. Sollte eine Seite existieren mit dem Slug wird diese gezeigt und nicht die generierte Seite.', 'rrze-legal'),
+                                'label' => __('Allow manual page', 'rrze-legal'),
+                                'description' => __('This page may be overridden by a regular page with the same slug. If a page with this slug exists, it will be shown instead of the generated page.', 'rrze-legal'),
                                 'notice' => tos()->manualPageNotice('privacy'),
                                 'type' => 'checkbox',
                                 'default' => false,
@@ -726,7 +726,7 @@ $settings = [
                     ],
                     [
                         'id' => 'external_services',
-                        'title' => __('Verwendete Cookies und Services', 'rrze-legal'),
+                        'title' => __('Used Cookies and Services', 'rrze-legal'),
                         'description' => sprintf(
                             '%1$s<br><a href="%2$s">%3$s</a>',
                             __('If cookies or external services are used on the website, they must also be included in the privacy policy.', 'rrze-legal'),
@@ -736,7 +736,7 @@ $settings = [
                         'fields' => [
                             [
                                 'name' => 'service_providers',
-                                'label' => __('Aktive Komponenten', 'rrze-legal'),
+                                'label' => __('Active Components', 'rrze-legal'),
                                 'description' => '',
                                 'type' => 'multicheckbox',
                                 'options' => tos()->getServiceProvidersOptions(),
@@ -749,6 +749,23 @@ $settings = [
                         'title' => __('Optional Information', 'rrze-legal'),
                         'description' => __('Additional information about the privacy policy.', 'rrze-legal'),
                         'fields' => [
+                            [
+                                'name' => 'optional_section_praeambel',
+                                'label' => __('Insert Preamble', 'rrze-legal'),
+                                'type' => 'radio',
+                                'options' => [
+                                    '1' => __('Yes', 'rrze-legal'),
+                                    '0' => __('No', 'rrze-legal'),
+                                ],
+                                'default' => '0',
+                                'inline' => true,
+                            ],
+                            [
+                                'name' => 'optional_section_praeambel_content',
+                                'label' => __('Content', 'rrze-legal'),
+                                'description' => __('Content of the new, additional section.', 'rrze-legal'),
+                                'type' => 'wpeditor',
+                            ],
                             [
                                 'name' => 'optional_new_section_top',
                                 'label' => __('Add a New Section at the Beginning of the Page', 'rrze-legal'),
@@ -805,8 +822,8 @@ $settings = [
                         'fields' => [
                             [
                                 'name' => 'allow_manual_page',
-                                'label' => __('Manuelle Seite erlauben', 'rrze-legal'),
-                                'description' => __('Diese Seite darf durch eine normale Seite mit gleichem Slug überschrieben werden. Sollte eine Seite existieren mit dem Slug wird diese gezeigt und nicht die generierte Seite.', 'rrze-legal'),
+                                'label' => __('Allow manual page', 'rrze-legal'),
+                                'description' => __('This page may be overridden by a regular page with the same slug. If a page with this slug exists, it will be shown instead of the generated page.', 'rrze-legal'),
                                 'notice' => tos()->manualPageNotice('accessibility'),
                                 'type' => 'checkbox',
                                 'default' => false,
@@ -1091,14 +1108,7 @@ $settings = [
                                 'label' => __('Organization', 'rrze-legal'),
                                 'description' => __('Indicate whether the website is operated by an institution affiliated with the university or by another institution.','rrze-legal').'<br>'.__('Please notice, that by chosing the organisation, additional data, like the name of the legal representative contact or the data policy officer are updated automatically.', 'rrze-legal'),
                                 'type' => 'select',
-                                // optionlist filled by data/tos.php
-           //                     'options' => [
-           //                         'fau' => __('Friedrich-Alexander-Universität Erlangen-Nürnberg', 'rrze-legal'),
-           //                         'utn' => __('University of Technology Nuremberg ', 'rrze-legal'),
-           //                         'uk' => __('Universitätsklinikum Erlangen', 'rrze-legal'),
-           //                         'cooperation'  => __('Cooperation between different institutions', 'rrze-legal'),
-           //                         'external' => __('External institution', 'rrze-legal'),
-           //                     ],
+                                // Option list is filled from data/tos.php.
                                 'default' => 'fau'
                             ]
                            

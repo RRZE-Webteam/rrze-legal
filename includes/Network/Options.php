@@ -88,7 +88,7 @@ class Options extends Settings
             $fields[] = [
                 'name' => $key . '_domains',
                 'label' => $label,
-                'description' => __('Domainnamen oder eindeutige Domainteile, die dieser Organisation zugeordnet werden. Geben Sie einen Eintrag pro Zeile ein.', 'rrze-legal'),
+                'description' => __('Domain names or unique domain parts assigned to this organization. Enter one entry per line.', 'rrze-legal'),
                 'type' => 'textarea',
                 'default' => $key === 'fau' ? implode(PHP_EOL, fauDomains()) : '',
                 'sanitize_callback' => [$this, 'sanitizeTextareaList'],
@@ -215,7 +215,7 @@ class Options extends Settings
     {
         if (isset($_GET['page']) && $_GET['page'] == $this->optionsMenu->slug && isset($_GET['settings-error']) && $_GET['settings-error'] === 'duplicate_organization_domains') {
             echo '<div id="message" class="notice notice-error is-dismissible"><p>',
-            esc_html(__('Die Einstellungen wurden nicht gespeichert. Ein Domainname oder Domainteil darf nur einer Organisation zugeordnet werden.', 'rrze-legal')),
+            esc_html(__('The settings were not saved. A domain name or domain part may only be assigned to one organization.', 'rrze-legal')),
             '</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">',
             esc_html(__('Dismiss this notice.', 'rrze-legal')),
             '</span></button></div>';
@@ -340,14 +340,14 @@ class Options extends Settings
     public function getTosNoticeWarningText(): string {
         return $this->getTosNoticeText(
             'tos_notice_warning_text',
-            __('Eine weitergehende Nichtbearbeitung der Daten führt zu einer Meldung beim CMS Betreiber.', 'rrze-legal')
+            __('Continuing to leave the data unprocessed will result in a report to the CMS operator.', 'rrze-legal')
         );
     }
 
     public function getTosNoticeErrorText(): string {
         return $this->getTosNoticeText(
             'tos_notice_error_text',
-            __('Der CMS Betreiber wurde informiert.', 'rrze-legal')
+            __('The CMS operator has been informed.', 'rrze-legal')
         );
     }
 

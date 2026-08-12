@@ -111,7 +111,7 @@ class Options extends Settings {
         do_action(
             'rrze.log.info',
             sprintf(
-                'RRZE Legal: %1$s hat die Einstellungen für den Rechtstext "%2$s" (%3$s) auf Website %4$d geändert.',
+                'RRZE Legal: %1$s changed the settings for the legal text "%2$s" (%3$s) on site %4$d.',
                 $userLabel,
                 $this->getTosSectionLogLabel($sectionId),
                 $sectionId,
@@ -132,11 +132,11 @@ class Options extends Settings {
     protected function getTosSectionLogLabel(string $sectionId): string {
         switch ($sectionId) {
             case 'imprint':
-                return __('Impressum', 'rrze-legal');
+                return __('Imprint', 'rrze-legal');
             case 'privacy':
-                return __('Datenschutzerklärung', 'rrze-legal');
+                return __('Privacy Policy', 'rrze-legal');
             case 'accessibility':
-                return __('Barrierefreiheitserklärung', 'rrze-legal');
+                return __('Accessibility Statement', 'rrze-legal');
             default:
                 return $sectionId;
         }
@@ -232,16 +232,16 @@ class Options extends Settings {
         $editLink = $editUrl ? sprintf(
             '<a href="%1$s">%2$s</a>',
             esc_url($editUrl),
-            esc_html__('Seite bearbeiten', 'rrze-legal')
+            esc_html__('Edit page', 'rrze-legal')
         ) : '';
 
         $statusMessage = $page->post_status === 'publish'
-            ? __('Wenn "Manuelle Seite erlauben" aktiviert ist, wird diese Seite statt der generierten Seite angezeigt.', 'rrze-legal')
-            : __('Diese Seite überschreibt den Endpoint erst, wenn sie veröffentlicht ist und "Manuelle Seite erlauben" aktiviert ist.', 'rrze-legal');
+            ? __('If "Allow manual page" is enabled, this page will be displayed instead of the generated page.', 'rrze-legal')
+            : __('This page only overrides the endpoint once it is published and "Allow manual page" is enabled.', 'rrze-legal');
 
         $message = sprintf(
             /* translators: 1: endpoint slug, 2: edit page link, 3: status message. */
-            __('Es existiert eine Seite mit dem Slug %1$s. %3$s %2$s', 'rrze-legal'),
+            __('A page with the slug %1$s exists. %3$s %2$s', 'rrze-legal'),
             '<code>' . esc_html($slug) . '</code>',
             $editLink,
             esc_html($statusMessage)
@@ -336,7 +336,7 @@ class Options extends Settings {
                 $providers[$key] = [
                     'label' => $value['name'],
                     'disabled' => true,
-                    'description' => __('Wird automatisch angezeigt, weil das abhängige Plugin aktiv ist.', 'rrze-legal'),
+                    'description' => __('Displayed automatically because the dependent plugin is active.', 'rrze-legal'),
                 ];
                 continue;
             }
@@ -662,11 +662,11 @@ class Options extends Settings {
             $value = isset($options[$key]) ? trim((string) $options[$key]) : '';
             $reason = '';
             if ($value === '') {
-                $reason = __('Pflichtfeld ist leer.', 'rrze-legal');
+                $reason = __('Required field is empty.', 'rrze-legal');
             } elseif (($field['type'] ?? '') === 'email' && !is_email($value)) {
-                $reason = __('Pflichtfeld enthält keine gültige E-Mail-Adresse.', 'rrze-legal');
+                $reason = __('Required field does not contain a valid email address.', 'rrze-legal');
             } elseif ($this->isPlaceholderDefaultValue($key, $field, $value)) {
-                $reason = __('Pflichtfeld enthält noch einen automatisch gesetzten Standardwert.', 'rrze-legal');
+                $reason = __('Required field still contains an automatically set default value.', 'rrze-legal');
             }
 
             if ($reason === '') {
