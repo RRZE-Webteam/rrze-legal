@@ -1,7 +1,7 @@
 {
   "name": "rrze-legal",
   "title": "RRZE Legal",
-  "version": "2.8.15",
+  "version": "2.8.15-9",
   "description": "Legal Mandatory Information & GDPR.",
   "main": "rrze-legal.php",
   "textdomain": "rrze-legal",

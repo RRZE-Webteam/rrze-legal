@@ -1,0 +1,27 @@
+<h2>Name and Address of the Controller</h2>
+<p>
+    The controller within the meaning of the General Data Protection Regulation, other national data protection laws of the Member States and other data protection regulations is:
+</p>
+
+<p>{{=imprint_representation_name}}</p>
+
+<address>
+    {{imprint_representation_postal_street}}
+    {{=imprint_representation_postal_street}}<br>
+    {{/imprint_representation_postal_street}}
+    {{imprint_representation_postal_city}}
+    {{=imprint_representation_postal_code}}
+    {{=imprint_representation_postal_city}}
+    {{/imprint_representation_postal_city}}
+</address>
+<ul class="person-info">
+    {{imprint_representation_phone}}
+    <li class="person-info-phone"><span>Phone:</span> <a href="tel:{{=imprint_representation_phone}}">{{=imprint_representation_phone}}</a></li>
+    {{/imprint_representation_phone}}
+    {{imprint_representation_fax}}
+    <li class="person-info-fax"><span>Fax:</span> {{=imprint_representation_fax}}</li>
+    {{/imprint_representation_fax}}
+    {{imprint_representation_email}}
+    <li class="person-info-email"><span>Email:</span> <a href="mailto:{{=imprint_representation_email}}">{{=imprint_representation_email}}</a></li>
+    {{/imprint_representation_email}}
+</ul>

@@ -180,7 +180,7 @@ class Endpoint {
         }
         // Includes other child templates
        
-        $default_active_subtemplates = ['imprint-representation', 'imprint-id-numbers', 'imprint-supervisory-authority', 'imprint-it-security', 'imprint-whistleblower-system', 'privacy-dpo', 'privacy-general', 'privacy-technical-notices', 'privacy-rights-data-subject'];
+        $default_active_subtemplates = ['imprint-representation', 'imprint-id-numbers', 'imprint-supervisory-authority', 'imprint-it-security', 'imprint-whistleblower-system', 'privacy-controller', 'privacy-dpo', 'privacy-rights-data-subject', 'privacy-supervisory-authority', 'privacy-general', 'privacy-technical-server', 'privacy-technical-cookies', 'privacy-technical-notices', 'accessibility-supervisory-authority'];
         
         foreach ($default_active_subtemplates as $_tpl) {
             $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-' . $langCode . '.html';
@@ -197,6 +197,9 @@ class Endpoint {
         // Search content for shortcodes and filter shortcodes through their hooks
         // Shortcodes inside HTML elements will be skipped
         $content = do_shortcode($content);
+        if ($requestData['endpoint'] === 'privacy') {
+            self::enqueuePrivacyHeadingNumberingStyle();
+        }
         $title = $requestData['title'] ?? '';
         // Render the page with the content
         $template = plugin()->getPath(Template::THEMES_PATH) . Template::getThemeFilename();
@@ -554,6 +557,40 @@ class Endpoint {
         $content = Template::getContent($template, $options);
         $content = preg_replace('/(^|[^\n\r])[\r\n](?![\n\r])/', '$1 ', $content);
         return $content;
+    }
+
+    protected static function enqueuePrivacyHeadingNumberingStyle(): void
+    {
+        $handle = 'rrze-legal-privacy-heading-numbering';
+
+        wp_register_style($handle, false, [], plugin()->getVersion());
+        wp_enqueue_style($handle);
+        wp_add_inline_style($handle, self::privacyHeadingNumberingCss());
+    }
+
+    protected static function privacyHeadingNumberingCss(): string
+    {
+        return implode(
+            "\n",
+            [
+                '.rrze-legal-privacy-numbered-headings {',
+                '    counter-reset: rrze-legal-privacy-h2;',
+                '}',
+                '.rrze-legal-privacy-numbered-headings h2 {',
+                '    counter-increment: rrze-legal-privacy-h2;',
+                '    counter-reset: rrze-legal-privacy-h3;',
+                '}',
+                '.rrze-legal-privacy-numbered-headings h2::before {',
+                '    content: counter(rrze-legal-privacy-h2) ". ";',
+                '}',
+                '.rrze-legal-privacy-numbered-headings h3 {',
+                '    counter-increment: rrze-legal-privacy-h3;',
+                '}',
+                '.rrze-legal-privacy-numbered-headings h3::before {',
+                '    content: counter(rrze-legal-privacy-h2) "." counter(rrze-legal-privacy-h3) " ";',
+                '}',
+            ]
+        );
     }
 
     protected static function error404()

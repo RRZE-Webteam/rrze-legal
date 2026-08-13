@@ -81,7 +81,7 @@ $data = [
                 'postal_street'     => 'Postfach 22 12 19',
                 'postal_code'       => '80502',
                 'postal_city'       => 'München',
-                'url'               => 'https://www.datenschutz-bayern.de/service/complaint.html',
+                'url'               => 'https://www.datenschutz-bayern.de/',
             ],
             'accessibility_supervisory_authority' => [
                 '_readonly'        => true,
