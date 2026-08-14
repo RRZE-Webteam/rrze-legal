@@ -5,7 +5,7 @@ namespace RRZE\Legal;
 defined('ABSPATH') || exit;
 
 $data = [
-    'version' => 9,
+    'version' => 10,
     'items' => [
         'default' => [
             'id' => 'default',
@@ -230,27 +230,31 @@ TEXT,
         ],
         'twitter' => [
             'id' => 'twitter',
-            'cookie_name' => '__widgetsettings, local_storage_support_test',
+            'cookie_name' => 'guest_id, personalization_id, app_shell_referrer, _sl, __utma, _ga_',
             'category' => 'external_media',
-            'name' => __('Twitter', 'rrze-legal'),
-            'provider' => __('Twitter International Company, One Cumberland Place, Fenian Street, Dublin 2, D02 AX07, Ireland', 'rrze-legal'),
-            'purpose' => __('Used to unblock Twitter content.', 'rrze-legal'),
+            'name' => __('X (formerly Twitter)', 'rrze-legal'),
+            'provider' => __('X Internet Unlimited Company, One Cumberland Place, Fenian Street, Dublin 2, D02 AX07, Ireland', 'rrze-legal'),
+            'purpose' => __('Used to unblock X content.', 'rrze-legal'),
             'privacy_text_de' => <<<'TEXT'
-Auf dieser Website können Inhalte von Twitter eingebunden sein. Wenn solche Inhalte aktiviert werden, kann eine Verbindung zu Servern von Twitter hergestellt werden. Dabei können personenbezogene Daten wie IP-Adresse, Browserinformationen und Informationen zur aufgerufenen Seite an Twitter übermittelt werden.
+Auf dieser Website können Inhalte von X (vormals Twitter) eingebunden sein. Wenn solche Inhalte aktiviert werden, kann eine Verbindung zu Servern von X hergestellt werden. Dabei können personenbezogene Daten wie IP-Adresse, Browserinformationen und Informationen zur aufgerufenen Seite an X übermittelt werden.
 
-Wenn Sie bei Twitter angemeldet sind, kann Twitter den Aufruf Ihrem Benutzerkonto zuordnen. Weitere Informationen finden Sie in der Datenschutzerklärung des Anbieters.
+Wenn Sie bei X angemeldet sind, kann X den Aufruf Ihrem Benutzerkonto zuordnen. Weitere Informationen finden Sie in der Datenschutzerklärung des Anbieters.
 TEXT,
             'privacy_text_en' => <<<'TEXT'
-This website may include content from Twitter. If such content is activated, a connection to Twitter servers may be established. Personal data such as IP address, browser information and information about the page accessed may be transmitted to Twitter.
+This website may include content from X (formerly Twitter). If such content is activated, a connection to X servers may be established. Personal data such as IP address, browser information and information about the page accessed may be transmitted to X.
 
-If you are logged in to Twitter, Twitter may associate the visit with your user account. Further information can be found in the provider's privacy policy.
+If you are logged in to X, X may associate the visit with your user account. Further information can be found in the provider's privacy policy.
 TEXT,
-            'privacy_policy_url' => 'https://twitter.com/privacy',
+            'privacy_policy_url' => 'https://x.com/en/privacy',
             'hosts' => implode(PHP_EOL, [
+                'x.com',
                 'twimg.com',
                 'twitter.com',
+                't.co',
+                'platform.twitter.com',
+                'syndication.twitter.com',
             ]),
-            'cookie_expiry' => __('Unlimited', 'rrze-legal'),
+            'cookie_expiry' => __('Up to 13 months', 'rrze-legal'),
             'enqueued_script_handles' => '',
             'block_enqueued_script' => false,
             'prioritize' => false,
@@ -264,7 +268,7 @@ TEXT,
         ],
         'youtube' => [
             'id' => 'youtube',
-            'cookie_name' => 'NID',
+            'cookie_name' => 'NID, __Secure-ENID, __Secure-YNID, __Secure-YENID, PREF, pm_sess, SOCS',
             'category' => 'external_media',
             'name' => __('YouTube', 'rrze-legal'),
             'provider' => __('Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland', 'rrze-legal'),
@@ -290,10 +294,14 @@ TEXT,
             'privacy_policy_url' => 'https://policies.google.com/privacy?hl=en&gl=en',
             'hosts' => implode(PHP_EOL, [
                 'google.com',
+                'googlevideo.com',
+                'gstatic.com',
                 'youtube.com',
                 'youtube-nocookie.com',
+                'youtu.be',
+                'ytimg.com',
             ]),
-            'cookie_expiry' => __('6 Months', 'rrze-legal'),
+            'cookie_expiry' => __('Up to 13 months', 'rrze-legal'),
             'enqueued_script_handles' => '',
             'block_enqueued_script' => false,
             'prioritize' => false,
@@ -479,7 +487,7 @@ TEXT,
         ],
         'slideshare' => [
             'id' => 'slideshare',
-            'cookie_name' => '__utma',
+            'cookie_name' => '__utma, _ga, OptanonConsent',
             'category' => 'external_media',
             'name' => __('Slideshare', 'rrze-legal'),
             'provider' => __('Scribd, Inc., 460 Bryant St, 100, San Francisco, CA 94107-2594 USA', 'rrze-legal'),
@@ -498,9 +506,13 @@ Usage data, device information, IP addresses and cookie information may be proce
 
 The use is based on your consent pursuant to Art. 6 (1) (a) GDPR. Consent can be withdrawn at any time.
 TEXT,
-            'privacy_policy_url' => 'https://www.slideshare.net/privacy',
-            'hosts' => 'www.slideshare.net',
-            'cookie_expiry' => __('2 Years', 'rrze-legal'),
+            'privacy_policy_url' => 'https://support.scribd.com/hc/en-us/articles/210129366-Global-Privacy-Policy',
+            'hosts' => implode(PHP_EOL, [
+                'slideshare.net',
+                'scribd.com',
+                'slidesharecdn.com',
+            ]),
+            'cookie_expiry' => __('Up to 2 years', 'rrze-legal'),
             'enqueued_script_handles' => '',
             'block_enqueued_script' => false,
             'prioritize' => false,
@@ -514,7 +526,7 @@ TEXT,
         ],
         'brmediathek' => [
             'id' => 'brmediathek',
-            'cookie_name' => 'atid',
+            'cookie_name' => 'atid, atidvisitor, atuserid, atoptedout, idrxvr, atidx',
             'category' => 'external_media',
             'name' => __('BR Mediathek', 'rrze-legal'),
             'provider' => __('Bayerischer Rundfunk, Rundfunkplatz 1, 80335 Munich, Germany', 'rrze-legal'),
@@ -531,9 +543,12 @@ The use is based on your consent pursuant to Art. 6 (1) (a) GDPR. Consent can be
 TEXT,
             'privacy_policy_url' => 'https://www.br.de/unternehmen/service/impressum/impressum-datenschutzerklaerung-unternehmen-v2-100.html',
             'hosts' => implode(PHP_EOL, [
-                'www.br.de',
+                'br.de',
+                'ardmediathek.de',
+                'ati-host.net',
+                'xiti.com',
             ]),
-            'cookie_expiry' => __('1 Year', 'rrze-legal'),
+            'cookie_expiry' => __('Up to 180 days', 'rrze-legal'),
             'enqueued_script_handles' => '',
             'block_enqueued_script' => false,
             'prioritize' => false,
@@ -548,7 +563,7 @@ TEXT,
         ],
         'ardmediathek' => [
             'id' => 'ardmediathek',
-            'cookie_name' => 'atidvisitor',
+            'cookie_name' => 'atidvisitor, atuserid, atoptedout, idrxvr, atidx',
             'category' => 'external_media',
             'name' => __('ARD Mediathek', 'rrze-legal'),
             'provider' => __('Bayerischer Rundfunk, Rundfunkplatz 1, 80335 Munich, Germany', 'rrze-legal'),
@@ -565,9 +580,12 @@ The use is based on your consent pursuant to Art. 6 (1) (a) GDPR. Consent can be
 TEXT,
             'privacy_policy_url' => 'https://www.ardmediathek.de/datenschutz',
             'hosts' => implode(PHP_EOL, [
-                'www.ardmediathek.de',
+                'ard.de',
+                'ardmediathek.de',
+                'ati-host.net',
+                'xiti.com',
             ]),
-            'cookie_expiry' => __('1 Year', 'rrze-legal'),
+            'cookie_expiry' => __('Up to 12 months', 'rrze-legal'),
             'enqueued_script_handles' => '',
             'block_enqueued_script' => false,
             'prioritize' => false,

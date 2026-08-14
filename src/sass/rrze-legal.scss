@@ -49,6 +49,17 @@
     th {
 	text-align: left;
     }
+
+    table {
+	width: inherit;
+    }
+
+    .rrze-legal-service-provider-cookie-information {
+	th {
+	    width: clamp(10rem, 28%, 14rem);
+	}
+    }
+
     .rrze-legal-contactinfos {
 	ul {
 	    display: table;
@@ -222,5 +233,17 @@
     .rrzelegal-cookie-preference:focus {
 	box-shadow: 0 0 0 3px var(--rrze-legal-cookie-preference-button-color-focus-shadow);
 	outline: 3px solid transparent;
+    }
+}
+
+#content .rrze-legal {
+    table {
+	width: inherit;
+    }
+
+    .rrze-legal-service-provider-cookie-information {
+	th {
+	    width: clamp(10rem, 28%, 14rem);
+	}
     }
 }

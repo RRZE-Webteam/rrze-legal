@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RRZE Legal 2.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-legal\n"
-"POT-Creation-Date: 2026-08-14T16:04:03+00:00\n"
+"POT-Creation-Date: 2026-08-14T16:15:47+00:00\n"
 "PO-Revision-Date: 2025-03-06 15:22+0000\n"
 "Last-Translator: \n"
 "Language-Team: Deutsch\n"
@@ -121,7 +121,6 @@ msgstr ""
 "ausgewählt wurden."
 
 #: data/consent-cookies.php:19 data/consent-cookies.php:126
-#: data/consent-cookies.php:536 data/consent-cookies.php:570
 msgid "1 Year"
 msgstr "1 Jahr"
 
@@ -203,62 +202,58 @@ msgid "1000 Days"
 msgstr "1000 Tage"
 
 #: data/consent-cookies.php:235
-msgid "Twitter"
-msgstr "Twitter"
+msgid "X (formerly Twitter)"
+msgstr "X (ehemals Twitter)"
 
 #: data/consent-cookies.php:236
 msgid ""
-"Twitter International Company, One Cumberland Place, Fenian Street, Dublin "
-"2, D02 AX07, Ireland"
+"X Internet Unlimited Company, One Cumberland Place, Fenian Street, Dublin 2, "
+"D02 AX07, Ireland"
 msgstr ""
-"Twitter International Company, One Cumberland Place, Fenian Street, Dublin "
-"2, D02 AX07, Irland"
+"X Internet Unlimited Company, One Cumberland Place, Fenian Street, Dublin 2, "
+"D02 AX07, Irland"
 
 #: data/consent-cookies.php:237
-msgid "Used to unblock Twitter content."
-msgstr "Wird verwendet, um Twitter-Inhalte zu entsperren."
+msgid "Used to unblock X content."
+msgstr "Wird verwendet, um X-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:253
-msgid "Unlimited"
-msgstr "Unbegrenzt"
+#: data/consent-cookies.php:257 data/consent-cookies.php:304
+msgid "Up to 13 months"
+msgstr "Bis zu 13 Monate"
 
-#: data/consent-cookies.php:269
+#: data/consent-cookies.php:273
 msgid "YouTube"
 msgstr "YouTube"
 
-#: data/consent-cookies.php:270 data/consent-cookies.php:399
+#: data/consent-cookies.php:274 data/consent-cookies.php:407
 msgid "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland"
 msgstr "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland"
 
-#: data/consent-cookies.php:271
+#: data/consent-cookies.php:275
 msgid "Used to unblock YouTube content."
 msgstr "Wird verwendet, um Youtube-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:296
-msgid "6 Months"
-msgstr "6 Monate"
-
-#: data/consent-cookies.php:312
+#: data/consent-cookies.php:320
 msgid "Spotify"
 msgstr "Spotify"
 
-#: data/consent-cookies.php:313
+#: data/consent-cookies.php:321
 msgid "Spotify AB, Regeringsgatan 19, 111 53 Stockholm, Sweden"
 msgstr "Spotify AB, Regeringsgatan 19, 111 53 Stockholm, Schweden"
 
-#: data/consent-cookies.php:314
+#: data/consent-cookies.php:322
 msgid "Used to unblock Spotify audio content."
 msgstr "Wird verwendet, um Spotify-Audioinhalte zu entsperren."
 
-#: data/consent-cookies.php:339
+#: data/consent-cookies.php:347
 msgid "Up to 1 year"
 msgstr "Bis zu 1 Jahr"
 
-#: data/consent-cookies.php:355
+#: data/consent-cookies.php:363
 msgid "Vimeo"
 msgstr "Vimeo"
 
-#: data/consent-cookies.php:356
+#: data/consent-cookies.php:364
 msgid ""
 "Vimeo.com, Inc., 330 West 34th Street, 5th Floor, New York, New York 10001, "
 "USA"
@@ -266,31 +261,31 @@ msgstr ""
 "Vimeo.com, Inc., 330 West 34th Street, 5th Floor, New York, New York 10001, "
 "USA"
 
-#: data/consent-cookies.php:357
+#: data/consent-cookies.php:365
 msgid "Used to unblock Vimeo content."
 msgstr "Wird verwendet, um Vimeo-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:382
+#: data/consent-cookies.php:390 data/consent-cookies.php:515
 msgid "Up to 2 years"
 msgstr "Bis zu 2 Jahre"
 
-#: data/consent-cookies.php:398
+#: data/consent-cookies.php:406
 msgid "Gstatic"
 msgstr "Gstatic"
 
-#: data/consent-cookies.php:400
+#: data/consent-cookies.php:408
 msgid "Used to load static Google resources."
 msgstr "Wird verwendet, um statische Google-Ressourcen zu laden."
 
-#: data/consent-cookies.php:425
+#: data/consent-cookies.php:433
 msgid "Up to 6 months"
 msgstr "Bis zu 6 Monate"
 
-#: data/consent-cookies.php:441
+#: data/consent-cookies.php:449
 msgid "Sentry"
 msgstr "Sentry"
 
-#: data/consent-cookies.php:442
+#: data/consent-cookies.php:450
 msgid ""
 "Functional Software, Inc. dba Sentry, 45 Fremont Street, 8th Floor, San "
 "Francisco, CA 94105, USA"
@@ -298,52 +293,56 @@ msgstr ""
 "Functional Software, Inc. dba Sentry, 45 Fremont Street, 8th Floor, San "
 "Francisco, CA 94105, USA"
 
-#: data/consent-cookies.php:443
+#: data/consent-cookies.php:451
 msgid "Used for error reporting and application monitoring."
 msgstr "Wird für Fehlerberichterstattung und Anwendungsüberwachung verwendet."
 
-#: data/consent-cookies.php:468 includes/TOS/Endpoint.php:369
+#: data/consent-cookies.php:476 includes/TOS/Endpoint.php:369
 #: includes/TOS/Endpoint.php:380
 msgid "No cookies"
 msgstr "Keine Cookies"
 
-#: data/consent-cookies.php:484
+#: data/consent-cookies.php:492
 msgid "Slideshare"
 msgstr "Slideshare"
 
-#: data/consent-cookies.php:485
+#: data/consent-cookies.php:493
 msgid "Scribd, Inc., 460 Bryant St, 100, San Francisco, CA 94107-2594 USA"
 msgstr ""
 "Scribd, Inc., 460 Bryant St, 100, San Francisco, CA 94107-2594 Vereinigten "
 "Staten"
 
-#: data/consent-cookies.php:486
+#: data/consent-cookies.php:494
 msgid "Used to unblock Slideshare content."
 msgstr "Wird verwendet, um Slideshare-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:503
-msgid "2 Years"
-msgstr "2 Jahre"
-
-#: data/consent-cookies.php:519
+#: data/consent-cookies.php:531
 msgid "BR Mediathek"
 msgstr "BR Mediathek"
 
-#: data/consent-cookies.php:520 data/consent-cookies.php:554
+#: data/consent-cookies.php:532 data/consent-cookies.php:569
 msgid "Bayerischer Rundfunk, Rundfunkplatz 1, 80335 Munich, Germany"
 msgstr "Bayerischer Rundfunk, Rundfunkplatz 1, 80335 München, Deutschland"
 
-#: data/consent-cookies.php:521
+#: data/consent-cookies.php:533
 msgid "Used to unblock BR content."
 msgstr "Wird verwendet, um BR-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:553
+#: data/consent-cookies.php:551
+msgid "Up to 180 days"
+msgstr "Bis zu 180 Tage"
+
+#: data/consent-cookies.php:568
 msgid "ARD Mediathek"
 msgstr "ARD Mediathek"
 
-#: data/consent-cookies.php:555
+#: data/consent-cookies.php:570
 msgid "Used to unblock ARD content."
 msgstr "Wird verwendet, um ARD-Inhalte zu entsperren."
+
+#: data/consent-cookies.php:588
+msgid "Up to 12 months"
+msgstr "Bis zu 12 Monate"
 
 #: data/tos.php:104
 msgid "University of Technology Nuremberg "
@@ -2416,6 +2415,21 @@ msgstr ""
 "Bitte beachten Sie, dass durch die Auswahl der Organisation zusätzliche "
 "Daten, wie der Name des gesetzlichen Vertreters oder des "
 "Datenschutzbeauftragten automatisch aktualisiert werden. "
+
+#~ msgid "Twitter"
+#~ msgstr "Twitter"
+
+#~ msgid "Used to unblock Twitter content."
+#~ msgstr "Wird verwendet, um Twitter-Inhalte zu entsperren."
+
+#~ msgid "Unlimited"
+#~ msgstr "Unbegrenzt"
+
+#~ msgid "6 Months"
+#~ msgstr "6 Monate"
+
+#~ msgid "2 Years"
+#~ msgstr "2 Jahre"
 
 #~ msgid "Description"
 #~ msgstr "Beschreibung"
