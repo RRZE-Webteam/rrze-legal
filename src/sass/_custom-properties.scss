@@ -2,6 +2,8 @@
     --rrze-legal-color-text: var(--FAU-Col-FAU-Schwarz-100, #000);
     --rrze-legal-font-size-base: var(--P-Body-Text, 1rem);
     --rrze-legal-line-height-base: var(--base-line-height, 1.6);
+    --rrze-legal-border-radius: var(--border-radius, 4px);
+    --rrze-legal-border-radius-buttons:  var(--border-radius-buttons, 4px);
 
     --rrze-legal-wcag-contact-form-color-border: #d7dde5;
     --rrze-legal-wcag-contact-form-color-required: #6f1d1b;
@@ -28,6 +30,15 @@
     --rrze-legal-cookie-preference-button-color-background-hover: #004b86;
     --rrze-legal-cookie-preference-button-color-text: #fff;
     --rrze-legal-cookie-preference-button-color-focus-shadow: rgba(0, 94, 168, 0.28);
+
+    --rrze-legal-content-blocker-color-surface: #efefef;
+    --rrze-legal-content-blocker-color-text: #333333;
+    --rrze-legal-content-blocker-color-link: #04316a;
+    --rrze-legal-content-blocker-color-link-hover: #041e42;
+    --rrze-legal-content-blocker-color-button: #04316a;
+    --rrze-legal-content-blocker-color-button-hover: #041e42;
+    --rrze-legal-content-blocker-color-button-text: #ffffff;
+    --rrze-legal-content-blocker-color-button-hover-text: #ffffff;
 
     --rrze-legal-banner-font-size-base: 1rem;
     --rrze-legal-banner-font-size-inherit: inherit;

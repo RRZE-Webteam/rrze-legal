@@ -319,8 +319,11 @@ class Settings {
      */
     public function adminSubMenu()  {
         foreach ($this->sections as $key => $section) {
+            if (!$this->isSectionVisible($section)) {
+                continue;
+            }
             $sectionId = str_replace('_', '-', $section['id']);
-            if ($key == 0) {
+            if ($this->defaultTab === '') {
                 $this->defaultTab = $this->pagePrefix . $sectionId;
             }
             $this->allTabs[] = $this->pagePrefix . $sectionId;
@@ -360,7 +363,7 @@ class Settings {
         $html = '<h1>' . $this->settings['settings']['title'] . '</h1>' . PHP_EOL;
         $count = 0;
         foreach ($this->sections as $section) {
-            if (isset($section['capability']) && !current_user_can($section['capability'])) {
+            if (!$this->isSectionVisible($section)) {
                 continue;
             }
             $count++;
@@ -373,7 +376,7 @@ class Settings {
         $html .= '<h2 class="nav-tab-wrapper wp-clearfix">';
         foreach ($this->sections as $section) {
             $sectionId = str_replace('_', '-', $section['id']);
-            if (isset($section['capability']) && !current_user_can($section['capability'])) {
+            if (!$this->isSectionVisible($section)) {
                 continue;
             }
             $class = $this->pagePrefix . $sectionId == $this->currentTab ? 'nav-tab-active' : $this->defaultTab;
@@ -395,6 +398,9 @@ class Settings {
      */
     public function settingsForm() {
         foreach ($this->sections as $section) {
+            if (!$this->isSectionVisible($section)) {
+                continue;
+            }
             $sectionId = str_replace('_', '-', $section['id']);
             if ($this->pagePrefix . $sectionId != $this->currentTab) {
                 continue;
@@ -416,6 +422,9 @@ class Settings {
             if (!isset($section['id']) || !isset($section['title'])) {
                 continue;
             }
+            if (!$this->isSectionVisible($section)) {
+                continue;
+            }
             $this->addSection($section);
             register_setting(
                 $this->settingsPrefix . $section['id'],
@@ -423,6 +432,16 @@ class Settings {
                 ['sanitize_callback' => [$this, 'sanitizeOptions']]
             );
         }
+    }
+
+    protected function isSectionVisible(array $section): bool {
+        if (isset($section['capability']) && !current_user_can($section['capability'])) {
+            return false;
+        }
+        if (isset($section['hide_section']) && (bool) $section['hide_section']) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -556,6 +575,7 @@ class Settings {
                 'step' => $option['step'] ?? '',
                 'inline' => isset($option['inline']) ? (bool) $option['inline'] : false,
                 'disabled' => isset($option['disabled']) ? (bool) $option['disabled'] : false,
+                'readonly' => isset($option['readonly']) ? (bool) $option['readonly'] : false,
                 'sanitize_callback' => $option['sanitize_callback'] ?? null,
                 'required' => $required,
                 'errors' => get_settings_errors($this->settingsPrefix . $section),
@@ -629,6 +649,8 @@ class Settings {
                     } else {
                         $value = $sanitizedValue;
                     }
+                } else {
+                    $value = $this->sanitizeValueByFieldType($value, $option);
                 }
                 if ($error) {
                     $hasError = true;
@@ -659,6 +681,85 @@ class Settings {
             }
         }
         return false;
+    }
+
+    protected function sanitizeValueByFieldType($value, array $option) {
+        $type = isset($option['type']) ? strtolower((string) $option['type']) : '';
+
+        switch ($type) {
+            case 'checkbox':
+                return !empty($value) ? '1' : '0';
+            case 'radio':
+            case 'select':
+                return $this->sanitizeChoiceValue($value, $option);
+            case 'multicheckbox':
+            case 'multiselect':
+                return $this->sanitizeMultipleChoiceValue($value, $option);
+            case 'number':
+                return $this->sanitizeNumberValue($value, $option);
+            case 'email':
+                return sanitize_email((string) $value);
+            case 'url':
+                return sanitize_url((string) $value);
+            case 'textarea':
+                return sanitize_textarea_field((string) $value);
+            case 'wpeditor':
+                return wp_kses_post((string) $value);
+            case 'text':
+            case 'tel':
+            case 'date':
+            case 'selectpage':
+                return sanitize_text_field((string) $value);
+        }
+
+        return is_scalar($value) ? sanitize_text_field((string) $value) : '';
+    }
+
+    protected function sanitizeChoiceValue($value, array $option): string {
+        $value = sanitize_text_field((string) $value);
+        $options = isset($option['options']) && is_array($option['options']) ? $option['options'] : [];
+
+        if (!empty($options) && !array_key_exists($value, $options)) {
+            return isset($option['default']) ? sanitize_text_field((string) $option['default']) : '';
+        }
+
+        return $value;
+    }
+
+    protected function sanitizeMultipleChoiceValue($value, array $option): array {
+        $value = is_array($value) ? $value : [];
+        $options = isset($option['options']) && is_array($option['options']) ? $option['options'] : [];
+        $sanitized = [];
+
+        foreach ($value as $key => $item) {
+            $key = sanitize_text_field((string) $key);
+            if (!empty($options) && !array_key_exists($key, $options)) {
+                continue;
+            }
+            $sanitized[$key] = !empty($item) ? '1' : '0';
+        }
+
+        return $sanitized;
+    }
+
+    protected function sanitizeNumberValue($value, array $option) {
+        if ($value === '') {
+            return '';
+        }
+
+        $number = is_numeric($value) ? $value + 0 : null;
+        if ($number === null) {
+            return '';
+        }
+
+        if (isset($option['min']) && $option['min'] !== '' && $number < (float) $option['min']) {
+            return '';
+        }
+        if (isset($option['max']) && $option['max'] !== '' && $number > (float) $option['max']) {
+            return '';
+        }
+
+        return strpos((string) $value, '.') === false ? (int) $number : (float) $number;
     }
 
     /**

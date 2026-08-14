@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: RRZE Legal 2.9\n"
-"Report-Msgid-Bugs-To: https://github.com/RRZE-Webteam/rrze-legal/issues\n"
-"POT-Creation-Date: 2026-08-12T07:43:12+00:00\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rrze-legal\n"
+"POT-Creation-Date: 2026-08-14T16:04:03+00:00\n"
 "PO-Revision-Date: 2025-03-06 15:22+0000\n"
 "Last-Translator: \n"
 "Language-Team: Deutsch (Sie)\n"
@@ -27,7 +27,8 @@ msgstr "RRZE Legal"
 
 #. Plugin URI of the plugin
 #: rrze-legal.php
-msgid "https://gitlab.rrze.fau.de/rrze-webteam/rrze-legal"
+#, fuzzy
+msgid "https://github.com/RRZE-Webteam/rrze-legal"
 msgstr "https://gitlab.rrze.fau.de/rrze-webteam/rrze-legal"
 
 #. Description of the plugin
@@ -58,10 +59,22 @@ msgstr ""
 "einwandfreie Funktion der Website erforderlich."
 
 #: data/consent-categories.php:21
+msgid "Functional"
+msgstr "Komfortfunktionen"
+
+#: data/consent-categories.php:22
+msgid ""
+"Functional services store preferences selected by visitors and improve the "
+"usability of the website, for example display settings."
+msgstr ""
+"Komfortfunktionen speichern von Besuchern gewählte Einstellungen und "
+"verbessern die Bedienbarkeit der Website, zum Beispiel Anzeigeeinstellungen."
+
+#: data/consent-categories.php:30
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: data/consent-categories.php:22
+#: data/consent-categories.php:31
 msgid ""
 "Statistics cookies collect information anonymously. This information helps "
 "us to understand how our visitors use our website."
@@ -69,11 +82,11 @@ msgstr ""
 "Statistik-Cookies erfassen Informationen anonym. Diese Informationen helfen "
 "uns zu verstehen, wie unsere Besucher unsere Website nutzen."
 
-#: data/consent-categories.php:30
+#: data/consent-categories.php:39
 msgid "Marketing"
 msgstr "Marketing"
 
-#: data/consent-categories.php:31
+#: data/consent-categories.php:40
 msgid ""
 "Marketing cookies are used by third-party advertisers or publishers to "
 "display personalized ads. They do this by tracking visitors across websites."
@@ -82,11 +95,11 @@ msgstr ""
 "personalisierte Werbung anzuzeigen. Sie tun dies, indem sie Besucher über "
 "Websites hinweg verfolgen."
 
-#: data/consent-categories.php:39
+#: data/consent-categories.php:48
 msgid "External Media"
 msgstr "Externe Medien"
 
-#: data/consent-categories.php:40
+#: data/consent-categories.php:49
 msgid ""
 "Content from video platforms and social media platforms is blocked by "
 "default. If External Media cookies are accepted, access to those contents no "
@@ -111,7 +124,7 @@ msgstr ""
 "ausgewählt wurden."
 
 #: data/consent-cookies.php:19 data/consent-cookies.php:126
-#: data/consent-cookies.php:399 data/consent-cookies.php:433
+#: data/consent-cookies.php:536 data/consent-cookies.php:570
 msgid "1 Year"
 msgstr "1 Jahr"
 
@@ -172,7 +185,8 @@ msgstr "RRZE Appointment"
 
 #: data/consent-cookies.php:145
 msgid "Used to manage digital appointment and office-hour booking."
-msgstr "Wird zur Verwaltung digitaler Termin- und Sprechstundenvergaben verwendet."
+msgstr ""
+"Wird zur Verwaltung digitaler Termin- und Sprechstundenvergaben verwendet."
 
 #: data/consent-cookies.php:195
 msgid "Siteimprove Analytics"
@@ -215,7 +229,7 @@ msgstr "Unbegrenzt"
 msgid "YouTube"
 msgstr "YouTube"
 
-#: data/consent-cookies.php:270
+#: data/consent-cookies.php:270 data/consent-cookies.php:399
 msgid "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland"
 msgstr "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland"
 
@@ -228,234 +242,210 @@ msgid "6 Months"
 msgstr "6 Monate"
 
 #: data/consent-cookies.php:312
+msgid "Spotify"
+msgstr "Spotify"
+
+#: data/consent-cookies.php:313
+msgid "Spotify AB, Regeringsgatan 19, 111 53 Stockholm, Sweden"
+msgstr "Spotify AB, Regeringsgatan 19, 111 53 Stockholm, Schweden"
+
+#: data/consent-cookies.php:314
+msgid "Used to unblock Spotify audio content."
+msgstr "Wird verwendet, um Spotify-Audioinhalte zu entsperren."
+
+#: data/consent-cookies.php:339
+msgid "Up to 1 year"
+msgstr "Bis zu 1 Jahr"
+
+#: data/consent-cookies.php:355
 msgid "Vimeo"
 msgstr "Vimeo"
 
-#: data/consent-cookies.php:313
-msgid "Vimeo Inc., 555 West 18th Street, New York, New York 10011, USA"
+#: data/consent-cookies.php:356
+msgid ""
+"Vimeo.com, Inc., 330 West 34th Street, 5th Floor, New York, New York 10001, "
+"USA"
 msgstr ""
-"Vimeo Inc., 555 West 18th Street, New York, New York 10011, Vereinigte "
-"Staaten"
+"Vimeo.com, Inc., 330 West 34th Street, 5th Floor, New York, New York 10001, "
+"USA"
 
-#: data/consent-cookies.php:314
+#: data/consent-cookies.php:357
 msgid "Used to unblock Vimeo content."
 msgstr "Wird verwendet, um Vimeo-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:331 data/consent-cookies.php:366
-msgid "2 Years"
-msgstr "2 Jahre"
+#: data/consent-cookies.php:382
+msgid "Up to 2 years"
+msgstr "Bis zu 2 Jahre"
 
-#: data/consent-cookies.php:347
+#: data/consent-cookies.php:398
+msgid "Gstatic"
+msgstr "Gstatic"
+
+#: data/consent-cookies.php:400
+msgid "Used to load static Google resources."
+msgstr "Wird verwendet, um statische Google-Ressourcen zu laden."
+
+#: data/consent-cookies.php:425
+msgid "Up to 6 months"
+msgstr "Bis zu 6 Monate"
+
+#: data/consent-cookies.php:441
+msgid "Sentry"
+msgstr "Sentry"
+
+#: data/consent-cookies.php:442
+msgid ""
+"Functional Software, Inc. dba Sentry, 45 Fremont Street, 8th Floor, San "
+"Francisco, CA 94105, USA"
+msgstr ""
+"Functional Software, Inc. dba Sentry, 45 Fremont Street, 8th Floor, San "
+"Francisco, CA 94105, USA"
+
+#: data/consent-cookies.php:443
+msgid "Used for error reporting and application monitoring."
+msgstr "Wird für Fehlerberichterstattung und Anwendungsüberwachung verwendet."
+
+#: data/consent-cookies.php:468 includes/TOS/Endpoint.php:369
+#: includes/TOS/Endpoint.php:380
+msgid "No cookies"
+msgstr "Keine Cookies"
+
+#: data/consent-cookies.php:484
 msgid "Slideshare"
 msgstr "Slideshare"
 
-#: data/consent-cookies.php:348
+#: data/consent-cookies.php:485
 msgid "Scribd, Inc., 460 Bryant St, 100, San Francisco, CA 94107-2594 USA"
 msgstr ""
 "Scribd, Inc., 460 Bryant St, 100, San Francisco, CA 94107-2594 Vereinigten "
 "Staten"
 
-#: data/consent-cookies.php:349
+#: data/consent-cookies.php:486
 msgid "Used to unblock Slideshare content."
 msgstr "Wird verwendet, um Slideshare-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:382
+#: data/consent-cookies.php:503
+msgid "2 Years"
+msgstr "2 Jahre"
+
+#: data/consent-cookies.php:519
 msgid "BR Mediathek"
 msgstr "BR Mediathek"
 
-#: data/consent-cookies.php:383 data/consent-cookies.php:417
+#: data/consent-cookies.php:520 data/consent-cookies.php:554
 msgid "Bayerischer Rundfunk, Rundfunkplatz 1, 80335 Munich, Germany"
 msgstr "Bayerischer Rundfunk, Rundfunkplatz 1, 80335 München, Deutschland"
 
-#: data/consent-cookies.php:384
+#: data/consent-cookies.php:521
 msgid "Used to unblock BR content."
 msgstr "Wird verwendet, um BR-Inhalte zu entsperren."
 
-#: data/consent-cookies.php:416
+#: data/consent-cookies.php:553
 msgid "ARD Mediathek"
 msgstr "ARD Mediathek"
 
-#: data/consent-cookies.php:418
+#: data/consent-cookies.php:555
 msgid "Used to unblock ARD content."
 msgstr "Wird verwendet, um ARD-Inhalte zu entsperren."
 
-#: data/tos.php:93
+#: data/tos.php:104
 msgid "University of Technology Nuremberg "
 msgstr "University of Technology Nuremberg "
 
-#: data/tos.php:160
+#: data/tos.php:182
 msgid "Universitätsklinikum Erlangen"
 msgstr "Universitätsklinikum Erlangen"
 
-#: data/tos.php:237
+#: data/tos.php:270
 msgid "Cooperation between different institutions"
 msgstr "Kooperation aus verschiedenen Einrichtungen"
 
-#: data/tos.php:240
+#: data/tos.php:273
 msgid "External institution"
 msgstr "Externe Einrichtung"
 
-#: includes/Consent/Banner.php:16 includes/TOS/Endpoint.php:336
-#: includes/TOS/Endpoint.php:346
+#: includes/Consent/Banner.php:16 includes/TOS/Endpoint.php:365
+#: includes/TOS/Endpoint.php:376
 msgid "Privacy policy"
 msgstr "Datenschutzerklärung"
 
-#: includes/Consent/Banner.php:38
+#: includes/Consent/Banner.php:42
 msgid "Individual privacy settings"
 msgstr "Individuelle Einstellungen"
 
-#: includes/Consent/Banner.php:42 settings/consent.php:185
+#: includes/Consent/Banner.php:46 settings/consent.php:202
+#: settings/network.php:240
 msgid "Privacy Settings"
 msgstr "Datenschutzeinstellungen"
 
-#: includes/Consent/Banner.php:54
+#: includes/Consent/Banner.php:58
 msgid "Back"
 msgstr "Zurück"
 
-#: includes/Consent/Banner.php:55
+#: includes/Consent/Banner.php:59
 msgid "On"
 msgstr "An"
 
-#: includes/Consent/Banner.php:56
+#: includes/Consent/Banner.php:60
 msgid "Off"
 msgstr "Aus"
 
-#: includes/Consent/Banner.php:57
+#: includes/Consent/Banner.php:61
 msgid "Show Cookie Information"
 msgstr "Cookie-Informationen anzeigen"
 
-#: includes/Consent/Banner.php:58
+#: includes/Consent/Banner.php:62
 msgid "Hide Cookie Information"
 msgstr "Cookie-Informationen ausblenden"
 
-#: includes/Consent/Banner.php:61
+#: includes/Consent/Banner.php:65
 msgid "Accept"
 msgstr "Akzeptieren"
 
-#: includes/Consent/Banner.php:62 includes/Consent/Categories/ListTable.php:103
-#: includes/Consent/Cookies/ListTable.php:143 includes/TOS/ContactForm.php:141
-#: settings/consent-categories.php:53 settings/consent-cookies.php:74
+#: includes/Consent/Banner.php:66 includes/Consent/Cookies/ListTable.php:143
+#: includes/TOS/ContactForm.php:141 settings/consent-cookies.php:74
 #: settings/tos.php:160 settings/tos.php:226 settings/tos.php:259
-#: settings/tos.php:391 settings/tos.php:995
+#: settings/tos.php:391 settings/tos.php:1012
 msgid "Name"
 msgstr "Name"
 
-#: includes/Consent/Banner.php:63 includes/TOS/Endpoint.php:335
-#: includes/TOS/Endpoint.php:345 settings/consent-cookies.php:83
+#: includes/Consent/Banner.php:67 includes/TOS/Endpoint.php:364
+#: includes/TOS/Endpoint.php:375 settings/consent-cookies.php:83
 msgid "Provider"
 msgstr "Anbieter"
 
-#: includes/Consent/Banner.php:64 includes/Consent/Cookies/ListTable.php:144
+#: includes/Consent/Banner.php:68 includes/Consent/Cookies/ListTable.php:144
 #: settings/consent-cookies.php:92
 msgid "Purpose"
 msgstr "Zweck"
 
-#: includes/Consent/Banner.php:65 includes/TOS/Options.php:137
+#: includes/Consent/Banner.php:69 includes/TOS/Options.php:137
 msgid "Privacy Policy"
 msgstr "Datenschutzerklärung"
 
-#: includes/Consent/Banner.php:66 includes/TOS/Endpoint.php:337
-#: includes/TOS/Endpoint.php:347
+#: includes/Consent/Banner.php:70 includes/TOS/Endpoint.php:366
+#: includes/TOS/Endpoint.php:377
 msgid "Hosts"
 msgstr "Hosts"
 
-#: includes/Consent/Banner.php:67 settings/consent-cookies.php:152
+#: includes/Consent/Banner.php:71 settings/consent-cookies.php:134
 msgid "Cookie Name"
 msgstr "Cookie Name"
 
-#: includes/Consent/Banner.php:68 settings/consent-cookies.php:160
+#: includes/Consent/Banner.php:72 settings/consent-cookies.php:142
 msgid "Cookie Expiry"
 msgstr "Cookie Laufzeit"
 
-#: includes/Consent/Categories/ListTable.php:61
-#: includes/Consent/Cookies/ListTable.php:84 includes/TOS/Endpoint.php:373
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: includes/Consent/Categories/ListTable.php:69
-#: includes/Consent/Categories/ListTable.php:133
-#: includes/Consent/Cookies/ListTable.php:111
-#: includes/Consent/Cookies/ListTable.php:177
-msgid "Delete"
-msgstr "Löschen"
-
-#: includes/Consent/Categories/ListTable.php:104
-#: settings/consent-categories.php:62
-msgid "Description"
-msgstr "Beschreibung"
-
-#: includes/Consent/Categories/ListTable.php:105
-#: includes/Consent/Cookies/ListTable.php:146
-#: settings/consent-categories.php:46 settings/consent-cookies.php:39
-#: settings/consent.php:39 settings/network.php:121
-msgid "Status"
-msgstr "Status"
-
-#: includes/Consent/Categories/ListTable.php:106
-#: settings/consent-categories.php:71
-msgid "Preselected"
-msgstr "Vorausgewählt"
-
-#: includes/Consent/Categories/ListTable.php:107
-#: includes/Consent/Cookies/ListTable.php:147
-#: settings/consent-categories.php:78 settings/consent-cookies.php:47
-msgid "Position"
-msgstr "Position"
-
-#: includes/Consent/Categories/Options.php:29
-msgid "Edit Consent Category"
-msgstr "Consent-Kategorie bearbeiten"
-
-#: includes/Consent/Categories/Options.php:56
-msgid "No consent category selected."
-msgstr "Keine Consent-Kategorie ausgewählt."
-
-#. translators: %s: ID field value.
-#: includes/Consent/Categories/Options.php:109
-#: includes/Consent/Cookies/Options.php:285
-msgid "ID value %s already exists. Please enter a new ID."
-msgstr "ID-Wert %s existiert bereits. Bitte geben Sie eine neue ID ein."
-
-#: includes/Consent/Categories/Options.php:133
-msgid "Consent category updated."
-msgstr "Consent-Kategorie aktualisiert."
-
-#: includes/Consent/Categories/Options.php:133
-msgid "Consent category added."
-msgstr "Consent-Kategorie hinzugefügt."
-
-#: includes/Consent/Categories/Options.php:137
-msgid "&larr; Go to consent categories List"
-msgstr "&larr; Zurück zu den Consent-Kategorien"
-
-#: includes/Consent/Categories/Options.php:189
-#: includes/Consent/Cookies/Options.php:418
-msgid "Add New"
-msgstr "Erstellen"
-
-#: includes/Consent/Categories/Options.php:193
-#: includes/Consent/Cookies/Options.php:423
-msgid "Search"
-msgstr "Suchen"
-
-#. translators: %s: Number of consent categories.
-#: includes/Consent/Categories/Options.php:238
-msgctxt "consent categories"
-msgid "%s category deleted."
-msgid_plural "%s categories deleted."
-msgstr[0] "%s Kategorie gelöscht."
-msgstr[1] "%s Kategorien gelöscht."
-
-#: includes/Consent/ContentBlocker.php:309
+#: includes/Consent/ContentBlocker.php:312
 msgid "privacy policy"
 msgstr "Datenschutzerklärung"
 
-#: includes/Consent/ContentBlocker.php:311
+#: includes/Consent/ContentBlocker.php:314
 msgid "Display external content"
 msgstr "Externen Inhalt anzeigen"
 
 #. translators: %s: Name of the service provider.
-#: includes/Consent/ContentBlocker.php:314
+#: includes/Consent/ContentBlocker.php:317
 msgid ""
 "At this point content of an external provider (source: %s) is integrated. "
 "When displaying, data may be transferred to third parties or cookies may be "
@@ -466,7 +456,7 @@ msgstr ""
 "werden, deshalb ist Ihre Zustimmung erforderlich."
 
 #. translators: %s: Privacy policy link.
-#: includes/Consent/ContentBlocker.php:319
+#: includes/Consent/ContentBlocker.php:322
 msgid ""
 "You can find more information and the possibility to revoke your consent in "
 "our %s."
@@ -474,9 +464,13 @@ msgstr ""
 "Weitere Informationen und die Möglichkeit zum Widerruf finden Sie in unserer "
 "%s."
 
-#: includes/Consent/ContentBlocker.php:322
+#: includes/Consent/ContentBlocker.php:325
 msgid "I agree"
 msgstr "Ich stimme zu"
+
+#: includes/Consent/Cookies/ListTable.php:84 includes/TOS/Endpoint.php:404
+msgid "Edit"
+msgstr "Bearbeiten"
 
 #: includes/Consent/Cookies/ListTable.php:93
 #: includes/Consent/Cookies/ListTable.php:173
@@ -488,59 +482,87 @@ msgstr "Aktivieren"
 msgid "Disable"
 msgstr "Deaktivieren"
 
+#: includes/Consent/Cookies/ListTable.php:111
+#: includes/Consent/Cookies/ListTable.php:177
+msgid "Delete"
+msgstr "Löschen"
+
 #: includes/Consent/Cookies/ListTable.php:145 settings/consent-cookies.php:66
 msgid "Category"
 msgstr "Kategorie"
 
-#: includes/Consent/Cookies/Options.php:37
+#: includes/Consent/Cookies/ListTable.php:146 settings/consent-cookies.php:39
+#: settings/consent.php:42 settings/network.php:126
+msgid "Status"
+msgstr "Status"
+
+#: includes/Consent/Cookies/ListTable.php:147 settings/consent-cookies.php:47
+msgid "Position"
+msgstr "Position"
+
+#: includes/Consent/Cookies/Options.php:63
 msgid "Edit Consent Cookie"
 msgstr "Consent-Cookie bearbeiten"
 
 #. translators: 1: Consent cookie name, 2: Consent cookie ID.
-#: includes/Consent/Cookies/Options.php:43
+#: includes/Consent/Cookies/Options.php:69
 #, fuzzy
 msgid "Edit Consent Cookie: %1$s (%2$s)"
 msgstr "Consent-Cookie bearbeiten"
 
-#: includes/Consent/Cookies/Options.php:65
+#: includes/Consent/Cookies/Options.php:100
 #, fuzzy
 msgid "Show technical information"
 msgstr "Cookie-Informationen anzeigen"
 
 #. translators: %s: Plugin slug.
-#: includes/Consent/Cookies/Options.php:86
+#: includes/Consent/Cookies/Options.php:121
 msgid ""
 "The dependent plugin \"%s\" is currently not active. This consent cookie is "
 "therefore not displayed."
 msgstr ""
-"Das abhängige Plugin „%s“ ist derzeit nicht aktiviert. Dieses Consent-Cookie wird deshalb nicht angezeigt."
+"Das abhängige Plugin „%s“ ist derzeit nicht aktiviert. Dieses Consent-Cookie "
+"wird deshalb nicht angezeigt."
 
-#: includes/Consent/Cookies/Options.php:228
+#: includes/Consent/Cookies/Options.php:271
 msgid "No consent cookie selected."
 msgstr "Keine Consent-Cookie ausgewählt."
 
-#: includes/Consent/Cookies/Options.php:258
+#: includes/Consent/Cookies/Options.php:301
 msgid "You do not have permission to edit consent cookies."
 msgstr "Sie haben keine Berechtigung, Consent-Cookies zu bearbeiten."
 
-#: includes/Consent/Cookies/Options.php:310
+#. translators: %s: ID field value.
+#: includes/Consent/Cookies/Options.php:333
+msgid "ID value %s already exists. Please enter a new ID."
+msgstr "ID-Wert %s existiert bereits. Bitte geben Sie eine neue ID ein."
+
+#: includes/Consent/Cookies/Options.php:361
 msgid "Consent cookie updated."
 msgstr "Consent-Cookie aktualisiert."
 
-#: includes/Consent/Cookies/Options.php:310
+#: includes/Consent/Cookies/Options.php:361
 msgid "Consent cookie added."
 msgstr "Consent-Cookie hinzugefügt."
 
-#: includes/Consent/Cookies/Options.php:314
+#: includes/Consent/Cookies/Options.php:365
 msgid "&larr; Go to consent cookies list"
 msgstr "&larr; Zurück zu den Consent-Cookies"
 
-#: includes/Consent/Cookies/Options.php:357 includes/TOS/Options.php:109
+#: includes/Consent/Cookies/Options.php:413 includes/TOS/Options.php:109
 msgid "unknown user"
 msgstr "unbekannter Benutzer"
 
+#: includes/Consent/Cookies/Options.php:474
+msgid "Add New"
+msgstr "Erstellen"
+
+#: includes/Consent/Cookies/Options.php:479
+msgid "Search"
+msgstr "Suchen"
+
 #. translators: %s: Number of consent cookies.
-#: includes/Consent/Cookies/Options.php:525
+#: includes/Consent/Cookies/Options.php:591
 msgctxt "consent cookies"
 msgid "%s cookie enabled."
 msgid_plural "%s cookies enabled."
@@ -548,7 +570,7 @@ msgstr[0] "%s Cookie aktiviert."
 msgstr[1] "%s Cookies aktiviert."
 
 #. translators: %s: Number of consent cookies.
-#: includes/Consent/Cookies/Options.php:556
+#: includes/Consent/Cookies/Options.php:623
 msgctxt "consent cookies"
 msgid "%s cookie disabled."
 msgid_plural "%s cookies disabled."
@@ -556,50 +578,64 @@ msgstr[0] "%s Cookie deaktiviert."
 msgstr[1] "%s Cookies deaktiviert."
 
 #. translators: %s: Number of consent cookies.
-#: includes/Consent/Cookies/Options.php:588
+#: includes/Consent/Cookies/Options.php:662
 msgctxt "consent cookies"
 msgid "%s cookie deleted."
 msgid_plural "%s cookies deleted."
 msgstr[0] "%s Cookie gelöscht."
 msgstr[1] "%s Cookies gelöscht."
 
-#: includes/Consent/Shortcode.php:56 includes/Consent/Shortcode.php:57
+#. translators: %s: User-Agent string.
+#: includes/Consent/Options.php:226
+msgid "Starts with: %s"
+msgstr "Beginnt mit: %s"
+
+#. translators: %s: User-Agent string.
+#: includes/Consent/Options.php:235
+msgid "Contains: %s"
+msgstr "Enthält: %s"
+
+#: includes/Consent/Options.php:248
+msgid "Default User-Agent strings:"
+msgstr "Standard-User-Agent-Strings:"
+
+#: includes/Consent/Shortcode.php:49
 msgid "Yes, I agree."
 msgstr "Ja, ich stimme zu."
 
-#: includes/Fields.php:465
+#: includes/Fields.php:481
 msgid "&mdash; Select &mdash;"
 msgstr "&mdash; Auswählen &mdash;"
 
 #. translators: %s: Label of the field.
-#: includes/ListSettings.php:617 includes/Settings.php:615
+#: includes/ListSettings.php:616 includes/Settings.php:635
 msgid "The field %s is required."
 msgstr "Das Feld %s ist erforderlich."
 
 #. translators: 1: Invalid value, 2: Label of the field.
-#: includes/ListSettings.php:627 includes/Settings.php:625
+#: includes/ListSettings.php:626 includes/Settings.php:645
 msgid "The value %1$s of the field %2$s is not valid."
 msgstr "Der Wert %1$s des Feldes %2$s ist ungültig."
 
-#: includes/ListSettings.php:804
+#: includes/ListSettings.php:884
 msgid "Number of items per page:"
 msgstr "Einträge pro Seite:"
 
-#: includes/Main.php:81 includes/Main.php:82 settings/network.php:14
+#: includes/Main.php:80 includes/Main.php:81 settings/network.php:14
 #: settings/network.php:17
 msgid "Legal"
 msgstr "Rechtliche Pflichtangaben"
 
-#: includes/Main.php:153 settings/tos.php:14 settings/tos.php:17
+#: includes/Main.php:152 settings/tos.php:14 settings/tos.php:17
 msgid "Legal Mandatory Information"
 msgstr "Rechtliche Pflichtangaben"
 
-#: includes/Main.php:166
+#: includes/Main.php:165
 msgid "Please note"
 msgstr "Bitte beachten"
 
 #. translators: %s: Link of the settings page.
-#: includes/Main.php:174
+#: includes/Main.php:173
 #, fuzzy
 msgid ""
 "One or more mandatory fields of the legal settings have not been filled or "
@@ -611,7 +647,7 @@ msgstr ""
 "ausgefüllt. Bitte füllen Sie diese Felder so schnell wie möglich unter "
 "folgendem Link aus: %s."
 
-#: includes/Main.php:180
+#: includes/Main.php:179
 #, fuzzy
 msgid ""
 "One or more mandatory fields of the legal settings have not been filled or "
@@ -622,7 +658,7 @@ msgstr ""
 "ausgefüllt. Bitte füllen Sie diese Felder so schnell wie möglich unter "
 "folgendem Link aus: %s."
 
-#: includes/Main.php:183
+#: includes/Main.php:182
 #, fuzzy
 msgid ""
 "In order to operate this website, it is mandatory that all necessary legal "
@@ -633,34 +669,33 @@ msgstr ""
 "alle notwendigen rechtlichen Pflichttexte vorgehalten werden. Webauftritte, "
 "die diese Angaben nicht oder vollständig machen, können deaktiviert werden."
 
-#: includes/Main.php:187
+#: includes/Main.php:186
 #, fuzzy
 msgid "This message was first displayed on:"
-msgstr "Diese Nachricht wurde erstmals aufgezeichnet angezeigt am:"
+msgstr "Diese Nachricht wurde erstmals angezeigt am:"
 
-#: includes/Main.php:303
+#: includes/Main.php:302
 msgid "You are not allowed to confirm this notice."
 msgstr "Sie dürfen diesen Hinweis nicht bestätigen."
 
-#: includes/Main.php:310
+#: includes/Main.php:309
 msgid "Please confirm that you have read the notice."
 msgstr "Bitte bestätigen Sie, dass Sie den Hinweis gelesen haben."
 
-#: includes/Main.php:354
+#: includes/Main.php:353
 msgid "I have read this notice."
 msgstr "Ich habe diesen Hinweis gelesen."
 
-#: includes/Main.php:356
-#, fuzzy
+#: includes/Main.php:355
 msgid "Continue"
-msgstr "Inhalt"
+msgstr "Bestätigen"
 
-#: includes/Main.php:367
+#: includes/Main.php:366
 msgid "Show issue list"
 msgstr "Mängelliste anzeigen"
 
 #. translators: %s: Permalink of the page that overrides the endpoint.
-#: includes/Main.php:405
+#: includes/Main.php:404
 msgid ""
 "The output of this settings page is overwritten by the content of the "
 "following page: %s."
@@ -673,14 +708,16 @@ msgid ""
 "Domain names or unique domain parts assigned to this organization. Enter one "
 "entry per line."
 msgstr ""
-"Domainnamen oder eindeutige Domainteile, die dieser Organisation zugeordnet sind. Geben Sie einen Eintrag pro Zeile ein."
+"Domainnamen oder eindeutige Domainteile, die dieser Organisation zugeordnet "
+"sind. Geben Sie einen Eintrag pro Zeile ein."
 
 #: includes/Network/Options.php:218
 msgid ""
 "The settings were not saved. A domain name or domain part may only be "
 "assigned to one organization."
 msgstr ""
-"Die Einstellungen wurden nicht gespeichert. Ein Domainname oder Domainteil darf nur einer Organisation zugeordnet werden."
+"Die Einstellungen wurden nicht gespeichert. Ein Domainname oder Domainteil "
+"darf nur einer Organisation zugeordnet werden."
 
 #: includes/Network/Options.php:220 includes/Network/Options.php:229
 msgid "Dismiss this notice."
@@ -695,13 +732,14 @@ msgid ""
 "Continuing to leave the data unprocessed will result in a report to the CMS "
 "operator."
 msgstr ""
-"Eine weitergehende Nichtbearbeitung der Daten führt zu einer Meldung beim CMS-Betreiber."
+"Eine weitergehende Nichtbearbeitung der Daten führt zu einer Meldung beim "
+"CMS-Betreiber."
 
 #: includes/Network/Options.php:350 settings/network.php:99
 msgid "The CMS operator has been informed."
 msgstr "Der CMS-Betreiber wurde informiert."
 
-#: includes/Settings.php:677 includes/TOS/Options.php:167
+#: includes/Settings.php:778 includes/TOS/Options.php:165
 msgid "yy-mm-dd"
 msgstr "yy-mm-dd"
 
@@ -836,7 +874,7 @@ msgstr "Impressum"
 msgid "Privacy"
 msgstr "Datenschutz"
 
-#: includes/TOS/Endpoint.php:26 settings/tos.php:792
+#: includes/TOS/Endpoint.php:26 settings/tos.php:809
 msgid "Accessibility"
 msgstr "Barrierefreiheit"
 
@@ -844,48 +882,45 @@ msgstr "Barrierefreiheit"
 msgid "and"
 msgstr "und"
 
-#: includes/TOS/Endpoint.php:320
+#: includes/TOS/Endpoint.php:348
 msgid "You can change your consent at any time using the following option."
-msgstr "Sie können Ihre Einwilligung jederzeit über die folgende Option ändern."
+msgstr ""
+"Sie können Ihre Einwilligung jederzeit über die folgende Option ändern."
 
-#: includes/TOS/Endpoint.php:324
+#: includes/TOS/Endpoint.php:352
 msgid "Objection and removal option"
 msgstr "Widerspruchs- und Beseitigungsmöglichkeit"
 
-#: includes/TOS/Endpoint.php:334
+#: includes/TOS/Endpoint.php:363
 msgid "Cookie-Informationen"
 msgstr "Cookie-Informationen"
 
-#: includes/TOS/Endpoint.php:338
+#: includes/TOS/Endpoint.php:367
 msgid "Cookie-Name"
 msgstr "Cookie-Name"
 
-#: includes/TOS/Endpoint.php:339
+#: includes/TOS/Endpoint.php:368
 msgid "Cookie-Laufzeit"
 msgstr "Cookie-Laufzeit"
 
-#: includes/TOS/Endpoint.php:344
+#: includes/TOS/Endpoint.php:374
 msgid "Cookie information"
 msgstr "Cookie-Informationen"
 
-#: includes/TOS/Endpoint.php:348
+#: includes/TOS/Endpoint.php:378
 msgid "Cookie name"
 msgstr "Cookie-Name"
 
-#: includes/TOS/Endpoint.php:349
+#: includes/TOS/Endpoint.php:379
 msgid "Cookie expiry"
 msgstr "Cookie-Laufzeit"
 
-#: includes/TOS/Endpoint.php:373
-msgid "No cookies"
-msgstr "Keine Cookies"
-
-#: includes/TOS/Endpoint.php:376
+#: includes/TOS/Endpoint.php:407
 #, fuzzy
 msgid "Edit legal settings"
 msgstr "Rechtliches &mdash; Netzwerkeinstellungen"
 
-#: includes/TOS/Endpoint.php:570
+#: includes/TOS/Endpoint.php:613
 msgid "Not Found"
 msgstr "Nicht gefunden"
 
@@ -894,46 +929,48 @@ msgstr "Nicht gefunden"
 msgid "Accessibility Statement"
 msgstr "Barrierefreiheit"
 
-#: includes/TOS/Options.php:235
+#: includes/TOS/Options.php:233
 #, fuzzy
 msgid "Edit page"
 msgstr "Bearbeiten"
 
-#: includes/TOS/Options.php:239
+#: includes/TOS/Options.php:237
 msgid ""
 "If \"Allow manual page\" is enabled, this page will be displayed instead of "
 "the generated page."
 msgstr ""
-"Wenn „Manuelle Seite erlauben“ aktiviert ist, wird diese Seite statt der generierten Seite angezeigt."
+"Wenn „Manuelle Seite erlauben“ aktiviert ist, wird diese Seite statt der "
+"generierten Seite angezeigt."
 
-#: includes/TOS/Options.php:240
+#: includes/TOS/Options.php:238
 msgid ""
 "This page only overrides the endpoint once it is published and \"Allow "
 "manual page\" is enabled."
 msgstr ""
-"Diese Seite überschreibt den Endpoint erst, wenn sie veröffentlicht ist und „Manuelle Seite erlauben“ aktiviert ist."
+"Diese Seite überschreibt den Endpoint erst, wenn sie veröffentlicht ist und "
+"„Manuelle Seite erlauben“ aktiviert ist."
 
 #. translators: 1: endpoint slug, 2: edit page link, 3: status message.
-#: includes/TOS/Options.php:244
+#: includes/TOS/Options.php:242
 msgid "A page with the slug %1$s exists. %3$s %2$s"
 msgstr "Es existiert eine Seite mit dem Slug %1$s. %3$s %2$s"
 
-#: includes/TOS/Options.php:339
+#: includes/TOS/Options.php:337
 msgid "Displayed automatically because the dependent plugin is active."
 msgstr "Wird automatisch angezeigt, weil das abhängige Plugin aktiv ist."
 
-#: includes/TOS/Options.php:665
+#: includes/TOS/Options.php:663
 msgid "Required field is empty."
 msgstr "Pflichtfeld ist leer."
 
-#: includes/TOS/Options.php:667
+#: includes/TOS/Options.php:665
 #, fuzzy
 msgid "Required field does not contain a valid email address."
 msgstr ""
 "Die Feld der E-Mail-Adresse muss ausgefüllt sein und eine korrekt "
 "geschriebene E-Mailadresse enthalten."
 
-#: includes/TOS/Options.php:669
+#: includes/TOS/Options.php:667
 msgid "Required field still contains an automatically set default value."
 msgstr "Pflichtfeld enthält noch einen automatisch gesetzten Standardwert."
 
@@ -967,71 +1004,6 @@ msgstr ""
 #: rrze-legal.php:271
 msgid "Plugins: %1$s: %2$s"
 msgstr "Plugins: %1$s: %2$s"
-
-#: settings/consent-categories.php:14 settings/consent-categories.php:17
-#: settings/consent-categories.php:24
-msgid "Consent Categories"
-msgstr "Consent-Kategorien"
-
-#: settings/consent-categories.php:28
-msgid "Add New Category"
-msgstr "Erstellen"
-
-#: settings/consent-categories.php:33 settings/consent-cookies.php:133
-msgid "ID"
-msgstr "ID"
-
-#: settings/consent-categories.php:34 settings/consent-cookies.php:134
-msgid ""
-"The <strong>ID</strong> must be at least 3 characters long and may only "
-"contain <code>a-z_-</code> characters."
-msgstr ""
-"Die <strong>ID</strong> muss mindestens 3 Zeichen lang sein und darf nur "
-"<code>a-z_-</code> Zeichen enthalten."
-
-#: settings/consent-categories.php:47
-msgid ""
-"The status of this <strong>Consent Category</strong>. If enabled (Status: "
-"Enabled) it is displayed to the visitor in the <strong>Consent Banner</"
-"strong>"
-msgstr ""
-"Der Status dieser <strong>Consent-Kategorie</strong>. Falls aktiviert "
-"(Status: Aktiviert) wird es dem Besucher im <strong>Consent-Banner</strong> "
-"angezeigt"
-
-#: settings/consent-categories.php:54
-msgid ""
-"Enter a name for this <strong>Consent Category</strong>. It is displayed to "
-"the visitor in the <strong>Consent Banner</strong>."
-msgstr ""
-"Geben Sie einen Namen für diese <strong>Consent-Kategorie</strong> ein. Sie "
-"wird dem Besucher im <strong>Consent-Banner</strong> angezeigt."
-
-#: settings/consent-categories.php:63
-msgid ""
-"Enter a description for this <strong>Consent Category</strong>. It is "
-"displayed to the visitor in the <strong>Consent Banner</strong>."
-msgstr ""
-"Geben Sie eine Beschreibung für diese <strong>Consent-Kategorie</strong> "
-"ein. Sie wird dem Besucher im <strong>Consent-Banner</strong> angezeigt."
-
-#: settings/consent-categories.php:72
-msgid ""
-"If enabled (Status: Enabled) this <strong>Consent Category</strong> is "
-"preselected in the <strong>Consent Banner</strong>. The visitor can deselect "
-"it"
-msgstr ""
-"Wenn aktiviert (Status: Aktiviert), ist diese <strong>Content-Kategorie</"
-"strong> im <strong>Content-Banner</strong> vorausgewählt. Der Besucher kann "
-"es abwählen"
-
-#: settings/consent-categories.php:79
-msgid ""
-"Determine the position where this <strong>Consent Category</strong> is "
-"displayed. Order follows natural numbers."
-msgstr ""
-"Bestimmen Sie die Position, an der diese <strong>Consent-Kategorie</strong> "
-"angezeigt wird. Die Reihenfolge folgt den natürlichen Zahlen."
 
 #: settings/consent-cookies.php:14 settings/consent-cookies.php:17
 #: settings/consent-cookies.php:24
@@ -1089,7 +1061,8 @@ msgid ""
 "Plain text without HTML. Blank lines are automatically rendered as "
 "paragraphs."
 msgstr ""
-"Reiner Text ohne HTML. Leerzeilen werden bei der Ausgabe automatisch als Absätze dargestellt."
+"Reiner Text ohne HTML. Leerzeilen werden bei der Ausgabe automatisch als "
+"Absätze dargestellt."
 
 #: settings/consent-cookies.php:109
 #, fuzzy
@@ -1108,20 +1081,15 @@ msgstr ""
 "Geben Sie eine URL zur Datenschutzrichtlinie des Anbieters des "
 "<strong>Cookie</strong> an."
 
-#: settings/consent-cookies.php:128
-#, fuzzy
-msgid "Technical Information (Advanced Settings)"
-msgstr "Gesetzliche Pflichtangabeneinstellungen"
-
-#: settings/consent-cookies.php:144
+#: settings/consent-cookies.php:126
 msgid "Host(s)"
 msgstr "Host(s)"
 
-#: settings/consent-cookies.php:145
+#: settings/consent-cookies.php:127
 msgid "Insert the host(s) of this <strong>Cookie</strong>."
 msgstr "Fügen Sie den/die Host(s) dieses <strong>Cookies</strong> ein."
 
-#: settings/consent-cookies.php:153
+#: settings/consent-cookies.php:135
 msgid ""
 "Provide the technical name of the <strong>Cookie</strong>. Separate multiple "
 "cookie names with a comma."
@@ -1139,22 +1107,41 @@ msgstr ""
 "<code>1 Jahr</code>, <code>30 Tage</code> oder <code>keine Cookies</code>. "
 "Reine Zahlen ohne Einheit sind nicht gültig."
 
-#: settings/consent-cookies.php:169
+#: settings/consent-cookies.php:152
+#, fuzzy
+msgid "Technical Information (Advanced Settings)"
+msgstr "Gesetzliche Pflichtangabeneinstellungen"
+
+#: settings/consent-cookies.php:157
+msgid "ID"
+msgstr "ID"
+
+#: settings/consent-cookies.php:158
+msgid ""
+"The <strong>ID</strong> must be at least 3 characters long and may only "
+"contain <code>a-z_-</code> characters."
+msgstr ""
+"Die <strong>ID</strong> muss mindestens 3 Zeichen lang sein und darf nur "
+"<code>a-z_-</code> Zeichen enthalten."
+
+#: settings/consent-cookies.php:168
 msgid "Plugin-Slug"
 msgstr "Plugin-Slug"
 
-#: settings/consent-cookies.php:170
+#: settings/consent-cookies.php:169
 msgid ""
 "Optional. If a plugin slug is provided, the status is automatically derived "
 "from the activation of this plugin and cannot be set manually."
 msgstr ""
-"Optional. Wenn ein Plugin-Slug angegeben ist, wird der Status automatisch aus der Aktivierung dieses Plugins abgeleitet und kann nicht manuell gesetzt werden."
+"Optional. Wenn ein Plugin-Slug angegeben ist, wird der Status automatisch "
+"aus der Aktivierung dieses Plugins abgeleitet und kann nicht manuell gesetzt "
+"werden."
 
-#: settings/consent-cookies.php:178
+#: settings/consent-cookies.php:177
 msgid "Enqueued Script Name"
 msgstr "Name des enqueued Skripts"
 
-#: settings/consent-cookies.php:179
+#: settings/consent-cookies.php:178
 msgid ""
 "Name of the enqueued script. It is required if you want to block the script. "
 "Separate multiple names with a comma."
@@ -1162,19 +1149,19 @@ msgstr ""
 "Name des enqueued Skripts. Es ist erforderlich, wenn Sie das Skript "
 "blockieren möchten. Trennen Sie mehrere Namen durch ein Komma."
 
-#: settings/consent-cookies.php:187
+#: settings/consent-cookies.php:186
 msgid "Block Enqueued Script"
 msgstr "Enqueued Skript blockieren"
 
-#: settings/consent-cookies.php:188
+#: settings/consent-cookies.php:187
 msgid "The enqueued script will be blocked"
 msgstr "Das enqueued Skript wird blockiert"
 
-#: settings/consent-cookies.php:195
+#: settings/consent-cookies.php:194
 msgid "Prioritize Opt-in Code"
 msgstr "Opt-in-Code priorisieren"
 
-#: settings/consent-cookies.php:196
+#: settings/consent-cookies.php:195
 msgid ""
 "The <strong>Opt-in Code</strong> is loaded in <head> and is executed before "
 "the page is fully loaded"
@@ -1182,11 +1169,11 @@ msgstr ""
 "Der <strong>Opt-in Code</strong> wird in <head> geladen und ausgeführt, "
 "bevor die Seite vollständig geladen ist"
 
-#: settings/consent-cookies.php:203
+#: settings/consent-cookies.php:202
 msgid "Asynchronous Opt-Out Code"
 msgstr "Asynchroner Opt-Out-Code"
 
-#: settings/consent-cookies.php:204
+#: settings/consent-cookies.php:203
 msgid ""
 "The <strong>Opt-Out Code</strong> contains asynchronous JavaScript code that "
 "needs to executed to finish the Opt-Out"
@@ -1194,21 +1181,21 @@ msgstr ""
 "Der <strong>Opt-Out-Code</strong> enthält asynchronen JavaScript-Code, der "
 "ausgeführt werden muss, um das Opt-Out abzuschließen"
 
-#: settings/consent-cookies.php:211
+#: settings/consent-cookies.php:210
 msgid "Opt-in Code"
 msgstr "Opt-in-Code"
 
-#: settings/consent-cookies.php:212
+#: settings/consent-cookies.php:211
 msgid "This code will be executed after the visitor gives their consent."
 msgstr ""
 "Dieser Code wird ausgeführt, nachdem der Besucher seine Zustimmung gegeben "
 "hat."
 
-#: settings/consent-cookies.php:220
+#: settings/consent-cookies.php:219
 msgid "Opt-out Code"
 msgstr "Opt-out-Code"
 
-#: settings/consent-cookies.php:221
+#: settings/consent-cookies.php:220
 msgid ""
 "This code will be executed only if the visitor did opt-in previously and "
 "chooses to opt-out. It is executed once."
@@ -1217,35 +1204,36 @@ msgstr ""
 "(Opt-In) hat und sich für die Abmeldung (Opt-Out) entscheidet. Es wird "
 "einmal ausgeführt."
 
-#: settings/consent-cookies.php:229
+#: settings/consent-cookies.php:228
 msgid "Fallback Code"
 msgstr "Fallback-Code"
 
-#: settings/consent-cookies.php:230
+#: settings/consent-cookies.php:229
 msgid "This code will always be executed."
 msgstr "Dieser Code wird immer ausgeführt."
 
-#: settings/consent.php:14 settings/consent.php:17
+#: settings/consent.php:17 settings/consent.php:20
 msgid "Consent Banner"
 msgstr "Consent-Banner"
 
-#: settings/consent.php:24
+#: settings/consent.php:27
 msgid "Consent Settings"
 msgstr "Consent-Einstellungen"
 
-#: settings/consent.php:28 settings/network.php:115
+#: settings/consent.php:31 settings/network.php:115
 msgid "Banner"
 msgstr "Banner"
 
-#: settings/consent.php:30
+#: settings/consent.php:33
 msgid "General consent banner settings."
 msgstr "Allgemeine Einstellungen für das Content-Banner."
 
-#: settings/consent.php:34 settings/consent.php:243 settings/consent.php:267
+#: settings/consent.php:37 settings/consent.php:261 settings/consent.php:286
+#: settings/network.php:121
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
-#: settings/consent.php:40 settings/network.php:122
+#: settings/consent.php:43 settings/network.php:127
 msgid ""
 "Activates the Consent Banner. Displays the <strong>Banner</strong> and "
 "blocks iframes and other external media"
@@ -1253,11 +1241,11 @@ msgstr ""
 "Aktiviert das Consent-Banner. Zeigt das <strong>Banner</strong> an und "
 "blockiert Iframes und andere externe Medien"
 
-#: settings/consent.php:47
+#: settings/consent.php:50
 msgid "Test Mode"
 msgstr "Testmodus"
 
-#: settings/consent.php:48
+#: settings/consent.php:51
 msgid ""
 "Test the consent banner settings without having to enable <strong>Banner "
 "Status</strong>"
@@ -1265,12 +1253,12 @@ msgstr ""
 "Testen Sie die Einstellungen des Content-Banners, ohne den <strong>Banner-"
 "Status</strong> aktivieren zu müssen"
 
-#: settings/consent.php:54 settings/network.php:128
+#: settings/consent.php:57 settings/network.php:133
 msgid "Update Consent Cookie Version & Force Re-Selection"
 msgstr "Consent-Cookie-Version aktualisieren und erneute Auswahl erzwingen"
 
 #. translators: %s: Consent cookie version.
-#: settings/consent.php:57 settings/network.php:131
+#: settings/consent.php:60 settings/network.php:136
 msgid ""
 "Updates the version of the cookie of Consent Cookie. This will cause the "
 "<strong>Consent Banner</strong> to reappear for visitors who have already "
@@ -1281,21 +1269,11 @@ msgstr ""
 "ausgewählt haben, erneut angezeigt. <strong>Aktuelle Version des Standard-"
 "Cookies: %s </strong>"
 
-#: settings/consent.php:65 settings/network.php:139
-msgid "Cookies for Bots/Crawlers"
-msgstr "Cookies für Bots/Crawler"
-
-#: settings/consent.php:66 settings/network.php:140
-msgid "A bot/crawler is treated like a visitor who accepted all cookies"
-msgstr ""
-"Ein Bot/Crawler wird wie ein Besucher behandelt, der alle Cookies akzeptiert "
-"hat."
-
-#: settings/consent.php:72 settings/network.php:146
+#: settings/consent.php:68 settings/network.php:144
 msgid "Respect \"Do Not Track\""
 msgstr "Respektiere „Do Not Track“"
 
-#: settings/consent.php:73 settings/network.php:147
+#: settings/consent.php:69 settings/network.php:145
 msgid ""
 "A visitor with active <strong>\"Do Not Track\"</strong> setting will not see "
 "the <strong>Consent Banner</strong> and the system will automatically select "
@@ -1305,11 +1283,11 @@ msgstr ""
 "das <strong>Content-Banner</strong> nicht und das System wählt automatisch "
 "die Option <strong>„Ablehnen“</strong>"
 
-#: settings/consent.php:79 settings/network.php:153
+#: settings/consent.php:75 settings/network.php:151
 msgid "Reload After Opt-Out"
 msgstr "Nach Opt-Out neu laden"
 
-#: settings/consent.php:80 settings/network.php:154
+#: settings/consent.php:76 settings/network.php:152
 msgid ""
 "If activated the website will be reloaded after the visitor saves their "
 "consent"
@@ -1317,11 +1295,11 @@ msgstr ""
 "Wenn aktiviert, wird die Website neu geladen, nachdem der Besucher seine "
 "Einwilligung gespeichert hat"
 
-#: settings/consent.php:86 settings/network.php:160
+#: settings/consent.php:82 settings/network.php:158
 msgid "Ignore Preselected Categories"
 msgstr "Vorgewählte Kategorien ignorieren"
 
-#: settings/consent.php:87 settings/network.php:161
+#: settings/consent.php:83 settings/network.php:159
 msgid ""
 "If activated, no <strong>Categories</strong> are preselected in the "
 "<strong>Consent Banner</strong>"
@@ -1329,11 +1307,11 @@ msgstr ""
 "Wenn aktiviert, werden keine <strong>Kategorien</strong> im <strong>Consent "
 "Banner</strong> vorausgewählt"
 
-#: settings/consent.php:93
+#: settings/consent.php:89
 msgid "Hide On URL"
 msgstr "Auf URL ausblenden"
 
-#: settings/consent.php:94
+#: settings/consent.php:90
 msgid ""
 "Add one URL per line. The <strong>Consent Banner</strong> will not be shown "
 "on these URLs."
@@ -1341,31 +1319,57 @@ msgstr ""
 "Fügen Sie eine URL pro Zeile hinzu. Das <strong>Consent-Banner</strong> wird "
 "auf diesen URLs nicht angezeigt."
 
-#: settings/consent.php:101 settings/network.php:167
+#: settings/consent.php:97 settings/network.php:165
 msgid "Cookies For IP Addresses"
 msgstr "Cookies für IP-Adressen"
 
-#: settings/consent.php:102 settings/network.php:168
+#: settings/consent.php:98
 msgid ""
-"These IP addresses are treated as a visitor who accepted all cookies. Add "
-"one IP address per line."
+"These site-specific IP addresses are treated as visitors who accepted all "
+"cookies. They are added to the global network IP addresses. Add one IP "
+"address per line."
 msgstr ""
-"Diese IP-Adressen werden als Besucher behandelt, die alle Cookies akzeptiert "
-"haben. Fügen Sie pro Zeile eine IP-Adresse hinzu."
+"Diese sitebezogenen IP-Adressen werden als Besucher behandelt, die alle "
+"Cookies akzeptiert haben. Sie werden zu den globalen Netzwerk-IP-Adressen "
+"hinzugefügt. Fügen Sie pro Zeile eine IP-Adresse hinzu."
 
-#: settings/consent.php:112
+#: settings/consent.php:105 settings/network.php:173
+msgid "Cookies for Bots/Crawlers"
+msgstr "Cookies für Bots/Crawler"
+
+#: settings/consent.php:106 settings/network.php:174
+msgid "A bot/crawler is treated like a visitor who accepted all cookies"
+msgstr ""
+"Ein Bot/Crawler wird wie ein Besucher behandelt, der alle Cookies akzeptiert "
+"hat."
+
+#: settings/consent.php:112 settings/network.php:180
+msgid "User-Agent Strings for Bots/Crawlers"
+msgstr "User-Agent-Strings für Bots/Crawler"
+
+#: settings/consent.php:113
+msgid ""
+"Additional site-specific User-Agent strings. If one of these strings occurs "
+"in the User-Agent header, the visitor is treated like a visitor who accepted "
+"all cookies. Add one string per line."
+msgstr ""
+"Zusätzliche sitebezogene User-Agent-Strings. Wenn einer dieser Strings im "
+"User-Agent-Header vorkommt, wird der Besucher wie ein Besucher behandelt, "
+"der alle Cookies akzeptiert hat. Fügen Sie pro Zeile einen String hinzu."
+
+#: settings/consent.php:123 settings/network.php:191
 msgid "Cookie Settings"
 msgstr "Cookie Einstellungen"
 
-#: settings/consent.php:113
+#: settings/consent.php:124 settings/network.php:192
 msgid "Consent cookie settings."
 msgstr "Cookie-Einstellungen zustimmen."
 
-#: settings/consent.php:117
+#: settings/consent.php:128
 msgid "Domain"
 msgstr "Domain"
 
-#: settings/consent.php:118
+#: settings/consent.php:129
 msgid ""
 "Specify the domain for which the cookie is valid. Example: If you enter "
 "<strong><em>example.com</em></strong> the cookie is also valid for "
@@ -1375,22 +1379,22 @@ msgstr ""
 "<strong><em>beispiel.de</em></strong> eingeben, gilt das Cookie auch für "
 "Subdomains wie <strong><em>shop.beispiel.de</em></strong>"
 
-#: settings/consent.php:127
+#: settings/consent.php:139
 msgid "Path"
 msgstr "Pfad"
 
 #. translators: %s: Default website url path.
-#: settings/consent.php:130
+#: settings/consent.php:142
 msgid ""
 "The path for which the cookie is valid. Default path: <strong>%s</strong>"
 msgstr ""
 "Der Pfad, für den das Cookie gültig ist. Standard-Pfad: <strong>%s</strong>"
 
-#: settings/consent.php:141
+#: settings/consent.php:154 settings/network.php:196
 msgid "Secure"
 msgstr "Secure"
 
-#: settings/consent.php:142
+#: settings/consent.php:155 settings/network.php:197
 msgid ""
 "Cookie is sent to the server only in case of an encrypted request via the "
 "HTTPS protocol"
@@ -1398,11 +1402,11 @@ msgstr ""
 "Das Cookie wird nur bei einer verschlüsselten Anfrage über das HTTPS-"
 "Protokoll an den Server gesendet"
 
-#: settings/consent.php:148
+#: settings/consent.php:162 settings/network.php:203
 msgid "Cookie Lifetime in Days"
 msgstr "Cookie Laufzeit in Tagen"
 
-#: settings/consent.php:149
+#: settings/consent.php:163 settings/network.php:204
 msgid ""
 "Number of days until the visitor will be asked again to choose their cookie "
 "perference."
@@ -1410,11 +1414,11 @@ msgstr ""
 "Anzahl der Tage, bis der Besucher erneut aufgefordert wird, seine Cookie-"
 "Präferenz zu wählen."
 
-#: settings/consent.php:162
+#: settings/consent.php:177 settings/network.php:217
 msgid "Cookie Lifetime in Days - Essential Only"
 msgstr "Cookie Laufzeit in Tagen - Nur Essenziell"
 
-#: settings/consent.php:163
+#: settings/consent.php:178 settings/network.php:218
 msgid ""
 "Number of days until the visitor will be asked again to choose their cookie "
 "preference, if the visitor has only given consent to essential cookies."
@@ -1423,12 +1427,13 @@ msgstr ""
 "Präferenz auszuwählen, wenn der Besucher nur seine Zustimmung zu "
 "essentiellen Cookies gegeben hat."
 
-#: settings/consent.php:178 settings/tos.php:553 settings/tos.php:572
-#: settings/tos.php:765 settings/tos.php:782
+#: settings/consent.php:194 settings/network.php:233 settings/tos.php:553
+#: settings/tos.php:572 settings/tos.php:765 settings/tos.php:782
+#: settings/tos.php:799
 msgid "Content"
 msgstr "Inhalt"
 
-#: settings/consent.php:179
+#: settings/consent.php:195 settings/network.php:234
 msgid ""
 "Configuration of the cookie banner content such as the headline, notice text "
 "and buttons text."
@@ -1436,19 +1441,19 @@ msgstr ""
 "Konfiguration des Cookie-Bannerinhalts wie Überschrift, Hinweistext und "
 "Schaltflächentext."
 
-#: settings/consent.php:183
+#: settings/consent.php:200 settings/network.php:238
 msgid "Headline"
 msgstr "Überschrift"
 
-#: settings/consent.php:191
+#: settings/consent.php:208 settings/network.php:246
 msgid "Description Text"
 msgstr "Beschreibung"
 
-#: settings/consent.php:198
+#: settings/consent.php:215 settings/network.php:253
 msgid "Preference Text"
 msgstr "Einstellungstext"
 
-#: settings/consent.php:200
+#: settings/consent.php:217 settings/network.php:255
 msgid ""
 "Here you will find an overview of all cookies used. You can give your "
 "consent to whole categories or display further information and select "
@@ -1458,44 +1463,44 @@ msgstr ""
 "Einwilligung zu ganzen Kategorien geben oder sich weitere Informationen "
 "anzeigen lassen und bestimmte Cookies auswählen."
 
-#: settings/consent.php:205
+#: settings/consent.php:222 settings/network.php:260
 msgid "Accept All Button Text"
 msgstr "Text der Schaltfläche „Alle akzeptieren“"
 
-#: settings/consent.php:208
+#: settings/consent.php:225 settings/network.php:263
 msgid "Accept all"
 msgstr "Alle akzeptieren"
 
-#: settings/consent.php:214
+#: settings/consent.php:231 settings/network.php:269
 msgid "Refuse Button Text"
 msgstr "Text der Schaltfläche „Ablehnen”"
 
-#: settings/consent.php:217
+#: settings/consent.php:234 settings/network.php:272
 msgid "Accept only essential cookies"
 msgstr "Nur essentielle Cookies akzeptieren"
 
-#: settings/consent.php:223
+#: settings/consent.php:240 settings/network.php:278
 msgid "Save Preference Button Text"
 msgstr "Text der Schaltfläche „Speichern”"
 
-#: settings/consent.php:226
+#: settings/consent.php:243 settings/network.php:281
 msgid "Save"
 msgstr "Speichern"
 
-#: settings/consent.php:236
+#: settings/consent.php:253 settings/network.php:289
 msgid "Content Blocker"
 msgstr "Inhaltsblocker"
 
-#: settings/consent.php:238
+#: settings/consent.php:255 settings/network.php:290
 msgid "Manage settings related to content blocking."
 msgstr ""
 "Verwalten Sie Einstellungen im Zusammenhang mit der Inhaltsblockierung."
 
-#: settings/consent.php:248
+#: settings/consent.php:266 settings/network.php:294
 msgid "Host(s) Allow List"
 msgstr "Zulassungsliste für Hosts"
 
-#: settings/consent.php:249
+#: settings/consent.php:267 settings/network.php:295
 msgid ""
 "One host per line. When a host is recognized (for example within the src-"
 "attribute of an iframe) the content will not be blocked."
@@ -1503,37 +1508,37 @@ msgstr ""
 "Ein Host pro Zeile. Wenn ein Host erkannt wird (z. B. im src-Attribut eines "
 "Iframes), wird der Inhalt nicht blockiert."
 
-#: settings/consent.php:260
+#: settings/consent.php:278 settings/network.php:304
 msgid "Log"
 msgstr "Protokoll"
 
-#: settings/consent.php:262
+#: settings/consent.php:280 settings/network.php:305
 msgid "Manage settings related to consents logs."
 msgstr ""
 "Verwalten Sie Einstellungen im Zusammenhang mit Einwilligungen und "
 "Protokollen."
 
-#: settings/consent.php:272
+#: settings/consent.php:291 settings/network.php:309
 msgid "Activate"
 msgstr "Aktivieren"
 
-#: settings/consent.php:273
+#: settings/consent.php:292 settings/network.php:310
 msgid "Activate consent log"
 msgstr "Cookie-Einwilligungsprotokoll aktivieren"
 
-#: settings/consent.php:279
+#: settings/consent.php:298 settings/network.php:316
 msgid "Purge Interval"
 msgstr "Löschintervall"
 
-#: settings/consent.php:280
+#: settings/consent.php:299 settings/network.php:317
 msgid "Purge consent logs after an amount of time."
 msgstr "Cookie-Einwilligungsprotokolle nach einer gewissen Zeit löschen."
 
-#: settings/consent.php:284
+#: settings/consent.php:303 settings/network.php:321
 msgid "1 month"
 msgstr "1 Monat"
 
-#: settings/consent.php:285
+#: settings/consent.php:304 settings/network.php:322
 msgid "3 months"
 msgstr "3 Monate"
 
@@ -1587,7 +1592,8 @@ msgid ""
 "Assign domains or unique domain parts to the organizations from the site "
 "setting \"Organizational Affiliation\"."
 msgstr ""
-"Ordnen Sie Domains oder eindeutige Domainteile den Organisationen aus der Site-Einstellung „Organisatorische Zugehörigkeit“ zu."
+"Ordnen Sie Domains oder eindeutige Domainteile den Organisationen aus der "
+"Site-Einstellung „Organisatorische Zugehörigkeit“ zu."
 
 #: settings/network.php:63
 msgid "TOS Data Issue Notices"
@@ -1598,7 +1604,8 @@ msgid ""
 "Configuration of notices and log messages for missing or incorrectly "
 "completed legal text data."
 msgstr ""
-"Konfiguration der Hinweise und Logmeldungen bei fehlenden oder nicht korrekt ausgefüllten Rechtstext-Daten."
+"Konfiguration der Hinweise und Logmeldungen bei fehlenden oder nicht korrekt "
+"ausgefüllten Rechtstext-Daten."
 
 #: settings/network.php:68
 msgid "Warning after days"
@@ -1609,7 +1616,8 @@ msgid ""
 "Number of days after the first notice before a warning is written to "
 "rrze.log.warning and an additional notice is displayed."
 msgstr ""
-"Anzahl der Tage seit der ersten Meldung, nach denen eine Warnung in rrze.log.warning geschrieben und ein zusätzlicher Hinweis angezeigt wird."
+"Anzahl der Tage seit der ersten Meldung, nach denen eine Warnung in "
+"rrze.log.warning geschrieben und ein zusätzlicher Hinweis angezeigt wird."
 
 #: settings/network.php:78
 msgid "Error message after days"
@@ -1620,7 +1628,8 @@ msgid ""
 "Number of days after the first notice before a message is written to "
 "rrze.log.error and an additional notice is displayed."
 msgstr ""
-"Anzahl der Tage seit der ersten Meldung, nach denen eine Meldung in rrze.log.error geschrieben und ein zusätzlicher Hinweis angezeigt wird."
+"Anzahl der Tage seit der ersten Meldung, nach denen eine Meldung in "
+"rrze.log.error geschrieben und ein zusätzlicher Hinweis angezeigt wird."
 
 #: settings/network.php:88
 msgid "Notice after warning period"
@@ -1630,7 +1639,8 @@ msgstr "Hinweis nach Warnfrist"
 msgid ""
 "Text displayed in the admin notice when the warning period has been exceeded."
 msgstr ""
-"Text, der in der Admin-Notice angezeigt wird, wenn die Warnfrist überschritten ist."
+"Text, der in der Admin-Notice angezeigt wird, wenn die Warnfrist "
+"überschritten ist."
 
 #: settings/network.php:96
 msgid "Notice after error period"
@@ -1640,7 +1650,8 @@ msgstr "Hinweis nach Fehlerfrist"
 msgid ""
 "Text displayed in the admin notice when the error period has been exceeded."
 msgstr ""
-"Text, der in der Admin-Notice angezeigt wird, wenn die Fehlerfrist überschritten ist."
+"Text, der in der Admin-Notice angezeigt wird, wenn die Fehlerfrist "
+"überschritten ist."
 
 #: settings/network.php:104
 msgid "Require confirmation after error period"
@@ -1651,36 +1662,59 @@ msgid ""
 "If enabled, backend users must confirm the notice by dialog and checkbox "
 "after the error period has been reached before they can continue working."
 msgstr ""
-"Wenn aktiviert, müssen Backend-Benutzer die Meldung nach Erreichen der Fehlerfrist per Dialog und Checkbox bestätigen, bevor sie weiterarbeiten können."
+"Wenn aktiviert, müssen Backend-Benutzer die Meldung nach Erreichen der "
+"Fehlerfrist per Dialog und Checkbox bestätigen, bevor sie weiterarbeiten "
+"können."
 
 #: settings/network.php:117
 msgid "General network settings for consent banner."
 msgstr "Allgemeine Netzwerkeinstellungen für Einwilligungsbanner."
+
+#: settings/network.php:166
+msgid ""
+"These global IP addresses are treated as visitors who accepted all cookies "
+"on all websites in the network. Add one IP address per line."
+msgstr ""
+"Diese globalen IP-Adressen werden auf allen Websites im Netzwerk als "
+"Besucher behandelt, die alle Cookies akzeptiert haben. Fügen Sie pro Zeile "
+"eine IP-Adresse hinzu."
+
+#: settings/network.php:181
+msgid ""
+"Additional global User-Agent strings. If one of these strings occurs in the "
+"User-Agent header, the visitor is treated like a visitor who accepted all "
+"cookies. Add one string per line."
+msgstr ""
+"Zusätzliche globale User-Agent-Strings. Wenn einer dieser Strings im User-"
+"Agent-Header vorkommt, wird der Besucher wie ein Besucher behandelt, der "
+"alle Cookies akzeptiert hat. Fügen Sie pro Zeile einen String hinzu."
 
 #: settings/tos.php:24
 msgid "Legal Mandatory Information Settings"
 msgstr "Gesetzliche Pflichtangabeneinstellungen"
 
 #. translators: %s: Url of the endpoint page.
-#: settings/tos.php:32 settings/tos.php:586 settings/tos.php:796
+#: settings/tos.php:32 settings/tos.php:586 settings/tos.php:813
 msgid "The output of this settings page is available at the following link: %s"
 msgstr ""
 "Die Ausgabe dieser Einstellungsseite ist unter folgendem Link verfügbar: %s"
 
-#: settings/tos.php:38 settings/tos.php:592 settings/tos.php:802
+#: settings/tos.php:38 settings/tos.php:592 settings/tos.php:819
 msgid "Manual Page"
 msgstr "Manuelle Seite"
 
-#: settings/tos.php:44 settings/tos.php:598 settings/tos.php:808
+#: settings/tos.php:44 settings/tos.php:598 settings/tos.php:825
 msgid "Allow manual page"
 msgstr "Manuelle Seite erlauben"
 
-#: settings/tos.php:45 settings/tos.php:599 settings/tos.php:809
+#: settings/tos.php:45 settings/tos.php:599 settings/tos.php:826
 msgid ""
 "This page may be overridden by a regular page with the same slug. If a page "
 "with this slug exists, it will be shown instead of the generated page."
 msgstr ""
-"Diese Seite darf durch eine normale Seite mit gleichem Slug überschrieben werden. Sollte eine Seite mit diesem Slug existieren, wird diese statt der generierten Seite angezeigt."
+"Diese Seite darf durch eine normale Seite mit gleichem Slug überschrieben "
+"werden. Sollte eine Seite mit diesem Slug existieren, wird diese statt der "
+"generierten Seite angezeigt."
 
 #: settings/tos.php:54
 msgid "Scope"
@@ -1729,33 +1763,33 @@ msgstr "Rechtsform der Einrichtung"
 
 #: settings/tos.php:100 settings/tos.php:169 settings/tos.php:234
 #: settings/tos.php:268 settings/tos.php:400 settings/tos.php:628
-#: settings/tos.php:1004
+#: settings/tos.php:1021
 msgid "Email"
 msgstr "E-Mail"
 
 #: settings/tos.php:108 settings/tos.php:179 settings/tos.php:245
 #: settings/tos.php:276 settings/tos.php:414 settings/tos.php:637
-#: settings/tos.php:1012
+#: settings/tos.php:1029
 msgid "Phone"
 msgstr "Telefon"
 
 #: settings/tos.php:114 settings/tos.php:282 settings/tos.php:643
-#: settings/tos.php:1018
+#: settings/tos.php:1035
 msgid "Fax Number"
 msgstr "Faxnummer"
 
 #: settings/tos.php:120 settings/tos.php:194 settings/tos.php:288
-#: settings/tos.php:427 settings/tos.php:658 settings/tos.php:1050
+#: settings/tos.php:427 settings/tos.php:658 settings/tos.php:1067
 msgid "Street Name & House Number"
 msgstr "Straße und Hausnummer"
 
 #: settings/tos.php:127 settings/tos.php:201 settings/tos.php:295
-#: settings/tos.php:433 settings/tos.php:665 settings/tos.php:1057
+#: settings/tos.php:433 settings/tos.php:665 settings/tos.php:1074
 msgid "Postal Code"
 msgstr "Postleitzahl"
 
 #: settings/tos.php:135 settings/tos.php:210 settings/tos.php:303
-#: settings/tos.php:440 settings/tos.php:672 settings/tos.php:1065
+#: settings/tos.php:440 settings/tos.php:672 settings/tos.php:1082
 msgid "City"
 msgstr "Stadt"
 
@@ -1767,7 +1801,7 @@ msgstr "Redaktionell verantwortliche Person"
 msgid "Data for contacting in legal terms."
 msgstr "Daten zur Kontaktaufnahme in rechtlicher Hinsicht."
 
-#: settings/tos.php:151 settings/tos.php:1091
+#: settings/tos.php:151 settings/tos.php:1108
 msgid "Organization"
 msgstr "Organisation"
 
@@ -1792,12 +1826,12 @@ msgid "Contact phone number for the responsible person or the organization."
 msgstr "Telefonnummer der verantwortlichen Person oder Organisation."
 
 #: settings/tos.php:186 settings/tos.php:420 settings/tos.php:650
-#: settings/tos.php:1042
+#: settings/tos.php:1059
 msgid "c/o"
 msgstr "c/o"
 
 #: settings/tos.php:187 settings/tos.php:421 settings/tos.php:651
-#: settings/tos.php:1043
+#: settings/tos.php:1060
 msgid "Additional address line."
 msgstr "Zusätzliche Angabe zur Anschrift"
 
@@ -1827,11 +1861,11 @@ msgstr ""
 msgid "Contact phone number for problems concerning the website."
 msgstr "Kontakttelefonnummer bei Problemen mit der Website."
 
-#: settings/tos.php:254 settings/tos.php:990
+#: settings/tos.php:254 settings/tos.php:1007
 msgid "Supervisory Authority"
 msgstr "Aufsichtsbehörde"
 
-#: settings/tos.php:255 settings/tos.php:991
+#: settings/tos.php:255 settings/tos.php:1008
 msgid "Displays the supervisory authority."
 msgstr "Zeigt die Aufsichtsbehörde an."
 
@@ -1883,7 +1917,7 @@ msgstr "IT-Sicherheit"
 msgid "Contact informations for IT Security."
 msgstr "Kontaktinformationen um die IT-Sicherheit zu erreichen."
 
-#: settings/tos.php:409 settings/tos.php:464 settings/tos.php:1024
+#: settings/tos.php:409 settings/tos.php:464 settings/tos.php:1041
 msgid "URL"
 msgstr "URL"
 
@@ -1929,13 +1963,13 @@ msgstr "Freitextfeld für Bildrechte einfügen?"
 
 #: settings/tos.php:545 settings/tos.php:564 settings/tos.php:691
 #: settings/tos.php:704 settings/tos.php:717 settings/tos.php:757
-#: settings/tos.php:774
+#: settings/tos.php:774 settings/tos.php:791
 msgid "Yes"
 msgstr "Ja"
 
 #: settings/tos.php:546 settings/tos.php:565 settings/tos.php:692
 #: settings/tos.php:705 settings/tos.php:718 settings/tos.php:758
-#: settings/tos.php:775
+#: settings/tos.php:775 settings/tos.php:792
 msgid "No"
 msgstr "Nein"
 
@@ -1948,6 +1982,7 @@ msgid "Add a New Section"
 msgstr "Hinzufügen eines neuen Abschnitts"
 
 #: settings/tos.php:573 settings/tos.php:766 settings/tos.php:783
+#: settings/tos.php:800
 msgid "Content of the new, additional section."
 msgstr "Inhalt des neuen, zusätzlichen Abschnitts."
 
@@ -2050,19 +2085,19 @@ msgstr "Zusätzliche Informationen zur Datenschutzerklärung."
 msgid "Insert Preamble"
 msgstr "\"Präambel\" einfügen"
 
-#: settings/tos.php:754
+#: settings/tos.php:771
 msgid "Add a New Section at the Beginning of the Page"
 msgstr "Neuen Abschnitt zwischen Kontaktdaten und Inhalt hinzufügen"
 
-#: settings/tos.php:771
+#: settings/tos.php:788
 msgid "Add a New Section at the End of the Page"
 msgstr "Neuen Abschnitt am Ende der Seite hinzufügen"
 
-#: settings/tos.php:818
+#: settings/tos.php:835
 msgid "Compliance Status"
 msgstr "Konformitätsstatus"
 
-#: settings/tos.php:819
+#: settings/tos.php:836
 msgid ""
 "Officially stated status of the website, as well as its contents regarding "
 "the fulfillment of the legal requirements."
@@ -2070,11 +2105,11 @@ msgstr ""
 "Offiziell anzugebender Status des Webauftritts, sowie dessen Inhalten "
 "hinsichtlich der Erfüllung der gesetzlichen Anforderungen."
 
-#: settings/tos.php:823
+#: settings/tos.php:840
 msgid "Declaration of Conformity"
 msgstr "Konformitätserklärung"
 
-#: settings/tos.php:824
+#: settings/tos.php:841
 msgid ""
 "State of conformity in accordance with EU Directive 2102 and local "
 "legislation."
@@ -2082,7 +2117,7 @@ msgstr ""
 "Stand der Konformität gemäß der EU-Richtlinie 2102 und der lokalen "
 "Gesetzgebung."
 
-#: settings/tos.php:827
+#: settings/tos.php:844
 msgid ""
 "Completely compliant: the content is fully compliant with the accessibility "
 "standard without exceptions"
@@ -2090,7 +2125,7 @@ msgstr ""
 "Vollständig konform: Der Inhalt entspricht ohne Ausnahmen vollständig dem "
 "Standard für Barrierefreiheit"
 
-#: settings/tos.php:828
+#: settings/tos.php:845
 msgid ""
 "Partially Compliant: Some parts of the content are not fully compliant with "
 "the accessibility standard"
@@ -2098,75 +2133,75 @@ msgstr ""
 "Teilweise konform: Einige Teile des Inhalts entsprechen nicht vollständig "
 "dem Standard für Barrierefreiheit"
 
-#: settings/tos.php:829
+#: settings/tos.php:846
 msgid ""
 "Non-compliant: The content does not comply with the accessibility standard"
 msgstr ""
 "Nicht konform: Der Inhalt entspricht nicht dem Standard für Barrierefreiheit"
 
-#: settings/tos.php:830
+#: settings/tos.php:847
 msgid "Unknown: Content was not rated or rating results are not available"
 msgstr ""
 "Unbekannt: Der Inhalt wurde nicht bewertet oder die Bewertungsergebnisse "
 "sind nicht verfügbar"
 
-#: settings/tos.php:848
+#: settings/tos.php:865
 msgid "Method"
 msgstr "Methode"
 
-#: settings/tos.php:851
+#: settings/tos.php:868
 msgid "Self-Evaluation"
 msgstr "Selbstbewertung"
 
-#: settings/tos.php:852
+#: settings/tos.php:869
 msgid "Third party rating"
 msgstr "Bewertung durch Dritte"
 
-#: settings/tos.php:859
+#: settings/tos.php:876
 msgid "Creation Date"
 msgstr "Erstellungsdatum"
 
-#: settings/tos.php:867
+#: settings/tos.php:884
 msgid "Last Review Date"
 msgstr "Datum der letzten Überprüfung"
 
-#: settings/tos.php:875
+#: settings/tos.php:892
 msgid "Report URL"
 msgstr "URL des Berichts"
 
-#: settings/tos.php:876
+#: settings/tos.php:893
 msgid "If there is a detailed review, this can be linked here."
 msgstr ""
 "Falls es einen ausführlichen Testbericht gibt, kann dieser hier verlinkt "
 "werden."
 
-#: settings/tos.php:885
+#: settings/tos.php:902
 msgid "Statement"
 msgstr "Erklärung"
 
-#: settings/tos.php:886
+#: settings/tos.php:903
 msgid "List and explain the problems with the implementation of accessibility."
 msgstr ""
 "Auflistung und Erläuterung der Probleme bei der Umsetzung der "
 "Barrierefreiheit."
 
-#: settings/tos.php:890
+#: settings/tos.php:907
 msgid "Input Assistance For Non-Accessible Content"
 msgstr "Eingabehilfe zu nicht barrierefreie Inhalte"
 
-#: settings/tos.php:893
+#: settings/tos.php:910
 msgid "Fill out explanations manually"
 msgstr "Erklärungen manuell ausfüllen"
 
-#: settings/tos.php:894
+#: settings/tos.php:911
 msgid "Use input help and supplement it with manual entries"
 msgstr "Eingabehilfe nutzen und durch manuelle Eingaben ergänzen"
 
-#: settings/tos.php:900
+#: settings/tos.php:917
 msgid "Non-Accessible Content (Selection List)"
 msgstr "Nicht barrierefrei zugängliche Inhalte (Auswahl)"
 
-#: settings/tos.php:901
+#: settings/tos.php:918
 msgid ""
 "Selection of the most common deficiencies that a website can have. However, "
 "when choosing one or more of the above-mentioned deficiencies, please "
@@ -2178,12 +2213,12 @@ msgstr ""
 "jeweils plausible Begründung ein, warum dieser Mangel vorhanden ist und "
 "welche Alternativen vorhanden sind, um dennoch an die Inhalte zu gelangen."
 
-#: settings/tos.php:904
+#: settings/tos.php:921
 msgid "PDF documents could not yet be converted to an accessible format."
 msgstr ""
 "PDF-Dokumente konnten nicht in ein barrierefreies Format konvertiert werden."
 
-#: settings/tos.php:905
+#: settings/tos.php:922
 msgid ""
 "Some documents have been provided by third parties. These documents are not "
 "available in an accessible version."
@@ -2191,13 +2226,13 @@ msgstr ""
 "Einige Dokumente wurden von Dritten bereitgestellt. Diese Dokumente sind "
 "nicht in einer barrierefreien Version verfügbar."
 
-#: settings/tos.php:906
+#: settings/tos.php:923
 msgid "Embedded videos currently have no subtitles or transcription available."
 msgstr ""
 "Zu eingebundenen Videos stehen derzeit keine Untertitel oder Transkription "
 "zur Verfügung."
 
-#: settings/tos.php:907
+#: settings/tos.php:924
 msgid ""
 "Currently there is no textual description for directions describing maps or "
 "maps."
@@ -2205,7 +2240,7 @@ msgstr ""
 "Zu mittels Karten oder Kartenbildern eingebundenen Anfahrtsbeschreibungen "
 "fehlt derzeit die textuelle Beschreibung."
 
-#: settings/tos.php:908
+#: settings/tos.php:925
 msgid ""
 "Graphics or images contained in the pages are currently not completely "
 "supplemented by text descriptions."
@@ -2213,11 +2248,11 @@ msgstr ""
 "In den Seiten enthaltene Grafiken oder Bilder sind derzeit nicht vollständig "
 "durch Textbeschreibungen ergänzt worden."
 
-#: settings/tos.php:909
+#: settings/tos.php:926
 msgid "Tables are used for the purpose of optical design."
 msgstr "Es werden Tabellen zum Zwecke der optischen Gestaltung verwendet."
 
-#: settings/tos.php:910
+#: settings/tos.php:927
 msgid ""
 "When using multilingual content on a page, sometimes the languages ​​are not "
 "correctly marked in HTML."
@@ -2225,7 +2260,7 @@ msgstr ""
 "Bei der Verwendung von mehrsprachigen Inhalten auf einer Seite, werden die "
 "Sprachen teilweise nicht korrekt in HTML gekennzeichnet."
 
-#: settings/tos.php:911
+#: settings/tos.php:928
 msgid ""
 "The font color in the logo with the full title of the website does not have "
 "enough contrast."
@@ -2233,11 +2268,11 @@ msgstr ""
 "Die Schriftfarbe im Logo mit dem ausgeschriebenen Titel des Webauftritts ist "
 "nicht kontrastreich genug."
 
-#: settings/tos.php:916
+#: settings/tos.php:933
 msgid "Non-Accessible Content (Free Text)"
 msgstr "Nicht barrierefrei zugängliche Inhalte (Freitext)"
 
-#: settings/tos.php:917
+#: settings/tos.php:934
 msgid ""
 "The website owner is obliged to publicly list all non-accessible components "
 "of the website and its contents. These must be specified here."
@@ -2246,11 +2281,11 @@ msgstr ""
 "des Webauftritts und der Inhalte öffentlich aufzulisten. Diese müssen hier "
 "angegeben werden."
 
-#: settings/tos.php:922
+#: settings/tos.php:939
 msgid "Reason"
 msgstr "Begründung"
 
-#: settings/tos.php:923
+#: settings/tos.php:940
 msgid ""
 "In addition to the pure list of non-accessible contents, a justification for "
 "each of the above points should also be provided as to why barrier-free "
@@ -2265,11 +2300,11 @@ msgstr ""
 "Prioritäten, Zeit oder Unkenntnis“. Diese Punkte dürfen daher nicht als "
 "Begründung verwendet werden."
 
-#: settings/tos.php:928
+#: settings/tos.php:945
 msgid "Alternatives"
 msgstr "Alternative Zugangswege"
 
-#: settings/tos.php:929
+#: settings/tos.php:946
 msgid ""
 "Indicate here whether and which alternatives are available to obtain the "
 "above inaccessible content. This can be, for example, the contact via the "
@@ -2280,21 +2315,21 @@ msgstr ""
 "die Kontaktaufnahme über das Feedback-Formular sein oder die Angabe einer "
 "Stelle, die Hilfe leistet."
 
-#: settings/tos.php:936
+#: settings/tos.php:953
 msgid "Feedback Mechanism"
 msgstr "Feedback-Mechanismus"
 
-#: settings/tos.php:937
+#: settings/tos.php:954
 msgid "Opportunities to contact for accessibility issues and errors."
 msgstr ""
 "Möglichkeiten zur Kontaktaufnahme bei Problemen und Fehlern zur "
 "Barrierefreiheit."
 
-#: settings/tos.php:941
+#: settings/tos.php:958
 msgid "Contact Person"
 msgstr "Ansprechpartner"
 
-#: settings/tos.php:942
+#: settings/tos.php:959
 msgid ""
 "Enter a name for the responsible contact person for complaints or requests "
 "for help about lack of accessibility."
@@ -2302,11 +2337,11 @@ msgstr ""
 "Geben Sie hier einen Namen für den zuständigen Ansprechpartner für "
 "Beschwerden oder Hilfeanfragen über mangelnde Zugänglichkeit an."
 
-#: settings/tos.php:948
+#: settings/tos.php:965
 msgid "Contact Email Addresse"
 msgstr "E-Mail-Adresse"
 
-#: settings/tos.php:949
+#: settings/tos.php:966
 msgid ""
 "Recipient email address for complaints or requests for help about lack of "
 "accessibility. Please note: If a request about the possibility of contact "
@@ -2322,51 +2357,51 @@ msgstr ""
 "ob im Rahmen der Überwachung gegenüber dem Betreiber des Webauftritts (also "
 "Ihnen) Maßnahmen erforderlich sind."
 
-#: settings/tos.php:958
+#: settings/tos.php:975
 msgid "Email CC"
 msgstr "E-Mail CC"
 
-#: settings/tos.php:959
+#: settings/tos.php:976
 msgid "Optional additional email address."
 msgstr "Optionale zusätzliche E-Mail-Adresse."
 
-#: settings/tos.php:967
+#: settings/tos.php:984
 msgid "Email Subject"
 msgstr "E-Mail Betreff"
 
-#: settings/tos.php:969
+#: settings/tos.php:986
 msgid "Accessibility Feedback Form"
 msgstr "Feedback-Formular zur Barrierefreiheit"
 
-#: settings/tos.php:974
+#: settings/tos.php:991
 msgid "Contact Phone"
 msgstr "Telefon"
 
-#: settings/tos.php:975
+#: settings/tos.php:992
 msgid "Contact number for telephone assistance."
 msgstr "Kontaktnummer für telefonische Hilfestellung."
 
-#: settings/tos.php:981
+#: settings/tos.php:998
 msgid "Contact Address"
 msgstr "Adresse"
 
-#: settings/tos.php:982
+#: settings/tos.php:999
 msgid "Postal address as an alternative to email address."
 msgstr "Postanschrift als Alternative zur E-Mail-Adresse."
 
-#: settings/tos.php:1030
+#: settings/tos.php:1047
 msgid "URL (concerning LAW)"
 msgstr "URL (zum anhängigen Gesetz)"
 
-#: settings/tos.php:1036
+#: settings/tos.php:1053
 msgid "URL (concerning VO)"
 msgstr "URL (zur anhängigen Verordnung)"
 
-#: settings/tos.php:1080 settings/tos.php:1085
+#: settings/tos.php:1097 settings/tos.php:1102
 msgid "Organizational Affiliation"
 msgstr "Organisatorische Zugehörigkeit"
 
-#: settings/tos.php:1092
+#: settings/tos.php:1109
 msgid ""
 "Indicate whether the website is operated by an institution affiliated with "
 "the university or by another institution."
@@ -2375,7 +2410,7 @@ msgstr ""
 "Einrichtung oder einer anderen externen Einrichtung ausserhalb der "
 "Universität betrieben wird."
 
-#: settings/tos.php:1092
+#: settings/tos.php:1109
 msgid ""
 "Please notice, that by chosing the organisation, additional data, like the "
 "name of the legal representative contact or the data policy officer are "
@@ -2384,6 +2419,78 @@ msgstr ""
 "Bitte beachten Sie, dass durch die Auswahl der Organisation zusätzliche "
 "Daten, wie der Name des gesetzlichen Vertreters oder des "
 "Datenschutzbeauftragten automatisch aktualisiert werden. "
+
+#~ msgid "Description"
+#~ msgstr "Beschreibung"
+
+#~ msgid "Preselected"
+#~ msgstr "Vorausgewählt"
+
+#~ msgid "Edit Consent Category"
+#~ msgstr "Consent-Kategorie bearbeiten"
+
+#~ msgid "No consent category selected."
+#~ msgstr "Keine Consent-Kategorie ausgewählt."
+
+#~ msgid "Consent category updated."
+#~ msgstr "Consent-Kategorie aktualisiert."
+
+#~ msgid "Consent category added."
+#~ msgstr "Consent-Kategorie hinzugefügt."
+
+#~ msgid "&larr; Go to consent categories List"
+#~ msgstr "&larr; Zurück zu den Consent-Kategorien"
+
+#~ msgctxt "consent categories"
+#~ msgid "%s category deleted."
+#~ msgid_plural "%s categories deleted."
+#~ msgstr[0] "%s Kategorie gelöscht."
+#~ msgstr[1] "%s Kategorien gelöscht."
+
+#~ msgid "Consent Categories"
+#~ msgstr "Consent-Kategorien"
+
+#~ msgid "Add New Category"
+#~ msgstr "Erstellen"
+
+#~ msgid ""
+#~ "The status of this <strong>Consent Category</strong>. If enabled (Status: "
+#~ "Enabled) it is displayed to the visitor in the <strong>Consent Banner</"
+#~ "strong>"
+#~ msgstr ""
+#~ "Der Status dieser <strong>Consent-Kategorie</strong>. Falls aktiviert "
+#~ "(Status: Aktiviert) wird es dem Besucher im <strong>Consent-Banner</"
+#~ "strong> angezeigt"
+
+#~ msgid ""
+#~ "Enter a name for this <strong>Consent Category</strong>. It is displayed "
+#~ "to the visitor in the <strong>Consent Banner</strong>."
+#~ msgstr ""
+#~ "Geben Sie einen Namen für diese <strong>Consent-Kategorie</strong> ein. "
+#~ "Sie wird dem Besucher im <strong>Consent-Banner</strong> angezeigt."
+
+#~ msgid ""
+#~ "Enter a description for this <strong>Consent Category</strong>. It is "
+#~ "displayed to the visitor in the <strong>Consent Banner</strong>."
+#~ msgstr ""
+#~ "Geben Sie eine Beschreibung für diese <strong>Consent-Kategorie</strong> "
+#~ "ein. Sie wird dem Besucher im <strong>Consent-Banner</strong> angezeigt."
+
+#~ msgid ""
+#~ "If enabled (Status: Enabled) this <strong>Consent Category</strong> is "
+#~ "preselected in the <strong>Consent Banner</strong>. The visitor can "
+#~ "deselect it"
+#~ msgstr ""
+#~ "Wenn aktiviert (Status: Aktiviert), ist diese <strong>Content-Kategorie</"
+#~ "strong> im <strong>Content-Banner</strong> vorausgewählt. Der Besucher "
+#~ "kann es abwählen"
+
+#~ msgid ""
+#~ "Determine the position where this <strong>Consent Category</strong> is "
+#~ "displayed. Order follows natural numbers."
+#~ msgstr ""
+#~ "Bestimmen Sie die Position, an der diese <strong>Consent-Kategorie</"
+#~ "strong> angezeigt wird. Die Reihenfolge folgt den natürlichen Zahlen."
 
 #~ msgid ""
 #~ "Determine the position where this <strong>Cookie</strong> is displayed in "

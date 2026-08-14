@@ -10,10 +10,7 @@ defined('ABSPATH') || exit;
 
 
 get_header();
-if (is_plugin_active('rrze-elements/rrze-elements.php')) {
-    wp_enqueue_style('rrze-elements');
-    wp_enqueue_script('rrze-accordions');
-}
+
 
 ?>
 

@@ -9,24 +9,15 @@ use function RRZE\Legal\{plugin, consent};
 
 class Frontend {
     public static function loaded() {
-        
-        if (self::isWhitelistedIp()) {
+        if (self::requestShouldBypassConsent()) {
             return;
         }
-       //  do_action( 'rrze.log.info',"RRZE\Legal\Consent\Frontend (loaded): continued after isWhitelistedIP Check ");
         
-        if (self::isWhitelistedUserAgent()) {
-            return;
-        }
-
-
         add_action('init', [__CLASS__, 'init']);
 
         // Register handler for AJAX requests
         add_action('wp_ajax_banner_log_handler', [__CLASS__, 'handleLogAjaxRequest']);
         add_action('wp_ajax_nopriv_banner_log_handler', [__CLASS__, 'handleLogAjaxRequest']);
-        add_action('wp_ajax_banner_cookies_for_ip_addresses_handler', [__CLASS__, 'handleCookiesForIpAddresses']);
-        add_action('wp_ajax_nopriv_banner_cookies_for_ip_addresses_handler', [__CLASS__, 'handleCookiesForIpAddresses']);
     }
 
     /**
@@ -65,54 +56,18 @@ class Frontend {
     }
 
     
-    /*
-     * Whitelist Agent Strings
-     */
-    protected static function isWhitelistedUserAgent(): bool {
-        $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
-        if ($userAgent === '') {
-            return false;
-        }
-
-        $whitelist = self::getWhitelistedUserAgents();
-        if (empty($whitelist)) {
-            return false;
-        }
-
-        foreach ($whitelist as $needle) {
-            if (!is_string($needle) || $needle === '') {
-                continue;
-            }
-
-            if (strpos($userAgent, $needle) !== false) {
-                return true;
-            }
-        }
-
-        return false;
+    protected static function requestShouldBypassConsent(): bool {
+        return self::isWhitelistedIp() || consent()->isCurrentUserAgentAllowed();
     }
 
-    protected static function getWhitelistedUserAgents(): array {
-        return [
-         'by Siteimprove.com',
-         'RRZE CheckBot'
-        // Future additions:
-        // 'Some Other Crawler',
-        // 'AnotherBot/1.0'
-        ];
-    }
-
-    
-    
-    /*
-     * Check if User IP is whitelistet. Mostly cause of crawler, or cause of setting
+    /**
+     * Check if user IP is whitelisted.
      */
     protected static function isWhitelistedIp(): bool {             
         $ip = self::getClientIp();
         if ($ip === null) {
             return false;
         }
-       // do_action( 'rrze.log.info',"RRZE\Legal\Consent\Frontend (isWhitelistedIp): client IP = ".$ip);
 
         if (filter_var($ip, FILTER_VALIDATE_IP) === false) {
             return false;
@@ -223,7 +178,7 @@ class Frontend {
             $cidrs[] = $cidr;
         }
 
-        $option = consent()->getOption('banner', 'cookies_for_ip_addresses');
+        $option = consent()->getCookiesForIpAddresses();
         if (is_array($option)) {
             foreach (self::normalizeCidrList($option) as $cidr) {
                 $cidrs[] = $cidr;
@@ -375,17 +330,6 @@ class Frontend {
                 echo json_encode(Log::getConsentHistory($_POST['uid']));
             }
         }
-        wp_die();
-    }
-
-    /**
-     * Handle Hide On IP Address (ajax request).
-     */
-    public static function handleCookiesForIpAddresses()  {
-        $ipAddresses = consent()->getCookiesForIpAddresses();
-        $ipAddresses = !empty($ipAddresses) ? explode(PHP_EOL, $ipAddresses) : [];
-        $check = Utils::checkIpAddressRange($ipAddresses) ? '1' : '0';
-        echo json_encode(['check' => $check]);
         wp_die();
     }
 

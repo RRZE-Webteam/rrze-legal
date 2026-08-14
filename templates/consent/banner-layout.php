@@ -26,7 +26,7 @@ defined('ABSPATH') || exit;
                                 </div>
 
                                 <p id="BannerTextDescription">
-                                    <?php echo $bannerTextDescription; ?>
+                                    <?php echo wp_kses_post($bannerTextDescription); ?>
                                 </p>
 
                                 <?php
@@ -106,7 +106,7 @@ defined('ABSPATH') || exit;
                                 </p>
 
                                 <p class="_rrzelegal-legal">
-                                    <a href="<?php echo esc_html($imprintUrl); ?>" tabindex="0">
+                                    <a href="<?php echo esc_url($imprintUrl); ?>" tabindex="0">
                                         <?php echo esc_html($imprintLinkText); ?>
                                     </a>
                                                                         

@@ -53,7 +53,6 @@ class Main {
         // Set admin submenus
         tos()->setAdminMenu();
         consent()->setAdminMenu();
-        consentCategories()->setAdminMenu();
         consentCookies()->setAdminMenu();
 
 

@@ -273,7 +273,7 @@ class ContentBlocker {
 
             $content = '<div class="RRZELegal">' . $content
                 . '<div class="rrzelegal-hide" data-rrzelegal-cookie-type="content-blocker" data-rrzelegal-cookie-id="'
-                . $detectedContentBlockerId . '">' . $blockedContent . '</div></div>';
+                . esc_attr($detectedContentBlockerId) . '">' . $blockedContent . '</div></div>';
         }
 
         // Remove whitespace to avoid WordPress' automatic br- & p-tags & return content.
@@ -288,6 +288,9 @@ class ContentBlocker {
      */
     public function previewHtml($content, $contentBlockerId, $atts = [])
     {
+        static $previewCounter = 0;
+        $previewCounter++;
+
         // Get settings of the Content Blocker
         $contentBlockerData = $this->getContentBlockerData($contentBlockerId);
         if (empty($contentBlockerData)) {
@@ -305,14 +308,14 @@ class ContentBlocker {
         $privacyPolicyUrl = tos()->endpointUrl('privacy') . '#cookies';
         $privacyPolicyLink = sprintf(
             '<a href="%1$s" target="_self" rel="nofollow noopener noreferrer">%2$s</a>',
-            $privacyPolicyUrl,
-            __('privacy policy', 'rrze-legal')
+            esc_url($privacyPolicyUrl),
+            esc_html__('privacy policy', 'rrze-legal')
         );
         $header = __('Display external content', 'rrze-legal');
         $firstText = sprintf(
             /* translators: %s: Name of the service provider. */
             __('At this point content of an external provider (source: %s) is integrated. When displaying, data may be transferred to third parties or cookies may be stored, therefore your consent is required.', 'rrze-legal'),
-            $title
+            wp_strip_all_tags((string) $title)
         );
         $secondText = sprintf(
             /* translators: %s: Privacy policy link. */
@@ -320,13 +323,18 @@ class ContentBlocker {
             $privacyPolicyLink
         );
         $button = __('I agree', 'rrze-legal');
+        $htmlId = sanitize_html_class((string) $contentBlockerId) . '-' . $previewCounter;
+        $titleId = 'rrzelegal-content-blocker-title-' . $htmlId;
+        $descriptionId = 'rrzelegal-content-blocker-description-' . $htmlId;
 
         return sprintf(
-            '<aside class="_rrzelegal-content-blocker" aria-label="%1$s"><div class="_rrzelegal-default"><p class="_rrzelegal-notice-title">%1$s</p><p>%2$s</p><p>%3$s</p><p><a class="_rrzelegal-btn" href="#" data-rrzelegal-cookie-unblock role="button">%4$s</a></p></div></aside>',
-            $header,
-            $firstText,
-            $secondText,
-            $button
+            '<aside class="_rrzelegal-content-blocker" aria-labelledby="%1$s" aria-describedby="%2$s"><div class="_rrzelegal-default"><p class="_rrzelegal-notice-title" id="%1$s">%3$s</p><p id="%2$s">%4$s</p><p>%5$s</p><p><button type="button" class="_rrzelegal-btn" data-rrzelegal-cookie-unblock aria-describedby="%1$s %2$s">%6$s</button></p></div></aside>',
+            esc_attr($titleId),
+            esc_attr($descriptionId),
+            esc_html($header),
+            esc_html($firstText),
+            wp_kses_post($secondText),
+            esc_html($button)
         );
     }
 

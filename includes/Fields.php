@@ -32,6 +32,7 @@ class Fields
         'step' => '',
         'inline' => false,
         'disabled' => false,
+        'readonly' => false,
         'sanitize_callback' => null,
         'required' => false,
         'errors' => '',
@@ -78,13 +79,26 @@ class Fields
     public static function description(array $atts) {
         if (!empty($atts['description'])) {
             $desc = sprintf(
-                '<p class="description">%s</p>',
-                $atts['description']
+                '<div class="description">%s</div>',
+                wp_kses($atts['description'], self::getDescriptionAllowedHtml())
             );
         } else {
             $desc = '';
         }
         return $desc;
+    }
+
+    protected static function getDescriptionAllowedHtml(): array {
+        $allowedHtml = wp_kses_allowed_html('post');
+        $allowedHtml['details'] = [
+            'class' => true,
+            'open' => true,
+        ];
+        $allowedHtml['summary'] = [
+            'class' => true,
+        ];
+
+        return $allowedHtml;
     }
 
     /**
@@ -94,11 +108,11 @@ class Fields
     public static function text(array $atts, string $type = 'text') {
         $value = esc_attr($atts['value']);
         $size = $atts['size'] != '' ? $atts['size'] : 'regular';
-        $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . $atts['placeholder'] . '"' : '';
+        $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . esc_attr($atts['placeholder']) . '"' : '';
 
         $length = '';
         if ((isset($atts['size'])) && (is_numeric($atts['size']))) {
-            $length = ' size="'.$atts['size'].'"';
+            $length = ' size="' . esc_attr($atts['size']) . '"';
         }
         $pattern = '';
         switch ($type) {
@@ -119,24 +133,25 @@ class Fields
         if ($atts['disabled']) {
             $html .= sprintf(
                 '<input type="hidden" name="%1$s[%2$s_%3$s]" value="%4$s">',
-                $atts['option_name'],
-                $atts['section'],
-                $atts['name'],
+                esc_attr($atts['option_name']),
+                esc_attr($atts['section']),
+                esc_attr($atts['name']),
                 $value,
             );
         }
         
         $html .= sprintf(
-            '<input type="%1$s" class="%2$s-text" id="%3$s" name="%4$s[%5$s_%6$s]" value="%7$s"%8$s%9$s%10$s%11$s>',
-            $type,
-            $size,
-            $atts['id'],
-            $atts['option_name'],
-            $atts['section'],
-            $atts['name'],
+            '<input type="%1$s" class="%2$s-text" id="%3$s" name="%4$s[%5$s_%6$s]" value="%7$s"%8$s%9$s%10$s%11$s%12$s>',
+            esc_attr($type),
+            esc_attr($size),
+            esc_attr($atts['id']),
+            esc_attr($atts['option_name']),
+            esc_attr($atts['section']),
+            esc_attr($atts['name']),
             $value,
             $placeholder,
             $atts['disabled'] ? ' disabled="disabled"' : '',
+            $atts['readonly'] ? ' readonly="readonly"' : '',
             $length,
             $pattern    
         );
@@ -175,9 +190,9 @@ class Fields
      */
     public static function textarea(array $atts, string $editorType = '') {
         $value = esc_textarea($atts['value']);
-        $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . $atts['placeholder'] . '"' : '';
+        $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . esc_attr($atts['placeholder']) . '"' : '';
         $editorType = $editorType ? 'wpcode-' . $editorType . '-editor ' : '';
-        $format = '<textarea %1$srows="4" cols="50" id="%2$s" name="%3$s[%4$s_%5$s]"%6$s%7$s>%8$s</textarea>';
+        $format = '<textarea %1$srows="4" cols="50" id="%2$s" name="%3$s[%4$s_%5$s]"%6$s%7$s%8$s>%9$s</textarea>';
         if ($editorType != '') {
             $format = '<div class="code-editor">' . $format . '</div>';
         }
@@ -186,9 +201,9 @@ class Fields
         if ($atts['disabled']) {
             $html .= sprintf(
                 '<input type="hidden" name="%1$s[%2$s_%3$s]" value="%4$s">',
-                $atts['option_name'],
-                $atts['section'],
-                $atts['name'],
+                esc_attr($atts['option_name']),
+                esc_attr($atts['section']),
+                esc_attr($atts['name']),
                 $value,
             );
         }
@@ -197,13 +212,14 @@ class Fields
         
         $html .= sprintf(
             $format,
-            $editorType,
-            $atts['id'],
-            $atts['option_name'],
-            $atts['section'],
-            $atts['name'],
+            esc_attr($editorType),
+            esc_attr($atts['id']),
+            esc_attr($atts['option_name']),
+            esc_attr($atts['section']),
+            esc_attr($atts['name']),
             $placeholder,
             $atts['disabled'] ? ' disabled="disabled"' : '',
+            $atts['readonly'] ? ' readonly="readonly"' : '',
             $value
         );
         $html .= self::description($atts);
@@ -242,18 +258,18 @@ class Fields
     public static function number(array $atts) {
         $value = esc_attr($atts['value']);
         $size = $atts['size'] != '' ? $atts['size'] : 'regular';
-        $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . $atts['placeholder'] . '"' : '';
-        $min = ($atts['min'] != '') ? ' min="' . $atts['min'] . '"' : '';
-        $max = ($atts['max'] != '') ? ' max="' . $atts['max'] . '"' : '';
-        $step = ($atts['step'] != '') ? ' step="' . $atts['step'] . '"' : '';
+        $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . esc_attr($atts['placeholder']) . '"' : '';
+        $min = ($atts['min'] != '') ? ' min="' . esc_attr($atts['min']) . '"' : '';
+        $max = ($atts['max'] != '') ? ' max="' . esc_attr($atts['max']) . '"' : '';
+        $step = ($atts['step'] != '') ? ' step="' . esc_attr($atts['step']) . '"' : '';
 
         $html = sprintf(
             '<input type="number" class="%1$s-number" id="%2$s" name="%3$s[%4$s_%5$s]" value="%6$s"%7$s%8$s%9$s%10$s>',
-            $size,
-            $atts['id'],
-            $atts['option_name'],
-            $atts['section'],
-            $atts['name'],
+            esc_attr($size),
+            esc_attr($atts['id']),
+            esc_attr($atts['option_name']),
+            esc_attr($atts['section']),
+            esc_attr($atts['name']),
             $value,
             $placeholder,
             $min,
@@ -273,18 +289,18 @@ class Fields
     {
         $value = esc_attr($atts['value']);
         $size = $atts['size'] != '' ? $atts['size'] : 'regular';
-        $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . $atts['placeholder'] . '"' : '';
-        $min = ($atts['min'] != '') ? ' min="' . $atts['min'] . '"' : '';
-        $max = ($atts['max'] != '') ? ' max="' . $atts['max'] . '"' : '';
-        $step = ($atts['step'] != '') ? ' step="' . $atts['step'] . '"' : '';
+        $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . esc_attr($atts['placeholder']) . '"' : '';
+        $min = ($atts['min'] != '') ? ' min="' . esc_attr($atts['min']) . '"' : '';
+        $max = ($atts['max'] != '') ? ' max="' . esc_attr($atts['max']) . '"' : '';
+        $step = ($atts['step'] != '') ? ' step="' . esc_attr($atts['step']) . '"' : '';
 
         $html = sprintf(
             '<input type="date" class="%1$s-text" id="%2$s" name="%3$s[%4$s_%5$s]" value="%6$s"%7$s%8$s%9$s%10$s>',
-            $size,
-            $atts['id'],
-            $atts['option_name'],
-            $atts['section'],
-            $atts['name'],
+            esc_attr($size),
+            esc_attr($atts['id']),
+            esc_attr($atts['option_name']),
+            esc_attr($atts['section']),
+            esc_attr($atts['name']),
             $value,
             $placeholder,
             $min,
@@ -307,28 +323,28 @@ class Fields
         if ($atts['disabled']) {
             $html .= sprintf(
                 '<input type="hidden" name="%1$s[%2$s_%3$s]" value="%4$s">',
-                $atts['option_name'],
-                $atts['section'],
-                $atts['name'],
-                checked($value, '1', false),
+                esc_attr($atts['option_name']),
+                esc_attr($atts['section']),
+                esc_attr($atts['name']),
+                esc_attr($value),
             );
         }
         $html .= '<label>';
         $html .= sprintf(
             '<input type="checkbox" id="%1$s" name="%2$s[%3$s_%4$s]" value="1" %5$s%6$s>',
-            $atts['id'],
-            $atts['option_name'],
-            $atts['section'],
-            $atts['name'],
+            esc_attr($atts['id']),
+            esc_attr($atts['option_name']),
+            esc_attr($atts['section']),
+            esc_attr($atts['name']),
             checked($value, '1', false),
             $atts['disabled'] ? ' disabled="disabled"' : ''
         );
         $html .= sprintf(
             '%s</label>',
-            $atts['description']
+            wp_kses_post($atts['description'])
         );
         if (!empty($atts['notice'])) {
-            $html .= $atts['notice'];
+            $html .= wp_kses_post($atts['notice']);
         }
 
         echo $html;
@@ -350,26 +366,26 @@ class Fields
             if ($disabled && $checked) {
                 $html .= sprintf(
                     '<input type="hidden" name="%1$s[%2$s_%3$s][%4$s]" value="1">',
-                    $atts['option_name'],
-                    $atts['section'],
-                    $atts['name'],
-                    $key
+                    esc_attr($atts['option_name']),
+                    esc_attr($atts['section']),
+                    esc_attr($atts['name']),
+                    esc_attr($key)
                 );
             }
             $html .= '<label>';
             $html .= sprintf(
                 '<input type="checkbox" id="%1$s-%5$s" name="%2$s[%3$s_%4$s][%5$s]" value="1" %6$s%7$s>',
-                $atts['id'],
-                $atts['option_name'],
-                $atts['section'],
-                $atts['name'],
-                $key,
+                esc_attr($atts['id']),
+                esc_attr($atts['option_name']),
+                esc_attr($atts['section']),
+                esc_attr($atts['name']),
+                esc_attr($key),
                 checked(true, $checked, false),
                 $disabled ? ' disabled="disabled"' : ''
             );
-            $html .= sprintf('%s</label>', $label);
+            $html .= sprintf('%s</label>', wp_kses_post($label));
             if ($description !== '') {
-                $html .= sprintf('<p class="description">%s</p>', $description);
+                $html .= sprintf('<p class="description">%s</p>', wp_kses_post($description));
             }
             $html .= '<br>';
         }
@@ -393,15 +409,15 @@ class Fields
             $html .= '<label>';
             $html .= sprintf(
                 '<input type="radio" name="%1$s[%2$s_%3$s]" value="%4$s" %5$s>',
-                $atts['option_name'],
-                $atts['section'],
-                $atts['name'],
-                $key,
+                esc_attr($atts['option_name']),
+                esc_attr($atts['section']),
+                esc_attr($atts['name']),
+                esc_attr($key),
                 checked($value, $key, false)
             );
             $html .= sprintf(
                 '%1$s</label>%2$s',
-                $label,
+                wp_kses_post($label),
                 $atts['inline'] != '' ? ' &nbsp;' : '<br>'
             );
         }
@@ -422,18 +438,18 @@ class Fields
 
         $html  = sprintf(
             '<select id="%1$s" name="%2$s[%3$s_%4$s]">',
-            $atts['id'],
-            $atts['option_name'],
-            $atts['section'],
-            $atts['name']
+            esc_attr($atts['id']),
+            esc_attr($atts['option_name']),
+            esc_attr($atts['section']),
+            esc_attr($atts['name'])
         );
 
         foreach ($atts['options'] as $key => $label) {
             $html .= sprintf(
                 '<option value="%1$s"%2$s>%3$s</option>',
-                $key,
+                esc_attr($key),
                 selected($value, $key, false),
-                $label
+                esc_html($label)
             );
         }
 
@@ -481,18 +497,18 @@ class Fields
 
         $html  = sprintf(
             '<select id="%1$s" name="%2$s[%3$s_%4$s][]" multiple="multiple">',
-            $atts['id'],
-            $atts['option_name'],
-            $atts['section'],
-            $atts['name']
+            esc_attr($atts['id']),
+            esc_attr($atts['option_name']),
+            esc_attr($atts['section']),
+            esc_attr($atts['name'])
         );
 
         foreach ($atts['options'] as $key => $label) {
             $html .= sprintf(
                 '<option value="%1$s"%2$s>%3$s</option>',
-                $key,
+                esc_attr($key),
                 selected(true, in_array($key, $value), false),
-                $label
+                esc_html($label)
             );
         }
 
@@ -517,15 +533,15 @@ class Fields
             'editor_height' => $height,
             'textarea_name' => sprintf(
                 '%1$s[%2$s_%3$s]',
-                $atts['option_name'],
-                $atts['section'],
-                $atts['name']
+                esc_attr($atts['option_name']),
+                esc_attr($atts['section']),
+                esc_attr($atts['name'])
             ),
             'textarea_rows' => 10
         ];
 
         echo '<div class="wpeditor-field-container">';
-        wp_editor($value, $atts['section'] . '_' . $atts['name'], $editorSettings);
+        wp_editor($value, sanitize_key($atts['section'] . '_' . $atts['name']), $editorSettings);
         echo '</div>';
         echo self::description($atts);
     }

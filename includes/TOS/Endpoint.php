@@ -224,7 +224,7 @@ class Endpoint {
         $content = sprintf('<h3>%s</h3>', esc_html($name)) . "\n";
         $content .= self::formatPlainTextParagraphs($text);
         $content .= self::getServiceProviderCookieInformation($data, $langCode);
-        $content .= self::getServiceProviderConsentSwitch($id, $langCode);
+        $content .= self::getServiceProviderConsentSwitch($id, $name, $langCode);
 
         return $content;
     }
@@ -343,15 +343,16 @@ class Endpoint {
         return implode(', ', $items);
     }
 
-    protected static function getServiceProviderConsentSwitch(string $id, string $langCode): string
+    protected static function getServiceProviderConsentSwitch(string $id, string $name, string $langCode): string
     {
         $text = __('You can change your consent at any time using the following option.', 'rrze-legal');
 
         return sprintf(
-            "<h4>%1\$s</h4>\n<p>%2\$s</p>\n[rrzelegal_consent type=\"switch-consent\" id=\"%3\$s\"]\n",
+            "<h4>%1\$s</h4>\n<p>%2\$s</p>\n[rrzelegal_consent type=\"switch-consent\" id=\"%3\$s\" label=\"%4\$s\"]\n",
             esc_html__('Objection and removal option', 'rrze-legal'),
             esc_html($text),
-            esc_attr($id)
+            esc_attr($id),
+            esc_attr($name)
         );
     }
 

@@ -56,12 +56,32 @@ function bindConsentCookieStatusVisibility() {
     });
 }
 
+function setCookiesForUserAgentsReadonly($checkbox, $textarea) {
+    $textarea.prop("readonly", !$checkbox.is(":checked"));
+}
+
+function bindCookiesForUserAgentsReadonly() {
+    var $ = jQuery;
+    var $checkbox = $("[id$='_banner_cookies_for_bots'], [id$='_network_banner_cookies_for_bots']").first();
+    var $textarea = $("[id$='_banner_cookies_for_user_agents'], [id$='_network_banner_cookies_for_user_agents']").first();
+
+    if (!$checkbox.length || !$textarea.length) {
+        return;
+    }
+
+    setCookiesForUserAgentsReadonly($checkbox, $textarea);
+    $checkbox.on("change", function updateCookiesForUserAgentsReadonly() {
+        setCookiesForUserAgentsReadonly($checkbox, $textarea);
+    });
+}
+
 function initSettings() {
     var $ = jQuery;
 
     initDatepicker($);
     bindConsentCookieTechnicalToggle();
     bindConsentCookieStatusVisibility();
+    bindCookiesForUserAgentsReadonly();
 }
 
 jQuery(document).ready(initSettings);

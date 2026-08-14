@@ -630,6 +630,8 @@ class ListSettings
                     } else {
                         $value = $sanitizedValue;
                     }
+                } else {
+                    $value = $this->sanitizeValueByFieldType($value, $option);
                 }
                 if ($error) {
                     $hasError = true;
@@ -667,6 +669,85 @@ class ListSettings
             }
         }
         return false;
+    }
+
+    protected function sanitizeValueByFieldType($value, array $option) {
+        $type = isset($option['type']) ? strtolower((string) $option['type']) : '';
+
+        switch ($type) {
+            case 'checkbox':
+                return !empty($value) ? '1' : '0';
+            case 'radio':
+            case 'select':
+                return $this->sanitizeChoiceValue($value, $option);
+            case 'multicheckbox':
+            case 'multiselect':
+                return $this->sanitizeMultipleChoiceValue($value, $option);
+            case 'number':
+                return $this->sanitizeNumberValue($value, $option);
+            case 'email':
+                return sanitize_email((string) $value);
+            case 'url':
+                return sanitize_url((string) $value);
+            case 'textarea':
+                return sanitize_textarea_field((string) $value);
+            case 'wpeditor':
+                return wp_kses_post((string) $value);
+            case 'text':
+            case 'tel':
+            case 'date':
+            case 'selectpage':
+                return sanitize_text_field((string) $value);
+        }
+
+        return is_scalar($value) ? sanitize_text_field((string) $value) : '';
+    }
+
+    protected function sanitizeChoiceValue($value, array $option): string {
+        $value = sanitize_text_field((string) $value);
+        $options = isset($option['options']) && is_array($option['options']) ? $option['options'] : [];
+
+        if (!empty($options) && !array_key_exists($value, $options)) {
+            return isset($option['default']) ? sanitize_text_field((string) $option['default']) : '';
+        }
+
+        return $value;
+    }
+
+    protected function sanitizeMultipleChoiceValue($value, array $option): array {
+        $value = is_array($value) ? $value : [];
+        $options = isset($option['options']) && is_array($option['options']) ? $option['options'] : [];
+        $sanitized = [];
+
+        foreach ($value as $key => $item) {
+            $key = sanitize_text_field((string) $key);
+            if (!empty($options) && !array_key_exists($key, $options)) {
+                continue;
+            }
+            $sanitized[$key] = !empty($item) ? '1' : '0';
+        }
+
+        return $sanitized;
+    }
+
+    protected function sanitizeNumberValue($value, array $option) {
+        if ($value === '') {
+            return '';
+        }
+
+        $number = is_numeric($value) ? $value + 0 : null;
+        if ($number === null) {
+            return '';
+        }
+
+        if (isset($option['min']) && $option['min'] !== '' && $number < (float) $option['min']) {
+            return '';
+        }
+        if (isset($option['max']) && $option['max'] !== '' && $number > (float) $option['max']) {
+            return '';
+        }
+
+        return strpos((string) $value, '.') === false ? (int) $number : (float) $number;
     }
 
     /**

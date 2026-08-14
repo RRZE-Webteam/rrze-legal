@@ -23,7 +23,7 @@ defined('ABSPATH') || exit;
                         </div>
 
                         <p id="CookiePrefDescription">
-                            <?php echo do_shortcode($bannerPreferenceTextDescription); ?>
+                            <?php echo wp_kses_post(do_shortcode($bannerPreferenceTextDescription)); ?>
                         </p>
 
                         <div class="row no-gutters align-items-center">

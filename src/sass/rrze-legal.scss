@@ -79,11 +79,11 @@
    
 
     .wcag-contact-form {
-	border: 1px solid var(--rrze-legal-wcag-contact-form-color-border);
-	border-radius: 4px;
-	margin-block: 1.5rem;
-	max-width: 46rem;
-	padding: 1.25rem;
+        border: 1px solid var(--rrze-legal-wcag-contact-form-color-border);
+        border-radius: var(--rrze-legal-border-radius);
+        margin-block: 1.5rem;
+        max-width: 46rem;
+        padding: 1.25rem;
     }
 
     .wcag-contact-form .form-group {
@@ -108,12 +108,12 @@
     }
 
     .wcag-contact-form .form-control {
-	background: var(--rrze-legal-wcag-contact-form-color-surface);
-	border: 2px solid var(--rrze-legal-wcag-contact-form-color-field-border);
-	border-radius: 4px;
-	box-sizing: border-box;
-	color: var(--rrze-legal-wcag-contact-form-color-field-text);
-	display: block;
+        background: var(--rrze-legal-wcag-contact-form-color-surface);
+        border: 2px solid var(--rrze-legal-wcag-contact-form-color-field-border);
+        border-radius: var(--rrze-legal-border-radius);
+        box-sizing: border-box;
+        color: var(--rrze-legal-wcag-contact-form-color-field-text);
+        display: block;
 	font: inherit;
 	line-height: 1.4;
 	max-width: 100%;
@@ -154,9 +154,9 @@
 
     .wcag-contact-form .alert,
     .wcag-contact-form__response {
-	border-radius: 4px;
-	margin-block: 0.75rem;
-	padding: 0.75rem 0.9rem;
+        border-radius: var(--rrze-legal-border-radius);
+        margin-block: 0.75rem;
+        padding: 0.75rem 0.9rem;
     }
 
     .wcag-contact-form .alert-danger,
@@ -177,12 +177,12 @@
     }
 
     .wcag-submit input[type="submit"] {
-	background: var(--rrze-legal-wcag-contact-form-color-submit);
-	border: 2px solid var(--rrze-legal-wcag-contact-form-color-submit);
-	border-radius: 4px;
-	color: var(--rrze-legal-wcag-contact-form-color-submit-text);
-	cursor: pointer;
-	font: inherit;
+        background: var(--rrze-legal-wcag-contact-form-color-submit);
+        border: 2px solid var(--rrze-legal-wcag-contact-form-color-submit);
+        border-radius: var(--rrze-legal-border-radius-buttons);
+        color: var(--rrze-legal-wcag-contact-form-color-submit-text);
+        cursor: pointer;
+        font: inherit;
 	font-weight: 700;
 	line-height: 1.25;
 	padding: 0.75rem 1rem;
@@ -199,12 +199,12 @@
     }
 
     .rrzelegal-cookie-preference {
-	background: var(--rrze-legal-cookie-preference-button-color-background);
-	border: 2px solid var(--rrze-legal-cookie-preference-button-color-background);
-	border-radius: 4px;
-	color: var(--rrze-legal-cookie-preference-button-color-text);
-	cursor: pointer;
-	display: inline-block;
+        background: var(--rrze-legal-cookie-preference-button-color-background);
+        border: 2px solid var(--rrze-legal-cookie-preference-button-color-background);
+        border-radius: var(--rrze-legal-border-radius-buttons);
+        color: var(--rrze-legal-cookie-preference-button-color-text);
+        cursor: pointer;
+        display: inline-block;
 	font: inherit;
 	font-weight: 700;
 	line-height: 1.25;

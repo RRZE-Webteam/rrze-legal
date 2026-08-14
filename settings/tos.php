@@ -464,7 +464,7 @@ $settings = [
                                 'label' => __('URL', 'rrze-legal'),
                                 'type' => 'url',
                                 'default' => '',
-                                'sanitize_callback' => 'sanitize_text_field',
+                                'sanitize_callback' => 'sanitize_url',
                                 'required' => false,
                             ],
                             
@@ -1040,19 +1040,19 @@ $settings = [
                                 'name' => 'supervisory_authority_url',
                                 'label' => __('URL', 'rrze-legal'),
                                 'type' => 'url',
-                                'sanitize_callback' => 'sanitize_text_field',
+                                'sanitize_callback' => 'sanitize_url',
                             ], 
                              [
                                 'name' => 'supervisory_authority_url_law',
                                 'label' => __('URL (concerning LAW)', 'rrze-legal'),
                                 'type' => 'url',
-                                'sanitize_callback' => 'sanitize_text_field',
+                                'sanitize_callback' => 'sanitize_url',
                             ], 
                             [
                                 'name' => 'supervisory_authority_url_vo',
                                 'label' => __('URL (concerning VO)', 'rrze-legal'),
                                 'type' => 'url',
-                                'sanitize_callback' => 'sanitize_text_field',
+                                'sanitize_callback' => 'sanitize_url',
                             ], 
                              [
                                 'name' => 'supervisory_authority_postal_co',

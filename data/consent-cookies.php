@@ -5,7 +5,7 @@ namespace RRZE\Legal;
 defined('ABSPATH') || exit;
 
 $data = [
-    'version' => 8,
+    'version' => 9,
     'items' => [
         'default' => [
             'id' => 'default',
@@ -95,7 +95,7 @@ $data = [
         'rrze_rsvp' => [
             'id' => 'rrze_rsvp',
             'cookie_name' => 'rrze_rsvp',
-            'category' => 'essential',
+            'category' => 'functional',
             'name' => __('RSVP', 'rrze-legal'),
             'provider' => __('No transmission to third parties', 'rrze-legal'),
             'purpose' => __('Used to manage RSVP session state.', 'rrze-legal'),
@@ -117,7 +117,7 @@ $data = [
         'rrze_ratebutton' => [
             'id' => 'rrze_ratebutton',
             'cookie_name' => 'rrze_rated_[*]',
-            'category' => 'essential',
+            'category' => 'functional',
             'name' => __('RRZE Rate Button', 'rrze-legal'),
             'provider' => __('No transmission to third parties', 'rrze-legal'),
             'purpose' => __('Used to manage the rating counter.', 'rrze-legal'),
@@ -139,7 +139,7 @@ $data = [
         'rrze_appointment' => [
             'id' => 'rrze_appointment',
             'cookie_name' => '',
-            'category' => 'essential',
+            'category' => 'functional',
             'name' => __('RRZE Appointment', 'rrze-legal'),
             'provider' => __('No transmission to third parties', 'rrze-legal'),
             'purpose' => __('Used to manage digital appointment and office-hour booking.', 'rrze-legal'),
@@ -305,30 +305,81 @@ TEXT,
             'status' => true,
             'static' => true,
         ],
-        'vimeo' => [
-            'id' => 'vimeo',
-            'cookie_name' => 'vuid',
+        'spotify' => [
+            'id' => 'spotify',
+            'cookie_name' => 'sp_t, sp_landing',
             'category' => 'external_media',
-            'name' => __('Vimeo', 'rrze-legal'),
-            'provider' => __('Vimeo Inc., 555 West 18th Street, New York, New York 10011, USA', 'rrze-legal'),
-            'purpose' => __('Used to unblock Vimeo content.', 'rrze-legal'),
+            'name' => __('Spotify', 'rrze-legal'),
+            'provider' => __('Spotify AB, Regeringsgatan 19, 111 53 Stockholm, Sweden', 'rrze-legal'),
+            'purpose' => __('Used to unblock Spotify audio content.', 'rrze-legal'),
             'privacy_text_de' => <<<'TEXT'
-Diese Website bindet Videos des Videoportals Vimeo ein. Anbieter ist Vimeo Inc. Wenn Sie eine Seite aufrufen, auf der Vimeo eingebunden ist, kann eine Verbindung zu Servern von Vimeo hergestellt werden. Dabei kann Vimeo Informationen darüber erhalten, welche Seite Sie besucht haben, und Ihre IP-Adresse verarbeiten.
+Unsere Website kann Inhalte der Audio-Streaming-Plattform Spotify einbinden. Anbieter ist Spotify AB, Regeringsgatan 19, 111 53 Stockholm, Schweden.
 
-Wenn Sie in Ihrem Vimeo-Konto angemeldet sind, kann Vimeo Ihr Surfverhalten direkt Ihrem persönlichen Profil zuordnen. Dies können Sie verhindern, indem Sie sich aus Ihrem Vimeo-Konto ausloggen.
+Spotify-Inhalte können als eingebetteter iFrame auf unserer Website angezeigt werden, zum Beispiel einzelne Audiodateien, Alben, Playlisten oder Podcasts. Wenn Sie eine Seite besuchen, auf der ein Spotify-Inhalt eingebettet ist und Sie diesen Inhalt aktivieren, wird eine Verbindung zu Servern von Spotify hergestellt und der Inhalt innerhalb unserer Website dargestellt.
+
+Dabei kann Spotify Informationen darüber erhalten, welche Seite Sie besucht haben. Gegebenenfalls wird auch Ihre IP-Adresse an Spotify übertragen. Wenn Sie eingebettete Audiodateien, Alben, Playlisten oder Podcasts abspielen, kann auch diese Information an Spotify weitergegeben werden. Sofern Sie dabei in Ihrem Spotify-Konto angemeldet sind, kann Spotify diese Daten Ihrem Benutzerkonto zuordnen. Sie können dies verhindern, indem Sie sich aus Ihrem Spotify-Konto ausloggen.
 
 Die Nutzung erfolgt auf Grundlage Ihrer Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO. Die Einwilligung ist jederzeit widerrufbar.
 TEXT,
             'privacy_text_en' => <<<'TEXT'
-This website embeds videos from the Vimeo video portal. The provider is Vimeo Inc. When you visit a page on which Vimeo is embedded, a connection to Vimeo servers may be established. Vimeo may receive information about which page you have visited and may process your IP address.
+Our website may embed content from the audio streaming platform Spotify. The provider is Spotify AB, Regeringsgatan 19, 111 53 Stockholm, Sweden.
 
-If you are logged in to your Vimeo account, Vimeo may associate your browsing behavior directly with your personal profile. You can prevent this by logging out of your Vimeo account.
+Spotify content may be displayed on our website as an embedded iframe, for example individual audio files, albums, playlists or podcasts. If you visit a page on which Spotify content is embedded and activate this content, a connection to Spotify servers is established and the content is displayed within our website.
+
+Spotify may receive information about which page you have visited. Your IP address may also be transmitted to Spotify. If you play embedded audio files, albums, playlists or podcasts, this information may also be transmitted to Spotify. If you are logged in to your Spotify account, Spotify may associate this data with your user account. You can prevent this by logging out of your Spotify account.
 
 The use is based on your consent pursuant to Art. 6 (1) (a) GDPR. Consent can be withdrawn at any time.
 TEXT,
+            'privacy_policy_url' => 'https://www.spotify.com/legal/privacy-policy/',
+            'hosts' => implode(PHP_EOL, [
+                'open.spotify.com',
+                'spotify.com',
+                'scdn.co',
+            ]),
+            'cookie_expiry' => __('Up to 1 year', 'rrze-legal'),
+            'enqueued_script_handles' => '',
+            'block_enqueued_script' => false,
+            'prioritize' => false,
+            'async_opt_out_code' => false,
+            'opt_in_js' => '<script>if(typeof window.RRZELegal === "object") { window.RRZELegal.unblockContentId("spotify"); }</script>',
+            'opt_out_js' => '',
+            'fallback_js' => '',
+            'position' => 3,
+            'status' => false,
+            'static' => true,
+        ],
+        'vimeo' => [
+            'id' => 'vimeo',
+            'cookie_name' => 'vuid, player, flags, player_clearance, _cf_bm, _cfuvid, cf_clearance',
+            'category' => 'external_media',
+            'name' => __('Vimeo', 'rrze-legal'),
+            'provider' => __('Vimeo.com, Inc., 330 West 34th Street, 5th Floor, New York, New York 10001, USA', 'rrze-legal'),
+            'purpose' => __('Used to unblock Vimeo content.', 'rrze-legal'),
+            'privacy_text_de' => <<<'TEXT'
+Diese Website nutzt Plugins des Videoportals Vimeo. Anbieter ist Vimeo.com, Inc., 330 West 34th Street, 5th Floor, New York, New York 10001, USA.
+
+Wenn Sie eine unserer mit einem Vimeo-Plugin ausgestatteten Seiten besuchen und den Inhalt aktivieren, wird eine Verbindung zu den Servern von Vimeo hergestellt. Dabei wird dem Vimeo-Server mitgeteilt, welche unserer Seiten Sie besucht haben. Zudem kann Vimeo Ihre IP-Adresse verarbeiten. Dies gilt auch dann, wenn Sie nicht bei Vimeo eingeloggt sind oder keinen Vimeo-Account besitzen. Die von Vimeo erfassten Informationen können an Vimeo-Server in den USA übermittelt werden.
+
+Wenn Sie in Ihrem Vimeo-Konto eingeloggt sind, ermöglichen Sie Vimeo, Ihr Surfverhalten direkt Ihrem persönlichen Profil zuzuordnen. Dies können Sie verhindern, indem Sie sich aus Ihrem Vimeo-Konto ausloggen.
+
+Die Nutzung von Vimeo erfolgt auf Grundlage Ihrer Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO. Die Einwilligung ist jederzeit widerrufbar.
+TEXT,
+            'privacy_text_en' => <<<'TEXT'
+This website uses plugins from the Vimeo video portal. The provider is Vimeo.com, Inc., 330 West 34th Street, 5th Floor, New York, New York 10001, USA.
+
+If you visit one of our pages that contains a Vimeo plugin and activate the content, a connection to Vimeo servers is established. The Vimeo server is informed which of our pages you have visited. Vimeo may also process your IP address. This applies even if you are not logged in to Vimeo or do not have a Vimeo account. The information collected by Vimeo may be transmitted to Vimeo servers in the USA.
+
+If you are logged in to your Vimeo account, Vimeo may associate your browsing behavior directly with your personal profile. You can prevent this by logging out of your Vimeo account.
+
+The use of Vimeo is based on your consent pursuant to Art. 6 (1) (a) GDPR. Consent can be withdrawn at any time.
+TEXT,
             'privacy_policy_url' => 'https://vimeo.com/privacy',
-            'hosts' => 'player.vimeo.com',
-            'cookie_expiry' => __('2 Years', 'rrze-legal'),
+            'hosts' => implode(PHP_EOL, [
+                'player.vimeo.com',
+                'vimeo.com',
+                'i.vimeocdn.com',
+            ]),
+            'cookie_expiry' => __('Up to 2 years', 'rrze-legal'),
             'enqueued_script_handles' => '',
             'block_enqueued_script' => false,
             'prioritize' => false,
@@ -336,8 +387,94 @@ TEXT,
             'opt_in_js' => '<script>if(typeof window.RRZELegal === "object") { window.RRZELegal.unblockContentId("vimeo"); }</script>',
             'opt_out_js' => '',
             'fallback_js' => '',
-            'position' => 3,
+            'position' => 4,
             'status' => true,
+            'static' => true,
+        ],
+        'gstatic' => [
+            'id' => 'gstatic',
+            'cookie_name' => 'NID, AEC',
+            'category' => 'external_media',
+            'name' => __('Gstatic', 'rrze-legal'),
+            'provider' => __('Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland', 'rrze-legal'),
+            'purpose' => __('Used to load static Google resources.', 'rrze-legal'),
+            'privacy_text_de' => <<<'TEXT'
+Unsere Website kann den Dienst Gstatic verwenden. Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.
+
+Gstatic ist ein von Google verwendeter Dienst zum Abrufen statischer Inhalte, um benötigte Ressourcen bereitzustellen und die Bandbreitennutzung zu reduzieren. Der Dienst kann insbesondere beim Laden von Hintergrunddaten für Google-Dienste wie Google Fonts oder Google Maps verwendet werden.
+
+Wenn Gstatic-Ressourcen aktiviert und geladen werden, kann eine Verbindung zu Servern von Google hergestellt werden. Dabei können personenbezogene Daten wie Ihre IP-Adresse und technische Informationen zum Browser an Google übertragen werden. Eine Übermittlung personenbezogener Daten an Google LLC in den USA kann nicht ausgeschlossen werden. Für Übermittlungen in die USA kann ein Angemessenheitsbeschluss der EU-Kommission zum EU-US Data Privacy Framework herangezogen werden, soweit der Anbieter entsprechend zertifiziert ist.
+
+Die Nutzung erfolgt auf Grundlage Ihrer Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO. Die Einwilligung ist jederzeit widerrufbar.
+TEXT,
+            'privacy_text_en' => <<<'TEXT'
+Our website may use the Gstatic service. The provider is Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland.
+
+Gstatic is a service used by Google to retrieve static content in order to provide required resources and reduce bandwidth usage. The service may be used in particular when loading background data for Google services such as Google Fonts or Google Maps.
+
+If Gstatic resources are activated and loaded, a connection to Google servers may be established. Personal data such as your IP address and technical browser information may be transmitted to Google. A transfer of personal data to Google LLC in the USA cannot be ruled out. Transfers to the USA may be based on the European Commission's adequacy decision for the EU-US Data Privacy Framework, provided that the provider is certified accordingly.
+
+The use is based on your consent pursuant to Art. 6 (1) (a) GDPR. Consent can be withdrawn at any time.
+TEXT,
+            'privacy_policy_url' => 'https://policies.google.com/privacy',
+            'hosts' => implode(PHP_EOL, [
+                'gstatic.com',
+                'google.com',
+                'googleapis.com',
+            ]),
+            'cookie_expiry' => __('Up to 6 months', 'rrze-legal'),
+            'enqueued_script_handles' => '',
+            'block_enqueued_script' => false,
+            'prioritize' => false,
+            'async_opt_out_code' => false,
+            'opt_in_js' => '<script>if(typeof window.RRZELegal === "object") { window.RRZELegal.unblockContentId("gstatic"); }</script>',
+            'opt_out_js' => '',
+            'fallback_js' => '',
+            'position' => 5,
+            'status' => false,
+            'static' => true,
+        ],
+        'sentry' => [
+            'id' => 'sentry',
+            'cookie_name' => '',
+            'category' => 'external_media',
+            'name' => __('Sentry', 'rrze-legal'),
+            'provider' => __('Functional Software, Inc. dba Sentry, 45 Fremont Street, 8th Floor, San Francisco, CA 94105, USA', 'rrze-legal'),
+            'purpose' => __('Used for error reporting and application monitoring.', 'rrze-legal'),
+            'privacy_text_de' => <<<'TEXT'
+Unsere Website kann Sentry für die Fehlerberichterstattung und Anwendungsüberwachung verwenden. Anbieter ist Functional Software, Inc. dba Sentry, 45 Fremont Street, 8th Floor, San Francisco, CA 94105, USA.
+
+Sentry bietet eine Lösung zur Anwendungsüberwachung, mit der Fehler, Bugs und andere Leistungsprobleme erkannt, überwacht und ausgewertet werden können. Bei aktiver Fehlerberichterstattung können Daten an Sentry übertragen werden. Hierbei kann es sich unter anderem um die IP-Adresse, Browser-Fehlerprotokolle, die Referrer-URL, Ortsinformationen sowie Informationen über den verwendeten Browser und das verwendete Endgerät handeln.
+
+Nach Angaben von Sentry setzt das SDK selbst üblicherweise keine Cookies im Browser der Endnutzer. Gleichwohl können bei der Übertragung von Fehler- und Diagnosedaten personenbezogene Daten verarbeitet werden.
+
+Die Nutzung erfolgt auf Grundlage Ihrer Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO. Die Einwilligung ist jederzeit widerrufbar.
+TEXT,
+            'privacy_text_en' => <<<'TEXT'
+Our website may use Sentry for error reporting and application monitoring. The provider is Functional Software, Inc. dba Sentry, 45 Fremont Street, 8th Floor, San Francisco, CA 94105, USA.
+
+Sentry provides an application monitoring solution that can be used to detect, monitor and evaluate errors, bugs and other performance issues. If error reporting is active, data may be transmitted to Sentry. This may include the IP address, browser error logs, the referrer URL, location information and information about the browser and device used.
+
+According to Sentry, the SDK itself usually does not set cookies in the browsers of end users. Nevertheless, personal data may be processed when error and diagnostic data are transmitted.
+
+The use is based on your consent pursuant to Art. 6 (1) (a) GDPR. Consent can be withdrawn at any time.
+TEXT,
+            'privacy_policy_url' => 'https://sentry.io/privacy/',
+            'hosts' => implode(PHP_EOL, [
+                'sentry.io',
+                'ingest.sentry.io',
+                'ingest.de.sentry.io',
+            ]),
+            'cookie_expiry' => __('No cookies', 'rrze-legal'),
+            'enqueued_script_handles' => '',
+            'block_enqueued_script' => false,
+            'prioritize' => false,
+            'async_opt_out_code' => false,
+            'opt_in_js' => '<script>if(typeof window.RRZELegal === "object") { window.RRZELegal.unblockContentId("sentry"); }</script>',
+            'opt_out_js' => '',
+            'fallback_js' => '',
+            'position' => 6,
+            'status' => false,
             'static' => true,
         ],
         'slideshare' => [
@@ -371,7 +508,7 @@ TEXT,
             'opt_in_js' => '<script>if(typeof window.RRZELegal === "object") { window.RRZELegal.unblockContentId("slideshare"); }</script>',
             'opt_out_js' => '',
             'fallback_js' => '',
-            'position' => 4,
+            'position' => 7,
             'status' => true,
             'static' => true,
         ],
@@ -404,7 +541,7 @@ TEXT,
             'opt_in_js' => '<script>if(typeof window.RRZELegal === "object") { window.RRZELegal.unblockContentId("brmediathek"); }</script>',
             'opt_out_js' => '',
             'fallback_js' => '',
-            'position' => 5,
+            'position' => 8,
             'plugin_slug' => 'rrze-video/rrze-video.php',
             'status' => consent()->isServiceProviderActive('brmediathek'),
             'static' => true,
@@ -438,7 +575,7 @@ TEXT,
             'opt_in_js' => '<script>if(typeof window.RRZELegal === "object") { window.RRZELegal.unblockContentId("ardmediathek"); }</script>',
             'opt_out_js' => '',
             'fallback_js' => '',
-            'position' => 6,
+            'position' => 9,
             'plugin_slug' => 'rrze-video/rrze-video.php',
             'status' => consent()->isServiceProviderActive('ardmediathek'),
             'static' => true,

@@ -4,6 +4,9 @@ namespace RRZE\Legal;
 
 defined('ABSPATH') || exit;
 
+$isNetworkActivated = Utils::isPluginActiveForNetwork(plugin()->getBaseName());
+$isMultisite = is_multisite();
+
 $settings = [
     'version' => 1,
     'options_page' => [
@@ -61,13 +64,6 @@ $settings = [
                                 'default' => false,
                             ],
                             [
-                                'name' => 'cookies_for_bots',
-                                'label' => __('Cookies for Bots/Crawlers', 'rrze-legal'),
-                                'description' => __("A bot/crawler is treated like a visitor who accepted all cookies", 'rrze-legal'),
-                                'type' => 'checkbox',
-                                'default' => true,
-                            ],
-                            [
                                 'name' => 'respect_do_not_track',
                                 'label' => __('Respect "Do Not Track"', 'rrze-legal'),
                                 'description' => __("A visitor with active <strong>\"Do Not Track\"</strong> setting will not see the <strong>Consent Banner</strong> and the system will automatically select the <strong>Refuse</strong> option", 'rrze-legal'),
@@ -99,11 +95,26 @@ $settings = [
                             [
                                 'name' => 'cookies_for_ip_addresses',
                                 'label' => __('Cookies For IP Addresses', 'rrze-legal'),
-                                'description' => __('These IP addresses are treated as a visitor who accepted all cookies. Add one IP address per line.', 'rrze-legal'),
+                                'description' => __('These site-specific IP addresses are treated as visitors who accepted all cookies. They are added to the global network IP addresses. Add one IP address per line.', 'rrze-legal'),
                                 'type' => 'textarea',
                                 'default' => '',
-                                'disabled' => consent()->hasNetworkPriority(),
                                 'sanitize_callback' => [consent(), 'sanitizeTextareaIpList'],
+                            ],
+                            [
+                                'name' => 'cookies_for_bots',
+                                'label' => __('Cookies for Bots/Crawlers', 'rrze-legal'),
+                                'description' => __("A bot/crawler is treated like a visitor who accepted all cookies", 'rrze-legal'),
+                                'type' => 'checkbox',
+                                'default' => true,
+                            ],
+                            [
+                                'name' => 'cookies_for_user_agents',
+                                'label' => __('User-Agent Strings for Bots/Crawlers', 'rrze-legal'),
+                                'description' => consent()->getDefaultUserAgentPatternsDescription() . '<p>' . __('Additional site-specific User-Agent strings. If one of these strings occurs in the User-Agent header, the visitor is treated like a visitor who accepted all cookies. Add one string per line.', 'rrze-legal') . '</p>',
+                                'type' => 'textarea',
+                                'default' => '',
+                                'readonly' => !consent()->isLocalCookieForBotsActive(),
+                                'sanitize_callback' => [consent(), 'sanitizeTextareaList'],
                             ],
                         ],
                     ],
@@ -119,6 +130,7 @@ $settings = [
                                 'type' => 'text',
                                 'default' => consent()->getSiteUrlHost(),
                                 'placeholder' => consent()->getSiteUrlHost(),
+                                'readonly' => $isMultisite,
                                 'sanitize_callback' => 'sanitize_text_field',
                                 'required' => true,
                             ],
@@ -128,11 +140,12 @@ $settings = [
                                 'description' => sprintf(
                                     /* translators: %s: Default website url path. */
                                     __('The path for which the cookie is valid. Default path: <strong>%s</strong>', 'rrze-legal'),
-                                    consent()->getSiteUrlPath()
+                                    '/'
                                 ),
                                 'type' => 'text',
-                                'default' => consent()->getSiteUrlPath(),
-                                'placeholder' => consent()->getSiteUrlPath(),
+                                'default' => '/',
+                                'placeholder' => '/',
+                                'readonly' => $isMultisite,
                                 'sanitize_callback' => 'sanitize_text_field',
                                 'required' => true,
                             ],
@@ -142,6 +155,7 @@ $settings = [
                                 'description' => __("Cookie is sent to the server only in case of an encrypted request via the HTTPS protocol", 'rrze-legal'),
                                 'type' => 'checkbox',
                                 'default' => true,
+                                'hide_field' => $isNetworkActivated,
                             ],
                             [
                                 'name'              => 'lifetime',
@@ -153,6 +167,7 @@ $settings = [
                                 'step'              => '1',
                                 'type'              => 'number',
                                 'default'           => '182',
+                                'hide_field'        => $isNetworkActivated,
                                 'sanitize_callback' => function ($input) {
                                     return consent()->validateIntRange($input, 30, 365);
                                 },
@@ -167,6 +182,7 @@ $settings = [
                                 'step'              => '1',
                                 'type'              => 'number',
                                 'default'           => '182',
+                                'hide_field'        => $isNetworkActivated,
                                 'sanitize_callback' => function ($input) {
                                     return consent()->validateIntRange($input, 30, 365);
                                 },
@@ -177,6 +193,7 @@ $settings = [
                         'id' => 'content',
                         'title' => __('Content', 'rrze-legal'),
                         'description' => __('Configuration of the cookie banner content such as the headline, notice text and buttons text.', 'rrze-legal'),
+                        'hide_section' => $isNetworkActivated,
                         'fields' => [
                             [
                                 'name' => 'headline',
@@ -237,6 +254,7 @@ $settings = [
                 'hide_title' => true,
                 'description' => __('Manage settings related to content blocking.', 'rrze-legal'),
                 'capability' => apply_filters('rrze_legal_consent_capability', 'manage_options'),
+                'hide_section' => $isNetworkActivated,
                 'subsections' => [
                     [
                         'id' => 'general',
@@ -261,6 +279,7 @@ $settings = [
                 'hide_title' => true,
                 'description' => __('Manage settings related to consents logs.', 'rrze-legal'),
                 'capability' => apply_filters('rrze_legal_consent_capability', 'manage_options'),
+                'hide_section' => $isNetworkActivated,
                 'subsections' => [
                     [
                         'id' => 'general',

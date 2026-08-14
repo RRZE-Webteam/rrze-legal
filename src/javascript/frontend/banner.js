@@ -377,20 +377,13 @@
                             .removeClass("not-visible");
                         return;
                     }
-                    var t = o(
-                        "._rrzelegal-" +
-                            e.boxLayout +
-                            " .cookie-preference .container"
-                    )[0].scrollHeight;
                     o(
                         "._rrzelegal-" +
                             e.boxLayout +
                             " .cookie-preference .container"
-                    ).animate({
-                        height: "80vh",
-                        maxHeight: t,
-                        opacity: 1,
-                    });
+                    )
+                        .removeAttr("style")
+                        .removeClass("not-visible");
                 },
                 showCookieBoxContainer = function () {
                     if (isNarrowBannerViewport()) {
@@ -403,17 +396,13 @@
                             .removeClass("not-visible");
                         return;
                     }
-                    var t =
-                        o(
-                            "._rrzelegal-" +
-                                e.boxLayout +
-                                " .cookie-box .container"
-                        )[0].scrollHeight + "px";
                     o(
                         "._rrzelegal-" +
                             e.boxLayout +
                             " .cookie-box .container"
-                    ).animate({ height: t, opacity: 1 });
+                    )
+                        .removeAttr("style")
+                        .removeClass("not-visible");
                 },
                 T = function (t) {
                     return (
@@ -1111,26 +1100,20 @@
                     );
                 },
                 no = function (t) {
-                    !1 ===
-                        /bot|googlebot|crawler|spider|robot|crawling|lighthouse|Siteimprove/i.test(
-                            navigator.userAgent.toLowerCase()
-                        ) &&
-                        o
-                            .ajax(e.ajaxURL, {
-                                type: "POST",
-                                data: {
-                                    action: "banner_log_handler",
-                                    type: "log",
-                                    cookieData: v,
-                                    essentialStatistic: t,
-                                },
-                            })
-                            .done(function () {
-                                e.reloadAfterConsent &&
-                                    Object.keys(v.consents).length > 0 &&
-                                    location.reload(!0),
-                                    C && bo();
-                            });
+                    o.ajax(e.ajaxURL, {
+                        type: "POST",
+                        data: {
+                            action: "banner_log_handler",
+                            type: "log",
+                            cookieData: v,
+                            essentialStatistic: t,
+                        },
+                    }).done(function () {
+                        e.reloadAfterConsent &&
+                            Object.keys(v.consents).length > 0 &&
+                            location.reload(!0),
+                            C && bo();
+                    });
                 },
                 io = function () {
                     o.ajax(e.ajaxURL, {
@@ -1155,25 +1138,18 @@
                             });
                     });
                 },
-                cookiesForIpAddresses = function () {
-                    o.ajax(e.ajaxURL, {
-                        type: "POST",
-                        data: {
-                            action: "banner_cookies_for_ip_addresses_handler",
-                        },
-                    }).done(function (r) {
-                        let check = o.parseJSON(r);
-                        if (check.check === "1") {
-                            J(e.cookies, !1),
-                                V(),
-                                F(),
-                                Y(),
-                                O(),
-                                document.dispatchEvent(m.codeUnblocked);
-                        } else {
-                            S(!0);
-                        }
-                    });
+                continueConsentChecks = function () {
+                    e.hasOnlyEssentialCookies ||
+                    (e.respectDoNotTrack &&
+                        void 0 !== navigator.doNotTrack &&
+                        "1" === navigator.doNotTrack)
+                        ? (J({ essential: e.cookies.essential }, !1),
+                          V(),
+                          F(),
+                          Y(),
+                          O(),
+                          document.dispatchEvent(m.codeUnblocked))
+                        : S(!0);
                 },
                 ao = function (t) {
                     if (e.crossDomainCookie.length)
@@ -1258,10 +1234,8 @@
                                 cookieLifetime: "365",
                                 crossDomainCookie: [],
                                 cookieBeforeConsent: "",
-                                cookiesForBots: "1",
                                 cookieVersion: "1",
                                 hideBannerOnUrls: [],
-                                cookiesForIpAddresses: "",
                                 respectDoNotTrack: "",
                                 hasOnlyEssentialCookies: "",
                                 reloadAfterConsent: "",
@@ -1446,32 +1420,7 @@
                                           window.location.host +
                                           window.location.pathname
                                   )
-                                ? e.cookiesForBots &&
-                                  /bot|googlebot|crawler|spider|robot|crawling|lighthouse|Siteimprove/i.test(
-                                      navigator.userAgent.toLowerCase()
-                                  )
-                                    ? (J(e.cookies, !1),
-                                      V(),
-                                      F(),
-                                      Y(),
-                                      O(),
-                                      document.dispatchEvent(m.codeUnblocked))
-                                    : e.hasOnlyEssentialCookies ||
-                                      (e.respectDoNotTrack &&
-                                          void 0 !== navigator.doNotTrack &&
-                                          "1" === navigator.doNotTrack)
-                                    ? (J(
-                                          { essential: e.cookies.essential },
-                                          !1
-                                      ),
-                                      V(),
-                                      F(),
-                                      Y(),
-                                      O(),
-                                      document.dispatchEvent(m.codeUnblocked))
-                                    : e.cookiesForIpAddresses
-                                    ? cookiesForIpAddresses()
-                                    : S(!0)
+                                ? continueConsentChecks()
                                 : (V(),
                                   F(),
                                   Y(),
