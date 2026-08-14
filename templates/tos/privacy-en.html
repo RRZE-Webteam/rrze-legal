@@ -11,16 +11,29 @@
 {{/privacy_optional_new_section_top}}
 
 {{=privacy_general_template}}
+{{=privacy_supervisory_authority_template}}
 
 <h2>Technical implementation</h2>
 {{=privacy_technical_server_template}}
 {{=privacy_technical_cookies_template}}
-{{=privacy_newsletter_template}}
-{{=privacy_contact_form_template}}
-{{=privacy_registration_forms_template}}
+{{=privacy_technical_javascript_template}}
+{{=privacy_technical_email_template}}
+
+{{privacy_technical_services}}
+<h2>Services</h2>
+{{privacy_technical_newsletter}}
+{{=privacy_technical_newsletter_template}}
+{{/privacy_technical_newsletter}}
+{{privacy_technical_contactforms}}
+{{=privacy_technical_contactforms_template}}
+{{/privacy_technical_contactforms}}
+{{privacy_technical_registrationforms}}
+{{=privacy_technical_registrationforms_template}}
+{{/privacy_technical_registrationforms}}
+{{/privacy_technical_services}}
 
 {{privacy_external_service_providers}}
-<h2>External Service Providers</h2>
+<h2>Used external services and tools</h2>
 {{@service_providers_template}}
 {{=_val}}
 {{/@service_providers_template}}
@@ -30,5 +43,5 @@
 {{=privacy_optional_new_section_content}}
 {{/privacy_optional_new_section}}
 
-{{=privacy_technical_notices_template}}
+{{=privacy_closingstatement_template}}
 </div>

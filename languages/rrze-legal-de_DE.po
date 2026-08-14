@@ -850,34 +850,28 @@ msgid "Objection and removal option"
 msgstr "Widerspruchs- und Beseitigungsmöglichkeit"
 
 #: includes/TOS/Endpoint.php:334
-#, fuzzy
 msgid "Cookie-Informationen"
-msgstr "Cookie-Informationen ausblenden"
+msgstr "Cookie-Informationen"
 
 #: includes/TOS/Endpoint.php:338
-#, fuzzy
 msgid "Cookie-Name"
-msgstr "Cookie Name"
+msgstr "Cookie-Name"
 
 #: includes/TOS/Endpoint.php:339
-#, fuzzy
 msgid "Cookie-Laufzeit"
-msgstr "Cookie Name"
+msgstr "Cookie-Laufzeit"
 
 #: includes/TOS/Endpoint.php:344
-#, fuzzy
 msgid "Cookie information"
-msgstr "Cookie-Informationen ausblenden"
+msgstr "Cookie-Informationen"
 
 #: includes/TOS/Endpoint.php:348
-#, fuzzy
 msgid "Cookie name"
-msgstr "Cookie Name"
+msgstr "Cookie-Name"
 
 #: includes/TOS/Endpoint.php:349
-#, fuzzy
 msgid "Cookie expiry"
-msgstr "Cookie Laufzeit"
+msgstr "Cookie-Laufzeit"
 
 #: includes/TOS/Endpoint.php:376
 #, fuzzy
@@ -2012,8 +2006,8 @@ msgid "Do you offer a newsletter or mailing list?"
 msgstr "Bieten Sie einen Newsletter oder eine Mailingliste an?"
 
 #: settings/tos.php:729
-msgid "Used Cookies and Services"
-msgstr "Verwendete Cookies und Services"
+msgid "Used External Services and Tools"
+msgstr "Verwendete externe Dienstleistungen und Werkzeuge"
 
 #: settings/tos.php:732
 #, fuzzy

@@ -1,10 +1,10 @@
 {{message_has_been_sent_successfully}}
-<div class="alert alert-success">
+<div class="alert alert-success wcag-contact-form__response" role="status" aria-live="polite">
     {{=message_has_been_sent_successfully}}
 </div>
 {{/message_has_been_sent_successfully}}
 {{error_message_could_not_be_sent}}
-<div class="alert alert-danger">
+<div class="alert alert-danger wcag-contact-form__response" role="alert" aria-live="assertive">
     <span class="sr-only">Fehler:</span>
     {{=error_message_could_not_be_sent}}
 </div>
@@ -14,54 +14,57 @@
     {{=wp_nonce}}
     <input type="hidden" value="{{=captcha_result}}" name="message_solution">
     <div class="form-group">
-        <label class="form-control-label" for="message_name">Name</label>
+        <label class="form-control-label" for="message_name">Name <span class="wcag-contact-form__required">(Pflichtfeld)</span></label>
         <input type="text" class="form-control form-control-success" id="message_name" name="message_name"
-            value="{{=name}}" placeholder="Geben Sie einen Namen ein">
+            value="{{%name}}" autocomplete="name" required aria-required="true" aria-describedby="message_name_hint{{error_name}} message_name_error{{/error_name}}"{{error_name}} aria-invalid="true"{{/error_name}}>
+        <p class="wcag-contact-form__hint" id="message_name_hint">Geben Sie Ihren Namen ein.</p>
 
         {{error_name}}
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger" id="message_name_error" role="alert">
             <span class="sr-only">Fehler:</span>
             {{=error_name}}
         </div>
         {{/error_name}}
     </div>
     <div class="form-group">
-        <label class="form-control-label" for="message_email">E-Mail</label>
-        <input type="email" class="form-control" id="message_email" name="message_email" value="{{=email}}"
-            placeholder="Geben Sie eine E-Mail-Adresse ein">
+        <label class="form-control-label" for="message_email">E-Mail <span class="wcag-contact-form__required">(Pflichtfeld)</span></label>
+        <input type="email" class="form-control" id="message_email" name="message_email" value="{{%email}}"
+            autocomplete="email" required aria-required="true" aria-describedby="message_email_hint{{error_email}} message_email_error{{/error_email}}"{{error_email}} aria-invalid="true"{{/error_email}}>
+        <p class="wcag-contact-form__hint" id="message_email_hint">Geben Sie eine E-Mail-Adresse ein, unter der wir Sie erreichen können.</p>
 
         {{error_email}}
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger" id="message_email_error" role="alert">
             <span class="sr-only">Fehler:</span>
             {{=error_email}}
         </div>
         {{/error_email}}
     </div>
     <div class="form-group">
-        <label for="message_feedback">Nachricht</label>
-        <textarea class="form-control" id="message_feedback" name="message_feedback">{{=message}}</textarea>
+        <label for="message_feedback">Nachricht <span class="wcag-contact-form__required">(Pflichtfeld)</span></label>
+        <textarea class="form-control" id="message_feedback" name="message_feedback" rows="8" required aria-required="true" aria-describedby="message_feedback_hint{{error_message}} message_feedback_error{{/error_message}}"{{error_message}} aria-invalid="true"{{/error_message}}>{{%message}}</textarea>
+        <p class="wcag-contact-form__hint" id="message_feedback_hint">Beschreiben Sie die Barriere oder Ihr Anliegen möglichst konkret.</p>
 
         {{error_message}}
-        <div class="alert alert-danger" role="alert">
-
+        <div class="alert alert-danger" id="message_feedback_error" role="alert">
             <span class="sr-only">Fehler:</span>
             {{=error_message}}
         </div>
         {{/error_message}}
     </div>
     <div class="form-group">
-        <label for="message_human">{{=captcha_num_1}} mal {{=captcha_num_2}} ist gleich? (<em>Geben Sie das Ergebnis als
-                Zahl ein</em>)</label>
-        <input type="number" class="form-control form-control-success" name="message_human" value="" id="message_human">
+        <label for="message_human">{{=captcha_num_1}} mal {{=captcha_num_2}} ist gleich? <span class="wcag-contact-form__required">(Pflichtfeld)</span></label>
+        <input type="number" class="form-control form-control-success" name="message_human" value="" id="message_human"
+            inputmode="numeric" min="0" required aria-required="true" aria-describedby="message_human_hint{{error_captcha}} message_human_error{{/error_captcha}}"{{error_captcha}} aria-invalid="true"{{/error_captcha}}>
+        <p class="wcag-contact-form__hint" id="message_human_hint">Geben Sie das Ergebnis als Zahl ein.</p>
 
         {{error_captcha}}
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger" id="message_human_error" role="alert">
             <span class="sr-only">Fehler:</span>
             {{=error_captcha}}
         </div>
         {{/error_captcha}}
     </div>
-    <div class=wcag-submit>
+    <div class="wcag-submit">
         <input type="submit" value="E-Mail absenden">
     </div>
 </form>

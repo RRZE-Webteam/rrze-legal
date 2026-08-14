@@ -6,6 +6,10 @@
 
 {{imprint_responsible_person_name}}
 <h2>Redaktionelle Verantwortung</h2>
+{{/imprint_responsible_person_name}}
+
+<div class="rrze-legal-contactinfos">
+{{imprint_responsible_person_name}}
 <p>{{=imprint_responsible_person_name}}</p>
 {{/imprint_responsible_person_name}}
 
@@ -29,9 +33,11 @@
     <li><span>E-Mail:</span> <a href="mailto:{{=imprint_responsible_person_email}}">{{=imprint_responsible_person_email}}</a></li>
     {{/imprint_responsible_person_email}}
 </ul>
+</div>
 
 
 <h3>Redaktion und technische Ansprechpartner</h3>
+<div class="rrze-legal-contactinfos">
 <p>
     {{=imprint_webmaster_name}}
 </p>
@@ -46,6 +52,7 @@
     <li><span>E-Mail:</span> <a href="mailto:{{=imprint_webmaster_email}}">{{=imprint_webmaster_email}}</a></li>
     {{/imprint_webmaster_email}}
 </ul>
+</div>
 
 {{=imprint_supervisory_authority_template}}
 {{=imprint_id_numbers_template}}

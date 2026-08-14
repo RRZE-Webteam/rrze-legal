@@ -1,0 +1,160 @@
+.rrze-legal li, .rrze-legal address {
+  color: var(--FAU-Col-FAU-Schwarz-100, #000);
+  font-size: var(--P-Body-Text, 1rem);
+  font-weight: 400;
+  font-style: normal;
+  line-height: var(--base-line-height, 1.6);
+}
+.rrze-legal .sr-only {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+.rrze-legal .rrze-legal-privacy-numbered-headings {
+  counter-reset: rrze-legal-privacy-h2;
+}
+.rrze-legal .rrze-legal-privacy-numbered-headings h2 {
+  counter-increment: rrze-legal-privacy-h2;
+  counter-reset: rrze-legal-privacy-h3;
+}
+.rrze-legal .rrze-legal-privacy-numbered-headings h2::before {
+  content: counter(rrze-legal-privacy-h2) ". ";
+}
+.rrze-legal .rrze-legal-privacy-numbered-headings h3 {
+  counter-increment: rrze-legal-privacy-h3;
+}
+.rrze-legal .rrze-legal-privacy-numbered-headings h3::before {
+  content: counter(rrze-legal-privacy-h2) "." counter(rrze-legal-privacy-h3) " ";
+}
+.rrze-legal th {
+  text-align: left;
+}
+.rrze-legal .rrze-legal-contactinfos ul {
+  display: table;
+  list-style: none;
+  margin-inline-start: 0;
+  padding-inline-start: 0;
+}
+.rrze-legal .rrze-legal-contactinfos li {
+  display: table-row;
+  text-align: left;
+}
+.rrze-legal .rrze-legal-contactinfos li span {
+  display: table-cell;
+  font-weight: 700;
+  padding-block: 0.15rem;
+  padding-inline-end: 1rem;
+  white-space: nowrap;
+}
+.rrze-legal .rrze-legal-contactinfos li a {
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+.rrze-legal .wcag-contact-form {
+  border: 1px solid #d7dde5;
+  border-radius: 4px;
+  margin-block: 1.5rem;
+  max-width: 46rem;
+  padding: 1.25rem;
+}
+.rrze-legal .wcag-contact-form .form-group {
+  margin-block-end: 1.25rem;
+}
+.rrze-legal .wcag-contact-form label {
+  display: block;
+  font-weight: 700;
+  margin-block-end: 0.35rem;
+}
+.rrze-legal .wcag-contact-form__required {
+  color: #6f1d1b;
+  font-weight: 400;
+}
+.rrze-legal .wcag-contact-form__hint {
+  color: #4b5563;
+  font-size: 0.95rem;
+  margin-block: 0.35rem 0;
+}
+.rrze-legal .wcag-contact-form .form-control {
+  background: #fff;
+  border: 2px solid #7d8793;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #111827;
+  display: block;
+  font: inherit;
+  line-height: 1.4;
+  max-width: 100%;
+  min-height: 2.75rem;
+  padding: 0.6rem 0.7rem;
+  width: 100%;
+}
+.rrze-legal .wcag-contact-form textarea.form-control {
+  min-height: 11rem;
+  resize: vertical;
+}
+.rrze-legal .wcag-contact-form input[type=number].form-control {
+  width: min(100%, 12rem);
+}
+.rrze-legal .wcag-contact-form .form-control:focus {
+  border-color: #005ea8;
+  box-shadow: 0 0 0 3px rgba(0, 94, 168, 0.28);
+  outline: 3px solid transparent;
+}
+.rrze-legal .wcag-contact-form .form-control[aria-invalid=true] {
+  border-color: #b00020;
+}
+.rrze-legal .wcag-contact-form input[type=email].form-control:user-invalid,
+.rrze-legal .wcag-contact-form input[type=number].form-control:user-invalid {
+  background-color: #fff8f8;
+  border-color: #b00020;
+}
+.rrze-legal .wcag-contact-form input[type=email].form-control:user-invalid:focus,
+.rrze-legal .wcag-contact-form input[type=number].form-control:user-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(176, 0, 32, 0.25);
+}
+.rrze-legal .wcag-contact-form .alert,
+.rrze-legal .wcag-contact-form__response {
+  border-radius: 4px;
+  margin-block: 0.75rem;
+  padding: 0.75rem 0.9rem;
+}
+.rrze-legal .wcag-contact-form .alert-danger,
+.rrze-legal .wcag-contact-form__response.alert-danger {
+  background: #fff1f1;
+  border: 1px solid #c62828;
+  color: #7f1d1d;
+}
+.rrze-legal .wcag-contact-form__response.alert-success {
+  background: #edf7ed;
+  border: 1px solid #2e7d32;
+  color: #1b5e20;
+}
+.rrze-legal .wcag-submit {
+  margin-block-start: 1.5rem;
+}
+.rrze-legal .wcag-submit input[type=submit] {
+  background: #005ea8;
+  border: 2px solid #005ea8;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.25;
+  padding: 0.75rem 1rem;
+}
+.rrze-legal .wcag-submit input[type=submit]:hover {
+  background: #004b86;
+  border-color: #004b86;
+}
+.rrze-legal .wcag-submit input[type=submit]:focus {
+  box-shadow: 0 0 0 3px rgba(0, 94, 168, 0.28);
+  outline: 3px solid transparent;
+}

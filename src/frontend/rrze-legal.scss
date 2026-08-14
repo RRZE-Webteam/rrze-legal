@@ -1,0 +1,197 @@
+.rrze-legal {
+    
+    li, address {
+	    color: var(--FAU-Col-FAU-Schwarz-100, #000);
+	    font-size: var(--P-Body-Text, 1rem);
+	    font-weight: 400;
+	    font-style: normal;
+	    line-height: var(--base-line-height, 1.6);
+	}
+    
+    
+    .sr-only {
+	border: 0;
+	clip: rect(0, 0, 0, 0);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+    }
+
+    .rrze-legal-privacy-numbered-headings {
+	counter-reset: rrze-legal-privacy-h2;
+	
+	h2 {
+	    counter-increment: rrze-legal-privacy-h2;
+	    counter-reset: rrze-legal-privacy-h3;
+	}
+	h2::before {
+	    content: counter(rrze-legal-privacy-h2) ". ";
+	}
+	h3 {
+	    counter-increment: rrze-legal-privacy-h3;
+	}
+
+	h3::before {
+	    content: counter(rrze-legal-privacy-h2) "." counter(rrze-legal-privacy-h3) " ";
+	}
+    
+    }
+
+
+    th {
+	text-align: left;
+    }
+    .rrze-legal-contactinfos {
+	ul {
+	    display: table;
+	    list-style: none;
+	    margin-inline-start: 0;
+	    padding-inline-start: 0;
+	}
+
+	li {
+	    display: table-row;
+	    text-align: left;
+	}
+
+	li span {
+	    display: table-cell;
+	    font-weight: 700;
+	    padding-block: 0.15rem;
+	    padding-inline-end: 1rem;
+	    white-space: nowrap;
+	}
+
+	li a {
+	    overflow-wrap: anywhere;
+	    text-align: left;
+	}
+	
+    }
+   
+
+    .wcag-contact-form {
+	border: 1px solid #d7dde5;
+	border-radius: 4px;
+	margin-block: 1.5rem;
+	max-width: 46rem;
+	padding: 1.25rem;
+    }
+
+    .wcag-contact-form .form-group {
+	margin-block-end: 1.25rem;
+    }
+
+    .wcag-contact-form label {
+	display: block;
+	font-weight: 700;
+	margin-block-end: 0.35rem;
+    }
+
+    .wcag-contact-form__required {
+	color: #6f1d1b;
+	font-weight: 400;
+    }
+
+    .wcag-contact-form__hint {
+	color: #4b5563;
+	font-size: 0.95rem;
+	margin-block: 0.35rem 0;
+    }
+
+    .wcag-contact-form .form-control {
+	background: #fff;
+	border: 2px solid #7d8793;
+	border-radius: 4px;
+	box-sizing: border-box;
+	color: #111827;
+	display: block;
+	font: inherit;
+	line-height: 1.4;
+	max-width: 100%;
+	min-height: 2.75rem;
+	padding: 0.6rem 0.7rem;
+	width: 100%;
+    }
+
+    .wcag-contact-form textarea.form-control {
+	min-height: 11rem;
+	resize: vertical;
+    }
+
+    .wcag-contact-form input[type="number"].form-control {
+	width: min(100%, 12rem);
+    }
+
+    .wcag-contact-form .form-control:focus {
+	border-color: #005ea8;
+	box-shadow: 0 0 0 3px rgba(0, 94, 168, 0.28);
+	outline: 3px solid transparent;
+    }
+
+    .wcag-contact-form .form-control[aria-invalid="true"] {
+	border-color: #b00020;
+    }
+
+    .wcag-contact-form input[type="email"].form-control:user-invalid,
+    .wcag-contact-form input[type="number"].form-control:user-invalid {
+	background-color: #fff8f8;
+	border-color: #b00020;
+    }
+
+    .wcag-contact-form input[type="email"].form-control:user-invalid:focus,
+    .wcag-contact-form input[type="number"].form-control:user-invalid:focus {
+	box-shadow: 0 0 0 3px rgba(176, 0, 32, 0.25);
+    }
+
+    .wcag-contact-form .alert,
+    .wcag-contact-form__response {
+	border-radius: 4px;
+	margin-block: 0.75rem;
+	padding: 0.75rem 0.9rem;
+    }
+
+    .wcag-contact-form .alert-danger,
+    .wcag-contact-form__response.alert-danger {
+	background: #fff1f1;
+	border: 1px solid #c62828;
+	color: #7f1d1d;
+    }
+
+    .wcag-contact-form__response.alert-success {
+	background: #edf7ed;
+	border: 1px solid #2e7d32;
+	color: #1b5e20;
+    }
+
+    .wcag-submit {
+	margin-block-start: 1.5rem;
+    }
+
+    .wcag-submit input[type="submit"] {
+	background: #005ea8;
+	border: 2px solid #005ea8;
+	border-radius: 4px;
+	color: #fff;
+	cursor: pointer;
+	font: inherit;
+	font-weight: 700;
+	line-height: 1.25;
+	padding: 0.75rem 1rem;
+    }
+
+    .wcag-submit input[type="submit"]:hover {
+	background: #004b86;
+	border-color: #004b86;
+    }
+
+    .wcag-submit input[type="submit"]:focus {
+	box-shadow: 0 0 0 3px rgba(0, 94, 168, 0.28);
+	outline: 3px solid transparent;
+    }
+}

@@ -3,7 +3,7 @@
 /*
 Plugin Name:        RRZE Legal
 Plugin URI:         https://github.com/RRZE-Webteam/rrze-legal
-Version:            2.8.15-9
+Version:            2.8.15-35
 Description:        Legal Mandatory Information & GDPR.
 Author:             RRZE Webteam
 Author URI:         https://www.rrze.fau.de

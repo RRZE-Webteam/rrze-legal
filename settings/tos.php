@@ -693,7 +693,7 @@ $settings = [
                                 ],
                                 'default' => '1',
                                 'inline' => true,
-                                'template' => ['1' => 'privacy-contact-form'],
+                                'template' => ['1' => 'privacy-technical-contactforms'],
                             ],
                             [
                                 'name' => 'services_registration_forms',
@@ -706,7 +706,7 @@ $settings = [
                                 ],
                                 'default' => tos()->isRsvpActive() ? '1' : '0',
                                 'inline' => true,
-                                'template' => ['1' => 'privacy-registration-forms'],
+                                'template' => ['1' => 'privacy-technical-registrationforms'],
                             ],
                             [
                                 'name' => 'services_newsletter',
@@ -719,14 +719,14 @@ $settings = [
                                 ],
                                 'default' => tos()->isNewsletterActive() ? '1' : '0',
                                 'inline' => true,
-                                'template' => ['1' => 'privacy-newsletter'],
+                                'template' => ['1' => 'privacy-technical-newsletter'],
                             ],
                            
                         ],
                     ],
                     [
                         'id' => 'external_services',
-                        'title' => __('Used Cookies and Services', 'rrze-legal'),
+                        'title' => __('Used External Services and Tools', 'rrze-legal'),
                         'description' => sprintf(
                             '%1$s<br><a href="%2$s">%3$s</a>',
                             __('If cookies or external services are used on the website, they must also be included in the privacy policy.', 'rrze-legal'),
