@@ -74,6 +74,9 @@
             function O() {
                 o(i).attr("aria-modal", !1);
             }
+            function isNarrowBannerViewport() {
+                return window.matchMedia("(max-width: 479px)").matches;
+            }
             var _,
                 S = function (t) {
                     o(i).attr("aria-modal", !0),
@@ -270,92 +273,147 @@
                                               o(this).prop("checked", !1),
                                               o(this).trigger("change");
                                       }));
-                        }),
+                        });
+                    if (isNarrowBannerViewport()) {
+                        o(
+                            "._rrzelegal-" + e.boxLayout + " .cookie-box"
+                        ).attr("aria-hidden", !0),
+                            o(
+                                "._rrzelegal-" +
+                                    e.boxLayout +
+                                    " .cookie-preference"
+                            ).attr("aria-hidden", !1),
+                            o(
+                                "._rrzelegal-" +
+                                    e.boxLayout +
+                                    " .cookie-box .container"
+                            )
+                                .removeAttr("style")
+                                .addClass("not-visible"),
+                            o(
+                                "._rrzelegal-" +
+                                    e.boxLayout +
+                                    " .cookie-preference .container"
+                            )
+                                .removeAttr("style")
+                                .removeClass("not-visible"),
+                            o("#CookiePrefSave")[0].focus({
+                                preventScroll: !0,
+                            });
+                        return;
+                    }
+                    o(
+                        "._rrzelegal-" + e.boxLayout + " .cookie-box .container"
+                    ).animate({ height: 0, opacity: 0 }, function () {
+                        o(
+                            "._rrzelegal-" + e.boxLayout + " .cookie-box"
+                        ).attr("aria-hidden", !0),
+                            o(
+                                "._rrzelegal-" +
+                                    e.boxLayout +
+                                    " .cookie-preference"
+                            ).attr("aria-hidden", !1),
+                            o("#CookiePrefSave")[0].focus({
+                                preventScroll: !0,
+                            }),
+                            showPreferenceContainer();
+                    });
+                },
+                D = function () {
+                    L(document.querySelector(".cookie-preference"));
+                    if (isNarrowBannerViewport()) {
+                        o(
+                            "._rrzelegal-" + e.boxLayout + " .cookie-box"
+                        ).attr("aria-hidden", !1),
                         o(
                             "._rrzelegal-" +
                                 e.boxLayout +
-                                " .cookie-box .container"
-                        ).animate({ height: 0, opacity: 0 }, function () {
-                            o(
-                                "._rrzelegal-" + e.boxLayout + " .cookie-box"
-                            ).attr("aria-hidden", !0),
-                                o(
-                                    "._rrzelegal-" +
-                                        e.boxLayout +
-                                        " .cookie-preference"
-                                ).attr("aria-hidden", !1),
-                                o("#CookiePrefSave")[0].focus({
-                                    preventScroll: !0,
-                                }),
-                                o(
-                                    "._rrzelegal-" + e.boxLayout + "-wrap"
-                                ).animate(
-                                    {
-                                        width: "100vw",
-                                        maxWidth:
-                                            "box" === e.boxLayout
-                                                ? "768px"
-                                                : "100%",
-                                    },
-                                    "box" === e.boxLayout ? 400 : 0,
-                                    function () {
-                                        var t = o(
-                                            "._rrzelegal-" +
-                                                e.boxLayout +
-                                                " .cookie-preference .container"
-                                        )[0].scrollHeight;
-                                        o(
-                                            "._rrzelegal-" +
-                                                e.boxLayout +
-                                                " .cookie-preference .container"
-                                        ).animate({
-                                            height: "80vh",
-                                            maxHeight: t,
-                                            opacity: 1,
-                                        });
-                                    }
-                                );
-                        });
-                },
-                D = function () {
-                    L(document.querySelector(".cookie-preference")),
+                                " .cookie-preference"
+                        ).attr("aria-hidden", !0),
                         o(
                             "._rrzelegal-" +
                                 e.boxLayout +
                                 " .cookie-preference .container"
-                        ).animate({ height: 0, opacity: 0 }, function () {
+                        )
+                            .removeAttr("style")
+                            .addClass("not-visible"),
                             o(
-                                "._rrzelegal-" + e.boxLayout + " .cookie-box"
-                            ).attr("aria-hidden", !1),
-                                o(
-                                    "._rrzelegal-" +
-                                        e.boxLayout +
-                                        " .cookie-preference"
-                                ).attr("aria-hidden", !0),
-                                o(
-                                    "._rrzelegal-" + e.boxLayout + "-wrap"
-                                ).animate(
-                                    {
-                                        maxWidth:
-                                            "box" === e.boxLayout ? y : "100%",
-                                    },
-                                    "box" === e.boxLayout ? 400 : 0,
-                                    function () {
-                                        var t =
-                                            o(
-                                                "._rrzelegal-" +
-                                                    e.boxLayout +
-                                                    " .cookie-box .container"
-                                            )[0].scrollHeight + "px";
-                                        o(
-                                            "._rrzelegal-" +
-                                                e.boxLayout +
-                                                " .cookie-box .container"
-                                        ).animate({ height: t, opacity: 1 });
-                                    }
-                                ),
-                                o("#BannerSaveButton")[0].focus();
-                        });
+                                "._rrzelegal-" +
+                                    e.boxLayout +
+                                    " .cookie-box .container"
+                            )
+                                .removeAttr("style")
+                                .removeClass("not-visible"),
+                            o("#BannerSaveButton")[0].focus({
+                                preventScroll: !0,
+                            });
+                        return;
+                    }
+                    o(
+                        "._rrzelegal-" +
+                            e.boxLayout +
+                            " .cookie-preference .container"
+                    ).animate({ height: 0, opacity: 0 }, function () {
+                        o(
+                            "._rrzelegal-" + e.boxLayout + " .cookie-box"
+                        ).attr("aria-hidden", !1),
+                            o(
+                                "._rrzelegal-" +
+                                    e.boxLayout +
+                                    " .cookie-preference"
+                            ).attr("aria-hidden", !0),
+                            showCookieBoxContainer(),
+                            o("#BannerSaveButton")[0].focus();
+                    });
+                },
+                showPreferenceContainer = function () {
+                    if (isNarrowBannerViewport()) {
+                        o(
+                            "._rrzelegal-" +
+                                e.boxLayout +
+                                " .cookie-preference .container"
+                        )
+                            .removeAttr("style")
+                            .removeClass("not-visible");
+                        return;
+                    }
+                    var t = o(
+                        "._rrzelegal-" +
+                            e.boxLayout +
+                            " .cookie-preference .container"
+                    )[0].scrollHeight;
+                    o(
+                        "._rrzelegal-" +
+                            e.boxLayout +
+                            " .cookie-preference .container"
+                    ).animate({
+                        height: "80vh",
+                        maxHeight: t,
+                        opacity: 1,
+                    });
+                },
+                showCookieBoxContainer = function () {
+                    if (isNarrowBannerViewport()) {
+                        o(
+                            "._rrzelegal-" +
+                                e.boxLayout +
+                                " .cookie-box .container"
+                        )
+                            .removeAttr("style")
+                            .removeClass("not-visible");
+                        return;
+                    }
+                    var t =
+                        o(
+                            "._rrzelegal-" +
+                                e.boxLayout +
+                                " .cookie-box .container"
+                        )[0].scrollHeight + "px";
+                    o(
+                        "._rrzelegal-" +
+                            e.boxLayout +
+                            " .cookie-box .container"
+                    ).animate({ height: t, opacity: 1 });
                 },
                 T = function (t) {
                     return (
@@ -382,10 +440,6 @@
                                 e.boxLayout +
                                 " .cookie-box .container"
                         ).css("opacity", 0),
-                        o("._rrzelegal-" + e.boxLayout + "-wrap").css({
-                            width: "100vw",
-                            maxWidth: "box" === e.boxLayout ? "768px" : "100%",
-                        }),
                         S(!1),
                         setTimeout(function () {
                             I();

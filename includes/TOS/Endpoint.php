@@ -283,13 +283,19 @@ class Endpoint {
     protected static function getServiceProviderCookieInformation(array $data, string $langCode): string
     {
         $labels = self::getServiceProviderLabels($langCode);
+        $cookieName = trim((string) ($data['cookie_name'] ?? ''));
+        $cookieExpiry = trim((string) ($data['cookie_expiry'] ?? ''));
         $items = [
             $labels['provider'] => esc_html((string) ($data['provider'] ?? '')),
             $labels['privacy_policy_url'] => self::formatServiceProviderPrivacyUrl($data['privacy_policy_url'] ?? ''),
             $labels['hosts'] => self::formatServiceProviderList($data['hosts'] ?? ''),
-            $labels['cookie_name'] => esc_html((string) ($data['cookie_name'] ?? '')),
-            $labels['cookie_expiry'] => esc_html((string) ($data['cookie_expiry'] ?? '')),
         ];
+        if ($cookieName === '' && $cookieExpiry === '') {
+            $items[$labels['cookie_name']] = esc_html($labels['no_cookies']);
+        } else {
+            $items[$labels['cookie_name']] = esc_html($cookieName);
+            $items[$labels['cookie_expiry']] = esc_html($cookieExpiry);
+        }
 
         $content = "\n" . sprintf('<h4>%s</h4>', esc_html($labels['cookie_information'])) . "\n";
         $content .= '<table class="rrze-legal-service-provider-cookie-information">' . "\n<tbody>\n";
@@ -359,6 +365,7 @@ class Endpoint {
                 'hosts' => __('Hosts', 'rrze-legal'),
                 'cookie_name' => __('Cookie-Name', 'rrze-legal'),
                 'cookie_expiry' => __('Cookie-Laufzeit', 'rrze-legal'),
+                'no_cookies' => __('No cookies', 'rrze-legal'),
             ];
         }
 
@@ -369,6 +376,7 @@ class Endpoint {
             'hosts' => __('Hosts', 'rrze-legal'),
             'cookie_name' => __('Cookie name', 'rrze-legal'),
             'cookie_expiry' => __('Cookie expiry', 'rrze-legal'),
+            'no_cookies' => __('No cookies', 'rrze-legal'),
         ];
     }
 

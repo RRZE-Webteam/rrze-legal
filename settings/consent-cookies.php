@@ -121,24 +121,6 @@ $settings = [
                                 'sanitize_callback' => 'sanitize_url',
                                 'required' => true,
                             ],
-                        ],
-                    ],
-                    [
-                        'id' => 'technical',
-                        'title' => __('Technical Information (Advanced Settings)', 'rrze-legal'),
-                        'callback' => [consentCookies(), 'technicalSectionToggle'],
-                        'fields' => [
-                            [
-                                'name' => 'id',
-                                'label' => __('ID', 'rrze-legal'),
-                                'description' => __('The <strong>ID</strong> must be at least 3 characters long and may only contain <code>a-z_-</code> characters.', 'rrze-legal'),
-                                'type' => 'text',
-                                'default' => '',
-                                'size' => 'normal',
-                                'disabled' => false,
-                                'sanitize_callback' => [consentCookies(), 'sanitizeId'],
-                                'required' => true,
-                            ],
                             [
                                 'name' => 'hosts',
                                 'label' => __('Host(s)', 'rrze-legal'),
@@ -158,10 +140,27 @@ $settings = [
                             [
                                 'name' => 'cookie_expiry',
                                 'label' => __('Cookie Expiry', 'rrze-legal'),
-                                'description' => __('Provide the expiry date of the <strong>Cookie</strong>.', 'rrze-legal'),
+                                'description' => __('Enter a clear lifetime, for example <code>Session</code>, <code>1 year</code>, <code>30 days</code> or <code>no cookies</code>. Pure numbers without a unit are not valid.', 'rrze-legal'),
                                 'type' => 'text',
                                 'default' => '',
-                                'sanitize_callback' => 'sanitize_text_field',
+                                'sanitize_callback' => [consentCookies(), 'sanitizeCookieExpiry'],
+                            ],
+                        ],
+                    ],
+                    [
+                        'id' => 'technical',
+                        'title' => __('Technical Information (Advanced Settings)', 'rrze-legal'),
+                        'callback' => [consentCookies(), 'technicalSectionToggle'],
+                        'fields' => [
+                            [
+                                'name' => 'id',
+                                'label' => __('ID', 'rrze-legal'),
+                                'description' => __('The <strong>ID</strong> must be at least 3 characters long and may only contain <code>a-z_-</code> characters.', 'rrze-legal'),
+                                'type' => 'text',
+                                'default' => '',
+                                'size' => 'normal',
+                                'disabled' => false,
+                                'sanitize_callback' => [consentCookies(), 'sanitizeId'],
                                 'required' => true,
                             ],
                             [

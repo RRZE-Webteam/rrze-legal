@@ -81,7 +81,7 @@ class Utils
             if (is_string($field)) {
                 $tmp = [];
                 foreach ($data as $key => $row) {
-                    $tmp[$key] = $row[$field];
+                    $tmp[$key] = is_array($row) && array_key_exists($field, $row) ? $row[$field] : '';
                 }
                 $args[$n] = $tmp;
             }

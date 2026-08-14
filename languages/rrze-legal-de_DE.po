@@ -873,6 +873,10 @@ msgstr "Cookie-Name"
 msgid "Cookie expiry"
 msgstr "Cookie-Laufzeit"
 
+#: includes/TOS/Endpoint.php:373
+msgid "No cookies"
+msgstr "Keine Cookies"
+
 #: includes/TOS/Endpoint.php:376
 #, fuzzy
 msgid "Edit legal settings"
@@ -1122,9 +1126,15 @@ msgstr ""
 "Geben Sie den technischen Namen des <strong>Cookies</strong> an. Trennen Sie "
 "mehrere Cookie-Namen durch ein Komma."
 
-#: settings/consent-cookies.php:161
-msgid "Provide the expiry date of the <strong>Cookie</strong>."
-msgstr "Geben Sie die Laufzeit des <strong>Cookies</strong> an."
+#: settings/consent-cookies.php:143
+msgid ""
+"Enter a clear lifetime, for example <code>Session</code>, <code>1 year</"
+"code>, <code>30 days</code> or <code>no cookies</code>. Pure numbers without "
+"a unit are not valid."
+msgstr ""
+"Geben Sie eine verständliche Laufzeit an, zum Beispiel <code>Session</code>, "
+"<code>1 Jahr</code>, <code>30 Tage</code> oder <code>keine Cookies</code>. "
+"Reine Zahlen ohne Einheit sind nicht gültig."
 
 #: settings/consent-cookies.php:169
 msgid "Plugin-Slug"

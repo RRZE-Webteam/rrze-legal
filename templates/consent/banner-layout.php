@@ -18,7 +18,7 @@ defined('ABSPATH') || exit;
                 <div class="cookie-box">
                     <div class="container">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="_rrzelegal-banner-content">
                                 <div class="_rrzelegal-flex-center">
                                     <span role="heading" aria-level="3" class="_rrzelegal-h3" id="BannerTextHeadline">
                                         <?php echo esc_html($bannerTextHeadline); ?>

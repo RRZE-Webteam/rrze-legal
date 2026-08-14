@@ -150,7 +150,6 @@ class Options extends Settings {
         // flush_rewrite_rules(false);
         wp_enqueue_style('rrze-legal-settings');
         wp_enqueue_script('rrze-legal-settings');
-        wp_enqueue_script('rrze-legal-tos-settings');
         echo '<div class="wrap">', PHP_EOL;
         $this->sectionsTabs();
         $this->settingsForm();
@@ -162,8 +161,7 @@ class Options extends Settings {
      * @return void
      */
     public function adminEnqueueTOSScripts()  {
-        wp_register_script('rrze-legal-tos-settings', plugins_url('build/tos.js', plugin()->getBasename()), ['jquery'], plugin()->getVersion());
-        wp_localize_script('rrze-legal-tos-settings', 'legalSettings', [
+        wp_localize_script('rrze-legal-settings', 'legalSettings', [
             'dateFormat' => __('yy-mm-dd', 'rrze-legal'),
             'optionName' => $this->optionName,
             'manualPages' => $this->getManualPageSettings(),

@@ -666,10 +666,10 @@ class Settings {
      * @return void
      */
     public function adminRegisterSettingsScripts()  {
-        wp_register_style('rrze-legal-settings', plugins_url('build/settings.css', plugin()->getBasename()), [],plugin()->getVersion() );
+        wp_register_style('rrze-legal-settings', plugins_url('build/rrze-legal-admin.css', plugin()->getBasename()), [], plugin()->getVersion());
         wp_register_script(
             'rrze-legal-settings',
-            plugins_url('build/settings.js', plugin()->getBasename()),
+            plugins_url('build/rrze-legal-admin.js', plugin()->getBasename()),
             ['jquery', 'jquery-ui-datepicker'],
             plugin()->getVersion()
         );

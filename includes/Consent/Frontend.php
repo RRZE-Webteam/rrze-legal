@@ -318,8 +318,8 @@ class Frontend {
     
     public static function enqueueScripts() {
         wp_enqueue_style(
-            'rrze-legal-cookie',
-            plugins_url('build/banner.css', plugin()->getBasename()),
+            'rrze-legal-frontend',
+            plugins_url('build/rrze-legal.css', plugin()->getBasename()),
             [],
             plugin()->getVersion()
         );

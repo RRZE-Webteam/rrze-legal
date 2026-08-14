@@ -5,7 +5,7 @@ namespace RRZE\Legal\Consent\Cookies;
 defined('ABSPATH') || exit;
 
 use RRZE\Legal\{ListSettings, Locale, Utils};
-use function RRZE\Legal\{plugin, tos, consentCategories};
+use function RRZE\Legal\{plugin, tos, consent, consentCategories};
 
 class Options extends ListSettings
 {
@@ -25,7 +25,33 @@ class Options extends ListSettings
     public function loaded()
     {
         parent::loaded();
+        $this->normalizeStoredItems();
         $this->syncPluginDependentStatuses();
+    }
+
+    protected function normalizeStoredItems(): void {
+        if (!is_array($this->options)) {
+            $this->options = [];
+            update_option($this->optionName, $this->options);
+            return;
+        }
+
+        $changed = false;
+        foreach ($this->options as $key => $item) {
+            if (!is_array($item)) {
+                unset($this->options[$key]);
+                $changed = true;
+                continue;
+            }
+            if (empty($item['id'])) {
+                $this->options[$key]['id'] = (string) $key;
+                $changed = true;
+            }
+        }
+
+        if ($changed) {
+            update_option($this->optionName, $this->options);
+        }
     }
 
     public function sectionTitle($title)
@@ -56,6 +82,15 @@ class Options extends ListSettings
     public function sanitizePosition($input)
     {
         return $this->validateIntRange($input, 1, 99);
+    }
+
+    public function sanitizeCookieExpiry($input)
+    {
+        $input = sanitize_text_field($input);
+        if ($input !== '' && preg_match('/^\d+$/', $input)) {
+            return '';
+        }
+        return $input;
     }
 
     public function technicalSectionToggle()
@@ -118,6 +153,14 @@ class Options extends ListSettings
             return false;
         }
         return ($item['category'] ?? '') !== 'essential';
+    }
+
+    protected function shouldUpdateCookieVersionForItemChange(array $oldItem = [], array $newItem = []): bool {
+        $oldCategory = (string) ($oldItem['category'] ?? '');
+        $newCategory = (string) ($newItem['category'] ?? '');
+
+        return (!empty($oldItem) && $oldCategory !== 'essential')
+            || (!empty($newItem) && $newCategory !== 'essential');
     }
 
     protected function postSanitizeOptions($input, $hasError)
@@ -265,19 +308,24 @@ class Options extends ListSettings
         $input = is_array($input) ? $this->filterAllowedInputFields($input) : $input;
         $input = $this->sanitizeOptions($input);
         $this->addInputData($input);
+        $isEdit = wp_verify_nonce($editNonce, 'consent-cookies-consent-edit');
+        $isAdd = wp_verify_nonce($addNonce, 'consent-cookies-consent-add');
 
-        if (
-            wp_verify_nonce($editNonce, 'consent-cookies-consent-edit') &&
-            !$this->hasSettingsErrors()
-        ) {
+        if (!$isEdit && !$isAdd) {
+            return;
+        }
+
+        $updateCookieVersion = false;
+        if ($isEdit && !$this->hasSettingsErrors()) {
+            $oldItem = $this->options[$id] ?? [];
             $this->setInputData();
             foreach ($this->options[$id] as $key => $value) {
                 if (isset($input['consent_cookies_' . $key])) {
                     $this->options[$id][$key] = $input['consent_cookies_' . $key];
                 }
             }
-        } elseif (wp_verify_nonce($addNonce, 'consent-cookies-consent-add')) {
-            $this->setInputData();
+            $updateCookieVersion = $this->shouldUpdateCookieVersionForItemChange($oldItem, $this->options[$id]);
+        } elseif ($isAdd) {
             $id = $input['consent_cookies_id'];
             if (isset($this->options[$id])) {
                 $error = sprintf(
@@ -292,14 +340,17 @@ class Options extends ListSettings
                     $k = substr($key, strlen('consent_cookies_'));
                     $this->options[$id][$k] = $value;
                 }
+                $updateCookieVersion = $this->shouldUpdateCookieVersionForItemChange([], $this->options[$id]);
             }
-        } else {
-            return;
         }
 
         if (!$this->hasSettingsErrors()) {
+            $this->setInputData();
             update_option($this->optionName, $this->options);
-            $this->logConsentCookieChange($editNonce ? 'updated' : 'added', $id);
+            if ($updateCookieVersion) {
+                consent()->updateCookieVersion();
+            }
+            $this->logConsentCookieChange($isEdit ? 'updated' : 'added', $id);
             $backToListUrl = add_query_arg(
                 [
                     'page' => $page,
@@ -328,9 +379,14 @@ class Options extends ListSettings
             $this->setSettingsErrors();
             $query = [
                 'page' => $page,
-                'action' => $editNonce ? 'consent-edit' : 'consent-add',
+                'action' => $isEdit ? 'consent-edit' : 'consent-add',
             ];
-            $query = isset($this->options[$id]) ? array_merge($query, ['id' => $id]) : $query;
+            if ($isEdit && $id !== '') {
+                $query['id'] = $id;
+            }
+            if ($isAdd) {
+                $this->setInputData();
+            }
             wp_redirect(add_query_arg($query, admin_url('admin.php')));
             exit;
         }
@@ -436,10 +492,13 @@ class Options extends ListSettings
     {
         $data = [];
         foreach ($this->options as $key => $item) {
+            if (!is_array($item)) {
+                continue;
+            }
             if ($searchTerm !== '') {
                 if (
-                    stripos($item['name'], $searchTerm) !== false ||
-                    stripos($item['purpose'], $searchTerm) !== false
+                    stripos((string) ($item['name'] ?? ''), $searchTerm) !== false ||
+                    stripos((string) ($item['purpose'] ?? ''), $searchTerm) !== false
                 ) {
                     $data[$key] = $item;
                     continue;
@@ -457,6 +516,9 @@ class Options extends ListSettings
         $changed = false;
 
         foreach ($this->options as $key => $item) {
+            if (!is_array($item)) {
+                continue;
+            }
             if (empty($item['plugin_slug']) && !empty($staticItems[$key]['plugin_slug'])) {
                 $this->options[$key]['plugin_slug'] = $staticItems[$key]['plugin_slug'];
                 $item['plugin_slug'] = $staticItems[$key]['plugin_slug'];
@@ -498,11 +560,14 @@ class Options extends ListSettings
         $tosOptionName = tos()->getOptionName();
         $tosOptions = tos()->getOptions();
         foreach ($this->options as $key => $item) {
+            if (!is_array($item)) {
+                continue;
+            }
             if (($item['category'] ?? '') === 'essential') {
                 unset($tosOptions['privacy_service_providers'][$key]);
                 continue;
             }
-            $tosOptions['privacy_service_providers'][$key] = $item['status'];
+            $tosOptions['privacy_service_providers'][$key] = $item['status'] ?? '0';
         }
         update_option($tosOptionName, $tosOptions);
     }
@@ -519,6 +584,7 @@ class Options extends ListSettings
             }
         }
         if ($count) {
+            consent()->updateCookieVersion();
             $this->addSettingsError(
                 sprintf(
                     /* translators: %s: Number of consent cookies. */
@@ -550,6 +616,7 @@ class Options extends ListSettings
             }
         }
         if ($count) {
+            consent()->updateCookieVersion();
             $this->addSettingsError(
                 sprintf(
                     /* translators: %s: Number of consent cookies. */
@@ -573,15 +640,22 @@ class Options extends ListSettings
     {
         $ids = explode(',', $ids);
         $count = 0;
+        $updateCookieVersion = false;
         foreach ($ids as $id) {
             if (isset($this->options[$id]) && empty($this->options[$id]['static'])) {
                 $item = $this->options[$id];
                 unset($this->options[$id]);
                 $this->logConsentCookieChange('deleted', $id, $item);
+                if ($this->shouldUpdateCookieVersionForItemChange($item, [])) {
+                    $updateCookieVersion = true;
+                }
                 $count += 1;
             }
         }
         if ($count) {
+            if ($updateCookieVersion) {
+                consent()->updateCookieVersion();
+            }
             $this->addSettingsError(
                 sprintf(
                     /* translators: %s: Number of consent cookies. */
@@ -606,11 +680,14 @@ class Options extends ListSettings
         $tosOptionName = tos()->getOptionName();
         $tosOptions = tos()->getOptions();
         foreach ($this->options as $key => $item) {
+            if (!is_array($item)) {
+                continue;
+            }
             if (($item['category'] ?? '') === 'essential') {
                 unset($tosOptions['privacy_service_providers'][$key]);
                 continue;
             }
-            $tosOptions['privacy_service_providers'][$key] = $item['status'];
+            $tosOptions['privacy_service_providers'][$key] = $item['status'] ?? '0';
         }
         unregister_setting('rrze_legal_privacy', $tosOptionName);
         update_option($tosOptionName, $tosOptions);
@@ -638,6 +715,9 @@ class Options extends ListSettings
     {
         $options = [];
         foreach ($this->options as $value) {
+            if (!is_array($value)) {
+                continue;
+            }
             $status = !empty($value['status']) ? true : false;
             if ($enabled && $status && !empty($value['id']) && !empty($value['name'])) {
                 $options[$value['id']] = $value['name'];
@@ -651,6 +731,9 @@ class Options extends ListSettings
         $categories = consentCategories()->getItems();
         foreach ($categories as $key => $category) {
             foreach ($this->options as $k => $item) {
+                if (!is_array($item)) {
+                    continue;
+                }
                 $status = !empty($item['status']) ? true : false;
                 if ($enabled && $status && isset($item['category']) && $key === $item['category']) {
                     $categories[$key]['cookies'][$k] = $item;

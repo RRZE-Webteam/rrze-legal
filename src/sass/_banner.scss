@@ -40,6 +40,7 @@
             border: 0;
             font: inherit;
             margin: 0;
+            max-width: inherit;
             padding: 0;
             vertical-align: baseline;
         }
@@ -55,10 +56,14 @@
     transform: unset !important;
 }
 
+body.rrzelegal-position-fix {
+    overflow: hidden;
+}
+
 ._rrzelegal-btn-cookie-preference {
     display: inline-block;
     font-family: inherit;
-    font-size: inherit;
+    font-size: var(--rrze-legal-banner-font-size-inherit);
     padding: 0.5em 1em;
     text-decoration: none;
     transition: background-color 125ms linear;
@@ -128,12 +133,7 @@
         }
     }
 
-    .container,
-    .container-fluid,
-    .container-lg,
-    .container-md,
-    .container-sm,
-    .container-xl {
+    .container {
         margin-left: auto;
         margin-right: auto;
         padding-left: 15px;
@@ -144,88 +144,23 @@
     .row {
         display: flex;
         flex-wrap: wrap;
-        margin-left: -15px;
-        margin-right: -15px;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .no-gutters {
         margin-left: 0;
         margin-right: 0;
 
-        > {
-            .col,
-            [class*="col-"] {
-                padding-left: 0;
-                padding-right: 0;
-            }
+        > * {
+            padding-left: 0;
+            padding-right: 0;
         }
     }
 
-    .col,
-    .col-1,
-    .col-10,
-    .col-11,
-    .col-12,
-    .col-2,
-    .col-3,
-    .col-4,
-    .col-5,
-    .col-6,
-    .col-7,
-    .col-8,
-    .col-9,
-    .col-lg,
-    .col-lg-1,
-    .col-lg-10,
-    .col-lg-11,
-    .col-lg-12,
-    .col-lg-2,
-    .col-lg-3,
-    .col-lg-4,
-    .col-lg-5,
-    .col-lg-6,
-    .col-lg-7,
-    .col-lg-8,
-    .col-lg-9,
-    .col-md,
-    .col-md-1,
-    .col-md-10,
-    .col-md-11,
-    .col-md-12,
-    .col-md-2,
-    .col-md-3,
-    .col-md-4,
-    .col-md-5,
-    .col-md-6,
-    .col-md-7,
-    .col-md-8,
-    .col-md-9,
-    .col-sm,
-    .col-sm-1,
-    .col-sm-10,
-    .col-sm-11,
-    .col-sm-12,
-    .col-sm-2,
-    .col-sm-3,
-    .col-sm-4,
-    .col-sm-5,
-    .col-sm-6,
-    .col-sm-7,
-    .col-sm-8,
-    .col-sm-9,
-    .col-xl,
-    .col-xl-1,
-    .col-xl-10,
-    .col-xl-11,
-    .col-xl-12,
-    .col-xl-2,
-    .col-xl-3,
-    .col-xl-4,
-    .col-xl-5,
-    .col-xl-6,
-    .col-xl-7,
-    .col-xl-8,
-    .col-xl-9 {
+    ._rrzelegal-banner-content,
+    ._rrzelegal-preference-actions-primary,
+    ._rrzelegal-preference-actions-secondary {
         min-height: 1px;
         padding-left: 15px;
         padding-right: 15px;
@@ -233,68 +168,7 @@
         width: 100%;
     }
 
-    .col {
-        flex-basis: 0;
-        flex-grow: 1;
-        max-width: 100%;
-    }
-
-    .col-1 {
-        flex: 0 0 8.33333333%;
-        max-width: 8.33333333%;
-    }
-
-    .col-2 {
-        flex: 0 0 16.66666667%;
-        max-width: 16.66666667%;
-    }
-
-    .col-3 {
-        flex: 0 0 25%;
-        max-width: 25%;
-    }
-
-    .col-4 {
-        flex: 0 0 33.33333333%;
-        max-width: 33.33333333%;
-    }
-
-    .col-5 {
-        flex: 0 0 41.66666667%;
-        max-width: 41.66666667%;
-    }
-
-    .col-6 {
-        flex: 0 0 50%;
-        max-width: 50%;
-    }
-
-    .col-7 {
-        flex: 0 0 58.33333333%;
-        max-width: 58.33333333%;
-    }
-
-    .col-8 {
-        flex: 0 0 66.66666667%;
-        max-width: 66.66666667%;
-    }
-
-    .col-9 {
-        flex: 0 0 75%;
-        max-width: 75%;
-    }
-
-    .col-10 {
-        flex: 0 0 83.33333333%;
-        max-width: 83.33333333%;
-    }
-
-    .col-11 {
-        flex: 0 0 91.66666667%;
-        max-width: 91.66666667%;
-    }
-
-    .col-12 {
+    ._rrzelegal-banner-content {
         flex: 0 0 100%;
         max-width: 100%;
     }
@@ -319,44 +193,16 @@
         justify-content: space-between !important;
     }
 
-    .align-items-start {
-        align-items: flex-start !important;
-    }
-
-    .align-items-end {
-        align-items: flex-end !important;
-    }
-
     .align-items-center {
         align-items: center !important;
-    }
-
-    .align-items-baseline {
-        align-items: baseline !important;
-    }
-
-    .align-items-stretch {
-        align-items: stretch !important;
     }
 
     .w-25 {
         width: 25% !important;
     }
 
-    .w-50 {
-        width: 50% !important;
-    }
-
     .w-75 {
         width: 75% !important;
-    }
-
-    .w-100 {
-        width: 100% !important;
-    }
-
-    .w-auto {
-        width: auto !important;
     }
 
     .h-25 {
@@ -406,7 +252,7 @@
     &._rrzelegal-switch-consent {
         align-items: center;
         display: flex;
-        font-size: inherit;
+        font-size: var(--rrze-legal-banner-font-size-inherit);
 
         ._rrzelegal-btn-switch--textRight {
             margin-right: 2em;
@@ -490,7 +336,7 @@
         }
 
         ._rrzelegal-slider {
-            background-color: #bbc0c7;
+            background-color: var(--rrze-legal-banner-color-switch-track);
             bottom: 0;
             cursor: pointer;
             left: 0;
@@ -500,7 +346,7 @@
             transition: 0.4s;
 
             &:before {
-                background-color: #fff;
+                background-color: var(--rrze-legal-banner-color-surface);
                 bottom: 4px;
                 content: "";
                 height: 18px;
@@ -538,8 +384,7 @@
 
 @media (min-width: 576px) {
     .RRZELegal {
-        .container,
-        .container-sm {
+        .container {
             max-width: 540px;
         }
     }
@@ -547,9 +392,7 @@
 
 @media (min-width: 768px) {
     .RRZELegal {
-        .container,
-        .container-md,
-        .container-sm {
+        .container {
             max-width: 720px;
         }
     }
@@ -557,10 +400,7 @@
 
 @media (min-width: 992px) {
     .RRZELegal {
-        .container,
-        .container-lg,
-        .container-md,
-        .container-sm {
+        .container {
             max-width: 960px;
         }
     }
@@ -568,484 +408,8 @@
 
 @media (min-width: 1200px) {
     .RRZELegal {
-        .container,
-        .container-lg,
-        .container-md,
-        .container-sm,
-        .container-xl {
+        .container {
             max-width: 1140px;
-        }
-    }
-}
-
-@media (min-width: 576px) {
-    .RRZELegal {
-        .col-sm {
-            flex-basis: 0;
-            flex-grow: 1;
-            max-width: 100%;
-        }
-
-        .col-sm-1 {
-            flex: 0 0 8.33333333%;
-            max-width: 8.33333333%;
-        }
-
-        .col-sm-2 {
-            flex: 0 0 16.66666667%;
-            max-width: 16.66666667%;
-        }
-
-        .col-sm-3 {
-            flex: 0 0 25%;
-            max-width: 25%;
-        }
-
-        .col-sm-4 {
-            flex: 0 0 33.33333333%;
-            max-width: 33.33333333%;
-        }
-
-        .col-sm-5 {
-            flex: 0 0 41.66666667%;
-            max-width: 41.66666667%;
-        }
-
-        .col-sm-6 {
-            flex: 0 0 50%;
-            max-width: 50%;
-        }
-
-        .col-sm-7 {
-            flex: 0 0 58.33333333%;
-            max-width: 58.33333333%;
-        }
-
-        .col-sm-8 {
-            flex: 0 0 66.66666667%;
-            max-width: 66.66666667%;
-        }
-
-        .col-sm-9 {
-            flex: 0 0 75%;
-            max-width: 75%;
-        }
-
-        .col-sm-10 {
-            flex: 0 0 83.33333333%;
-            max-width: 83.33333333%;
-        }
-
-        .col-sm-11 {
-            flex: 0 0 91.66666667%;
-            max-width: 91.66666667%;
-        }
-
-        .col-sm-12 {
-            flex: 0 0 100%;
-            max-width: 100%;
-        }
-    }
-}
-
-@media (min-width: 768px) {
-    .RRZELegal {
-        .col-md {
-            flex-basis: 0;
-            flex-grow: 1;
-            max-width: 100%;
-        }
-
-        .col-md-1 {
-            flex: 0 0 8.33333333%;
-            max-width: 8.33333333%;
-        }
-
-        .col-md-2 {
-            flex: 0 0 16.66666667%;
-            max-width: 16.66666667%;
-        }
-
-        .col-md-3 {
-            flex: 0 0 25%;
-            max-width: 25%;
-        }
-
-        .col-md-4 {
-            flex: 0 0 33.33333333%;
-            max-width: 33.33333333%;
-        }
-
-        .col-md-5 {
-            flex: 0 0 41.66666667%;
-            max-width: 41.66666667%;
-        }
-
-        .col-md-6 {
-            flex: 0 0 50%;
-            max-width: 50%;
-        }
-
-        .col-md-7 {
-            flex: 0 0 58.33333333%;
-            max-width: 58.33333333%;
-        }
-
-        .col-md-8 {
-            flex: 0 0 66.66666667%;
-            max-width: 66.66666667%;
-        }
-
-        .col-md-9 {
-            flex: 0 0 75%;
-            max-width: 75%;
-        }
-
-        .col-md-10 {
-            flex: 0 0 83.33333333%;
-            max-width: 83.33333333%;
-        }
-
-        .col-md-11 {
-            flex: 0 0 91.66666667%;
-            max-width: 91.66666667%;
-        }
-
-        .col-md-12 {
-            flex: 0 0 100%;
-            max-width: 100%;
-        }
-    }
-}
-
-@media (min-width: 992px) {
-    .RRZELegal {
-        .col-lg {
-            flex-basis: 0;
-            flex-grow: 1;
-            max-width: 100%;
-        }
-
-        .col-lg-1 {
-            flex: 0 0 8.33333333%;
-            max-width: 8.33333333%;
-        }
-
-        .col-lg-2 {
-            flex: 0 0 16.66666667%;
-            max-width: 16.66666667%;
-        }
-
-        .col-lg-3 {
-            flex: 0 0 25%;
-            max-width: 25%;
-        }
-
-        .col-lg-4 {
-            flex: 0 0 33.33333333%;
-            max-width: 33.33333333%;
-        }
-
-        .col-lg-5 {
-            flex: 0 0 41.66666667%;
-            max-width: 41.66666667%;
-        }
-
-        .col-lg-6 {
-            flex: 0 0 50%;
-            max-width: 50%;
-        }
-
-        .col-lg-7 {
-            flex: 0 0 58.33333333%;
-            max-width: 58.33333333%;
-        }
-
-        .col-lg-8 {
-            flex: 0 0 66.66666667%;
-            max-width: 66.66666667%;
-        }
-
-        .col-lg-9 {
-            flex: 0 0 75%;
-            max-width: 75%;
-        }
-
-        .col-lg-10 {
-            flex: 0 0 83.33333333%;
-            max-width: 83.33333333%;
-        }
-
-        .col-lg-11 {
-            flex: 0 0 91.66666667%;
-            max-width: 91.66666667%;
-        }
-
-        .col-lg-12 {
-            flex: 0 0 100%;
-            max-width: 100%;
-        }
-    }
-}
-
-@media (min-width: 1200px) {
-    .RRZELegal {
-        .col-xl {
-            flex-basis: 0;
-            flex-grow: 1;
-            max-width: 100%;
-        }
-
-        .col-xl-1 {
-            flex: 0 0 8.33333333%;
-            max-width: 8.33333333%;
-        }
-
-        .col-xl-2 {
-            flex: 0 0 16.66666667%;
-            max-width: 16.66666667%;
-        }
-
-        .col-xl-3 {
-            flex: 0 0 25%;
-            max-width: 25%;
-        }
-
-        .col-xl-4 {
-            flex: 0 0 33.33333333%;
-            max-width: 33.33333333%;
-        }
-
-        .col-xl-5 {
-            flex: 0 0 41.66666667%;
-            max-width: 41.66666667%;
-        }
-
-        .col-xl-6 {
-            flex: 0 0 50%;
-            max-width: 50%;
-        }
-
-        .col-xl-7 {
-            flex: 0 0 58.33333333%;
-            max-width: 58.33333333%;
-        }
-
-        .col-xl-8 {
-            flex: 0 0 66.66666667%;
-            max-width: 66.66666667%;
-        }
-
-        .col-xl-9 {
-            flex: 0 0 75%;
-            max-width: 75%;
-        }
-
-        .col-xl-10 {
-            flex: 0 0 83.33333333%;
-            max-width: 83.33333333%;
-        }
-
-        .col-xl-11 {
-            flex: 0 0 91.66666667%;
-            max-width: 91.66666667%;
-        }
-
-        .col-xl-12 {
-            flex: 0 0 100%;
-            max-width: 100%;
-        }
-    }
-}
-
-@media (min-width: 576px) {
-    .RRZELegal {
-        .d-sm-block {
-            display: block !important;
-        }
-
-        .d-sm-flex {
-            display: flex !important;
-        }
-    }
-}
-
-@media (min-width: 768px) {
-    .RRZELegal {
-        .d-md-block {
-            display: block !important;
-        }
-
-        .d-md-flex {
-            display: flex !important;
-        }
-    }
-}
-
-@media (min-width: 992px) {
-    .RRZELegal {
-        .d-lg-block {
-            display: block !important;
-        }
-
-        .d-lg-flex {
-            display: flex !important;
-        }
-    }
-}
-
-@media (min-width: 1200px) {
-    .RRZELegal {
-        .d-xl-block {
-            display: block !important;
-        }
-
-        .d-xl-flex {
-            display: flex !important;
-        }
-    }
-}
-
-@media (min-width: 576px) {
-    .RRZELegal {
-        .flex-sm-row {
-            flex-direction: row !important;
-        }
-
-        .flex-sm-fill {
-            flex: 1 1 auto !important;
-        }
-
-        .justify-content-sm-between {
-            justify-content: space-between !important;
-        }
-
-        .align-items-sm-start {
-            align-items: flex-start !important;
-        }
-
-        .align-items-sm-end {
-            align-items: flex-end !important;
-        }
-
-        .align-items-sm-center {
-            align-items: center !important;
-        }
-
-        .align-items-sm-baseline {
-            align-items: baseline !important;
-        }
-
-        .align-items-sm-stretch {
-            align-items: stretch !important;
-        }
-    }
-}
-
-@media (min-width: 768px) {
-    .RRZELegal {
-        .flex-md-row {
-            flex-direction: row !important;
-        }
-
-        .flex-md-fill {
-            flex: 1 1 auto !important;
-        }
-
-        .justify-content-md-between {
-            justify-content: space-between !important;
-        }
-
-        .align-items-md-start {
-            align-items: flex-start !important;
-        }
-
-        .align-items-md-end {
-            align-items: flex-end !important;
-        }
-
-        .align-items-md-center {
-            align-items: center !important;
-        }
-
-        .align-items-md-baseline {
-            align-items: baseline !important;
-        }
-
-        .align-items-md-stretch {
-            align-items: stretch !important;
-        }
-    }
-}
-
-@media (min-width: 992px) {
-    .RRZELegal {
-        .flex-lg-row {
-            flex-direction: row !important;
-        }
-
-        .flex-lg-fill {
-            flex: 1 1 auto !important;
-        }
-
-        .justify-content-lg-between {
-            justify-content: space-between !important;
-        }
-
-        .align-items-lg-start {
-            align-items: flex-start !important;
-        }
-
-        .align-items-lg-end {
-            align-items: flex-end !important;
-        }
-
-        .align-items-lg-center {
-            align-items: center !important;
-        }
-
-        .align-items-lg-baseline {
-            align-items: baseline !important;
-        }
-
-        .align-items-lg-stretch {
-            align-items: stretch !important;
-        }
-    }
-}
-
-@media (min-width: 1200px) {
-    .RRZELegal {
-        .flex-xl-row {
-            flex-direction: row !important;
-        }
-
-        .flex-xl-fill {
-            flex: 1 1 auto !important;
-        }
-
-        .justify-content-xl-between {
-            justify-content: space-between !important;
-        }
-
-        .align-items-xl-start {
-            align-items: flex-start !important;
-        }
-
-        .align-items-xl-end {
-            align-items: flex-end !important;
-        }
-
-        .align-items-xl-center {
-            align-items: center !important;
-        }
-
-        .align-items-xl-baseline {
-            align-items: baseline !important;
-        }
-
-        .align-items-xl-stretch {
-            align-items: stretch !important;
         }
     }
 }
@@ -1125,13 +489,13 @@
         padding: 0.5em;
 
         ._rrzelegal-h4 {
-            font-size: 1.05em;
+            font-size: var(--rrze-legal-banner-font-size-cookie-title);
             margin: 0 0 0.25em;
         }
 
         p {
             color: inherit;
-            font-size: 0.875em;
+            font-size: var(--rrze-legal-banner-font-size-small);
         }
 
         span {
@@ -1176,7 +540,7 @@
         background: inherit;
         color: inherit;
         font-family: inherit;
-        font-size: 1.625em;
+        font-size: var(--rrze-legal-banner-font-size-heading);
         line-height: 1.5;
         word-break: break-all;
     }
@@ -1192,7 +556,7 @@
         li {
             color: inherit;
             font-family: inherit;
-            font-size: 1em;
+            font-size: var(--rrze-legal-banner-font-size-regular);
             line-height: 1.5;
             list-style: none;
             margin: 0 0.9375em 0.375em 0;
@@ -1211,7 +575,7 @@
     p {
         color: inherit;
         font-family: inherit;
-        font-size: 1em;
+        font-size: var(--rrze-legal-banner-font-size-regular);
         line-height: 1.5;
         margin: 0.9375em 0;
 
@@ -1250,6 +614,7 @@
         background: transparent;
         height: 100%;
         left: 0;
+        overscroll-behavior: contain;
         position: fixed;
         top: 0;
         width: 100%;
@@ -1260,14 +625,14 @@
         }
 
         &._rrzelegal-bg-dark {
-            background: rgba(0, 0, 0, 0.6);
+            background: var(--rrze-legal-banner-color-backdrop);
         }
     }
 
     ._rrzelegal-btn {
         display: inline-block;
         font-family: inherit;
-        font-size: 1.25em;
+        font-size: var(--rrze-legal-banner-font-size-button);
         padding: 0.75em 2em;
         text-decoration: none;
         transition: background-color 125ms linear;
@@ -1276,13 +641,13 @@
     ._rrzelegal-legal,
     ._rrzelegal-manage {
         font-family: inherit;
-        font-size: inherit;
+        font-size: var(--rrze-legal-banner-font-size-inherit);
         text-align: center;
     }
 
     ._rrzelegal-refuse {
         font-family: inherit;
-        font-size: 0.875em;
+        font-size: var(--rrze-legal-banner-font-size-small);
         text-align: center;
 
         a {
@@ -1296,7 +661,7 @@
 
         a {
             color: inherit;
-            font-size: 1.25em;
+            font-size: var(--rrze-legal-banner-font-size-button);
 
             &:hover {
                 border-bottom-width: 3px;
@@ -1310,9 +675,9 @@
         text-align: center;
 
         a {
-            border-bottom: 1px solid #777;
+            border-bottom: 1px solid var(--rrze-legal-banner-color-link-border);
             color: inherit;
-            font-size: 1.25em;
+            font-size: var(--rrze-legal-banner-font-size-button);
             line-height: 1.5;
             padding-bottom: 1px;
             text-decoration: none;
@@ -1429,8 +794,8 @@
 
     ._rrzelegal-box-wrap {
         display: block;
-        max-width: 550px;
-        width: 100%;
+        max-width: 90vw;
+        width: min(90vw, 940px);
         z-index: 1000000;
 
         &._rrzelegal-position-fixed {
@@ -1457,6 +822,11 @@
     }
 
     .cookie-preference {
+        .container {
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
         .container.not-visible {
             height: 0;
         }
@@ -1485,13 +855,13 @@
             }
 
             td {
-                font-size: 0.875em;
+                font-size: var(--rrze-legal-banner-font-size-small);
                 padding: 0.25em 0.5em;
                 text-align: left;
             }
 
             th {
-                font-size: 0.875em;
+                font-size: var(--rrze-legal-banner-font-size-small);
                 padding: 0.25em 0.5em;
             }
         }
@@ -1501,7 +871,7 @@
         }
 
         ._rrzelegal-btn {
-            font-size: 1em;
+            font-size: var(--rrze-legal-banner-font-size-regular);
             margin: 0 0 0.9375em;
             padding: 0.75em 1.5em;
         }
@@ -1560,7 +930,7 @@
     line-height: 1.5;
 
     h1 {
-        font-size: 1.312rem;
+        font-size: var(--rrze-legal-banner-font-size-modal-heading);
         font-weight: 700;   
         margin: 0;
         padding: 11px 0;
@@ -1597,12 +967,12 @@
         }
 
         small {
-            font-size: 0.875em;
+            font-size: var(--rrze-legal-banner-font-size-small);
         }
     }
 
     ._rrzelegal-default {
-        background: #efefef;
+        background: var(--rrze-legal-banner-color-panel);
         margin-bottom: 1em;
         padding: 1em;
 
@@ -1620,7 +990,7 @@
         }
 
         small {
-            font-size: 0.875em;
+            font-size: var(--rrze-legal-banner-font-size-small);
         }
     }
 
@@ -1763,7 +1133,8 @@
     }
 
     ._rrzelegal-h3 {
-        color: var(--color-primary-basis, #04316a);
+        color: var(--rrze-legal-banner-color-primary);
+        font-weight: bold;
     }
 
     ._rrzelegal-bar-advanced ul,
@@ -1773,100 +1144,100 @@
 
     ._rrzelegal-bar,
     ._rrzelegal-box {
-        background: #ffffff;
+        background: var(--rrze-legal-banner-color-surface);
         border-radius: 4px;
-        color: #333333;
-        font-size: 14px;
+        color: var(--rrze-legal-banner-color-text);
+        font-size: var(--rrze-legal-banner-font-size-base);
     }
 
     a {
-        color: #333333;
+        color: var(--rrze-legal-banner-color-text);
 
         &:hover {
-            color: var(--color-primary-dunkelste, #041e42);
+            color: var(--rrze-legal-banner-color-primary-dark);
         }
     }
 
     ._rrzelegal-btn {
-        background: var(--color-primary-basis, #04316a);
+        background: var(--rrze-legal-banner-color-primary);
         border-radius: 4px;
-        color: var(--color-primary-basis-kontrast, #fff);
+        color: var(--rrze-legal-banner-color-primary-contrast);
 
         &:hover,
         &:focus {
-            background: var(--color-primary-dunkelste, #041e42);
+            background: var(--rrze-legal-banner-color-primary-dark);
             border-radius: 4px;
-            color: var(--color-primary-dunkelste-kontrast, #fff);
+            color: var(--rrze-legal-banner-color-primary-dark-contrast);
         }
     }
 
     ._rrzelegal-refuse-btn a,
     a._rrzelegal-refuse-btn {
-        background: var(--color-primary-basis, #04316a);
+        background: var(--rrze-legal-banner-color-primary);
         border-radius: 4px;
-        color: var(--color-primary-basis-kontrast, #fff);
+        color: var(--rrze-legal-banner-color-primary-contrast);
     }
 
     ._rrzelegal-refuse-btn a:hover,
     a._rrzelegal-refuse-btn:hover {
-        background: var(--color-primary-dunkelste, #041e42);
+        background: var(--rrze-legal-banner-color-primary-dark);
         border-radius: 4px;
-        color: var(--color-primary-dunkelste-kontrast, #fff);
+        color: var(--rrze-legal-banner-color-primary-dark-contrast);
     }
 
     ._rrzelegal-manage-btn a {
-        background: #ffffff;
+        background: var(--rrze-legal-banner-color-surface);
         color: inherit;
 
         &:hover {
-            background: #ffffff;
-            color: var(--color-primary-basis, #04316a);
-            border-bottom-color: var(--color-primary-basis, #04316a);
+            background: var(--rrze-legal-banner-color-surface);
+            color: var(--rrze-legal-banner-color-primary);
+            border-bottom-color: var(--rrze-legal-banner-color-primary);
         }
     }
 
     ._rrzelegal-btn-accept-all {
-        background: var(--color-primary-basis, #04316a);
+        background: var(--rrze-legal-banner-color-primary);
         border-radius: 4px;
-        color: var(--color-primary-basis-kontrast, #fff);
+        color: var(--rrze-legal-banner-color-primary-contrast);
 
         &:hover {
-            background: var(--color-primary-dunkelste, #041e42);
+            background: var(--rrze-legal-banner-color-primary-dark);
             border-radius: 4px;
-            color: var(--color-primary-dunkelste-kontrast, #fff);
+            color: var(--rrze-legal-banner-color-primary-dark-contrast);
         }
     }
 
     ._rrzelegal-legal {
-        color: #333333;
+        color: var(--rrze-legal-banner-color-text);
 
         a {
             color: inherit;
 
             &:hover {
-                color: var(--color-primary-dunkelste, #041e42);
+                color: var(--rrze-legal-banner-color-primary-dark);
             }
         }
     }
 
     ._rrzelegal-manage a {
-        color: #333333;
+        color: var(--rrze-legal-banner-color-text);
 
         &:hover {
-            color: var(--color-primary-dunkelste, #041e42);
+            color: var(--rrze-legal-banner-color-primary-dark);
         }
     }
 
     ._rrzelegal-refuse {
-        color: #333333;
+        color: var(--rrze-legal-banner-color-text);
 
         a:hover {
-            color: #666666;
+            color: var(--rrze-legal-banner-color-text-muted);
         }
     }
 
     ul li::before {
-        color: var(--color-primary-basis, #04316a);
+        color: var(--rrze-legal-banner-color-primary);
     }
 
     .cookie-box ._rrzelegal-btn {
@@ -1874,24 +1245,24 @@
     }
 
     .bcac-item {
-        background-color: #f7f7f7;
+        background-color: var(--rrze-legal-banner-color-surface-muted);
         border-radius: 0px;
-        color: #333333;
+        color: var(--rrze-legal-banner-color-text);
     }
 
     .cookie-preference table {
-        background-color: #ffffff;
+        background-color: var(--rrze-legal-banner-color-surface);
         border-radius: 0px;
-        color: #333333;
-        background-color: #ffffff;
+        color: var(--rrze-legal-banner-color-text);
+        background-color: var(--rrze-legal-banner-color-surface);
         border-radius: 0px;
-        color: #333333;
+        color: var(--rrze-legal-banner-color-text);
 
         tr {
             td,
             th {
-                background-color: #ffffff;
-                border-color: #eeeeee;
+                background-color: var(--rrze-legal-banner-color-surface);
+                border-color: var(--rrze-legal-banner-color-border);
             }
         }
     }
@@ -1899,59 +1270,59 @@
 
 .RRZELegal {
     ._rrzelegal-btn {
-        background: var(--color-primary-basis, #04316a);
+        background: var(--rrze-legal-banner-color-primary);
         border-radius: 4px;
-        color: var(--color-primary-basis-kontrast, #fff);
+        color: var(--rrze-legal-banner-color-primary-contrast);
 
         &:hover,
         &:focus {
-            background: var(--color-primary-dunkelste, #041e42);
+            background: var(--rrze-legal-banner-color-primary-dark);
             border-radius: 4px;
-            color: var(--color-primary-dunkelste-kontrast, #fff);
+            color: var(--rrze-legal-banner-color-primary-dark-contrast);
         }
     }
 
     ._rrzelegal-btn-switch {
         ._rrzelegal-slider {
-            background-color: #bbc0c7;
+            background-color: var(--rrze-legal-banner-color-switch-track);
         }
 
         input:checked + ._rrzelegal-slider {
-            background-color: var(--color-primary-basis, #04316a);
+            background-color: var(--rrze-legal-banner-color-primary);
         }
 
         ._rrzelegal-slider::before {
-            background-color: #666666;
+            background-color: var(--rrze-legal-banner-color-switch-handle);
         }
 
         input:checked + ._rrzelegal-slider:before {
-            background-color: white;
+            background-color: var(--rrze-legal-banner-color-switch-handle-active);
         }
     }
 
     ._rrzelegal-checkbox {
         ._rrzelegal-checkbox-indicator {
-            background-color: #ffffff;
-            border-color: var(--color-primary-basis, #04316a);
+            background-color: var(--rrze-legal-banner-color-surface);
+            border-color: var(--rrze-legal-banner-color-primary);
             border-radius: 4px;
         }
 
         input {
             &:checked ~ ._rrzelegal-checkbox-indicator {
-                background-color: var(--color-primary-basis, #04316a);
-                border-color: var(--color-primary-basis, #04316a);
+                background-color: var(--rrze-legal-banner-color-primary);
+                border-color: var(--rrze-legal-banner-color-primary);
 
                 &::after {
-                    border-color: white;
+                    border-color: var(--rrze-legal-banner-color-switch-handle-active);
                 }
             }
 
             &:disabled ~ ._rrzelegal-checkbox-indicator {
-                background-color: #e6e6e6;
-                border-color: #e6e6e6;
+                background-color: var(--rrze-legal-banner-color-disabled);
+                border-color: var(--rrze-legal-banner-color-disabled);
 
                 &::after {
-                    border-color: #999999;
+                    border-color: var(--rrze-legal-banner-color-disabled-check);
                 }
             }
         }
@@ -1970,3 +1341,62 @@ a._rrzelegal-btn {
     text-decoration: none !important;
 }
 
+@media (max-width: 479px) {
+    #RRZELegalBanner {
+        > div.show-cookie-box {
+            align-items: stretch;
+            bottom: 0;
+            height: 100vh;
+            height: 100dvh;
+            left: 0;
+            justify-content: stretch;
+            overflow: hidden;
+            position: fixed;
+            right: 0;
+            top: 0;
+            transform: none;
+            width: 100%;
+        }
+
+        ._rrzelegal-box-wrap {
+            bottom: 0;
+            height: 100dvh;
+            left: 0;
+            margin: 0;
+            max-width: none;
+            position: absolute !important;
+            right: 0;
+            top: 0;
+            width: 100%;
+        }
+
+        ._rrzelegal-box {
+            border-radius: 0;
+            height: 100%;
+            max-height: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        ._rrzelegal-h3 {
+            margin-top: 1rem;
+        }
+
+        ._rrzelegal-box .container,
+        .cookie-box,
+        .cookie-preference {
+            height: 100%;
+        }
+
+        .cookie-box[aria-hidden="true"],
+        .cookie-preference[aria-hidden="true"] {
+            display: none;
+        }
+
+        .cookie-box .container,
+        .cookie-preference .container {
+            max-height: none;
+            overflow-y: auto;
+        }
+    }
+}

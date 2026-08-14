@@ -80,7 +80,7 @@ class JavaScript {
 
         wp_enqueue_script(
             'rrze_legal_consent_banner',
-            plugins_url('build/banner.js', plugin()->getBasename()),
+            plugins_url('build/rrze-legal.js', plugin()->getBasename()),
             ['jquery-core'],
             plugin()->getVersion(),
             true
@@ -233,10 +233,11 @@ EOT;
 
             wp_register_script(
                 'rrze_legal_consent_banner_prioritize',
-                plugins_url('build/prioritize.js', plugin()->getBasename()),
+                false,
                 [],
                 plugin()->getVersion()
             );
+            wp_enqueue_script('rrze_legal_consent_banner_prioritize');
 
             wp_localize_script('rrze_legal_consent_banner_prioritize', 'rrzelegalCookiePrioritized', [
                 'domain' => consent()->getOption('banner', 'domain'),
@@ -245,7 +246,23 @@ EOT;
                 'bots' => consent()->isCookieForBotsActive(),
                 'optInJS' => $prioritizedCodes,
             ]);
+            wp_add_inline_script(
+                'rrze_legal_consent_banner_prioritize',
+                $this->getPrioritizeInlineScript(),
+                'after'
+            );
         }
+    }
+
+    protected function getPrioritizeInlineScript(): string
+    {
+        $scriptFile = plugin()->getPath('build') . 'rrze-legal-prioritize-inline.php';
+        if (!is_readable($scriptFile)) {
+            return '';
+        }
+
+        $script = include $scriptFile;
+        return is_string($script) ? $script : '';
     }
 
     /**

@@ -1,11 +1,14 @@
+@use "custom-properties";
+@use "banner";
+
 .rrze-legal {
     
     li, address {
-	    color: var(--FAU-Col-FAU-Schwarz-100, #000);
-	    font-size: var(--P-Body-Text, 1rem);
+	    color: var(--rrze-legal-color-text);
+	    font-size: var(--rrze-legal-font-size-base);
 	    font-weight: 400;
 	    font-style: normal;
-	    line-height: var(--base-line-height, 1.6);
+	    line-height: var(--rrze-legal-line-height-base);
 	}
     
     
@@ -76,7 +79,7 @@
    
 
     .wcag-contact-form {
-	border: 1px solid #d7dde5;
+	border: 1px solid var(--rrze-legal-wcag-contact-form-color-border);
 	border-radius: 4px;
 	margin-block: 1.5rem;
 	max-width: 46rem;
@@ -94,22 +97,22 @@
     }
 
     .wcag-contact-form__required {
-	color: #6f1d1b;
+	color: var(--rrze-legal-wcag-contact-form-color-required);
 	font-weight: 400;
     }
 
     .wcag-contact-form__hint {
-	color: #4b5563;
-	font-size: 0.95rem;
+	color: var(--rrze-legal-wcag-contact-form-color-hint);
+	font-size: var(--rrze-legal-wcag-contact-form-font-size-hint);
 	margin-block: 0.35rem 0;
     }
 
     .wcag-contact-form .form-control {
-	background: #fff;
-	border: 2px solid #7d8793;
+	background: var(--rrze-legal-wcag-contact-form-color-surface);
+	border: 2px solid var(--rrze-legal-wcag-contact-form-color-field-border);
 	border-radius: 4px;
 	box-sizing: border-box;
-	color: #111827;
+	color: var(--rrze-legal-wcag-contact-form-color-field-text);
 	display: block;
 	font: inherit;
 	line-height: 1.4;
@@ -129,24 +132,24 @@
     }
 
     .wcag-contact-form .form-control:focus {
-	border-color: #005ea8;
-	box-shadow: 0 0 0 3px rgba(0, 94, 168, 0.28);
+	border-color: var(--rrze-legal-wcag-contact-form-color-focus);
+	box-shadow: 0 0 0 3px var(--rrze-legal-wcag-contact-form-color-focus-shadow);
 	outline: 3px solid transparent;
     }
 
     .wcag-contact-form .form-control[aria-invalid="true"] {
-	border-color: #b00020;
+	border-color: var(--rrze-legal-wcag-contact-form-color-error);
     }
 
     .wcag-contact-form input[type="email"].form-control:user-invalid,
     .wcag-contact-form input[type="number"].form-control:user-invalid {
-	background-color: #fff8f8;
-	border-color: #b00020;
+	background-color: var(--rrze-legal-wcag-contact-form-color-error-surface);
+	border-color: var(--rrze-legal-wcag-contact-form-color-error);
     }
 
     .wcag-contact-form input[type="email"].form-control:user-invalid:focus,
     .wcag-contact-form input[type="number"].form-control:user-invalid:focus {
-	box-shadow: 0 0 0 3px rgba(176, 0, 32, 0.25);
+	box-shadow: 0 0 0 3px var(--rrze-legal-wcag-contact-form-color-error-shadow);
     }
 
     .wcag-contact-form .alert,
@@ -158,15 +161,15 @@
 
     .wcag-contact-form .alert-danger,
     .wcag-contact-form__response.alert-danger {
-	background: #fff1f1;
-	border: 1px solid #c62828;
-	color: #7f1d1d;
+	background: var(--rrze-legal-wcag-contact-form-color-alert-error-surface);
+	border: 1px solid var(--rrze-legal-wcag-contact-form-color-alert-error-border);
+	color: var(--rrze-legal-wcag-contact-form-color-alert-error-text);
     }
 
     .wcag-contact-form__response.alert-success {
-	background: #edf7ed;
-	border: 1px solid #2e7d32;
-	color: #1b5e20;
+	background: var(--rrze-legal-wcag-contact-form-color-alert-success-surface);
+	border: 1px solid var(--rrze-legal-wcag-contact-form-color-alert-success-border);
+	color: var(--rrze-legal-wcag-contact-form-color-alert-success-text);
     }
 
     .wcag-submit {
@@ -174,10 +177,10 @@
     }
 
     .wcag-submit input[type="submit"] {
-	background: #005ea8;
-	border: 2px solid #005ea8;
+	background: var(--rrze-legal-wcag-contact-form-color-submit);
+	border: 2px solid var(--rrze-legal-wcag-contact-form-color-submit);
 	border-radius: 4px;
-	color: #fff;
+	color: var(--rrze-legal-wcag-contact-form-color-submit-text);
 	cursor: pointer;
 	font: inherit;
 	font-weight: 700;
@@ -186,12 +189,38 @@
     }
 
     .wcag-submit input[type="submit"]:hover {
-	background: #004b86;
-	border-color: #004b86;
+	background: var(--rrze-legal-wcag-contact-form-color-submit-hover);
+	border-color: var(--rrze-legal-wcag-contact-form-color-submit-hover);
     }
 
     .wcag-submit input[type="submit"]:focus {
-	box-shadow: 0 0 0 3px rgba(0, 94, 168, 0.28);
+	box-shadow: 0 0 0 3px var(--rrze-legal-wcag-contact-form-color-focus-shadow);
+	outline: 3px solid transparent;
+    }
+
+    .rrzelegal-cookie-preference {
+	background: var(--rrze-legal-cookie-preference-button-color-background);
+	border: 2px solid var(--rrze-legal-cookie-preference-button-color-background);
+	border-radius: 4px;
+	color: var(--rrze-legal-cookie-preference-button-color-text);
+	cursor: pointer;
+	display: inline-block;
+	font: inherit;
+	font-weight: 700;
+	line-height: 1.25;
+	padding: 0.75rem 1rem;
+	text-align: center;
+	text-decoration: none;
+    }
+
+    .rrzelegal-cookie-preference:hover {
+	background: var(--rrze-legal-cookie-preference-button-color-background-hover);
+	border-color: var(--rrze-legal-cookie-preference-button-color-background-hover);
+	color: var(--rrze-legal-cookie-preference-button-color-text);
+    }
+
+    .rrzelegal-cookie-preference:focus {
+	box-shadow: 0 0 0 3px var(--rrze-legal-cookie-preference-button-color-focus-shadow);
 	outline: 3px solid transparent;
     }
 }

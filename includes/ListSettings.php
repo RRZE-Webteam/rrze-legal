@@ -333,7 +333,6 @@ class ListSettings
     public function subMenuPage()
     {
         wp_enqueue_style('rrze-legal-settings');
-        wp_enqueue_style('rrze-legal-consent-settings');
         wp_enqueue_script('rrze-legal-settings');
 
         $page = $_REQUEST['page'] ?? '';
@@ -814,14 +813,7 @@ class ListSettings
      * Register admin scripts.
      * @return void
      */
-    public function adminRegisterSettingsScripts()
-    {
-        wp_register_style(
-            'rrze-legal-consent-settings',
-            plugins_url('build/consent.css', plugin()->getBasename()),
-            [],
-            plugin()->getVersion()
-        );
+    public function adminRegisterSettingsScripts() {
     }
 
     /**
@@ -864,6 +856,10 @@ class ListSettings
     {
         $isPluginActiveForNetwork = Utils::isPluginActiveForNetwork(plugin()->getBaseName());
         foreach ($this->options as $key => $option) {
+            if (!is_array($option)) {
+                unset($this->options[$key]);
+                continue;
+            }
             $static = !empty($option['static']) ? true : false;
             if ($static && isset($data[$key]) && $isPluginActiveForNetwork) {
                 $status = $this->options[$key]['status'] ?? '0';
