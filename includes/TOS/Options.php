@@ -334,7 +334,11 @@ class Options extends Settings {
                 $providers[$key] = [
                     'label' => $value['name'],
                     'disabled' => true,
-                    'description' => __('Displayed automatically because the dependent plugin is active.', 'rrze-legal'),
+                    'description' => sprintf(
+                        /* translators: %s: Plugin name. */
+                        __('Displayed automatically because the dependent plugin "%s" is active.', 'rrze-legal'),
+                        consentCookies()->getPluginDependencyName($value)
+                    ),
                 ];
                 continue;
             }

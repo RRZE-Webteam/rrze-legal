@@ -512,11 +512,18 @@ class Settings {
             } else {
                 $callback = null;
             }
+            $sectionClass = 'subsection subsection-' . $sectionId . '_' . $subsection['id'];
+            $args = [
+                'before_section' => '<div class="' . esc_attr($sectionClass) . '">',
+                'after_section' => '</div>',
+                'section_class' => 'subsection-' . $this->settingsPrefix . $sectionId . '_' . $subsection['id'],
+            ];
             add_settings_section(
                 $this->settingsPrefix . $sectionId . '_' . $subsection['id'],
                 !isset($subsection['hide_title']) || (bool) !$subsection['hide_title'] ? $subsection['title'] : '',
                 $callback,
-                $this->settingsPrefix . $sectionId
+                $this->settingsPrefix . $sectionId,
+                $args
             );
             $this->addFields($sectionId, $subsection);
         }

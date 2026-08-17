@@ -96,7 +96,6 @@ class JavaScript {
         $hideBannerOnUrls = array_merge($hideBannerOnUrls, $defaultHideBannerOnPages);
 
         $jsConfig = [
-            'ajaxURL' => admin_url('admin-ajax.php'),
             'animation' => false, //bannerAnimation
             'animationDelay' => false, //bannerAnimationDelay
             'animationIn' => '_rrzelegal-fadeInDown', //bannerAnimationIn

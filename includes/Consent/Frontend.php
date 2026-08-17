@@ -12,12 +12,13 @@ class Frontend {
         if (self::requestShouldBypassConsent()) {
             return;
         }
-        
-        add_action('init', [__CLASS__, 'init']);
 
-        // Register handler for AJAX requests
-        add_action('wp_ajax_banner_log_handler', [__CLASS__, 'handleLogAjaxRequest']);
-        add_action('wp_ajax_nopriv_banner_log_handler', [__CLASS__, 'handleLogAjaxRequest']);
+        if (did_action('init')) {
+            self::init();
+        } else {
+            add_action('init', [__CLASS__, 'init']);
+        }
+
     }
 
     /**
@@ -25,6 +26,10 @@ class Frontend {
      */
     public static function init()
     {
+        if (self::requestShouldBypassConsent()) {
+            return;
+        }
+
         if (consent()->isBannerActive() || consent()->isTestModeActive()) {
             // Add scripts and styles
             add_action('wp_enqueue_scripts', [__CLASS__, 'enqueueScripts']);
@@ -57,7 +62,8 @@ class Frontend {
 
     
     protected static function requestShouldBypassConsent(): bool {
-        return self::isWhitelistedIp() || consent()->isCurrentUserAgentAllowed();
+        return consent()->isCookieForBotsActive()
+            && (self::isWhitelistedIp() || consent()->isCurrentUserAgentAllowed());
     }
 
     /**
@@ -311,26 +317,6 @@ class Frontend {
 
     public static function handleRRZEVideoBlocking($content)  {
         return ContentBlocker::instance()->handleRRZEVideo($content);
-    }
-
-    /**
-     * Handle Log (ajax request).
-     */
-    public static function handleLogAjaxRequest()  {
-        if (!empty($_POST['type'])) {
-            $requestType = $_POST['type'];
-
-            // Frontend request
-            if ($requestType == 'log' && !empty($_POST['cookieData'])) {
-                echo json_encode([
-                    // 'success' => Log::add($_POST['cookieData']),
-                    'success' => Log::delete(),
-                ]);
-            } elseif ($requestType == 'consent_history' && !empty($_POST['uid'])) {
-                echo json_encode(Log::getConsentHistory($_POST['uid']));
-            }
-        }
-        wp_die();
     }
 
     public static function rrzeAccessControlPlugin()

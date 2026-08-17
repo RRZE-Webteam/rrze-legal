@@ -57,10 +57,8 @@ class Main {
 
 
 
-        // Load banner
-        if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/wp-json/') === false) {
-            Frontend::loaded();
-        }
+        // Load banner after consent settings are available.
+        add_action('init', [$this, 'loadFrontendConsent']);
 
         // Update
         Update::loaded();
@@ -85,6 +83,14 @@ class Main {
             'dashicons-privacy',
             null
         );
+    }
+
+    public function loadFrontendConsent() {
+        if (!isset($_SERVER['REQUEST_URI']) || strpos($_SERVER['REQUEST_URI'], '/wp-json/') !== false) {
+            return;
+        }
+
+        Frontend::loaded();
     }
 
     public function adminInit() {

@@ -34,6 +34,7 @@ class Options extends Settings
         $this->optionsPage = (object) $this->settings['options_page']['page'];
         $this->optionsMenu = (object) $this->settings['options_page']['menu'];
         $this->sections = (object) $this->settings['settings']['sections'];
+        $this->normalizeNetworkBannerSettings();
         $this->setNetworkMenuParent();
 
         $this->setFields();
@@ -70,6 +71,89 @@ class Options extends Settings
         }
 
         return network_admin_url('admin.php');
+    }
+
+    protected function normalizeNetworkBannerSettings(): void {
+        $sections = (array) $this->sections;
+        foreach ($sections as $sectionKey => $section) {
+            if (($section['id'] ?? '') !== 'network_banner' || empty($section['subsections'])) {
+                continue;
+            }
+
+            $sections[$sectionKey]['subsections'] = $this->normalizeNetworkBannerSubsections(
+                (array) $section['subsections']
+            );
+        }
+        $this->sections = (object) $sections;
+        $this->settings['settings']['sections'] = $sections;
+    }
+
+    protected function normalizeNetworkBannerSubsections(array $subsections): array {
+        $knownClientFields = [];
+        $knownClientNames = [
+            'cookies_for_bots',
+            'cookies_for_ip_addresses',
+            'cookies_for_user_agents',
+        ];
+
+        foreach ($subsections as $subsectionKey => $subsection) {
+            if (empty($subsection['fields']) || !is_array($subsection['fields'])) {
+                continue;
+            }
+
+            foreach ($subsection['fields'] as $fieldKey => $field) {
+                $name = $field['name'] ?? '';
+                if (!in_array($name, $knownClientNames, true)) {
+                    continue;
+                }
+
+                unset($subsections[$subsectionKey]['fields'][$fieldKey]);
+                $knownClientFields[$name] = $this->normalizeKnownClientField($field);
+            }
+
+            $subsections[$subsectionKey]['fields'] = array_values($subsections[$subsectionKey]['fields']);
+        }
+
+        if (empty($knownClientFields)) {
+            return $subsections;
+        }
+
+        $knownClientsSubsection = [
+            'id' => 'known_clients',
+            'title' => __('Consent for Known IP Addresses and Crawlers/Clients', 'rrze-legal'),
+            'description' => '',
+            'fields' => array_values(array_filter([
+                $knownClientFields['cookies_for_bots'] ?? null,
+                $knownClientFields['cookies_for_ip_addresses'] ?? null,
+                $knownClientFields['cookies_for_user_agents'] ?? null,
+            ])),
+        ];
+
+        $normalized = [];
+        foreach ($subsections as $subsection) {
+            if (($subsection['id'] ?? '') === 'known_clients') {
+                continue;
+            }
+
+            $normalized[] = $subsection;
+            if (($subsection['id'] ?? '') === 'general') {
+                $normalized[] = $knownClientsSubsection;
+            }
+        }
+
+        return $normalized;
+    }
+
+    protected function normalizeKnownClientField(array $field): array {
+        if (($field['name'] ?? '') === 'cookies_for_bots') {
+            $field['label'] = __('Consent Approval', 'rrze-legal');
+        } elseif (($field['name'] ?? '') === 'cookies_for_ip_addresses') {
+            $field['label'] = __('IP Addresses', 'rrze-legal');
+        } elseif (($field['name'] ?? '') === 'cookies_for_user_agents') {
+            $field['label'] = __('User-Agent Strings', 'rrze-legal');
+        }
+
+        return $field;
     }
 
     public function isOverwriteEndpointsEnabled(): bool

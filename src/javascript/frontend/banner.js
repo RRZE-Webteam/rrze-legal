@@ -12,7 +12,6 @@
                     "#RRZELegalBanner input[type='checkbox'][name='cookieGroup[]']",
                 c = "._rrzelegal-btn-switch-status",
                 r = "data-rrzelegal-cookie-uid",
-                l = "data-rrzelegal-cookie-consent-history",
                 d = ".RRZELegal",
                 u = {},
                 b = {},
@@ -750,7 +749,7 @@
                         e.cookieSecure && a.push("secure"),
                         (document.cookie = a.join(";")),
                         G(),
-                        no(r),
+                        no(),
                         ao(r),
                         document.dispatchEvent(m.consentSaved);
                 },
@@ -1099,44 +1098,11 @@
                             .join("")
                     );
                 },
-                no = function (t) {
-                    o.ajax(e.ajaxURL, {
-                        type: "POST",
-                        data: {
-                            action: "banner_log_handler",
-                            type: "log",
-                            cookieData: v,
-                            essentialStatistic: t,
-                        },
-                    }).done(function () {
-                        e.reloadAfterConsent &&
-                            Object.keys(v.consents).length > 0 &&
-                            location.reload(!0),
-                            C && bo();
-                    });
-                },
-                io = function () {
-                    o.ajax(e.ajaxURL, {
-                        type: "POST",
-                        data: {
-                            action: "banner_log_handler",
-                            type: "consent_history",
-                            uid: v.uid,
-                        },
-                    }).done(function (e) {
-                        (e = o.parseJSON(e)).length &&
-                            o.each(e, function (e, t) {
-                                o("[" + l + "] table").append(
-                                    "<tr><td>" +
-                                        t.stamp +
-                                        "</td><td>" +
-                                        t.version +
-                                        "</td><td>" +
-                                        t.consent +
-                                        "</td></tr>"
-                                );
-                            });
-                    });
+                no = function () {
+                    e.reloadAfterConsent &&
+                        Object.keys(v.consents).length > 0 &&
+                        location.reload(!0),
+                        C && bo();
                 },
                 continueConsentChecks = function () {
                     e.hasOnlyEssentialCookies ||
@@ -1218,7 +1184,6 @@
                         "about:blank" !== window.location.href &&
                         ((e = o.extend(
                             {
-                                ajaxURL: "",
                                 language: "en",
                                 animation: "1",
                                 animationDelay: "",
@@ -1355,7 +1320,7 @@
                                             (document.cookie = t.join(";")),
                                             G();
                                     })(),
-                                    no(!0)))),
+                                    no()))),
                         o(a).length &&
                             "SCRIPT" === o(a)[0].tagName &&
                             o(a).after(o(a).html()),
@@ -1467,7 +1432,6 @@
                             var t = o(e.currentTarget).closest("label");
                             t && o(t).removeClass("_rrzelegal-focused");
                         }),
-                        o("[" + l + "]").length && io(),
                         so(),
                         o("[" + r + "]").length &&
                             o("[" + r + "]").each(function () {
@@ -1476,7 +1440,6 @@
                         !0)
                     );
                 },
-                initConsentHistoryTable: io,
                 initSwitchConsentButtonStatus: so,
                 openCookiePreference: T,
                 removeConsent: W,

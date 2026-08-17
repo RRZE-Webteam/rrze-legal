@@ -10,7 +10,12 @@ Generator für rechtliche Pflichtangaben auf einem Webauftritt.
 
 Der Generator erstellt die im deutschen und europäischen Rechtsraum verbindlichen Seiten für ein Impressum, einer Datenschutzerklärung und einer Barrierefreiheitserklärung.
 
-Die vorkonfigurierten und optionalen Inhaltstexte und Rechtsnormen beziehen sich hierbei in der aktuellen Version auf den Rahmen, den Einrichtungen der Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU) unterworfen sind.
+Die vorkonfigurierten und optionalen Inhaltstexte und Rechtsnormen beziehen sich hierbei in der aktuellen Version auf den Rahmen, den Einrichtungen des öffentlichen Dienstes ein Bayern 
+unterworfen sind.
+Voreingestellte Werte sind vorhanden für
+- die Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU) 
+- das Universitätsklinikum Erlangen (UK)
+- die Technische Universität Nürnberg (UTN)
 
 
 ## Keine Gewährleistung
@@ -44,7 +49,7 @@ Ausserdem können dort die jeweiligen Pflichtdaten (z.B. Angaben zur verantwortl
 Das Plugin ist gedacht zum Einsatz in einer WordPress-Multisite-Instanz. 
 Administratoren von einzelnen WordPress-Instanzen sollen bei solchen Angeboten die vorgegebenen Texte und Optionen, die in den "Einstellungen" vorgegeben werden, üblicherweise nicht ändern können.
 
-(Super)Administratoren von Multisite-Instanzen können daher Anpassungen an die lokalen Gegebenheiten nur durch die direkte Änderung der Template-Dateien im Order ```templates/content/``` vornehmen.
+(Super)Administratoren von Multisite-Instanzen können daher Anpassungen an die lokalen Gegebenheiten nur durch die direkte Änderung der Template-Dateien im Order ```templates/tos/``` vornehmen.
 Dort finden sich alle Templates für die einzelnen, optional einschaltbaren Absätze und Endpoint-Seiten.
 
 Die Liste der in den "Einstellungen" konfigurierbaren Settings wird durch den $settings-Array in der Datei ```settings/settings.php```definiert. 

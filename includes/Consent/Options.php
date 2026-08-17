@@ -186,7 +186,8 @@ class Options extends Settings {
 
         $ipAddresses = array_merge(
             $ipAddresses,
-            $this->normalizeIpAddressList($this->getOption('banner', 'cookies_for_ip_addresses'))
+            $this->normalizeIpAddressList($this->getOption('banner', 'cookies_for_ip_addresses')),
+            $this->getLocalizedBannerOptionList('cookies_for_ip_addresses')
         );
         $ipAddresses = array_unique(array_filter(array_map('trim', $ipAddresses)));
 
@@ -262,11 +263,51 @@ class Options extends Settings {
 
         $userAgents = array_merge(
             $userAgents,
-            $this->normalizeUserAgentList(parent::getOption('banner', 'cookies_for_user_agents'))
+            $this->normalizeUserAgentList(parent::getOption('banner', 'cookies_for_user_agents')),
+            $this->getLocalizedBannerOptionList('cookies_for_user_agents')
         );
         $userAgents = array_unique(array_filter(array_map('trim', $userAgents)));
 
         return !empty($userAgents) ? implode(PHP_EOL, $userAgents) : '';
+    }
+
+    protected function getLocalizedBannerOptionList(string $name): array
+    {
+        $values = [];
+        $optionKey = 'banner_' . $name;
+        foreach ($this->getConsentOptionLangCodes() as $langCode) {
+            $options = get_option('rrze_legal_consent_' . $langCode, []);
+            if (!is_array($options) || empty($options[$optionKey])) {
+                continue;
+            }
+
+            $values = array_merge($values, $this->normalizeTextareaOptionByName($name, $options[$optionKey]));
+        }
+
+        return array_values(array_unique(array_filter(array_map('trim', $values))));
+    }
+
+    protected function getConsentOptionLangCodes(): array
+    {
+        return array_values(array_unique(array_filter([
+            'de',
+            'en',
+            Locale::getLangCode(),
+            substr(Locale::getDefaultLocale(), 0, 2),
+        ])));
+    }
+
+    protected function normalizeTextareaOptionByName(string $name, $value): array
+    {
+        if ($name === 'cookies_for_ip_addresses') {
+            return $this->normalizeIpAddressList($value);
+        }
+
+        if ($name === 'cookies_for_user_agents') {
+            return $this->normalizeUserAgentList($value);
+        }
+
+        return [];
     }
 
     public function isCurrentUserAgentAllowed(): bool
@@ -368,10 +409,6 @@ class Options extends Settings {
             'content_blocker' => [
                 'host_whitelist',
             ],
-            'log' => [
-                'active',
-                'purge_interval',
-            ],
         ];
 
         return in_array($name, $managedOptions[$section] ?? [], true);
@@ -381,9 +418,6 @@ class Options extends Settings {
     {
         if ($section === 'content_blocker') {
             return 'content_blocker_' . $name;
-        }
-        if ($section === 'log') {
-            return 'log_' . $name;
         }
         return $name;
     }

@@ -148,6 +148,26 @@ class Options extends ListSettings
         return $this->isPluginActive($pluginSlug);
     }
 
+    public function getPluginDependencyName(array $item): string {
+        $pluginSlug = trim((string) ($item['plugin_slug'] ?? ''));
+        if ($pluginSlug === '') {
+            return '';
+        }
+
+        $pluginFile = trailingslashit(WP_PLUGIN_DIR) . $pluginSlug;
+        if (!is_readable($pluginFile)) {
+            return $pluginSlug;
+        }
+
+        if (!function_exists('get_plugin_data')) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        $pluginData = get_plugin_data($pluginFile, false, false);
+        $pluginName = trim((string) ($pluginData['Name'] ?? ''));
+        return $pluginName !== '' ? $pluginName : $pluginSlug;
+    }
+
     public function canToggleItem(array $item): bool {
         if ($this->hasPluginDependency($item)) {
             return false;
@@ -514,6 +534,7 @@ class Options extends ListSettings
     {
         $staticItems = $this->getStaticData()['items'] ?? [];
         $changed = false;
+        $updateCookieVersion = false;
 
         foreach ($this->options as $key => $item) {
             if (!is_array($item)) {
@@ -539,6 +560,13 @@ class Options extends ListSettings
 
             $status = $this->isPluginActive($pluginSlug) ? '1' : '0';
             if (($this->options[$key]['status'] ?? '') !== $status) {
+                if (
+                    ($item['category'] ?? '') !== 'essential'
+                    && empty($this->options[$key]['status'])
+                    && $status === '1'
+                ) {
+                    $updateCookieVersion = true;
+                }
                 $this->options[$key]['status'] = $status;
                 $changed = true;
             }
@@ -546,6 +574,9 @@ class Options extends ListSettings
 
         if ($changed) {
             update_option($this->optionName, $this->options);
+            if ($updateCookieVersion) {
+                consent()->updateCookieVersion();
+            }
             $this->syncTosServiceProviders();
         }
     }
