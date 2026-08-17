@@ -37,6 +37,11 @@ class Fields
         'required' => false,
         'errors' => '',
         'notice' => '',
+        'content_name' => '',
+        'content_label' => '',
+        'content_description' => '',
+        'content_value' => '',
+        'content_height' => 0,
     ];
 
     /**
@@ -346,6 +351,68 @@ class Fields
         if (!empty($atts['notice'])) {
             $html .= wp_kses_post($atts['notice']);
         }
+
+        echo $html;
+    }
+
+    /**
+     * Displays a checkbox with a directly related textarea below it.
+     * @param array $atts Settings field attributes
+     */
+    public static function optionalwpeditor(array $atts) {
+        $value = $atts['value'];
+        $contentName = sanitize_key($atts['content_name']);
+        $contentId = sanitize_key($atts['section'] . '_' . $contentName);
+        $isChecked = checked($value, '1', false);
+        $isHidden = $isChecked === '' ? ' hidden' : '';
+        $height = absint($atts['content_height']) > 150 ? absint($atts['content_height']) : 250;
+
+        $html = '<div class="rrze-legal-optional-textfield">';
+        if ($atts['disabled']) {
+            $html .= sprintf(
+                '<input type="hidden" name="%1$s[%2$s_%3$s]" value="%4$s">',
+                esc_attr($atts['option_name']),
+                esc_attr($atts['section']),
+                esc_attr($atts['name']),
+                esc_attr($value)
+            );
+        }
+        $html .= '<label>';
+        $html .= sprintf(
+            '<input type="checkbox" class="rrze-legal-optional-textfield-toggle" id="%1$s" name="%2$s[%3$s_%4$s]" value="1" %5$s%6$s aria-controls="%7$s" aria-expanded="%8$s">',
+            esc_attr($atts['id']),
+            esc_attr($atts['option_name']),
+            esc_attr($atts['section']),
+            esc_attr($atts['name']),
+            $isChecked,
+            $atts['disabled'] ? ' disabled="disabled"' : '',
+            esc_attr($atts['id'] . '_content'),
+            $isChecked === '' ? 'false' : 'true'
+        );
+        $html .= sprintf('%s</label>', wp_kses_post($atts['description']));
+        $html .= sprintf(
+            '<div class="rrze-legal-optional-textfield-content" id="%1$s"%2$s>',
+            esc_attr($atts['id'] . '_content'),
+            $isHidden
+        );
+        if ($atts['content_label'] !== '') {
+            $html .= sprintf(
+                '<p><label for="%1$s"><strong>%2$s</strong></label></p>',
+                esc_attr($contentId),
+                esc_html($atts['content_label'])
+            );
+        }
+        $html .= sprintf(
+            '<textarea class="large-text rrze-legal-optional-textfield-editor" rows="10" style="min-height: %1$dpx;" id="%2$s" name="%3$s[%4$s_%5$s]">%6$s</textarea>',
+            $height,
+            esc_attr($contentId),
+            esc_attr($atts['option_name']),
+            esc_attr($atts['section']),
+            esc_attr($contentName),
+            esc_textarea($atts['content_value'])
+        );
+        $html .= self::description(['description' => $atts['content_description']]);
+        $html .= '</div></div>';
 
         echo $html;
     }

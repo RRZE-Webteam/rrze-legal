@@ -216,6 +216,16 @@ class Settings {
         foreach ($this->fields as $field => $options) {
             $default = isset($options['default']) ? $options['default'] : '';
             $defaultOptions = array_merge($defaultOptions, [$field => $default]);
+            $type = isset($options['type']) ? strtolower($options['type']) : '';
+            if ($type === 'optionalwpeditor' && !empty($options['content_name'])) {
+                $name = $options['name'] ?? '';
+                $sectionId = $name !== '' ? substr($field, 0, -(strlen($name) + 1)) : '';
+                if ($sectionId !== '') {
+                    $contentKey = $sectionId . '_' . sanitize_key($options['content_name']);
+                    $contentDefault = $options['content_default'] ?? '';
+                    $defaultOptions = array_merge($defaultOptions, [$contentKey => $contentDefault]);
+                }
+            }
         }
         return $defaultOptions;
     }
@@ -562,6 +572,8 @@ class Settings {
             $default = $option['default'] ?? '';
             $value = $this->getOption($sectionId, $name, $default);
             $required = isset($option['required']) ? (bool) $option['required'] : false;
+            $contentName = isset($option['content_name']) ? sanitize_key($option['content_name']) : '';
+            $contentDefault = $option['content_default'] ?? '';
 
             $atts = [
                 'name' => $name,
@@ -586,6 +598,11 @@ class Settings {
                 'sanitize_callback' => $option['sanitize_callback'] ?? null,
                 'required' => $required,
                 'errors' => get_settings_errors($this->settingsPrefix . $section),
+                'content_name' => $contentName,
+                'content_label' => $option['content_label'] ?? '',
+                'content_description' => $option['content_description'] ?? '',
+                'content_value' => $contentName !== '' ? $this->getOption($sectionId, $contentName, $contentDefault) : '',
+                'content_height' => isset($option['content_height']) ? absint($option['content_height']) : 0,
             ];
 
             $atts = Fields::matchAtts($atts);
@@ -621,8 +638,8 @@ class Settings {
                 }
                 $disabled = isset($option['disabled']) ? (bool) $option['disabled'] : false;
                 if (!isset($input[$key]) && $disabled) {
-                    $input[$key] = $this->options[$key] ?? ($type === 'checkbox' ? '0' : '');
-                } elseif (!isset($input[$key]) && $type === 'checkbox') {
+                    $input[$key] = $this->options[$key] ?? (in_array($type, ['checkbox', 'optionalwpeditor'], true) ? '0' : '');
+                } elseif (!isset($input[$key]) && in_array($type, ['checkbox', 'optionalwpeditor'], true)) {
                     $input[$key] = '0';
                 }
                 $error = '';
@@ -665,10 +682,21 @@ class Settings {
                 } else {
                     $input[$key] = $value;
                     $this->options[$key] = $value;
+                    if ($type === 'optionalwpeditor' && !empty($option['content_name'])) {
+                        $contentKey = $prefix . '_' . sanitize_key($option['content_name']);
+                        $contentValue = $input[$contentKey] ?? '';
+                        $input[$contentKey] = $this->sanitizeOptionalEditorContent((string) $contentValue);
+                        $this->options[$contentKey] = $input[$contentKey];
+                    }
                 }
             }
         }
         return $this->postSanitizeOptions($input, $hasError);
+    }
+
+    protected function sanitizeOptionalEditorContent(string $value): string {
+        $value = wp_kses($value, wp_kses_allowed_html('post'));
+        return force_balance_tags($value);
     }
 
     protected function postSanitizeOptions($input, $hasError) {
@@ -695,6 +723,7 @@ class Settings {
 
         switch ($type) {
             case 'checkbox':
+            case 'optionalwpeditor':
                 return !empty($value) ? '1' : '0';
             case 'radio':
             case 'select':

@@ -531,6 +531,8 @@ class Options extends Settings {
             $default = $option['default'] ?? '';
             $value = $this->getOption($sectionId, $name, $default);
             $required = isset($option['required']) ? (bool) $option['required'] : false;
+            $contentName = isset($option['content_name']) ? sanitize_key($option['content_name']) : '';
+            $contentDefault = $option['content_default'] ?? '';
 
             $atts = [
                 'name' => $name,
@@ -555,6 +557,11 @@ class Options extends Settings {
                 'required' => $required,
                 'errors' => get_settings_errors($this->settingsPrefix . $section),
                 'notice' => $option['notice'] ?? '',
+                'content_name' => $contentName,
+                'content_label' => $option['content_label'] ?? '',
+                'content_description' => $option['content_description'] ?? '',
+                'content_value' => $contentName !== '' ? $this->getOption($sectionId, $contentName, $contentDefault) : '',
+                'content_height' => isset($option['content_height']) ? absint($option['content_height']) : 0,
             ];
 
             $atts = Fields::matchAtts($atts);

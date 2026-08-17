@@ -1983,8 +1983,8 @@ msgid "Optional paragraph for the description of any image rights used."
 msgstr "Optionaler Absatz zur Beschreibung der verwendeten Bildrechte."
 
 #: settings/tos.php:560
-msgid "Add a New Section"
-msgstr "Hinzufügen eines neuen Abschnitts"
+msgid "Optional Text before Terms of Use"
+msgstr "Optionaler Text vor Nutzungsbedingungen"
 
 #: settings/tos.php:573 settings/tos.php:766 settings/tos.php:783
 #: settings/tos.php:800
@@ -2087,16 +2087,20 @@ msgid "Additional information about the privacy policy."
 msgstr "Zusätzliche Informationen zur Datenschutzerklärung."
 
 #: settings/tos.php:754
-msgid "Insert Preamble"
-msgstr "\"Präambel\" einfügen"
+msgid "Preamble"
+msgstr "Präambel"
+
+#: settings/tos.php:755 settings/tos.php:768 settings/tos.php:781
+msgid "Enable this optional text field."
+msgstr "Dieses optionale Textfeld aktivieren."
 
 #: settings/tos.php:771
-msgid "Add a New Section at the Beginning of the Page"
-msgstr "Neuen Abschnitt zwischen Kontaktdaten und Inhalt hinzufügen"
+msgid "Text Field after Contact Data"
+msgstr "Textfeld nach Kontaktdaten"
 
 #: settings/tos.php:788
-msgid "Add a New Section at the End of the Page"
-msgstr "Neuen Abschnitt am Ende der Seite hinzufügen"
+msgid "Text Field after List of Services"
+msgstr "Textfeld nach der Liste der Dienstleistung"
 
 #: settings/tos.php:835
 msgid "Compliance Status"

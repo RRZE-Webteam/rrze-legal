@@ -32,6 +32,7 @@ class Template
         ],
         'events.php' => [
             'FAU-Events',
+            'FAU-Events-UTN',
         ],
         'jobs.php' => [
             'FAU-Jobportal-Theme',

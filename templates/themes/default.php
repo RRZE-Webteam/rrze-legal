@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
 get_header();
 
 ?>
-    <main id="rrze-tos"  lang="<?php echo esc_attr($langCode); ?>">
+    <main id="rrze-tos default-theme"  lang="<?php echo esc_attr($langCode); ?>">
         <h1><?php echo esc_html( $title ); ?></h1>
          <?php echo $content; ?>
     </main>

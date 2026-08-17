@@ -3,69 +3,6 @@ function rrzeLegalTosReady($) {
         return legalSettings.optionName + "[" + option + "]";
     }
 
-    function imprintImageRights() {
-        var inputName = getOptionName("imprint_optional_image_rights");
-        var wpWrap = "wp-imprint_optional_image_rights_content-wrap";
-        var input = $(
-            "input[name='" + inputName + "']:checked",
-            "#rrze-legal-imprint"
-        ).val();
-        if ("1" === input) {
-            $("#" + wpWrap).parents("tr").show();
-        } else {
-            $("#" + wpWrap).parents("tr").hide();
-        }
-    }
-
-    function imprintNewSection() {
-        var inputName = getOptionName("imprint_optional_new_section");
-        var wpWrap = "wp-imprint_optional_new_section_content-wrap";
-        var input = $(
-            "input[name='" + inputName + "']:checked",
-            "#rrze-legal-imprint"
-        ).val();
-        if ("1" === input) {
-            $("#" + wpWrap).parents("tr").show();
-        } else {
-            $("#" + wpWrap).parents("tr").hide();
-        }
-    }
-
-    function privacyNewSection(region) {
-        if (typeof region === "undefined") {
-            region = "";
-        }
-        if (region !== "") {
-            region = "_" + region;
-        }
-
-        var inputName = getOptionName("privacy_optional_new_section" + region);
-        var wpWrap = "wp-privacy_optional_new_section_content" + region + "-wrap";
-        var input = $(
-            "input[name='" + inputName + "']:checked",
-            "#rrze-legal-privacy"
-        ).val();
-        if ("1" === input) {
-            $("#" + wpWrap).parents("tr").show();
-        } else {
-            $("#" + wpWrap).parents("tr").hide();
-        }
-    }
-
-    function privacyPreambleSection() {
-        var inputName = getOptionName("privacy_optional_section_praeambel");
-        var wpWrap = "wp-privacy_optional_section_praeambel_content-wrap";
-        var input = $(
-            "input[name='" + inputName + "']:checked",
-            "#rrze-legal-privacy"
-        ).val();
-        if ("1" === input) {
-            $("#" + wpWrap).parents("tr").show();
-        } else {
-            $("#" + wpWrap).parents("tr").hide();
-        }
-    }
-
     function accessibilityHelperSection() {
         var inputName = getOptionName("accessibility_statement_non_accessible_content_helper");
         var input = $(
@@ -192,28 +129,27 @@ function rrzeLegalTosReady($) {
         });
     }
 
-    imprintImageRights();
-    imprintNewSection();
-    $("#rrze-legal-imprint input[type='radio']").on("change", function rrzeLegalImprintRadioChange() {
-        imprintImageRights();
-        imprintNewSection();
-    });
+    function setOptionalTextfieldState($toggle) {
+        var isChecked = $toggle.is(":checked");
+        var $field = $toggle.closest(".rrze-legal-optional-textfield");
+        var $content = $field.find(".rrze-legal-optional-textfield-content").first();
 
-    privacyPreambleSection();
-    privacyNewSection("top");
-    privacyNewSection("");
-    $("#rrze-legal-privacy input[type='radio']").on("change", function rrzeLegalPrivacyRadioChange() {
-        var region = "";
-        var name = $(this).attr("name");
-        if (name.indexOf("section_praeambel") >= 0) {
-            privacyPreambleSection();
-            return;
-        }
-        if (name.indexOf("new_section_top") >= 0) {
-            region = "top";
-        }
-        privacyNewSection(region);
-    });
+        $toggle.attr("aria-expanded", isChecked ? "true" : "false");
+        $content.prop("hidden", !isChecked);
+    }
+
+    function bindOptionalTextfields() {
+        var $toggles = $("#rrze-legal-imprint .rrze-legal-optional-textfield-toggle, #rrze-legal-privacy .rrze-legal-optional-textfield-toggle");
+
+        $("#rrze-legal-imprint, #rrze-legal-privacy").on("change", ".rrze-legal-optional-textfield-toggle", function rrzeLegalOptionalTextfieldChange() {
+            setOptionalTextfieldState($(this));
+        });
+        $toggles.each(function rrzeLegalOptionalTextfieldInitToggle() {
+            setOptionalTextfieldState($(this));
+        });
+    }
+
+    bindOptionalTextfields();
 
     accessibilityHelperSection();
     $("#rrze-legal-accessibility input[type='radio']").on("change", function rrzeLegalAccessibilityRadioChange() {
