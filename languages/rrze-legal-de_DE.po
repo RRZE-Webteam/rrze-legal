@@ -1069,22 +1069,16 @@ msgid "Explain the purpose of this <strong>Cookie</strong> to the visitors."
 msgstr "Erklären Sie den Besuchern den Zweck dieses <strong>Cookie</strong>."
 
 #: settings/consent-cookies.php:101
-#, fuzzy
 msgid "Privacy Policy Text (DE)"
-msgstr "Datenschutzerklärung"
+msgstr "Datenschutztext (Deutsch)"
 
-#: settings/consent-cookies.php:102 settings/consent-cookies.php:110
-msgid ""
-"Plain text without HTML. Blank lines are automatically rendered as "
-"paragraphs."
-msgstr ""
-"Reiner Text ohne HTML. Leerzeilen werden bei der Ausgabe automatisch als "
-"Absätze dargestellt."
+#: settings/consent-cookies.php:102 settings/consent-cookies.php:112
+msgid "HTML is allowed if it is permitted for WordPress post content."
+msgstr "HTML ist erlaubt, wenn es für WordPress-Beitragsinhalte zugelassen ist."
 
-#: settings/consent-cookies.php:109
-#, fuzzy
+#: settings/consent-cookies.php:108
 msgid "Privacy Policy Text (EN)"
-msgstr "Datenschutzerklärung"
+msgstr "Datenschutztext (Englisch)"
 
 #: settings/consent-cookies.php:117
 msgid "Privacy Policy URL"

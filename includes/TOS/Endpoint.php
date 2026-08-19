@@ -263,21 +263,13 @@ class Endpoint {
 
     protected static function formatPlainTextParagraphs(string $text): string
     {
+        $text = force_balance_tags(wp_kses($text, wp_kses_allowed_html('post')));
         $text = str_replace(["\r\n", "\r"], "\n", trim($text));
         if ($text === '') {
             return '';
         }
 
-        $paragraphs = preg_split("/\n{2,}/", $text);
-        $content = '';
-        foreach ($paragraphs as $paragraph) {
-            $paragraph = trim($paragraph);
-            if ($paragraph === '') {
-                continue;
-            }
-            $content .= '<p>' . nl2br(esc_html($paragraph), false) . '</p>' . "\n";
-        }
-        return $content;
+        return wpautop($text);
     }
 
     protected static function getServiceProviderCookieInformation(array $data, string $langCode): string

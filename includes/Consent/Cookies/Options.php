@@ -93,6 +93,11 @@ class Options extends ListSettings
         return $input;
     }
 
+    public function sanitizePrivacyPolicyText($input): string {
+        $input = wp_kses((string) $input, wp_kses_allowed_html('post'));
+        return force_balance_tags($input);
+    }
+
     public function technicalSectionToggle()
     {
         printf(
@@ -325,6 +330,7 @@ class Options extends ListSettings
         $addNonce = $_POST['consent-add-nonce'] ?? '';
         $id = $_POST['id'] ?? '';
         $input = $_POST[$this->optionName] ?? '';
+        $input = is_array($input) ? $this->addGeneratedIdToInput($input, (string) $addNonce) : $input;
         $input = is_array($input) ? $this->filterAllowedInputFields($input) : $input;
         $input = $this->sanitizeOptions($input);
         $this->addInputData($input);
@@ -410,6 +416,55 @@ class Options extends ListSettings
             wp_redirect(add_query_arg($query, admin_url('admin.php')));
             exit;
         }
+    }
+
+    protected function addGeneratedIdToInput(array $input, string $addNonce): array {
+        if (!wp_verify_nonce($addNonce, 'consent-cookies-consent-add')) {
+            return $input;
+        }
+
+        $idKey = 'consent_cookies_id';
+        $nameKey = 'consent_cookies_name';
+        if (trim((string) ($input[$idKey] ?? '')) !== '') {
+            return $input;
+        }
+
+        $name = trim((string) ($input[$nameKey] ?? ''));
+        if ($name === '') {
+            return $input;
+        }
+
+        $input[$idKey] = $this->generateUniqueIdFromName($name);
+        return $input;
+    }
+
+    protected function generateUniqueIdFromName(string $name): string {
+        $base = strtolower(remove_accents($name));
+        $base = preg_replace('/[^a-z\-_]+/', '_', $base);
+        $base = trim((string) $base, '_-');
+        if (strlen($base) < 3) {
+            $base = 'cookie';
+        }
+
+        $id = $base;
+        $index = 1;
+        while (isset($this->options[$id])) {
+            $id = $base . '_' . $this->numberToLetters($index);
+            $index++;
+        }
+
+        return $id;
+    }
+
+    protected function numberToLetters(int $number): string {
+        $letters = '';
+        do {
+            $remainder = $number % 26;
+            $letters = chr(97 + $remainder) . $letters;
+            $number = intdiv($number, 26) - 1;
+        } while ($number >= 0);
+
+        return $letters;
     }
 
     protected function filterAllowedInputFields(array $input): array

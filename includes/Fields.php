@@ -27,6 +27,7 @@ class Fields
         'value' => '',
         'size' => '',
         'height' => 0,
+        'rows' => 0,
         'min' => '',
         'max' => '',
         'step' => '',
@@ -197,7 +198,9 @@ class Fields
         $value = esc_textarea($atts['value']);
         $placeholder = $atts['placeholder'] != '' ? ' placeholder="' . esc_attr($atts['placeholder']) . '"' : '';
         $editorType = $editorType ? 'wpcode-' . $editorType . '-editor ' : '';
-        $format = '<textarea %1$srows="4" cols="50" id="%2$s" name="%3$s[%4$s_%5$s]"%6$s%7$s%8$s>%9$s</textarea>';
+        $rows = absint($atts['rows']) > 0 ? absint($atts['rows']) : 4;
+        $height = absint($atts['height']) > 0 ? sprintf(' style="min-height: %dpx;"', absint($atts['height'])) : '';
+        $format = '<textarea %1$srows="%2$d" cols="50" id="%3$s" name="%4$s[%5$s_%6$s]"%7$s%8$s%9$s%10$s>%11$s</textarea>';
         if ($editorType != '') {
             $format = '<div class="code-editor">' . $format . '</div>';
         }
@@ -218,6 +221,7 @@ class Fields
         $html .= sprintf(
             $format,
             esc_attr($editorType),
+            $rows,
             esc_attr($atts['id']),
             esc_attr($atts['option_name']),
             esc_attr($atts['section']),
@@ -225,6 +229,7 @@ class Fields
             $placeholder,
             $atts['disabled'] ? ' disabled="disabled"' : '',
             $atts['readonly'] ? ' readonly="readonly"' : '',
+            $height,
             $value
         );
         $html .= self::description($atts);

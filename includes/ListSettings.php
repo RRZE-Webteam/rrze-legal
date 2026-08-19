@@ -560,6 +560,7 @@ class ListSettings
                 'value' => $value,
                 'size' => $option['size'] ?? '',
                 'height' => isset($option['height']) ? absint($option['height']) : 0,
+                'rows' => isset($option['rows']) ? absint($option['rows']) : 0,
                 'min' => $option['min'] ?? '',
                 'max' => $option['max'] ?? '',
                 'step' => $option['step'] ?? '',
