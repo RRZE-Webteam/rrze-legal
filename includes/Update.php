@@ -8,12 +8,19 @@ class Update
 {
     protected const CONSENT_LOG_REMOVAL_VERSION = '2.8.20';
 
+    protected const CONSENT_LOG_REMOVAL_HOOK = 'rrze_legal_remove_consent_log_data';
+
+    protected const CONSENT_LOG_REMOVAL_PROGRESS_OPTION = 'rrze_legal_consent_log_removal_progress';
+
+    protected const CONSENT_LOG_REMOVAL_BATCH_SIZE = 25;
+
     /**
      * Execute on 'plugins_loaded' API/action.
      * @return void
      */
     public static function loaded()
     {
+        add_action(self::CONSENT_LOG_REMOVAL_HOOK, [self::class, 'removeConsentLogDataBatch']);
         self::maybeRemoveConsentLogFeatureData();
 
         $version = get_option(tos()->getOptionName() . '_version', '0');
@@ -69,8 +76,8 @@ class Update
                 return;
             }
 
-            self::deleteConsentLogOptions();
-            update_site_option($optionName, plugin()->getVersion());
+            self::deleteConsentLogNetworkOptions();
+            self::scheduleConsentLogDataRemoval();
             return;
         }
 
@@ -78,23 +85,20 @@ class Update
             return;
         }
 
-        self::deleteConsentLogOptions();
+        self::deleteConsentLogSiteOptions();
         update_option($optionName, plugin()->getVersion(), false);
     }
 
     /**
-     * Delete consent log data and old consent log setting values.
-     * @return void
+     * Schedule one bounded batch to remove consent log values from network sites.
      */
-    protected static function deleteConsentLogOptions()
+    protected static function scheduleConsentLogDataRemoval(): void
     {
-        if (is_multisite()) {
-            self::deleteConsentLogNetworkOptions();
-            self::deleteConsentLogOptionsForAllSites();
+        if (wp_next_scheduled(self::CONSENT_LOG_REMOVAL_HOOK)) {
             return;
         }
 
-        self::deleteConsentLogSiteOptions();
+        wp_schedule_single_event(time() + MINUTE_IN_SECONDS, self::CONSENT_LOG_REMOVAL_HOOK);
     }
 
     /**
@@ -127,19 +131,25 @@ class Update
     }
 
     /**
-     * Delete old consent log values for all sites in a multisite network.
-     * @return void
+     * Remove consent log data from a bounded number of network sites.
      */
-    protected static function deleteConsentLogOptionsForAllSites()
+    public static function removeConsentLogDataBatch(): void
     {
-        if (!function_exists('get_sites')) {
-            self::deleteConsentLogSiteOptions();
+        if (!is_multisite()) {
             return;
         }
 
+        $completedOption = 'rrze_legal_consent_log_removed';
+        if (get_site_option($completedOption)) {
+            return;
+        }
+
+        self::deleteConsentLogNetworkOptions();
+        $offset = absint(get_site_option(self::CONSENT_LOG_REMOVAL_PROGRESS_OPTION, 0));
         $siteIds = get_sites([
             'fields' => 'ids',
-            'number' => 0,
+            'number' => self::CONSENT_LOG_REMOVAL_BATCH_SIZE,
+            'offset' => $offset,
         ]);
 
         foreach ($siteIds as $siteId) {
@@ -147,6 +157,15 @@ class Update
             self::deleteConsentLogSiteOptions();
             restore_current_blog();
         }
+
+        if (count($siteIds) < self::CONSENT_LOG_REMOVAL_BATCH_SIZE) {
+            delete_site_option(self::CONSENT_LOG_REMOVAL_PROGRESS_OPTION);
+            update_site_option($completedOption, plugin()->getVersion());
+            return;
+        }
+
+        update_site_option(self::CONSENT_LOG_REMOVAL_PROGRESS_OPTION, $offset + count($siteIds));
+        self::scheduleConsentLogDataRemoval();
     }
 
     /**

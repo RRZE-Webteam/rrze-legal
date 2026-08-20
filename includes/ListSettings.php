@@ -394,7 +394,7 @@ class ListSettings
         foreach ($this->sections as $section) {
             $sectionId = str_replace('_', '-', $section['id']);
             echo '<form id="' . esc_attr($this->pagePrefix . $sectionId). '" method="post">';
-            echo wp_nonce_field($page . '-' . $action, $action . '-nonce', false, false);
+            wp_nonce_field($page . '-' . $action, $action . '-nonce', false);
             echo '<input type="hidden" name="page" value="' . esc_attr($page) . '">';
             echo $id ? '<input type="hidden" name="id" value="' . esc_attr($id) . '">' : '';
             do_settings_sections($this->settingsPrefix . $section['id']);
@@ -853,9 +853,9 @@ class ListSettings
         foreach ($settingsErrors as $error) {
             $message = !empty($error['allow_html']) ? wp_kses_post($error['message']) : esc_html($error['message']);
             if ($error['type'] === 'success') {
-                printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', $message);
+                printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', wp_kses_post($message));
             } else {
-                printf('<div class="notice notice-warning"><p>%s</p></div>', $message);
+                printf('<div class="notice notice-warning"><p>%s</p></div>', wp_kses_post($message));
             }
         }
     }
@@ -943,7 +943,7 @@ class ListSettings
                 continue;
             }
             $static = !empty($option['static']) ? true : false;
-            if ($static && isset($data[$key]) && $isPluginActiveForNetwork) {
+            if ($static && isset($data[$key])) {
                 $status = $this->options[$key]['status'] ?? '0';
                 $this->options[$key] = $data[$key];
                 $this->options[$key]['status'] = $status;

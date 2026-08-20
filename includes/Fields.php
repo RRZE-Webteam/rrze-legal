@@ -46,6 +46,14 @@ class Fields
     ];
 
     /**
+     * Outputs form markup whose dynamic values have been escaped while building it.
+     * @param string $html Form markup
+     */
+    protected static function outputHtml(string $html): void {
+        echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Each field builder escapes attributes and text before constructing the form markup.
+    }
+
+    /**
      * Match given attributes with known attributes
      * and fill in default values when necessary.
      * @param array $atts Attributes
@@ -163,7 +171,7 @@ class Fields
         );
         $html .= self::description($atts);
 
-        echo $html;
+        self::outputHtml($html);
     }
 
     /**
@@ -234,7 +242,7 @@ class Fields
         );
         $html .= self::description($atts);
 
-        echo $html;
+        self::outputHtml($html);
     }
 
     /**
@@ -288,7 +296,7 @@ class Fields
         );
         $html .= self::description($atts);
 
-        echo $html;
+        self::outputHtml($html);
     }
 
     /**
@@ -319,7 +327,7 @@ class Fields
         );
         $html .= self::description($atts);
 
-        echo $html;
+        self::outputHtml($html);
     }
 
     /**
@@ -357,7 +365,7 @@ class Fields
             $html .= wp_kses_post($atts['notice']);
         }
 
-        echo $html;
+        self::outputHtml($html);
     }
 
     /**
@@ -419,7 +427,7 @@ class Fields
         $html .= self::description(['description' => $atts['content_description']]);
         $html .= '</div></div>';
 
-        echo $html;
+        self::outputHtml($html);
     }
 
     /**
@@ -465,7 +473,7 @@ class Fields
         $html .= self::description($atts);
         $html .= '</fieldset>';
 
-        echo $html;
+        self::outputHtml($html);
     }
 
     /**
@@ -497,7 +505,7 @@ class Fields
         $html .= self::description($atts);
         $html .= '</fieldset>';
 
-        echo $html;
+        self::outputHtml($html);
     }
 
     /**
@@ -528,7 +536,7 @@ class Fields
         $html .= sprintf('</select>');
         $html .= self::description($atts);
 
-        echo $html;
+        self::outputHtml($html);
     }
 
     /**
@@ -557,7 +565,7 @@ class Fields
         );
         $html .= self::description($atts);
 
-        echo $html;
+        self::outputHtml($html);
     }
 
     /**
@@ -587,7 +595,7 @@ class Fields
         $html .= sprintf('</select>');
         $html .= self::description($atts);
 
-        echo $html;
+        self::outputHtml($html);
     }
 
     /**
@@ -615,6 +623,6 @@ class Fields
         echo '<div class="wpeditor-field-container">';
         wp_editor($value, sanitize_key($atts['section'] . '_' . $atts['name']), $editorSettings);
         echo '</div>';
-        echo self::description($atts);
+        self::outputHtml(self::description($atts));
     }
 }

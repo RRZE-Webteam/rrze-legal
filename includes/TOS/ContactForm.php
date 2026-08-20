@@ -92,7 +92,7 @@ class ContactForm
                     $wp->request
                 )
             );
-            wp_redirect($redirectUrl . '#contact-form');
+            wp_safe_redirect($redirectUrl . '#contact-form');
             exit;
         } elseif (isset($_GET['_wpnonce']) && wp_verify_nonce(sanitize_key($_GET['_wpnonce']), 'accessibility_contact_form')) {
             global $wp;
@@ -112,7 +112,7 @@ class ContactForm
                         $wp->request
                     )
                 );
-                wp_redirect($redirectUrl . '#contact-form');
+                wp_safe_redirect($redirectUrl . '#contact-form');
                 exit;
             }
         } else {
@@ -196,13 +196,11 @@ class ContactForm
         } else {
             if ($_POST && $formError instanceof \WP_Error && is_wp_error($message)) {
                 foreach ($formError->get_error_messages() as $error) {
-                    
-                    $res =  '<div class="alert alert-warning" role="alert">';
-                    $res .=  '<strong>' . __('Error', 'rrze-legal') . '</strong>:';
-                    $res =  esc_html($error) . '<br/>';
-                    $res =  '</div>';
-                    echo $res;
-                    
+                    printf(
+                        '<div class="alert alert-warning" role="alert"><strong>%1$s</strong>: %2$s</div>',
+                        esc_html__('Error', 'rrze-legal'),
+                        esc_html($error)
+                    );
                 }
             }
         }

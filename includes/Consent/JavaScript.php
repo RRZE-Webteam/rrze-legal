@@ -232,7 +232,8 @@ EOT;
                 'rrze_legal_consent_banner_prioritize',
                 false,
                 [],
-                plugin()->getVersion()
+                plugin()->getVersion(),
+                false
             );
             wp_enqueue_script('rrze_legal_consent_banner_prioritize');
 
@@ -275,6 +276,7 @@ EOT;
         if (!empty($this->fallbackCode)) {
             foreach ($this->fallbackCode as $groupData) {
                 foreach ($groupData as $cookieFallbackCode) {
+                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Privileged administrators provide executable fallback code for consent-controlled services.
                     echo $cookieFallbackCode;
                 }
             }

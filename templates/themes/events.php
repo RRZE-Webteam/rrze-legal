@@ -19,6 +19,7 @@ get_header();
                     <h1 class="entry-title"><?php echo esc_html($title); ?></h1>
                 </header><!-- end .entry-header -->
                 <div id="rrze-tos">
+                    <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Endpoint content is generated from plugin templates and contains required consent data attributes. ?>
                     <?php echo $content; ?>
                 </div>
             </article>

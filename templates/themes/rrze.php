@@ -21,6 +21,7 @@ get_header();
             </header><!-- .entry-header -->
             <div class="entry-content">
                 <div class="rrze-tos">
+                    <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Endpoint content is generated from plugin templates and contains required consent data attributes. ?>
                     <?php echo $content; ?>
                 </div>
             </div><!-- .entry-content -->

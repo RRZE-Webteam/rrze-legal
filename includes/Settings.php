@@ -370,7 +370,7 @@ class Settings {
      * @return void
      */
     public function sectionsTabs() {
-        $html = '<h1>' . $this->settings['settings']['title'] . '</h1>' . PHP_EOL;
+        $html = '<h1>' . esc_html($this->settings['settings']['title']) . '</h1>' . PHP_EOL;
         $count = 0;
         foreach ($this->sections as $section) {
             if (!$this->isSectionVisible($section)) {
@@ -379,7 +379,7 @@ class Settings {
             $count++;
         }
         if ($count < 2) {
-            echo $html;
+            echo wp_kses_post($html);
             return;
         }
 
@@ -393,13 +393,13 @@ class Settings {
             $html .= sprintf(
                 '<a href="?page=%4$s&current-tab=%1$s" class="nav-tab %3$s" id="%1$s-tab">%2$s</a>',
                 esc_attr($this->pagePrefix . $sectionId),
-                $section['title'],
+                esc_html($section['title']),
                 esc_attr($class),
-                $this->optionsMenu->slug
+                esc_attr($this->optionsMenu->slug)
             );
         }
         $html .= '</h2>' . PHP_EOL;
-        echo $html;
+        echo wp_kses_post($html);
     }
 
     /**
@@ -415,7 +415,7 @@ class Settings {
             if ($this->pagePrefix . $sectionId != $this->currentTab) {
                 continue;
             }
-            echo '<form id="'. $this->pagePrefix . $sectionId . '" method="post" action="options.php">';
+            echo '<form id="' . esc_attr($this->pagePrefix . $sectionId) . '" method="post" action="options.php">';
             settings_errors();
             do_settings_sections($this->settingsPrefix . $section['id']);
             settings_fields($this->settingsPrefix . $section['id']);
@@ -809,7 +809,8 @@ class Settings {
             'rrze-legal-settings',
             plugins_url('build/rrze-legal-admin.js', plugin()->getBasename()),
             ['jquery', 'jquery-ui-datepicker'],
-            plugin()->getVersion()
+            plugin()->getVersion(),
+            true
         );
         wp_localize_script('rrze-legal-settings', 'legalSettings', [
             'dateFormat' => __('yy-mm-dd', 'rrze-legal')

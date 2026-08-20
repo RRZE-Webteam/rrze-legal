@@ -288,7 +288,7 @@ class Options extends Settings
         if (count($this->allTabs) < 2) {
             unset($queryArgs['current-tab']);
         }
-        wp_redirect(add_query_arg(
+        wp_safe_redirect(add_query_arg(
             $queryArgs,
             $this->getNetworkMenuBaseUrl()
         ));

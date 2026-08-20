@@ -297,7 +297,7 @@ class Options extends ListSettings
                     'error'
                 );
                 $this->setSettingsErrors();
-                wp_redirect(add_query_arg(
+                wp_safe_redirect(add_query_arg(
                     [
                         'page' => 'consent-cookies',
                     ],
@@ -392,7 +392,7 @@ class Options extends ListSettings
             );
             $this->addSettingsError($message, 'success', true);
             $this->setSettingsErrors();
-            wp_redirect(add_query_arg(
+            wp_safe_redirect(add_query_arg(
                 [
                     'page' => $page,
                     'action' => 'consent-edit',
@@ -413,7 +413,7 @@ class Options extends ListSettings
             if ($isAdd) {
                 $this->setInputData();
             }
-            wp_redirect(add_query_arg($query, admin_url('admin.php')));
+            wp_safe_redirect(add_query_arg($query, admin_url('admin.php')));
             exit;
         }
     }
@@ -549,15 +549,15 @@ class Options extends ListSettings
         esc_html__('Add New', 'rrze-legal') . '</a>';
         echo '</h2>';
         $this->settingsErrors();
-        echo '<form method="get">',
-        '<input type="hidden" name="page" value="' . esc_attr($page) . '">',
-        $this->listTable->search_box(__('Search', 'rrze-legal'), $page),
-        '</form>',
-        '<form method="post">',
-        $this->listTable->views(),
-        $this->listTable->display(),
-        '</form>',
-        '</div>';
+        echo '<form method="get">';
+        echo '<input type="hidden" name="page" value="' . esc_attr($page) . '">';
+        $this->listTable->search_box(__('Search', 'rrze-legal'), $page);
+        echo '</form>';
+        echo '<form method="post">';
+        $this->listTable->views();
+        $this->listTable->display();
+        echo '</form>';
+        echo '</div>';
     }
 
     /**
@@ -778,9 +778,9 @@ class Options extends ListSettings
         unregister_setting('rrze_legal_privacy', $tosOptionName);
         update_option($tosOptionName, $tosOptions);
         update_option($this->optionName, $this->options);
-        wp_redirect(
+        wp_safe_redirect(
             add_query_arg(
-                ['page' => $_GET['page'] ?? ''],
+                ['page' => sanitize_key(wp_unslash($_GET['page'] ?? ''))],
                 admin_url('admin.php')
             )
         );

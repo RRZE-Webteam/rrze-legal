@@ -21,10 +21,9 @@ get_header();
     </h1>
   </header>
 
+  <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Endpoint content is generated from plugin templates and contains required consent data attributes. ?>
   <?php echo $content; ?>
 </main>
 
 <?php
 get_footer();
-
-

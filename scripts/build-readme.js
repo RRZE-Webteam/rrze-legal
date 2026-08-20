@@ -67,14 +67,14 @@ function buildReadme(pkg) {
 
     var out = [];
 
-    out.push('=== Plugin Name: ' + pluginName + ' ===');
-    out.push('Version: ' + version);
+    out.push('=== ' + pluginName + ' ===');
+    out.push('Stable tag: ' + version);
     out.push('Plugin URI: ' + githubURL);
     out.push('GitHub Issue URL: ' + githubIssue);
     out.push('Author: ' + author);
     out.push('Author URI: ' + authorUri);
-    out.push('Licence: ' + license);
-    out.push('Licence URI: ' + licenseUri);
+    out.push('License: ' + license);
+    out.push('License URI: ' + licenseUri);
 
     if (requiresAtLeast) {
         out.push('Requires at least: ' + requiresAtLeast);

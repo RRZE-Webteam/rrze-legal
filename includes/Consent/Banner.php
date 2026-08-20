@@ -93,6 +93,7 @@ class Banner
         ob_start();
         include $bannerTemplateFile;
         $content = ob_get_clean();
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- This is the plugin-owned consent banner template rendered into a script template.
         echo $minifier->minify($content);
         echo '</script>';
 

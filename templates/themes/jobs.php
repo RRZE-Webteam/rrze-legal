@@ -18,6 +18,7 @@ get_header();
                 <main id="droppoint">
                     <h1 class="page-title"><?php echo esc_html($title); ?></h1>
                     <div id="rrze-tos">
+                        <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Endpoint content is generated from plugin templates and contains required consent data attributes. ?>
                         <?php echo $content; ?>
                     </div>
                 </main>

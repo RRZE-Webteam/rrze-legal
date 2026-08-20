@@ -26,9 +26,9 @@
     --rrze-legal-wcag-contact-form-color-submit-hover: #004b86;
     --rrze-legal-wcag-contact-form-color-submit-text: #fff;
     --rrze-legal-wcag-contact-form-font-size-hint: 0.95rem;
-    --rrze-legal-cookie-preference-button-color-background: #005ea8;
-    --rrze-legal-cookie-preference-button-color-background-hover: #004b86;
-    --rrze-legal-cookie-preference-button-color-text: #fff;
+    --rrze-legal-cookie-preference-button-color-background: var(--color-button-bg, var(--color-ci-green, #005ea8)); 
+    --rrze-legal-cookie-preference-button-color-background-hover: var(--color-button-hover-bg, var(--color-ci-green-55,#004b86)); 
+    --rrze-legal-cookie-preference-button-color-text: var(--color-button-text, #000);
     --rrze-legal-cookie-preference-button-color-focus-shadow: rgba(0, 94, 168, 0.28);
 
     --rrze-legal-content-blocker-color-surface: #efefef;

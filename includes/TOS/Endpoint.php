@@ -418,7 +418,7 @@ class Endpoint {
                 if ($urlSlug == $slug && $langCode != $lang) {
                     $redirectSlug = self::avalaibleI18nSlugs()[$langCode][$key];
                     $langSegment = $defaultLocale != $locale ? $langCode . '/' : '';
-                    wp_redirect(site_url($langSegment . $redirectSlug));
+                    wp_safe_redirect(site_url($langSegment . $redirectSlug));
                     exit;
                 }
                 if ($urlSlug == $slug && $langCode == $lang) {
