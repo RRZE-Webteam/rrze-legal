@@ -14,7 +14,7 @@ class Utils
      */
     public static function getSiteUrlHost()
     {
-        return parse_url(get_site_url(), PHP_URL_HOST);
+        return wp_parse_url(get_site_url(), PHP_URL_HOST);
     }
 
     /**
@@ -32,7 +32,7 @@ class Utils
      */
     public static function getSiteUrlPath()
     {
-        $path = parse_url(get_site_url(), PHP_URL_PATH);
+        $path = wp_parse_url(get_site_url(), PHP_URL_PATH);
         return $path ?: '/';
     }
 
@@ -81,7 +81,7 @@ class Utils
             if (is_string($field)) {
                 $tmp = [];
                 foreach ($data as $key => $row) {
-                    $tmp[$key] = $row[$field];
+                    $tmp[$key] = is_array($row) && array_key_exists($field, $row) ? $row[$field] : '';
                 }
                 $args[$n] = $tmp;
             }

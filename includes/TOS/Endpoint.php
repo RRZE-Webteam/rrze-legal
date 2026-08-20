@@ -5,14 +5,17 @@ namespace RRZE\Legal\TOS;
 defined('ABSPATH') || exit;
 
 use RRZE\Legal\{Locale, Template};
-use function RRZE\Legal\{plugin, tos};
+use function RRZE\Legal\{plugin, tos, consentCookies};
 
 class Endpoint {
+    protected static array $currentEndpointRequestData = [];
+
     /**
      * Class constructor.
      */
     public function __construct()  {
         add_action('init', [__CLASS__, 'addEndpoint']);
+        add_filter('request', [__CLASS__, 'manualPageRequest'], 0);
         add_action('template_redirect', [__CLASS__, 'endpointTemplateRedirect']);
     }
 
@@ -56,55 +59,38 @@ class Endpoint {
         }
     }
 
-    public static function endpointTemplateRedirect()  {
-        $pagePath = '';
-        $title = '';
-        $prefix = '';
-        $locale = Locale::getLocale();
-        $defaultLocale = Locale::getDefaultLocale();
-        $langCode = Locale::getLangCode();
-
-        global $wp;
-        $url = site_url($wp->request);
-        $segments = explode('/', $url);
-        $urlSlug = $segments[array_key_last($segments)];
-
-        foreach (self::avalaibleI18nSlugs() as $lang => $slugs) {
-            foreach ($slugs as $key => $slug) {
-                if ($urlSlug == $slug && $langCode != $lang) {
-                    $r = self::avalaibleI18nSlugs()[$langCode][$key];
-                    $langSegment = $defaultLocale != $locale ? $langCode . '/' : '';
-                    wp_redirect(site_url($langSegment . $r));
-                    exit;
-                } elseif ($urlSlug == $slug && $langCode == $lang) {
-                    $pagePath = $slug;
-                    $title = self::slugsTitles()[$key];
-                    $prefix = self::defaultSlugs()[$key];
-                    break 2;
-                }
-            }
+    public static function manualPageRequest(array $queryVars): array {
+        $requestData = self::getRootEndpointRequestData();
+        if (empty($requestData)) {
+            return $queryVars;
         }
 
-        if (!$pagePath || !$title || !$prefix) {
+        $page = self::getAllowedManualPage($requestData['endpoint'], $requestData['page_path']);
+        if (!($page instanceof \WP_Post)) {
+            return $queryVars;
+        }
+
+        return [
+            'page_id' => $page->ID,
+        ];
+    }
+
+    public static function endpointTemplateRedirect()  {
+        $langCode = Locale::getLangCode();
+        $requestData = self::getRootEndpointRequestData();
+
+        if (empty($requestData)) {
             return;
         }
 
-        add_filter('pre_get_document_title', fn () => ($title));
-
-        if (tos()->overwriteEndpoints()) {
-            $page = get_page_by_path($pagePath);
-            if (!is_null($page) && $page->post_status == 'publish') {
-                // Replaces double line breaks with paragraph elements
-                $content = wpautop($page->post_content);
-                // Search content for shortcodes and filter shortcodes through their hooks
-                // Shortcodes inside HTML elements will be skipped
-                $content = do_shortcode($content);
-                // Render the page with the content
-                $template = plugin()->getPath(Template::THEMES_PATH) . Template::getThemeFilename();
-                include($template);
-                exit;
-            }
+        if (self::getAllowedManualPage($requestData['endpoint'], $requestData['page_path']) instanceof \WP_Post) {
+            return;
         }
+
+        self::$currentEndpointRequestData = $requestData;
+        add_action('admin_bar_menu', [__CLASS__, 'adminBarEditLink'], 80);
+        add_filter('pre_get_document_title', [__CLASS__, 'documentTitle']);
+
         // Get the options
         $options = tos()->getOptions();
         // Adjustments
@@ -151,9 +137,9 @@ class Endpoint {
         self::setContactForm($options);
 
         // Get the parent template
-        $template = plugin()->getPath(Template::TOS_PATH) . $prefix . '-' . $langCode . '.html';
+        $template = plugin()->getPath(Template::TOS_PATH) . $requestData['endpoint'] . '-' . $langCode . '.html';
         if (!is_readable($template)) {
-            $template = plugin()->getPath(Template::TOS_PATH) . $prefix . '-en.html';
+            $template = plugin()->getPath(Template::TOS_PATH) . $requestData['endpoint'] . '-en.html';
         }
         if (!is_readable($template)) {
             self::error404();
@@ -173,28 +159,29 @@ class Endpoint {
                 }
             }
         }
-        // Includes service providers templates
+        self::setPrivacyTechnicalServices($options);
+        // Includes service providers.
         $options['privacy_external_service_providers'] = '';
         $options['service_providers_template'] = [];
+        $consentCookiesOptions = consentCookies()->getOptions();
         foreach (tos()->getServiceProvidersStatus() as $key => $value) {
-            if ($value) {
-                $tpl = plugin()->getPath(Template::TOS_PATH) .
-                    sprintf('service-providers/%1$s-cookie-%2$s.html', str_replace('_', '-', $key), $langCode);
-                if (!is_readable($tpl)) {
-                    $tpl = plugin()->getPath(Template::TOS_PATH) .
-                        sprintf('service-providers/%s-cookie-en.html', str_replace('_', '-', $key));
-                }
-                if (is_readable($tpl)) {
-                    $options['service_providers_template'][$key] = is_readable($tpl) ? self::getContent($tpl) : '';
-                }
+            if (empty($value) || empty($consentCookiesOptions[$key])) {
+                continue;
             }
+            if (
+                consentCookies()->hasPluginDependency($consentCookiesOptions[$key]) &&
+                !consentCookies()->isPluginDependencyActive($consentCookiesOptions[$key])
+            ) {
+                continue;
+            }
+            $options['service_providers_template'][$key] = self::getServiceProviderContent($key, $consentCookiesOptions[$key], $langCode);
         }
         if (!empty($options['service_providers_template'])) {
             $options['privacy_external_service_providers'] = '1';
         }
         // Includes other child templates
        
-        $default_active_subtemplates = ['imprint-representation', 'imprint-id-numbers', 'imprint-supervisory-authority', 'imprint-it-security', 'imprint-whistleblower-system', 'privacy-dpo', 'privacy-rights-data-subject'];
+        $default_active_subtemplates = ['imprint-representation', 'imprint-id-numbers', 'imprint-supervisory-authority', 'imprint-it-security', 'imprint-whistleblower-system', 'privacy-controller', 'privacy-dpo', 'privacy-general-rightsdata', 'privacy-supervisory-authority', 'privacy-general', 'privacy-technical-server', 'privacy-technical-cookies', 'privacy-technical-javascript', 'privacy-technical-email', 'privacy-closingstatement', 'accessibility-supervisory-authority'];
         
         foreach ($default_active_subtemplates as $_tpl) {
             $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-' . $langCode . '.html';
@@ -211,6 +198,9 @@ class Endpoint {
         // Search content for shortcodes and filter shortcodes through their hooks
         // Shortcodes inside HTML elements will be skipped
         $content = do_shortcode($content);
+        self::enqueueFrontendStyle();
+        $content = self::wrapEndpointContent($content);
+        $title = $requestData['title'] ?? '';
         // Render the page with the content
         $template = plugin()->getPath(Template::THEMES_PATH) . Template::getThemeFilename();
         if (!is_readable($template)) {
@@ -218,6 +208,271 @@ class Endpoint {
         }
         include($template);
         exit;
+    }
+
+    protected static function wrapEndpointContent(string $content): string
+    {
+        return '<div class="rrze-legal">' . $content . '</div>';
+    }
+
+    protected static function getServiceProviderContent(string $key, array $data, string $langCode): string
+    {
+        $name = wp_strip_all_tags((string) ($data['name'] ?? $key));
+        $id = sanitize_key((string) ($data['id'] ?? $key));
+        $text = self::getLocalizedServiceProviderText($data, $langCode);
+
+        $content = sprintf('<h3>%s</h3>', esc_html($name)) . "\n";
+        $content .= self::formatPlainTextParagraphs($text);
+        $content .= self::getServiceProviderCookieInformation($data, $langCode);
+        $content .= self::getServiceProviderConsentSwitch($id, $name, $langCode);
+
+        return $content;
+    }
+
+    protected static function setPrivacyTechnicalServices(array &$options): void
+    {
+        $templates = [
+            'privacy_technical_newsletter' => 'privacy_technical_newsletter_template',
+            'privacy_technical_contactforms' => 'privacy_technical_contactforms_template',
+            'privacy_technical_registrationforms' => 'privacy_technical_registrationforms_template',
+        ];
+
+        $options['privacy_technical_services'] = '';
+        foreach ($templates as $flag => $template) {
+            $options[$flag] = '';
+            if (trim((string) ($options[$template] ?? '')) !== '') {
+                $options[$flag] = '1';
+                $options['privacy_technical_services'] = '1';
+            }
+        }
+    }
+
+    protected static function getLocalizedServiceProviderText(array $data, string $langCode): string
+    {
+        $primaryKey = $langCode === 'de' ? 'privacy_text_de' : 'privacy_text_en';
+        $fallbackKey = $langCode === 'de' ? 'privacy_text_en' : 'privacy_text_de';
+        $text = (string) ($data[$primaryKey] ?? '');
+        if ($text === '') {
+            $text = (string) ($data[$fallbackKey] ?? '');
+        }
+        if ($text === '') {
+            $text = (string) ($data['purpose'] ?? '');
+        }
+        return $text;
+    }
+
+    protected static function formatPlainTextParagraphs(string $text): string
+    {
+        $text = force_balance_tags(wp_kses($text, wp_kses_allowed_html('post')));
+        $text = str_replace(["\r\n", "\r"], "\n", trim($text));
+        if ($text === '') {
+            return '';
+        }
+
+        return wpautop($text);
+    }
+
+    protected static function getServiceProviderCookieInformation(array $data, string $langCode): string
+    {
+        $labels = self::getServiceProviderLabels($langCode);
+        $cookieName = trim((string) ($data['cookie_name'] ?? ''));
+        $cookieExpiry = trim((string) ($data['cookie_expiry'] ?? ''));
+        $items = [
+            $labels['provider'] => esc_html((string) ($data['provider'] ?? '')),
+            $labels['privacy_policy_url'] => self::formatServiceProviderPrivacyUrl($data['privacy_policy_url'] ?? ''),
+            $labels['hosts'] => self::formatServiceProviderList($data['hosts'] ?? ''),
+        ];
+        if ($cookieName === '' && $cookieExpiry === '') {
+            $items[$labels['cookie_name']] = esc_html($labels['no_cookies']);
+        } else {
+            $items[$labels['cookie_name']] = esc_html($cookieName);
+            $items[$labels['cookie_expiry']] = esc_html($cookieExpiry);
+        }
+
+        $content = "\n" . sprintf('<h4>%s</h4>', esc_html($labels['cookie_information'])) . "\n";
+        $content .= '<table class="rrze-legal-service-provider-cookie-information">' . "\n<tbody>\n";
+        foreach ($items as $label => $value) {
+            $value = trim((string) $value);
+            if ($value === '') {
+                continue;
+            }
+            $content .= sprintf(
+                '<tr><th scope="row">%1$s</th><td>%2$s</td></tr>',
+                esc_html($label),
+                $value
+            ) . "\n";
+        }
+        $content .= "</tbody>\n</table>\n";
+
+        return $content;
+    }
+
+    protected static function formatServiceProviderPrivacyUrl(string $url): string
+    {
+        $url = trim($url);
+        if ($url === '') {
+            return '';
+        }
+        return sprintf(
+            '<a href="%1$s" rel="noopener noreferrer">%2$s</a>',
+            esc_url($url),
+            esc_html($url)
+        );
+    }
+
+    protected static function formatServiceProviderList($value): string
+    {
+        if (is_array($value)) {
+            $items = $value;
+        } else {
+            $items = preg_split('/[\r\n,]+/', (string) $value);
+        }
+
+        $items = array_map('trim', $items);
+        $items = array_filter($items);
+        $items = array_map('esc_html', $items);
+
+        return implode(', ', $items);
+    }
+
+    protected static function getServiceProviderConsentSwitch(string $id, string $name, string $langCode): string
+    {
+        $text = __('You can change your consent at any time using the following option.', 'rrze-legal');
+
+        return sprintf(
+            "<h4>%1\$s</h4>\n<p>%2\$s</p>\n[rrzelegal_consent type=\"switch-consent\" id=\"%3\$s\" label=\"%4\$s\"]\n",
+            esc_html__('Objection and removal option', 'rrze-legal'),
+            esc_html($text),
+            esc_attr($id),
+            esc_attr($name)
+        );
+    }
+
+    protected static function getServiceProviderLabels(string $langCode): array
+    {
+        if ($langCode === 'de') {
+            return [
+                'cookie_information' => __('Cookie-Informationen', 'rrze-legal'),
+                'provider' => __('Provider', 'rrze-legal'),
+                'privacy_policy_url' => __('Privacy policy', 'rrze-legal'),
+                'hosts' => __('Hosts', 'rrze-legal'),
+                'cookie_name' => __('Cookie-Name', 'rrze-legal'),
+                'cookie_expiry' => __('Cookie-Laufzeit', 'rrze-legal'),
+                'no_cookies' => __('No cookies', 'rrze-legal'),
+            ];
+        }
+
+        return [
+            'cookie_information' => __('Cookie information', 'rrze-legal'),
+            'provider' => __('Provider', 'rrze-legal'),
+            'privacy_policy_url' => __('Privacy policy', 'rrze-legal'),
+            'hosts' => __('Hosts', 'rrze-legal'),
+            'cookie_name' => __('Cookie name', 'rrze-legal'),
+            'cookie_expiry' => __('Cookie expiry', 'rrze-legal'),
+            'no_cookies' => __('No cookies', 'rrze-legal'),
+        ];
+    }
+
+    public static function adminBarEditLink(\WP_Admin_Bar $wpAdminBar): void {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+        if (empty(self::$currentEndpointRequestData['endpoint'])) {
+            return;
+        }
+
+        $endpoint = self::$currentEndpointRequestData['endpoint'];
+        $href = add_query_arg(
+            [
+                'page' => 'legal',
+                'current-tab' => tos()->getPagePrefix() . $endpoint,
+            ],
+            admin_url('admin.php')
+        );
+
+        $wpAdminBar->add_node(
+            [
+                'id' => 'edit',
+                'title' => __('Edit', 'rrze-legal'),
+                'href' => $href,
+                'meta' => [
+                    'title' => __('Edit legal settings', 'rrze-legal'),
+                ],
+            ]
+        );
+    }
+
+    public static function documentTitle(): string {
+        $requestData = self::getRootEndpointRequestData();
+        return $requestData['title'] ?? '';
+    }
+
+    protected static function getRootEndpointRequestData(): array {
+        $locale = Locale::getLocale();
+        $defaultLocale = Locale::getDefaultLocale();
+        $langCode = Locale::getLangCode();
+        $urlSlug = self::getRootEndpointSlug();
+
+        foreach (self::avalaibleI18nSlugs() as $lang => $slugs) {
+            foreach ($slugs as $key => $slug) {
+                if ($urlSlug == $slug && $langCode != $lang) {
+                    $redirectSlug = self::avalaibleI18nSlugs()[$langCode][$key];
+                    $langSegment = $defaultLocale != $locale ? $langCode . '/' : '';
+                    wp_safe_redirect(site_url($langSegment . $redirectSlug));
+                    exit;
+                }
+                if ($urlSlug == $slug && $langCode == $lang) {
+                    return [
+                        'page_path' => $slug,
+                        'title' => self::slugsTitles()[$key],
+                        'endpoint' => self::defaultSlugs()[$key],
+                    ];
+                }
+            }
+        }
+
+        return [];
+    }
+
+    protected static function getRootEndpointSlug(): string {
+        global $wp;
+
+        $request = isset($wp->request) ? trim((string) $wp->request, '/') : '';
+        if ($request === '') {
+            return '';
+        }
+
+        $segments = explode('/', $request);
+        if (count($segments) === 1) {
+            return $segments[0];
+        }
+
+        $locale = Locale::getLocale();
+        $defaultLocale = Locale::getDefaultLocale();
+        $langCode = Locale::getLangCode();
+
+        if ($defaultLocale !== $locale && count($segments) === 2 && $segments[0] === $langCode) {
+            return $segments[1];
+        }
+
+        return '';
+    }
+
+    protected static function getAllowedManualPage(string $endpoint, string $pagePath): ?\WP_Post {
+        if (!tos()->isManualPageAllowed($endpoint)) {
+            return null;
+        }
+
+        $page = get_page_by_path($pagePath, OBJECT, 'page');
+        if (!($page instanceof \WP_Post)) {
+            return null;
+        }
+
+        if ($page->post_status !== 'publish') {
+            return null;
+        }
+
+        return $page;
     }
 
     protected static function setContactForm(&$options)  {
@@ -327,6 +582,18 @@ class Endpoint {
         $content = Template::getContent($template, $options);
         $content = preg_replace('/(^|[^\n\r])[\r\n](?![\n\r])/', '$1 ', $content);
         return $content;
+    }
+
+    protected static function enqueueFrontendStyle(): void
+    {
+        $handle = 'rrze-legal-frontend';
+
+        wp_enqueue_style(
+            $handle,
+            plugin()->getUrl('build') . 'rrze-legal.css',
+            [],
+            plugin()->getVersion()
+        );
     }
 
     protected static function error404()

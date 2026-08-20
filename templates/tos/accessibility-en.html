@@ -23,7 +23,7 @@
 <table>
     {{accessibility_compliance_method_label}}
     <tr>
-        <th>Methology:</th>
+        <th>Methodology:</th>
         <td>{{=accessibility_compliance_method_label}}</td>
     </tr>
     {{/accessibility_compliance_method_label}}
@@ -77,6 +77,7 @@
 </p>
 
 <h3>Contact Person</h3>
+<div class="rrze-legal-contactinfos">
 {{accessibility_feedback_contact_person}}
 <p>{{=accessibility_feedback_contact_person}}</p>
 {{/accessibility_feedback_contact_person}}
@@ -93,51 +94,15 @@
         {{=accessibility_feedback_contact_phone}}</li>
     {{/accessibility_feedback_contact_phone}}
     {{accessibility_feedback_contact_email}}
-    <li class="person-info-email"><span>EMail:</span> <a
+    <li class="person-info-email"><span>Email:</span> <a
             href="mailto:{{=accessibility_feedback_contact_email}}">{{=accessibility_feedback_contact_email}}</a></li>
     {{/accessibility_feedback_contact_email}}
 </ul>
+</div>
 
 {{accessibility_contact_form}}
 <h3 id="contact-form">Contact form</h3>
 {{=accessibility_contact_form}}
 {{/accessibility_contact_form}}
 
-<h2>Enforcement procedures</h2>
-<p>
-    If a request via the contact option remains wholly or partially unanswered within six weeks, the competent
-    supervisory authority shall examine, at the request of the user, whether measures are necessary in the context of
-    monitoring vis-à-vis the obligated party.
-</p>
-<p>Contact information of the enforcement oversight body:</p>
-
-<p>{{=accessibility_supervisory_authority_name}}</p>
-<address>
-    {{accessibility_supervisory_authority_postal_co}}{{=accessibility_supervisory_authority_postal_co}}<br>{{/accessibility_supervisory_authority_postal_co}}
-    
-    {{accessibility_supervisory_authority_postal_street}}
-    {{=accessibility_supervisory_authority_postal_street}}<br>
-    {{/accessibility_supervisory_authority_postal_street}}
-    {{accessibility_supervisory_authority_postal_city}}
-    {{=accessibility_supervisory_authority_postal_code}}
-    {{=accessibility_supervisory_authority_postal_city}}
-    {{/accessibility_supervisory_authority_postal_city}}
-</address>
-
-<ul>
-    {{accessibility_supervisory_authority_phone}}
-    <li><span>Phone:</span> <a href="tel:{{=accessibility_supervisory_authority_phone}}">{{=accessibility_supervisory_authority_phone}}</a></li>
-    {{/accessibility_supervisory_authority_phone}}
-    {{accessibility_supervisory_authority_fax}}
-    <li><span>Fax:</span> {{=accessibility_supervisory_authority_fax}}</li>
-    {{/accessibility_supervisory_authority_fax}}
-    {{accessibility_supervisory_authority_email}}
-    <li><span>EMail:</span> <a href="mailto:{{=accessibility_supervisory_authority_email}}">{{=accessibility_supervisory_authority_email}}</a></li>
-    {{/accessibility_supervisory_authority_email}}
-    {{accessibility_supervisory_authority_url}}
-    <li><span>URL:</span> <a href="{{=accessibility_supervisory_authority_url}}">{{=accessibility_supervisory_authority_url}}</a></li>
-    {{/accessibility_supervisory_authority_url}}
-</ul>
-
-
-
+{{=accessibility_supervisory_authority_template}}

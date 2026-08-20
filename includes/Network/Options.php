@@ -4,11 +4,13 @@ namespace RRZE\Legal\Network;
 
 defined('ABSPATH') || exit;
 
-use RRZE\Legal\Settings;
-use function RRZE\Legal\plugin;
+use RRZE\Legal\{Settings, Utils};
+use function RRZE\Legal\{plugin, fauDomains};
 
 class Options extends Settings
 {
+    protected bool $hasValidationError = false;
+
     public function __construct()
     {
         parent::__construct();
@@ -32,6 +34,8 @@ class Options extends Settings
         $this->optionsPage = (object) $this->settings['options_page']['page'];
         $this->optionsMenu = (object) $this->settings['options_page']['menu'];
         $this->sections = (object) $this->settings['settings']['sections'];
+        $this->normalizeNetworkBannerSettings();
+        $this->setNetworkMenuParent();
 
         $this->setFields();
         $this->setOptions();
@@ -51,6 +55,150 @@ class Options extends Settings
 
         add_action('network_admin_edit_rrze-legal-network-action', [$this, 'save']);
         add_action('network_admin_notices', [$this, 'adminNotices']);
+    }
+
+    protected function setNetworkMenuParent()
+    {
+        if (Utils::isPluginActiveForNetwork('rrze-settings/rrze-settings.php')) {
+            $this->optionsParent->slug = 'rrze-settings';
+        }
+    }
+
+    protected function getNetworkMenuBaseUrl(): string
+    {
+        if ($this->optionsParent->slug === 'settings.php') {
+            return network_admin_url('settings.php');
+        }
+
+        return network_admin_url('admin.php');
+    }
+
+    protected function normalizeNetworkBannerSettings(): void {
+        $sections = (array) $this->sections;
+        foreach ($sections as $sectionKey => $section) {
+            if (($section['id'] ?? '') !== 'network_banner' || empty($section['subsections'])) {
+                continue;
+            }
+
+            $sections[$sectionKey]['subsections'] = $this->normalizeNetworkBannerSubsections(
+                (array) $section['subsections']
+            );
+        }
+        $this->sections = (object) $sections;
+        $this->settings['settings']['sections'] = $sections;
+    }
+
+    protected function normalizeNetworkBannerSubsections(array $subsections): array {
+        $knownClientFields = [];
+        $knownClientNames = [
+            'cookies_for_bots',
+            'cookies_for_ip_addresses',
+            'cookies_for_user_agents',
+        ];
+
+        foreach ($subsections as $subsectionKey => $subsection) {
+            if (empty($subsection['fields']) || !is_array($subsection['fields'])) {
+                continue;
+            }
+
+            foreach ($subsection['fields'] as $fieldKey => $field) {
+                $name = $field['name'] ?? '';
+                if (!in_array($name, $knownClientNames, true)) {
+                    continue;
+                }
+
+                unset($subsections[$subsectionKey]['fields'][$fieldKey]);
+                $knownClientFields[$name] = $this->normalizeKnownClientField($field);
+            }
+
+            $subsections[$subsectionKey]['fields'] = array_values($subsections[$subsectionKey]['fields']);
+        }
+
+        if (empty($knownClientFields)) {
+            return $subsections;
+        }
+
+        $knownClientsSubsection = [
+            'id' => 'known_clients',
+            'title' => __('Consent for Known IP Addresses and Crawlers/Clients', 'rrze-legal'),
+            'description' => '',
+            'fields' => array_values(array_filter([
+                $knownClientFields['cookies_for_bots'] ?? null,
+                $knownClientFields['cookies_for_ip_addresses'] ?? null,
+                $knownClientFields['cookies_for_user_agents'] ?? null,
+            ])),
+        ];
+
+        $normalized = [];
+        foreach ($subsections as $subsection) {
+            if (($subsection['id'] ?? '') === 'known_clients') {
+                continue;
+            }
+
+            $normalized[] = $subsection;
+            if (($subsection['id'] ?? '') === 'general') {
+                $normalized[] = $knownClientsSubsection;
+            }
+        }
+
+        return $normalized;
+    }
+
+    protected function normalizeKnownClientField(array $field): array {
+        if (($field['name'] ?? '') === 'cookies_for_bots') {
+            $field['label'] = __('Consent Approval', 'rrze-legal');
+        } elseif (($field['name'] ?? '') === 'cookies_for_ip_addresses') {
+            $field['label'] = __('IP Addresses', 'rrze-legal');
+        } elseif (($field['name'] ?? '') === 'cookies_for_user_agents') {
+            $field['label'] = __('User-Agent Strings', 'rrze-legal');
+        }
+
+        return $field;
+    }
+
+    public function isOverwriteEndpointsEnabled(): bool
+    {
+        $options = (array) get_site_option($this->optionName);
+        if (!array_key_exists('network_general_overwrite_endpoints', $options)) {
+            return true;
+        }
+
+        return (bool) $options['network_general_overwrite_endpoints'];
+    }
+
+    public function getOrganizationDomainFields(): array {
+        $fields = [];
+        foreach ($this->getOrganizations() as $key => $label) {
+            $fields[] = [
+                'name' => $key . '_domains',
+                'label' => $label,
+                'description' => __('Domain names or unique domain parts assigned to this organization. Enter one entry per line.', 'rrze-legal'),
+                'type' => 'textarea',
+                'default' => $key === 'fau' ? implode(PHP_EOL, fauDomains()) : '',
+                'sanitize_callback' => [$this, 'sanitizeTextareaList'],
+            ];
+        }
+        return $fields;
+    }
+
+    protected function getOrganizations(): array {
+        $filePath = plugin()->getPath() . 'data/tos.php';
+        if (!is_readable($filePath)) {
+            return [];
+        }
+
+        include $filePath;
+        $items = $data['items'] ?? [];
+        if (empty($items) || !is_array($items)) {
+            return [];
+        }
+
+        $organizations = [];
+        foreach ($items as $key => $item) {
+            $name = $item['name'] ?? $key;
+            $organizations[$key] = is_string($name) && $name !== '' ? $name : $key;
+        }
+        return $organizations;
     }
 
     /**
@@ -121,7 +269,9 @@ class Options extends Settings
         check_admin_referer('rrze-legal-network', 'rrze-legal-network-nonce');
         $postOptions = (array) $_POST[$this->optionName] ?? [];
         $options = $this->sanitizeOptions($postOptions);
-        update_site_option($this->optionName, $options);
+        if (!$this->hasValidationError) {
+            update_site_option($this->optionName, $options);
+        }
         $queryArgs['page'] = 'rrze-legal-network-action';
         if (count($this->allTabs) > 1) {
             $queryArgs['current-tab'] = $this->currentTab;
@@ -131,18 +281,31 @@ class Options extends Settings
             'current-tab' => $this->currentTab,
             'updated' => true
         ];
+        if ($this->hasValidationError) {
+            unset($queryArgs['updated']);
+            $queryArgs['settings-error'] = 'duplicate_organization_domains';
+        }
         if (count($this->allTabs) < 2) {
             unset($queryArgs['current-tab']);
         }
-        wp_redirect(add_query_arg(
+        wp_safe_redirect(add_query_arg(
             $queryArgs,
-            network_admin_url('settings.php')
+            $this->getNetworkMenuBaseUrl()
         ));
         exit;
     }
 
     public function adminNotices()
     {
+        if (isset($_GET['page']) && $_GET['page'] == $this->optionsMenu->slug && isset($_GET['settings-error']) && $_GET['settings-error'] === 'duplicate_organization_domains') {
+            echo '<div id="message" class="notice notice-error is-dismissible"><p>',
+            esc_html(__('The settings were not saved. A domain name or domain part may only be assigned to one organization.', 'rrze-legal')),
+            '</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">',
+            esc_html(__('Dismiss this notice.', 'rrze-legal')),
+            '</span></button></div>';
+            return;
+        }
+
         if (isset($_GET['page']) && $_GET['page'] == $this->optionsMenu->slug && isset($_GET['updated'])) {
             echo '<div id="message" class="updated notice is-dismissible"><p>',
             esc_html(__('Settings saved.', 'rrze-legal')),
@@ -154,11 +317,41 @@ class Options extends Settings
 
     protected function postSanitizeOptions($input, $hasError)
     {
+        if (!$hasError && $this->hasDuplicateOrganizationDomains()) {
+            $this->hasValidationError = true;
+            return $this->options;
+        }
         if (!$hasError && $this->options['network_banner_update_version']) {
             $this->updateCookieVersion();
             $this->options['network_banner_update_version'] = '0';
         }
         return $this->options;
+    }
+
+    protected function hasDuplicateOrganizationDomains(): bool {
+        $domains = [];
+        foreach (array_keys($this->getOrganizations()) as $key) {
+            $optionKey = 'network_general_' . $key . '_domains';
+            $value = (string) ($this->options[$optionKey] ?? '');
+            $rows = explode(PHP_EOL, $value);
+            foreach ($rows as $row) {
+                $domain = $this->normalizeDomainAssignment($row);
+                if ($domain === '') {
+                    continue;
+                }
+                if (isset($domains[$domain]) && $domains[$domain] !== $key) {
+                    return true;
+                }
+                $domains[$domain] = $key;
+            }
+        }
+        return false;
+    }
+
+    protected function normalizeDomainAssignment(string $domain): string {
+        $domain = trim($domain);
+        $domain = trim($domain, ". \t\n\r\0\x0B");
+        return strtolower($domain);
     }
 
     /**
@@ -213,6 +406,47 @@ class Options extends Settings
     public function getCookieVersion()
     {
         return (int) get_site_option('rrze_legal_consent_cookie_version', 1);
+    }
+
+    public function sanitizePositiveInteger($input): int {
+        $value = absint($input);
+        return $value > 0 ? $value : 1;
+    }
+
+    public function getTosNoticeWarningDays(): int {
+        return $this->getTosNoticeDays('tos_notice_warning_days', 7);
+    }
+
+    public function getTosNoticeErrorDays(): int {
+        return $this->getTosNoticeDays('tos_notice_error_days', 30);
+    }
+
+    public function getTosNoticeWarningText(): string {
+        return $this->getTosNoticeText(
+            'tos_notice_warning_text',
+            __('Continuing to leave the data unprocessed will result in a report to the CMS operator.', 'rrze-legal')
+        );
+    }
+
+    public function getTosNoticeErrorText(): string {
+        return $this->getTosNoticeText(
+            'tos_notice_error_text',
+            __('The CMS operator has been informed.', 'rrze-legal')
+        );
+    }
+
+    public function isTosNoticeAcknowledgementRequired(): bool {
+        return (bool) $this->getOption('network_general', 'tos_notice_require_acknowledgement', false);
+    }
+
+    protected function getTosNoticeDays(string $name, int $default): int {
+        $value = absint($this->getOption('network_general', $name, $default));
+        return $value > 0 ? $value : $default;
+    }
+
+    protected function getTosNoticeText(string $name, string $default): string {
+        $value = trim((string) $this->getOption('network_general', $name, $default));
+        return $value !== '' ? $value : $default;
     }
 
     public function updateCookieVersion()

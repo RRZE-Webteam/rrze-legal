@@ -10,10 +10,7 @@ defined('ABSPATH') || exit;
 
 
 get_header();
-if (is_plugin_active('rrze-elements/rrze-elements.php')) {
-    wp_enqueue_style('rrze-elements');
-    wp_enqueue_script('rrze-accordions');
-}
+
 
 ?>
 
@@ -24,10 +21,9 @@ if (is_plugin_active('rrze-elements/rrze-elements.php')) {
     </h1>
   </header>
 
+  <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Endpoint content is generated from plugin templates and contains required consent data attributes. ?>
   <?php echo $content; ?>
 </main>
 
 <?php
 get_footer();
-
-

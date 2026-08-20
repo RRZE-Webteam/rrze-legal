@@ -9,10 +9,7 @@ namespace RRZE\Legal;
 defined('ABSPATH') || exit;
 
 get_header();
-if (is_plugin_active('rrze-elements/rrze-elements.php')) {
-    wp_enqueue_style('rrze-elements');
-    wp_enqueue_script('rrze-accordions');
-}
+
 ?>
 <div id="content">
     <div class="container">
@@ -21,6 +18,7 @@ if (is_plugin_active('rrze-elements/rrze-elements.php')) {
                 <main id="droppoint">
                     <h1 class="page-title"><?php echo esc_html($title); ?></h1>
                     <div id="rrze-tos">
+                        <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Endpoint content is generated from plugin templates and contains required consent data attributes. ?>
                         <?php echo $content; ?>
                     </div>
                 </main>

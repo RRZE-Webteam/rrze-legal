@@ -80,7 +80,7 @@ class JavaScript {
 
         wp_enqueue_script(
             'rrze_legal_consent_banner',
-            plugins_url('build/banner.js', plugin()->getBasename()),
+            plugins_url('build/rrze-legal.js', plugin()->getBasename()),
             ['jquery-core'],
             plugin()->getVersion(),
             true
@@ -96,7 +96,6 @@ class JavaScript {
         $hideBannerOnUrls = array_merge($hideBannerOnUrls, $defaultHideBannerOnPages);
 
         $jsConfig = [
-            'ajaxURL' => admin_url('admin-ajax.php'),
             'animation' => false, //bannerAnimation
             'animationDelay' => false, //bannerAnimationDelay
             'animationIn' => '_rrzelegal-fadeInDown', //bannerAnimationIn
@@ -112,10 +111,8 @@ class JavaScript {
             'cookieLifetimeEssentialOnly' => consent()->getOption('banner', 'lifetime_essential_only'),
             'crossDomainCookie' => [],
             'cookieBeforeConsent' => false,
-            'cookiesForBots' => consent()->isCookieForBotsActive(),
             'cookieVersion' => $this->cookieVersion,
             'hideBannerOnUrls' => $hideBannerOnUrls,
-            'cookiesForIpAddresses' => consent()->hasCookiesForIpAddresses(),
             'respectDoNotTrack' => consent()->isRespectDoNotTrackActive(),
             'hasOnlyEssentialCookies' => consent()->hasOnlyEssentialCookies(),
             'reloadAfterConsent' => false,
@@ -177,7 +174,7 @@ class JavaScript {
         $jsCode = 'document.addEventListener("DOMContentLoaded", function (e) {';
         $jsCode .= "\n" . $this->getContentBlockerScriptsData() . "\n";
 
-        $jsCode .= <<<EOT
+        $jsCode .= '
         var RRZELegalInitCheck = function () {
     
             if (typeof window.RRZELegal === "object" && typeof window.jQuery === "function") {
@@ -193,7 +190,7 @@ class JavaScript {
         };
         
         RRZELegalInitCheck();
-EOT;
+';
         $jsCode .= '});';
 
         wp_add_inline_script('rrze_legal_consent_banner', $jsCode, 'after');
@@ -233,10 +230,12 @@ EOT;
 
             wp_register_script(
                 'rrze_legal_consent_banner_prioritize',
-                plugins_url('build/prioritize.js', plugin()->getBasename()),
+                false,
                 [],
-                plugin()->getVersion()
+                plugin()->getVersion(),
+                false
             );
+            wp_enqueue_script('rrze_legal_consent_banner_prioritize');
 
             wp_localize_script('rrze_legal_consent_banner_prioritize', 'rrzelegalCookiePrioritized', [
                 'domain' => consent()->getOption('banner', 'domain'),
@@ -245,7 +244,23 @@ EOT;
                 'bots' => consent()->isCookieForBotsActive(),
                 'optInJS' => $prioritizedCodes,
             ]);
+            wp_add_inline_script(
+                'rrze_legal_consent_banner_prioritize',
+                $this->getPrioritizeInlineScript(),
+                'after'
+            );
         }
+    }
+
+    protected function getPrioritizeInlineScript(): string
+    {
+        $scriptFile = plugin()->getPath('build') . 'rrze-legal-prioritize-inline.php';
+        if (!is_readable($scriptFile)) {
+            return '';
+        }
+
+        $script = include $scriptFile;
+        return is_string($script) ? $script : '';
     }
 
     /**
@@ -261,6 +276,7 @@ EOT;
         if (!empty($this->fallbackCode)) {
             foreach ($this->fallbackCode as $groupData) {
                 foreach ($groupData as $cookieFallbackCode) {
+                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Privileged administrators provide executable fallback code for consent-controlled services.
                     echo $cookieFallbackCode;
                 }
             }

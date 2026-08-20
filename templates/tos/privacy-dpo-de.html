@@ -1,19 +1,17 @@
 
 <h2>Name und Anschrift des Datenschutzbeauftragten</h2>
+<div class="rrze-legal-contactinfos">
 <p>
-{{=privacy_dpo_name}}
-{{privacy_dpo_person_name}}<br>{{=privacy_dpo_person_name}}{{/privacy_dpo_person_name}}
+{{=privacy_dpo_name}}<br>
+{{privacy_dpo_person_name}}{{=privacy_dpo_person_name}}{{/privacy_dpo_person_name}}
 </p>
 
-<h3>Postanschrift</h2>
 <address>
-    {{=privacy_dpo_name}}<br>
     {{privacy_dpo_postal_co}}{{=privacy_dpo_postal_co}}<br>{{/privacy_dpo_postal_co}}
     {{=privacy_dpo_postal_street}}<br>
     {{=privacy_dpo_postal_code}} {{=privacy_dpo_postal_city}}
 </address>
 
-<h3>Daten zur schnellen digitalen Kontaktaufnahme</h3>
 <ul>
     {{privacy_dpo_phone}}
     <li><span>Telefon:</span> <a href="tel:{{=privacy_dpo_phone}}">{{=privacy_dpo_phone}}</a></li>
@@ -25,3 +23,4 @@
     <li><span>E-Mail:</span> <a href="mailto:{{=privacy_dpo_email}}">{{=privacy_dpo_email}}</a></li>
     {{/privacy_dpo_email}}
 </ul>
+</div>

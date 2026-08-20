@@ -14,7 +14,11 @@ class Banner
         // Privacy policy link
         $privacyPolicyUrl = tos()->endpointUrl('privacy');
         $privacyPolicyLinkText = __('Privacy policy', 'rrze-legal');
-        $privacyPolicyLink = sprintf('<a href="%1$s" tabindex="0">%2$s</a>', $privacyPolicyUrl, $privacyPolicyLinkText);
+        $privacyPolicyLink = sprintf(
+            '<a href="%1$s" tabindex="0">%2$s</a>',
+            esc_url($privacyPolicyUrl),
+            esc_html($privacyPolicyLinkText)
+        );
 
         // Imprint link
         $imprintUrl = tos()->endpointUrl('imprint');
@@ -89,6 +93,7 @@ class Banner
         ob_start();
         include $bannerTemplateFile;
         $content = ob_get_clean();
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- This is the plugin-owned consent banner template rendered into a script template.
         echo $minifier->minify($content);
         echo '</script>';
 

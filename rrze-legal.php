@@ -2,17 +2,17 @@
 
 /*
 Plugin Name:        RRZE Legal
-Plugin URI:         https://gitlab.rrze.fau.de/rrze-webteam/rrze-legal
-Version:            2.8.10
+Plugin URI:         https://github.com/RRZE-Webteam/rrze-legal
+Version:            2.8.25
 Description:        Legal Mandatory Information & GDPR.
-Author:             RRZE Webteam
-Author URI:         https://www.rrze.fau.de
-License:            GNU General Public License Version 3
-License URI:        https://www.gnu.org/licenses/gpl-3.0.html
+Author:             RRZE-Webteam <webmaster@fau.de>
+Author URI:         https://www.wp.rrze.fau.de
+License:            GNU General Public License v3
+License URI:        http://www.gnu.org/licenses/gpl-3.0.html
 Text Domain:        rrze-legal
 Domain Path:        /languages
-Requires at least:  6.7
-Requires PHP:       8.2
+Requires at least:  6.9.4
+Requires PHP:       8.3
 */
 
 namespace RRZE\Legal;
@@ -270,8 +270,8 @@ function loaded()
                             /* translators: 1: The plugin name, 2: The error string. */
                             esc_html__('Plugins: %1$s: %2$s', 'rrze-legal') .
                             '</p></div>',
-                        $pluginName,
-                        $error
+                        esc_html($pluginName),
+                        esc_html($error)
                     );
                 });
             }

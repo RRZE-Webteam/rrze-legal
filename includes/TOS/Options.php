@@ -4,10 +4,9 @@ namespace RRZE\Legal\TOS;
 
 defined('ABSPATH') || exit;
 
-use RRZE\Legal\{Settings, Cache, Utils, Debug, Locale, Fields};
+use RRZE\Legal\{Settings, Cache, Utils, Locale, Fields};
 use RRZE\Legal\TOS\Endpoint;
 use function RRZE\Legal\{plugin, network, consent, consentCookies, fauDomains};
-// use RRZE\Legal\Debug;
 
 class Options extends Settings {
     private $isPluginActiveForNetwork;
@@ -51,7 +50,6 @@ class Options extends Settings {
         if ($this->optionName === '' || $this->settingsFilename === '') {
             return;
         }
-   //     Debug::log("loaded Settings, file: ".$this->settingsFilename);
         include_once(plugin()->getPath() . "settings/{$this->settingsFilename}.php");
         $this->settings = $settings ?? [];    
         $this->staticdata = $this->loadStaticData();
@@ -63,17 +61,21 @@ class Options extends Settings {
 
         $this->setFields();
         $this->setOptions();
-   //     $this->checkRequiredTOSData();
     }
 
 
     protected function postSanitizeOptions($input, $hasError) {
         if (!$hasError) {
+            $this->logTosSettingsChange();
             $serviceProviders = $this->options['privacy_service_providers'] ?? [];
             $consentCookiesOptionName = consentCookies()->getOptionName();
             $consentCookiesOptions = consentCookies()->getOptions();
             foreach ($consentCookiesOptions as $key => $value) {
-                if ($value['category'] === 'essential') {
+                if (($value['category'] ?? '') === 'essential') {
+                    continue;
+                }
+                if (consentCookies()->hasPluginDependency($value)) {
+                    $consentCookiesOptions[$key]['status'] = consentCookies()->isPluginDependencyActive($value) ? '1' : '0';
                     continue;
                 }
                 if (isset($serviceProviders[$key])) {
@@ -90,6 +92,54 @@ class Options extends Settings {
         return $this->options;
     }
 
+    protected function logTosSettingsChange(): void {
+        $sectionId = $this->getSubmittedSectionId();
+        if (!in_array($sectionId, ['imprint', 'privacy', 'accessibility'], true)) {
+            return;
+        }
+
+        $user = wp_get_current_user();
+        $userRole = is_multisite() && $user->exists() && is_super_admin($user->ID)
+            ? 'Superadmin'
+            : 'Site-Administrator';
+        $userLabel = $user->exists()
+            ? sprintf('%1$s %2$s (ID %3$d)', $userRole, $user->user_login, $user->ID)
+            : __('unknown user', 'rrze-legal');
+
+        do_action(
+            'rrze.log.info',
+            sprintf(
+                'RRZE Legal: %1$s changed the settings for the legal text "%2$s" (%3$s) on site %4$d.',
+                $userLabel,
+                $this->getTosSectionLogLabel($sectionId),
+                $sectionId,
+                get_current_blog_id()
+            )
+        );
+    }
+
+    protected function getSubmittedSectionId(): string {
+        $optionPage = sanitize_key((string) ($_POST['option_page'] ?? ''));
+        $prefix = sanitize_key($this->settingsPrefix);
+        if ($optionPage === '' || strpos($optionPage, $prefix) !== 0) {
+            return '';
+        }
+        return substr($optionPage, strlen($prefix));
+    }
+
+    protected function getTosSectionLogLabel(string $sectionId): string {
+        switch ($sectionId) {
+            case 'imprint':
+                return __('Imprint', 'rrze-legal');
+            case 'privacy':
+                return __('Privacy Policy', 'rrze-legal');
+            case 'accessibility':
+                return __('Accessibility Statement', 'rrze-legal');
+            default:
+                return $sectionId;
+        }
+    }
+
     /**
      * Display the admin sub menu page.
      * @return void
@@ -98,7 +148,6 @@ class Options extends Settings {
         // flush_rewrite_rules(false);
         wp_enqueue_style('rrze-legal-settings');
         wp_enqueue_script('rrze-legal-settings');
-        wp_enqueue_script('rrze-legal-tos-settings');
         echo '<div class="wrap">', PHP_EOL;
         $this->sectionsTabs();
         $this->settingsForm();
@@ -110,8 +159,11 @@ class Options extends Settings {
      * @return void
      */
     public function adminEnqueueTOSScripts()  {
-        wp_register_script('rrze-legal-tos-settings', plugins_url('build/tos.js', plugin()->getBasename()), ['jquery'], plugin()->getVersion());
-        wp_localize_script('rrze-legal-tos-settings', 'legalSettings', [ 'optionName' => $this->optionName ]);
+        wp_localize_script('rrze-legal-settings', 'legalSettings', [
+            'dateFormat' => __('yy-mm-dd', 'rrze-legal'),
+            'optionName' => $this->optionName,
+            'manualPages' => $this->getManualPageSettings(),
+        ]);
     }
 
     public function setFAUDpoSection()  {
@@ -137,6 +189,90 @@ class Options extends Settings {
             return (bool) network()->getOption('network_general', 'overwrite_endpoints');
         }
         return true;
+    }
+
+    public function canConfigureManualPages(): bool {
+        if (!is_multisite()) {
+            return true;
+        }
+
+        return $this->overwriteEndpoints();
+    }
+
+    public function isManualPageAllowed(string $endpoint): bool {
+        if (!$this->canConfigureManualPages()) {
+            return false;
+        }
+
+        return (bool) $this->getOption($endpoint, 'allow_manual_page');
+    }
+
+    public function hasPublishedManualPage(string $endpoint): bool {
+        $page = $this->getManualPage($endpoint);
+        if (!($page instanceof \WP_Post)) {
+            return false;
+        }
+
+        return $page->post_status === 'publish';
+    }
+
+    public function manualPageNotice(string $endpoint): string {
+        $page = $this->getManualPage($endpoint);
+        if (!($page instanceof \WP_Post)) {
+            return '';
+        }
+
+        $slugs = Endpoint::getSlugs();
+        $slug = $slugs[$endpoint] ?? '';
+        $editUrl = get_edit_post_link($page->ID, '');
+        $editLink = $editUrl ? sprintf(
+            '<a href="%1$s">%2$s</a>',
+            esc_url($editUrl),
+            esc_html__('Edit page', 'rrze-legal')
+        ) : '';
+
+        $statusMessage = $page->post_status === 'publish'
+            ? __('If "Allow manual page" is enabled, this page will be displayed instead of the generated page.', 'rrze-legal')
+            : __('This page only overrides the endpoint once it is published and "Allow manual page" is enabled.', 'rrze-legal');
+
+        $message = sprintf(
+            /* translators: 1: endpoint slug, 2: edit page link, 3: status message. */
+            __('A page with the slug %1$s exists. %3$s %2$s', 'rrze-legal'),
+            '<code>' . esc_html($slug) . '</code>',
+            $editLink,
+            esc_html($statusMessage)
+        );
+
+        return '<div class="notice notice-info inline rrze-legal-manual-page-notice"><p>' . $message . '</p></div>';
+    }
+
+    protected function getManualPage(string $endpoint): ?\WP_Post {
+        $slugs = Endpoint::getSlugs();
+        if (!isset($slugs[$endpoint])) {
+            return null;
+        }
+
+        $page = get_page_by_path($slugs[$endpoint], OBJECT, 'page');
+        if (!($page instanceof \WP_Post)) {
+            return null;
+        }
+
+        return $page;
+    }
+
+    public function isManualPageOverriding(string $endpoint): bool {
+        return $this->isManualPageAllowed($endpoint) && $this->hasPublishedManualPage($endpoint);
+    }
+
+    protected function getManualPageSettings(): array {
+        $settings = [];
+        foreach (array_keys(Endpoint::defaultSlugs()) as $endpoint) {
+            $settings[$endpoint] = [
+                'exists' => $this->hasPublishedManualPage($endpoint),
+                'overrides' => $this->isManualPageOverriding($endpoint),
+            ];
+        }
+        return $settings;
     }
 
     public function getFAUDomains() {
@@ -186,10 +322,25 @@ class Options extends Settings {
         $providers = [];
         $options = consentCookies()->getOptions();
         foreach ($options as $key => $value) {
-            $category = $value['category'] ?? '';
-            if ($category !== 'essential') {
-                $providers[$key] = $value['name'];
+            if (($value['category'] ?? '') === 'essential') {
+                continue;
             }
+            if (consentCookies()->hasPluginDependency($value)) {
+                if (!consentCookies()->isPluginDependencyActive($value)) {
+                    continue;
+                }
+                $providers[$key] = [
+                    'label' => $value['name'],
+                    'disabled' => true,
+                    'description' => sprintf(
+                        /* translators: %s: Plugin name. */
+                        __('Displayed automatically because the dependent plugin "%s" is active.', 'rrze-legal'),
+                        consentCookies()->getPluginDependencyName($value)
+                    ),
+                ];
+                continue;
+            }
+            $providers[$key] = $value['name'];
         }
         ksort($providers);
         return $providers;
@@ -199,8 +350,7 @@ class Options extends Settings {
         $default = [];
         $options = consentCookies()->getOptions();
         foreach ($options as $key => $value) {
-            $category = $value['category'] ?? '';
-            if ($category === 'essential') {
+            if (($value['category'] ?? '') === 'essential') {
                 continue;
             }
             $status = !empty($value['status']) ? '1' : '0';
@@ -223,6 +373,9 @@ class Options extends Settings {
         $options = $options !== false ? $options : [];
         $options = wp_parse_args($options, $defaults);
         $this->options = array_intersect_key($options, $defaults);
+        if (isset($this->fields['privacy_service_providers'])) {
+            $this->options['privacy_service_providers'] = $this->getServiceProvidersStatus();
+        }
         
  
         if ((isset($this->options['scope_context'])) && (!empty($this->options['scope_context']))) {
@@ -316,10 +469,14 @@ class Options extends Settings {
             }
             
             $readonly = $this->isReadonlySubsection($sectionId . '_' . $subsection['id']);
+            $manualPageOverridden = $subsection['id'] !== 'manual_page' && $this->isManualPageOverriding($sectionId);
             
             $startclass = "subsection subsection-".$sectionId . '_' . $subsection['id'];
             if ($readonly) {
                 $startclass .= " readonly";
+            }
+            if ($manualPageOverridden) {
+                $startclass .= " rrze-legal-manual-page-disabled";
             }
             
             
@@ -328,7 +485,6 @@ class Options extends Settings {
                   "after_section"   => '</div>',
                   "section_class" => "subsection-".$this->settingsPrefix . $sectionId . '_' . $subsection['id']
             );
-           //     Debug::log("addSubsections - add_settings_section: ".$this->settingsPrefix . $sectionId . '_' . $subsection['id']);
             add_settings_section(
                 $this->settingsPrefix . $sectionId . '_' . $subsection['id'],
                 !isset($subsection['hide_title']) || (bool) !$subsection['hide_title'] ? $subsection['title'] : '',
@@ -372,6 +528,8 @@ class Options extends Settings {
             $default = $option['default'] ?? '';
             $value = $this->getOption($sectionId, $name, $default);
             $required = isset($option['required']) ? (bool) $option['required'] : false;
+            $contentName = isset($option['content_name']) ? sanitize_key($option['content_name']) : '';
+            $contentDefault = $option['content_default'] ?? '';
 
             $atts = [
                 'name' => $name,
@@ -387,6 +545,7 @@ class Options extends Settings {
                 'value' => $value,
                 'size' => $option['size'] ?? '',
                 'height' => isset($option['height']) ? absint($option['height']) : 0,
+                'rows' => isset($option['rows']) ? absint($option['rows']) : 0,
                 'min' => $option['min'] ?? '',
                 'max' => $option['max'] ?? '',
                 'step' => $option['step'] ?? '',
@@ -395,6 +554,13 @@ class Options extends Settings {
                 'sanitize_callback' => $option['sanitize_callback'] ?? null,
                 'required' => $required,
                 'errors' => get_settings_errors($this->settingsPrefix . $section),
+                'notice' => $option['notice'] ?? '',
+                'content_name' => $contentName,
+                'content_label' => $option['content_label'] ?? '',
+                'content_description' => $option['content_description'] ?? '',
+                'content_value' => $contentName !== '' ? $this->getOption($sectionId, $contentName, $contentDefault) : '',
+                'content_height' => isset($option['content_height']) ? absint($option['content_height']) : 0,
+                'content_editor' => !empty($option['content_editor']),
             ];
 
             $atts = Fields::matchAtts($atts);
@@ -486,44 +652,134 @@ class Options extends Settings {
         return []; 
     }
     
-     public function checkRequiredTOSData() {
+    public function getRequiredDataIssues(): array {
+        $issues = [];
         $options = $this->options;
-        $errorlist = array();
-        $found = false;
-        Debug::log("checkRequiredTOSData ");
-         
-         
+
         foreach ($this->fields as $key => $field) {
-            $slug = explode('_', $key)[0];
+            $sectionId = explode('_', $key)[0];
+            if ($this->isManualPageOverriding($sectionId)) {
+                continue;
+            }
+
             $required = isset($field['required']) ? (bool) $field['required'] : false;
-            if ($options[$key] === '' && $required) {
-                $errorlist[] = $key;
-                $found = true;
-            }     
+            if (!$required) {
+                continue;
+            }
+
+            $value = isset($options[$key]) ? trim((string) $options[$key]) : '';
+            $reason = '';
+            if ($value === '') {
+                $reason = __('Required field is empty.', 'rrze-legal');
+            } elseif (($field['type'] ?? '') === 'email' && !is_email($value)) {
+                $reason = __('Required field does not contain a valid email address.', 'rrze-legal');
+            } elseif ($this->isPlaceholderDefaultValue($key, $field, $value)) {
+                $reason = __('Required field still contains an automatically set default value.', 'rrze-legal');
+            }
+
+            if ($reason === '') {
+                continue;
+            }
+
+            $issues[] = [
+                'section' => $sectionId,
+                'section_label' => $this->getSectionLabel($sectionId),
+                'field' => $key,
+                'field_label' => wp_strip_all_tags((string) ($field['label'] ?? $key)),
+                'reason' => $reason,
+                'edit_url' => $this->getRequiredDataIssueEditUrl($sectionId),
+            ];
         }
-        if ($found) {
-           if ((isset($options['error_timestamp'])) && (!empty($options['error_timestamp']))) {
-                //already set, do thing
-                    Debug::log("Error Timestamp already set; ".$options['error_timestamp']);
-               return;
 
-           } else {
-                $this->options['error_timestamp'] = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), current_time('timestamp') );
-                Debug::log("Set the Timestamp of error to ".$this->options['error_timestamp']);             
-                 update_option($this->optionName, $this->options);
-           }
-           
-        } elseif ((isset($options['error_timestamp'])) && (!empty($options['error_timestamp']))) {
-                    // remove existing entry
-                Debug::log("Remove Error Timestamp ");
-                $this->options['error_timestamp'] = "";
+        return $issues;
+    }
 
-              update_option($this->optionName, $this->options);
-                
-          
+    public function syncRequiredDataNoticeTimestamp(array $issues): int {
+        $optionName = $this->getRequiredDataNoticeTimestampOptionName();
+        if (empty($issues)) {
+            delete_option($optionName);
+            delete_option($this->getRequiredDataNoticeLogOptionName('warning'));
+            delete_option($this->getRequiredDataNoticeLogOptionName('error'));
+            return 0;
+        }
 
-         }
- 
+        $timestamp = (int) get_option($optionName, 0);
+        if ($timestamp <= 0) {
+            $timestamp = current_time('timestamp');
+            update_option($optionName, $timestamp, false);
+        }
+
+        return $timestamp;
+    }
+
+    public function hasRequiredDataNoticeTimestamp(): bool {
+        return $this->getRequiredDataNoticeTimestamp() > 0;
+    }
+
+    public function getRequiredDataNoticeTimestamp(): int {
+        return (int) get_option($this->getRequiredDataNoticeTimestampOptionName(), 0);
+    }
+
+    public function hasRequiredDataNoticeLog(string $level): bool {
+        return (bool) get_option($this->getRequiredDataNoticeLogOptionName($level), false);
+    }
+
+    public function markRequiredDataNoticeLog(string $level): void {
+        update_option($this->getRequiredDataNoticeLogOptionName($level), current_time('timestamp'), false);
+    }
+
+    public function formatRequiredDataNoticeTimestamp(int $timestamp): string {
+        if ($timestamp <= 0) {
+            return '';
+        }
+
+        return date_i18n(
+            get_option('date_format') . ' ' . get_option('time_format'),
+            $timestamp
+        );
+    }
+
+    protected function getRequiredDataNoticeTimestampOptionName(): string {
+        return $this->optionName . '_required_data_first_reported';
+    }
+
+    protected function getRequiredDataNoticeLogOptionName(string $level): string {
+        return $this->optionName . '_required_data_' . sanitize_key($level) . '_logged';
+    }
+
+    protected function isPlaceholderDefaultValue(string $key, array $field, string $value): bool {
+        $default = isset($field['default']) ? trim((string) $field['default']) : '';
+        if ($default === '' || $value !== $default) {
+            return false;
+        }
+
+        $placeholderDefaults = [
+            'imprint_responsible_person_organization' => $this->getSiteUrlHost(),
+            'imprint_webmaster_email' => get_option('admin_email'),
+            'accessibility_feedback_email' => get_option('admin_email'),
+        ];
+
+        return isset($placeholderDefaults[$key]) && $value === trim((string) $placeholderDefaults[$key]);
+    }
+
+    protected function getSectionLabel(string $sectionId): string {
+        foreach ((array) $this->sections as $section) {
+            if (($section['id'] ?? '') === $sectionId) {
+                return wp_strip_all_tags((string) ($section['title'] ?? $sectionId));
+            }
+        }
+
+        return $sectionId;
+    }
+
+    protected function getRequiredDataIssueEditUrl(string $sectionId): string {
+        return add_query_arg(
+            [
+                'page' => 'legal',
+                'current-tab' => $this->pagePrefix . str_replace('_', '-', $sectionId),
+            ],
+            admin_url('admin.php')
+        );
     }
     
     

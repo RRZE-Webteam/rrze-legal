@@ -9,10 +9,7 @@ namespace RRZE\Legal;
 defined('ABSPATH') || exit;
 
 get_header();
-if (is_plugin_active('rrze-elements/rrze-elements.php')) {
-    wp_enqueue_style('rrze-elements');
-    wp_enqueue_script('rrze-accordions');
-} ?>
+ ?>
 <div id="sidebar" class="sidebar">
     <?php get_sidebar('page'); ?>
 </div><!-- .sidebar -->
@@ -24,6 +21,7 @@ if (is_plugin_active('rrze-elements/rrze-elements.php')) {
             </header><!-- .entry-header -->
             <div class="entry-content">
                 <div class="rrze-tos">
+                    <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Endpoint content is generated from plugin templates and contains required consent data attributes. ?>
                     <?php echo $content; ?>
                 </div>
             </div><!-- .entry-content -->

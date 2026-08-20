@@ -4,8 +4,8 @@ namespace RRZE\Legal\Consent\Cookies;
 
 defined('ABSPATH') || exit;
 
-use RRZE\Legal\ListSettings;
-use function RRZE\Legal\{tos, consentCategories};
+use RRZE\Legal\{ListSettings, Locale, Utils};
+use function RRZE\Legal\{plugin, tos, consent, consentCategories};
 
 class Options extends ListSettings
 {
@@ -22,6 +22,38 @@ class Options extends ListSettings
         add_filter('rrze_legal_section_consent_edit_new_title', [$this, 'sectionTitle']);
     }
 
+    public function loaded()
+    {
+        parent::loaded();
+        $this->normalizeStoredItems();
+        $this->syncPluginDependentStatuses();
+    }
+
+    protected function normalizeStoredItems(): void {
+        if (!is_array($this->options)) {
+            $this->options = [];
+            update_option($this->optionName, $this->options);
+            return;
+        }
+
+        $changed = false;
+        foreach ($this->options as $key => $item) {
+            if (!is_array($item)) {
+                unset($this->options[$key]);
+                $changed = true;
+                continue;
+            }
+            if (empty($item['id'])) {
+                $this->options[$key]['id'] = (string) $key;
+                $changed = true;
+            }
+        }
+
+        if ($changed) {
+            update_option($this->optionName, $this->options);
+        }
+    }
+
     public function sectionTitle($title)
     {
         $page = $_GET['page'] ?? '';
@@ -29,23 +61,166 @@ class Options extends ListSettings
         $id = $_GET['id'] ?? '';
         if ($page == 'consent-cookies' && $action == 'consent-edit' && $id) {
             $title = __('Edit Consent Cookie', 'rrze-legal');
+            $items = get_option('rrze_legal_consent_cookies_' . Locale::getLangCode(), []);
+            $name = isset($items[$id]['name']) ? wp_strip_all_tags((string) $items[$id]['name']) : '';
+            $label = $name !== '' ? $name : $id;
+            $title = sprintf(
+                /* translators: 1: Consent cookie name, 2: Consent cookie ID. */
+                __('Edit Consent Cookie: %1$s (%2$s)', 'rrze-legal'),
+                $label,
+                $id
+            );
         }
         return $title;
+    }
+
+    public function sanitizeId($input)
+    {
+        return $this->validateId($input);
+    }
+
+    public function sanitizePosition($input)
+    {
+        return $this->validateIntRange($input, 1, 99);
+    }
+
+    public function sanitizeCookieExpiry($input)
+    {
+        $input = sanitize_text_field($input);
+        if ($input !== '' && preg_match('/^\d+$/', $input)) {
+            return '';
+        }
+        return $input;
+    }
+
+    public function sanitizePrivacyPolicyText($input): string {
+        $input = wp_kses((string) $input, wp_kses_allowed_html('post'));
+        return force_balance_tags($input);
+    }
+
+    public function technicalSectionToggle()
+    {
+        printf(
+            '<p><button type="button" class="button rrze-legal-consent-technical-toggle" aria-expanded="false">%s</button></p>',
+            esc_html__('Show technical information', 'rrze-legal')
+        );
+    }
+
+    public function pluginDependencyEditNotice(): void {
+        $page = sanitize_key((string) ($_GET['page'] ?? ''));
+        $action = sanitize_key((string) ($_GET['action'] ?? ''));
+        if ($page !== 'consent-cookies' || $action !== 'consent-edit') {
+            return;
+        }
+
+        $pluginSlug = trim((string) ($this->options['consent_cookies_plugin_slug'] ?? ''));
+        if ($pluginSlug === '' || $this->isPluginDependencyActive(['plugin_slug' => $pluginSlug])) {
+            return;
+        }
+
+        printf(
+            '<div class="notice notice-info inline rrze-legal-consent-plugin-notice"><p>%s</p></div>',
+            esc_html(
+                sprintf(
+                    /* translators: %s: Plugin slug. */
+                    __('The dependent plugin "%s" is currently not active. This consent cookie is therefore not displayed.', 'rrze-legal'),
+                    $pluginSlug
+                )
+            )
+        );
+    }
+
+    public function restrictedTechnicalFieldsCapability(): string {
+        if (Utils::isPluginActiveForNetwork(plugin()->getBaseName())) {
+            return 'manage_network_options';
+        }
+        return 'manage_options';
+    }
+
+    public function canEditRestrictedTechnicalFields(): bool {
+        return current_user_can($this->restrictedTechnicalFieldsCapability());
+    }
+
+    public function hasPluginDependency(array $item): bool {
+        return trim((string) ($item['plugin_slug'] ?? '')) !== '';
+    }
+
+    public function isPluginDependencyActive(array $item): bool {
+        $pluginSlug = trim((string) ($item['plugin_slug'] ?? ''));
+        if ($pluginSlug === '') {
+            return false;
+        }
+        return $this->isPluginActive($pluginSlug);
+    }
+
+    public function getPluginDependencyName(array $item): string {
+        $pluginSlug = trim((string) ($item['plugin_slug'] ?? ''));
+        if ($pluginSlug === '') {
+            return '';
+        }
+
+        $pluginFile = trailingslashit(WP_PLUGIN_DIR) . $pluginSlug;
+        if (!is_readable($pluginFile)) {
+            return $pluginSlug;
+        }
+
+        if (!function_exists('get_plugin_data')) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        $pluginData = get_plugin_data($pluginFile, false, false);
+        $pluginName = trim((string) ($pluginData['Name'] ?? ''));
+        return $pluginName !== '' ? $pluginName : $pluginSlug;
+    }
+
+    public function canToggleItem(array $item): bool {
+        if ($this->hasPluginDependency($item)) {
+            return false;
+        }
+        return ($item['category'] ?? '') !== 'essential';
+    }
+
+    protected function shouldUpdateCookieVersionForItemChange(array $oldItem = [], array $newItem = []): bool {
+        $oldCategory = (string) ($oldItem['category'] ?? '');
+        $newCategory = (string) ($newItem['category'] ?? '');
+
+        return (!empty($oldItem) && $oldCategory !== 'essential')
+            || (!empty($newItem) && $newCategory !== 'essential');
     }
 
     protected function postSanitizeOptions($input, $hasError)
     {
         if (!$hasError) {
+            $input = $this->setPluginDependentInputStatus($input);
             $tosOptionName = tos()->getOptionName();
             $tosOptions = tos()->getOptions();
             $cookieId = $input['consent_cookies_id'] ?? '';
             $cookieStatus = $input['consent_cookies_status'] ?? '';
             $cookieStatus = $cookieStatus ? '1' : '0';
-            if (!empty($tosOptions['privacy_service_providers'][$cookieId])) {
+            $cookieCategory = $input['consent_cookies_category'] ?? '';
+            if ($cookieId !== '' && $cookieCategory !== 'essential') {
                 $tosOptions['privacy_service_providers'][$cookieId] = $cookieStatus;
+                update_option($tosOptionName, $tosOptions);
+            } elseif ($cookieId !== '' && isset($tosOptions['privacy_service_providers'][$cookieId])) {
+                unset($tosOptions['privacy_service_providers'][$cookieId]);
                 update_option($tosOptionName, $tosOptions);
             }
         }
+        return $input;
+    }
+
+    protected function setPluginDependentInputStatus(array $input): array
+    {
+        $pluginSlug = trim((string) ($input['consent_cookies_plugin_slug'] ?? ''));
+        if ($pluginSlug === '') {
+            $id = sanitize_key((string) ($_POST['id'] ?? ($input['consent_cookies_id'] ?? '')));
+            $pluginSlug = trim((string) ($this->options[$id]['plugin_slug'] ?? ''));
+        }
+        if ($pluginSlug === '') {
+            return $input;
+        }
+
+        $input['consent_cookies_status'] = $this->isPluginActive($pluginSlug) ? '1' : '0';
         return $input;
     }
 
@@ -122,7 +297,7 @@ class Options extends ListSettings
                     'error'
                 );
                 $this->setSettingsErrors();
-                wp_redirect(add_query_arg(
+                wp_safe_redirect(add_query_arg(
                     [
                         'page' => 'consent-cookies',
                     ],
@@ -147,26 +322,36 @@ class Options extends ListSettings
         if ($optionPage != 'rrze_legal_consent_cookies') {
             return;
         }
+        if (!current_user_can($this->optionsMenu->capability)) {
+            wp_die(esc_html__('You do not have permission to edit consent cookies.', 'rrze-legal'));
+        }
         $page = $_POST['page'] ?? '';
         $editNonce = $_POST['consent-edit-nonce'] ?? '';
         $addNonce = $_POST['consent-add-nonce'] ?? '';
         $id = $_POST['id'] ?? '';
         $input = $_POST[$this->optionName] ?? '';
+        $input = is_array($input) ? $this->addGeneratedIdToInput($input, (string) $addNonce) : $input;
+        $input = is_array($input) ? $this->filterAllowedInputFields($input) : $input;
         $input = $this->sanitizeOptions($input);
         $this->addInputData($input);
+        $isEdit = wp_verify_nonce($editNonce, 'consent-cookies-consent-edit');
+        $isAdd = wp_verify_nonce($addNonce, 'consent-cookies-consent-add');
 
-        if (
-            wp_verify_nonce($editNonce, 'consent-cookies-consent-edit') &&
-            !$this->hasSettingsErrors()
-        ) {
+        if (!$isEdit && !$isAdd) {
+            return;
+        }
+
+        $updateCookieVersion = false;
+        if ($isEdit && !$this->hasSettingsErrors()) {
+            $oldItem = $this->options[$id] ?? [];
             $this->setInputData();
             foreach ($this->options[$id] as $key => $value) {
                 if (isset($input['consent_cookies_' . $key])) {
                     $this->options[$id][$key] = $input['consent_cookies_' . $key];
                 }
             }
-        } elseif (wp_verify_nonce($addNonce, 'consent-cookies-consent-add')) {
-            $this->setInputData();
+            $updateCookieVersion = $this->shouldUpdateCookieVersionForItemChange($oldItem, $this->options[$id]);
+        } elseif ($isAdd) {
             $id = $input['consent_cookies_id'];
             if (isset($this->options[$id])) {
                 $error = sprintf(
@@ -181,13 +366,17 @@ class Options extends ListSettings
                     $k = substr($key, strlen('consent_cookies_'));
                     $this->options[$id][$k] = $value;
                 }
+                $updateCookieVersion = $this->shouldUpdateCookieVersionForItemChange([], $this->options[$id]);
             }
-        } else {
-            return;
         }
 
         if (!$this->hasSettingsErrors()) {
+            $this->setInputData();
             update_option($this->optionName, $this->options);
+            if ($updateCookieVersion) {
+                consent()->updateCookieVersion();
+            }
+            $this->logConsentCookieChange($isEdit ? 'updated' : 'added', $id);
             $backToListUrl = add_query_arg(
                 [
                     'page' => $page,
@@ -198,12 +387,12 @@ class Options extends ListSettings
             $message = $editNonce ? __('Consent cookie updated.', 'rrze-legal') : __('Consent cookie added.', 'rrze-legal');
             $message .= sprintf(
                 '<p><a href="%1$s">%2$s</a></p>',
-                $backToListUrl,
+                esc_url($backToListUrl),
                 __('&larr; Go to consent cookies list', 'rrze-legal')
             );
-            $this->addSettingsError($message, 'success');
+            $this->addSettingsError($message, 'success', true);
             $this->setSettingsErrors();
-            wp_redirect(add_query_arg(
+            wp_safe_redirect(add_query_arg(
                 [
                     'page' => $page,
                     'action' => 'consent-edit',
@@ -216,11 +405,116 @@ class Options extends ListSettings
             $this->setSettingsErrors();
             $query = [
                 'page' => $page,
-                'action' => $editNonce ? 'consent-edit' : 'consent-add',
+                'action' => $isEdit ? 'consent-edit' : 'consent-add',
             ];
-            $query = isset($this->options[$id]) ? array_merge($query, ['id' => $id]) : $query;
-            wp_redirect(add_query_arg($query, admin_url('admin.php')));
+            if ($isEdit && $id !== '') {
+                $query['id'] = $id;
+            }
+            if ($isAdd) {
+                $this->setInputData();
+            }
+            wp_safe_redirect(add_query_arg($query, admin_url('admin.php')));
             exit;
+        }
+    }
+
+    protected function addGeneratedIdToInput(array $input, string $addNonce): array {
+        if (!wp_verify_nonce($addNonce, 'consent-cookies-consent-add')) {
+            return $input;
+        }
+
+        $idKey = 'consent_cookies_id';
+        $nameKey = 'consent_cookies_name';
+        if (trim((string) ($input[$idKey] ?? '')) !== '') {
+            return $input;
+        }
+
+        $name = trim((string) ($input[$nameKey] ?? ''));
+        if ($name === '') {
+            return $input;
+        }
+
+        $input[$idKey] = $this->generateUniqueIdFromName($name);
+        return $input;
+    }
+
+    protected function generateUniqueIdFromName(string $name): string {
+        $base = strtolower(remove_accents($name));
+        $base = preg_replace('/[^a-z\-_]+/', '_', $base);
+        $base = trim((string) $base, '_-');
+        if (strlen($base) < 3) {
+            $base = 'cookie';
+        }
+
+        $id = $base;
+        $index = 1;
+        while (isset($this->options[$id])) {
+            $id = $base . '_' . $this->numberToLetters($index);
+            $index++;
+        }
+
+        return $id;
+    }
+
+    protected function numberToLetters(int $number): string {
+        $letters = '';
+        do {
+            $remainder = $number % 26;
+            $letters = chr(97 + $remainder) . $letters;
+            $number = intdiv($number, 26) - 1;
+        } while ($number >= 0);
+
+        return $letters;
+    }
+
+    protected function filterAllowedInputFields(array $input): array
+    {
+        foreach (array_keys($input) as $key) {
+            if (!isset($this->fields[$key])) {
+                unset($input[$key]);
+            }
+        }
+        return $input;
+    }
+
+    protected function logConsentCookieChange(string $action, string $id, array $item = []): void
+    {
+        $user = wp_get_current_user();
+        $item = !empty($item) ? $item : ($this->options[$id] ?? []);
+        $name = wp_strip_all_tags((string) ($item['name'] ?? ''));
+        $name = $name !== '' ? $name : $id;
+        $userLabel = $user->exists()
+            ? sprintf('%1$s (ID %2$d)', $user->user_login, $user->ID)
+            : __('unknown user', 'rrze-legal');
+        $actionLabel = $this->getConsentCookieLogActionLabel($action);
+
+        do_action(
+            'rrze.log.info',
+            sprintf(
+                'RRZE Legal: Admin %1$s %5$s consent cookie "%2$s" (ID: %3$s) on site %4$d.',
+                $userLabel,
+                $name,
+                $id,
+                get_current_blog_id(),
+                $actionLabel
+            )
+        );
+    }
+
+    protected function getConsentCookieLogActionLabel(string $action): string
+    {
+        switch ($action) {
+            case 'added':
+                return 'created';
+            case 'enabled':
+                return 'enabled';
+            case 'disabled':
+                return 'disabled';
+            case 'deleted':
+                return 'deleted';
+            case 'updated':
+            default:
+                return 'updated';
         }
     }
 
@@ -250,18 +544,20 @@ class Options extends ListSettings
             admin_url('admin.php')
         );
         echo '<div class="wrap">',
-        '<h2>' . esc_html(get_admin_page_title()) . ' <a class="add-new-h2" href="' . esc_url($addUrl) . '">',
-        esc_html__('Add New', 'rrze-legal') . '</a></h2>';
+        '<h2>' . esc_html(get_admin_page_title());
+        echo ' <a class="add-new-h2" href="' . esc_url($addUrl) . '">',
+        esc_html__('Add New', 'rrze-legal') . '</a>';
+        echo '</h2>';
         $this->settingsErrors();
-        echo '<form method="get">',
-        '<input type="hidden" name="page" value="' . esc_attr($page) . '">',
-        $this->listTable->search_box(__('Search', 'rrze-legal'), $page),
-        '</form>',
-        '<form method="post">',
-        $this->listTable->views(),
-        $this->listTable->display(),
-        '</form>',
-        '</div>';
+        echo '<form method="get">';
+        echo '<input type="hidden" name="page" value="' . esc_attr($page) . '">';
+        $this->listTable->search_box(__('Search', 'rrze-legal'), $page);
+        echo '</form>';
+        echo '<form method="post">';
+        $this->listTable->views();
+        $this->listTable->display();
+        echo '</form>';
+        echo '</div>';
     }
 
     /**
@@ -271,10 +567,13 @@ class Options extends ListSettings
     {
         $data = [];
         foreach ($this->options as $key => $item) {
+            if (!is_array($item)) {
+                continue;
+            }
             if ($searchTerm !== '') {
                 if (
-                    stripos($item['name'], $searchTerm) !== false ||
-                    stripos($item['purpose'], $searchTerm) !== false
+                    stripos((string) ($item['name'] ?? ''), $searchTerm) !== false ||
+                    stripos((string) ($item['purpose'] ?? ''), $searchTerm) !== false
                 ) {
                     $data[$key] = $item;
                     continue;
@@ -286,17 +585,92 @@ class Options extends ListSettings
         return $data;
     }
 
+    protected function syncPluginDependentStatuses(): void
+    {
+        $staticItems = $this->getStaticData()['items'] ?? [];
+        $changed = false;
+        $updateCookieVersion = false;
+
+        foreach ($this->options as $key => $item) {
+            if (!is_array($item)) {
+                continue;
+            }
+            if (empty($item['plugin_slug']) && !empty($staticItems[$key]['plugin_slug'])) {
+                $this->options[$key]['plugin_slug'] = $staticItems[$key]['plugin_slug'];
+                $item['plugin_slug'] = $staticItems[$key]['plugin_slug'];
+                $changed = true;
+            }
+            foreach (['privacy_text_de', 'privacy_text_en'] as $field) {
+                if (!array_key_exists($field, $item) && isset($staticItems[$key][$field])) {
+                    $this->options[$key][$field] = $staticItems[$key][$field];
+                    $item[$field] = $staticItems[$key][$field];
+                    $changed = true;
+                }
+            }
+
+            $pluginSlug = trim((string) ($item['plugin_slug'] ?? ''));
+            if ($pluginSlug === '') {
+                continue;
+            }
+
+            $status = $this->isPluginActive($pluginSlug) ? '1' : '0';
+            if (($this->options[$key]['status'] ?? '') !== $status) {
+                if (
+                    ($item['category'] ?? '') !== 'essential'
+                    && empty($this->options[$key]['status'])
+                    && $status === '1'
+                ) {
+                    $updateCookieVersion = true;
+                }
+                $this->options[$key]['status'] = $status;
+                $changed = true;
+            }
+        }
+
+        if ($changed) {
+            update_option($this->optionName, $this->options);
+            if ($updateCookieVersion) {
+                consent()->updateCookieVersion();
+            }
+            $this->syncTosServiceProviders();
+        }
+    }
+
+    protected function isPluginActive(string $pluginSlug): bool
+    {
+        return Utils::isPluginActive($pluginSlug) || Utils::isPluginActiveForNetwork($pluginSlug);
+    }
+
+    protected function syncTosServiceProviders(): void
+    {
+        $tosOptionName = tos()->getOptionName();
+        $tosOptions = tos()->getOptions();
+        foreach ($this->options as $key => $item) {
+            if (!is_array($item)) {
+                continue;
+            }
+            if (($item['category'] ?? '') === 'essential') {
+                unset($tosOptions['privacy_service_providers'][$key]);
+                continue;
+            }
+            $tosOptions['privacy_service_providers'][$key] = $item['status'] ?? '0';
+        }
+        update_option($tosOptionName, $tosOptions);
+    }
+
     public function enableItems(string $ids)
     {
         $ids = explode(',', $ids);
         $count = 0;
         foreach ($ids as $id) {
-            if (isset($this->options[$id])) {
+            if (isset($this->options[$id]) && $this->canToggleItem($this->options[$id])) {
                 $this->options[$id]['status'] = '1';
+                $this->logConsentCookieChange('enabled', $id);
                 $count += 1;
             }
         }
         if ($count) {
+            consent()->updateCookieVersion();
             $this->addSettingsError(
                 sprintf(
                     /* translators: %s: Number of consent cookies. */
@@ -321,12 +695,14 @@ class Options extends ListSettings
         $ids = explode(',', $ids);
         $count = 0;
         foreach ($ids as $id) {
-            if (isset($this->options[$id])) {
+            if (isset($this->options[$id]) && $this->canToggleItem($this->options[$id])) {
                 $this->options[$id]['status'] = '0';
+                $this->logConsentCookieChange('disabled', $id);
                 $count += 1;
             }
         }
         if ($count) {
+            consent()->updateCookieVersion();
             $this->addSettingsError(
                 sprintf(
                     /* translators: %s: Number of consent cookies. */
@@ -350,13 +726,22 @@ class Options extends ListSettings
     {
         $ids = explode(',', $ids);
         $count = 0;
+        $updateCookieVersion = false;
         foreach ($ids as $id) {
             if (isset($this->options[$id]) && empty($this->options[$id]['static'])) {
+                $item = $this->options[$id];
                 unset($this->options[$id]);
+                $this->logConsentCookieChange('deleted', $id, $item);
+                if ($this->shouldUpdateCookieVersionForItemChange($item, [])) {
+                    $updateCookieVersion = true;
+                }
                 $count += 1;
             }
         }
         if ($count) {
+            if ($updateCookieVersion) {
+                consent()->updateCookieVersion();
+            }
             $this->addSettingsError(
                 sprintf(
                     /* translators: %s: Number of consent cookies. */
@@ -381,17 +766,21 @@ class Options extends ListSettings
         $tosOptionName = tos()->getOptionName();
         $tosOptions = tos()->getOptions();
         foreach ($this->options as $key => $item) {
-            if ($item['category'] === 'essential') {
+            if (!is_array($item)) {
                 continue;
             }
-            $tosOptions['privacy_service_providers'][$key] = $item['status'];
+            if (($item['category'] ?? '') === 'essential') {
+                unset($tosOptions['privacy_service_providers'][$key]);
+                continue;
+            }
+            $tosOptions['privacy_service_providers'][$key] = $item['status'] ?? '0';
         }
         unregister_setting('rrze_legal_privacy', $tosOptionName);
         update_option($tosOptionName, $tosOptions);
         update_option($this->optionName, $this->options);
-        wp_redirect(
+        wp_safe_redirect(
             add_query_arg(
-                ['page' => $_GET['page'] ?? ''],
+                ['page' => sanitize_key(wp_unslash($_GET['page'] ?? ''))],
                 admin_url('admin.php')
             )
         );
@@ -412,6 +801,9 @@ class Options extends ListSettings
     {
         $options = [];
         foreach ($this->options as $value) {
+            if (!is_array($value)) {
+                continue;
+            }
             $status = !empty($value['status']) ? true : false;
             if ($enabled && $status && !empty($value['id']) && !empty($value['name'])) {
                 $options[$value['id']] = $value['name'];
@@ -425,6 +817,9 @@ class Options extends ListSettings
         $categories = consentCategories()->getItems();
         foreach ($categories as $key => $category) {
             foreach ($this->options as $k => $item) {
+                if (!is_array($item)) {
+                    continue;
+                }
                 $status = !empty($item['status']) ? true : false;
                 if ($enabled && $status && isset($item['category']) && $key === $item['category']) {
                     $categories[$key]['cookies'][$k] = $item;

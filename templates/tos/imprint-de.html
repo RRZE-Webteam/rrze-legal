@@ -6,6 +6,10 @@
 
 {{imprint_responsible_person_name}}
 <h2>Redaktionelle Verantwortung</h2>
+{{/imprint_responsible_person_name}}
+
+<div class="rrze-legal-contactinfos">
+{{imprint_responsible_person_name}}
 <p>{{=imprint_responsible_person_name}}</p>
 {{/imprint_responsible_person_name}}
 
@@ -29,9 +33,11 @@
     <li><span>E-Mail:</span> <a href="mailto:{{=imprint_responsible_person_email}}">{{=imprint_responsible_person_email}}</a></li>
     {{/imprint_responsible_person_email}}
 </ul>
+</div>
 
 
 <h3>Redaktion und technische Ansprechpartner</h3>
+<div class="rrze-legal-contactinfos">
 <p>
     {{=imprint_webmaster_name}}
 </p>
@@ -46,6 +52,7 @@
     <li><span>E-Mail:</span> <a href="mailto:{{=imprint_webmaster_email}}">{{=imprint_webmaster_email}}</a></li>
     {{/imprint_webmaster_email}}
 </ul>
+</div>
 
 {{=imprint_supervisory_authority_template}}
 {{=imprint_id_numbers_template}}
@@ -56,8 +63,7 @@
 {{/imprint_optional_new_section}}
 
 
-[collapsibles expand-all-link="true"]
-[collapse title="Nutzungsbedingungen"]
+<h2>Nutzungsbedingungen</h2>
 <p>
     Texte, Bilder, Grafiken sowie die Gestaltung dieser Internetseiten
     können dem Urheberrecht unterliegen.
@@ -87,9 +93,7 @@
 {{=imprint_optional_image_rights_content}}
 {{/imprint_optional_image_rights}}
 
-[/collapse]
-[collapse title="Haftungsausschluss"]
-
+<h2>Haftungsausschluss</h2>
 <p>
     {{imprint_websites_extra}}
     Dieses Impressum gilt nur für die Webauftritte unter den Adressen:<br>
@@ -126,8 +130,4 @@
 
 
 </p>
-[/collapse]
 {{=imprint_whistleblower_system_template}}
-[/collapsibles]
-
-

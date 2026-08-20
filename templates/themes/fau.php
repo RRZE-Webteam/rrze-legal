@@ -10,12 +10,7 @@ defined('ABSPATH') || exit;
 
 
 get_header();
-if (is_plugin_active('rrze-elements/rrze-elements.php')) {
-    wp_enqueue_style('rrze-elements');
-    wp_enqueue_script('rrze-accordions');
-}
-$currentTheme = wp_get_theme();
-$vers = $currentTheme->get('Version');
+
 
 ?>
 <div id="content">
@@ -25,6 +20,7 @@ $vers = $currentTheme->get('Version');
                 <h1 id="maintop" class="screen-reader-text"><?php echo esc_html($title); ?></h1>
                 <div class="inline-box">
                     <div class="content-inline">
+                        <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Endpoint content is generated from plugin templates and contains required consent data attributes. ?>
                         <?php echo $content; ?>
                     </div>
                 </div>

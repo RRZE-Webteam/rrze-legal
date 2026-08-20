@@ -4,6 +4,9 @@ namespace RRZE\Legal;
 
 defined('ABSPATH') || exit;
 
+$isNetworkActivated = Utils::isPluginActiveForNetwork(plugin()->getBaseName());
+$isMultisite = is_multisite();
+
 $settings = [
     'version' => 1,
     'options_page' => [
@@ -40,7 +43,7 @@ $settings = [
                                 'description' => __('Activates the Consent Banner. Displays the <strong>Banner</strong> and blocks iframes and other external media', 'rrze-legal'),
                                 'type' => 'checkbox',
                                 'default' => false,
-                                'disabled' => consent()->hasNetworkPriority(),
+                                'hide_field' => consent()->hasNetworkPriority(),
                             ],
                             [
                                 'name' => 'test_mode',
@@ -59,13 +62,6 @@ $settings = [
                                 ),
                                 'type' => 'checkbox',
                                 'default' => false,
-                            ],
-                            [
-                                'name' => 'cookies_for_bots',
-                                'label' => __('Cookies for Bots/Crawlers', 'rrze-legal'),
-                                'description' => __("A bot/crawler is treated like a visitor who accepted all cookies", 'rrze-legal'),
-                                'type' => 'checkbox',
-                                'default' => true,
                             ],
                             [
                                 'name' => 'respect_do_not_track',
@@ -96,14 +92,36 @@ $settings = [
                                 'default' => '',
                                 'sanitize_callback' => [consent(), 'sanitizeTextareaList'],
                             ],
+                        ],
+                    ],
+                    [
+                        'id' => 'known_clients',
+                        'title' => __('Consent for Known IP Addresses and Crawlers/Clients', 'rrze-legal'),
+                        'description' => '',
+                        'fields' => [
+                            [
+                                'name' => 'cookies_for_bots',
+                                'label' => __('Consent Approval', 'rrze-legal'),
+                                'description' => __("A bot/crawler is treated like a visitor who accepted all cookies", 'rrze-legal'),
+                                'type' => 'checkbox',
+                                'default' => true,
+                            ],
                             [
                                 'name' => 'cookies_for_ip_addresses',
-                                'label' => __('Cookies For IP Addresses', 'rrze-legal'),
-                                'description' => __('These IP addresses are treated as a visitor who accepted all cookies. Add one IP address per line.', 'rrze-legal'),
+                                'label' => __('IP Addresses', 'rrze-legal'),
+                                'description' => __('These site-specific IP addresses are treated as visitors who accepted all cookies. They are added to the global network IP addresses. Add one IP address per line.', 'rrze-legal'),
                                 'type' => 'textarea',
                                 'default' => '',
-                                'disabled' => consent()->hasNetworkPriority(),
                                 'sanitize_callback' => [consent(), 'sanitizeTextareaIpList'],
+                            ],
+                            [
+                                'name' => 'cookies_for_user_agents',
+                                'label' => __('User-Agent Strings', 'rrze-legal'),
+                                'description' => consent()->getDefaultUserAgentPatternsDescription() . '<p>' . __('Additional site-specific User-Agent strings. If one of these strings occurs in the User-Agent header, the visitor is treated like a visitor who accepted all cookies. Add one string per line.', 'rrze-legal') . '</p>',
+                                'type' => 'textarea',
+                                'default' => '',
+                                'readonly' => !consent()->isLocalCookieForBotsActive(),
+                                'sanitize_callback' => [consent(), 'sanitizeTextareaList'],
                             ],
                         ],
                     ],
@@ -119,6 +137,7 @@ $settings = [
                                 'type' => 'text',
                                 'default' => consent()->getSiteUrlHost(),
                                 'placeholder' => consent()->getSiteUrlHost(),
+                                'readonly' => $isMultisite,
                                 'sanitize_callback' => 'sanitize_text_field',
                                 'required' => true,
                             ],
@@ -128,11 +147,12 @@ $settings = [
                                 'description' => sprintf(
                                     /* translators: %s: Default website url path. */
                                     __('The path for which the cookie is valid. Default path: <strong>%s</strong>', 'rrze-legal'),
-                                    consent()->getSiteUrlPath()
+                                    '/'
                                 ),
                                 'type' => 'text',
-                                'default' => consent()->getSiteUrlPath(),
-                                'placeholder' => consent()->getSiteUrlPath(),
+                                'default' => '/',
+                                'placeholder' => '/',
+                                'readonly' => $isMultisite,
                                 'sanitize_callback' => 'sanitize_text_field',
                                 'required' => true,
                             ],
@@ -142,6 +162,7 @@ $settings = [
                                 'description' => __("Cookie is sent to the server only in case of an encrypted request via the HTTPS protocol", 'rrze-legal'),
                                 'type' => 'checkbox',
                                 'default' => true,
+                                'hide_field' => $isNetworkActivated,
                             ],
                             [
                                 'name'              => 'lifetime',
@@ -153,6 +174,7 @@ $settings = [
                                 'step'              => '1',
                                 'type'              => 'number',
                                 'default'           => '182',
+                                'hide_field'        => $isNetworkActivated,
                                 'sanitize_callback' => function ($input) {
                                     return consent()->validateIntRange($input, 30, 365);
                                 },
@@ -167,6 +189,7 @@ $settings = [
                                 'step'              => '1',
                                 'type'              => 'number',
                                 'default'           => '182',
+                                'hide_field'        => $isNetworkActivated,
                                 'sanitize_callback' => function ($input) {
                                     return consent()->validateIntRange($input, 30, 365);
                                 },
@@ -177,6 +200,7 @@ $settings = [
                         'id' => 'content',
                         'title' => __('Content', 'rrze-legal'),
                         'description' => __('Configuration of the cookie banner content such as the headline, notice text and buttons text.', 'rrze-legal'),
+                        'hide_section' => $isNetworkActivated,
                         'fields' => [
                             [
                                 'name' => 'headline',
@@ -237,6 +261,7 @@ $settings = [
                 'hide_title' => true,
                 'description' => __('Manage settings related to content blocking.', 'rrze-legal'),
                 'capability' => apply_filters('rrze_legal_consent_capability', 'manage_options'),
+                'hide_section' => $isNetworkActivated,
                 'subsections' => [
                     [
                         'id' => 'general',
@@ -250,41 +275,6 @@ $settings = [
                                 'type' => 'textarea',
                                 'default' => '',
                                 'sanitize_callback' => [consent(), 'sanitizeTextareaList'],
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'id' => 'log',
-                'title' => __('Log', 'rrze-legal'),
-                'hide_title' => true,
-                'description' => __('Manage settings related to consents logs.', 'rrze-legal'),
-                'capability' => apply_filters('rrze_legal_consent_capability', 'manage_options'),
-                'subsections' => [
-                    [
-                        'id' => 'general',
-                        'title' => __('General Settings', 'rrze-legal'),
-                        'description' => '',
-                        'fields' => [
-                            [
-                                'name' => 'active',
-                                'label' => __('Activate', 'rrze-legal'),
-                                'description' => __('Activate consent log', 'rrze-legal'),
-                                'type' => 'checkbox',
-                                'default' => false,
-                            ],
-                            [
-                                'name' => 'purge_interval',
-                                'label' => __('Purge Interval', 'rrze-legal'),
-                                'description' => __('Purge consent logs after an amount of time.', 'rrze-legal'),
-                                'type' => 'select',
-                                'default' => '1 month',
-                                'options' => [
-                                    '1 month' => __('1 month', 'rrze-legal'),
-                                    '3 months' => __('3 months', 'rrze-legal'),
-                                ],
-                                'sanitize_callback' => 'sanitize_text_field',
                             ],
                         ],
                     ],

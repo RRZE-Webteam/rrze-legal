@@ -5,7 +5,7 @@ namespace RRZE\Legal;
 defined('ABSPATH') || exit;
 
 $data = [
-    'version' => 1,
+    'version' => 2,
     'items' => [
         'essential' => [
             'id' => 'essential',
@@ -16,12 +16,21 @@ $data = [
             'status' => true,
             'static' => true,
         ],
+        'functional' => [
+            'id' => 'functional',
+            'name' => __('Functional', 'rrze-legal'),
+            'description' => __('Functional services store preferences selected by visitors and improve the usability of the website, for example display settings.', 'rrze-legal'),
+            'preselected' => true,
+            'position' => 2,
+            'status' => true,
+            'static' => true,
+        ],
         'statistics' => [
             'id' => 'statistics',
             'name' => __('Statistics', 'rrze-legal'),
             'description' => __('Statistics cookies collect information anonymously. This information helps us to understand how our visitors use our website.', 'rrze-legal'),
             'preselected' => false,
-            'position' => 2,
+            'position' => 3,
             'status' => true,
             'static' => true,
         ],
@@ -30,7 +39,7 @@ $data = [
             'name' => __('Marketing', 'rrze-legal'),
             'description' => __('Marketing cookies are used by third-party advertisers or publishers to display personalized ads. They do this by tracking visitors across websites.', 'rrze-legal'),
             'preselected' => false,
-            'position' => 3,
+            'position' => 4,
             'status' => true,
             'static' => true,
         ],
@@ -39,7 +48,7 @@ $data = [
             'name' => __('External Media', 'rrze-legal'),
             'description' => __('Content from video platforms and social media platforms is blocked by default. If External Media cookies are accepted, access to those contents no longer requires manual consent.', 'rrze-legal'),
             'preselected' => false,
-            'position' => 4,
+            'position' => 5,
             'status' => true,
             'static' => true,
         ],

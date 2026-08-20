@@ -1,27 +1,50 @@
 {
   "name": "rrze-legal",
-  "version": "2.8.10",
+  "title": "RRZE Legal",
+  "version": "2.8.25",
   "description": "Legal Mandatory Information & GDPR.",
-  "main": "webpack.config.js",
-  "author": "RRZE Webteam <webmaster@fau.de> (https://www.rrze.fau.de/)",
-  "license": "GPL-3.0-or-later",
+  "main": "rrze-legal.php",
+  "textdomain": "rrze-legal",
+  "private": true,
+  "compatibility": {
+    "wprequires": "6.9.4",
+    "wptestedup": "7.1",
+    "phprequires": "8.3"
+  },
+  "supports": {
+    "email": "webmaster@fau.de"
+  },
+  "author": {
+    "name": "RRZE-Webteam <webmaster@fau.de>",
+    "url": "https://www.wp.rrze.fau.de"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RRZE-Webteam/rrze-legal",
+    "clone": "https://github.com/RRZE-Webteam/rrze-legal.git",
+    "issues": "https://github.com/RRZE-Webteam/rrze-legal/issues"
+  },
+  "license": "GNU General Public License v3",
+  "licenseurl": "http://www.gnu.org/licenses/gpl-3.0.html",
+  "tags": "Plugin, WordPress, DSGVO, GDPR, Consent, RRZE",
   "engines": {
     "node": ">=22.10.0",
     "npm": ">=10.9.0"
   },
   "devDependencies": {
-    "@wordpress/scripts": "^31.1.0"
+    "esbuild": "^0.27.2",
+    "sass": "^1.96.0"
   },
-  "browserslist": [
-    "extends @wordpress/browserslist-config"
-  ],
   "scripts": {
-    "start": "wp-scripts start",
-    "build": "wp-scripts build",
-    "format": "wp-scripts format src",
-    "lint:js": "wp-scripts lint-js src",
-    "check-engines": "wp-scripts check-engines",
-    "check-licenses": "wp-scripts check-licenses --prod --gpl3",
-    "packages-update": "wp-scripts packages-update"
+    "build": "node scripts/build-assets.js dev",
+    "build:assets:dev": "node scripts/build-assets.js dev",
+    "build:assets:prod": "node scripts/build-assets.js prod",
+    "readme": "node scripts/build-readme.js",
+    "version:dev": "node scripts/build-version.js dev",
+    "version:prod": "node scripts/build-version.js prod",
+    "version:release": "node scripts/build-version.js release",
+    "dev": "npm run build && npm run version:dev && npm run readme",
+    "prod": "node scripts/build-assets.js prod && npm run version:prod && npm run readme",
+    "release": "node scripts/build-assets.js prod && npm run version:release && npm run readme"
   }
 }

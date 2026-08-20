@@ -333,7 +333,7 @@ class ListSettings
     public function subMenuPage()
     {
         wp_enqueue_style('rrze-legal-settings');
-        wp_enqueue_style('rrze-legal-consent-settings');
+        wp_enqueue_script('rrze-legal-settings');
 
         $page = $_REQUEST['page'] ?? '';
         $action = $_REQUEST['action'] ?? '';
@@ -394,7 +394,7 @@ class ListSettings
         foreach ($this->sections as $section) {
             $sectionId = str_replace('_', '-', $section['id']);
             echo '<form id="' . esc_attr($this->pagePrefix . $sectionId). '" method="post">';
-            echo wp_nonce_field($page . '-' . $action, $action . '-nonce', false, false);
+            wp_nonce_field($page . '-' . $action, $action . '-nonce', false);
             echo '<input type="hidden" name="page" value="' . esc_attr($page) . '">';
             echo $id ? '<input type="hidden" name="id" value="' . esc_attr($id) . '">' : '';
             do_settings_sections($this->settingsPrefix . $section['id']);
@@ -503,10 +503,10 @@ class ListSettings
     /**
      * Add fields to the settings page.
      * @param string $sectionId
-     * @param string $subsectionId
+     * @param array $subsection
      * @return void
      */
-    protected function addFields(string $sectionId, string $subsectionId = '')
+    protected function addFields(string $sectionId, array $subsection = [])
     {
         $action = $_GET['action'] ?? '';
         $disableFields = [];
@@ -537,6 +537,12 @@ class ListSettings
             if ($name == 'id' && $value == 'default') {
                 $disableFields = array_merge(['settings[prioritize]'], $disableFields);
             }
+            if (!empty($option['hide_when_plugin_slug']) && $this->getOption($sectionId, 'plugin_slug') !== '') {
+                continue;
+            }
+            if ($name == 'status' && $this->getOption($sectionId, 'plugin_slug') !== '') {
+                $disabled = true;
+            }
             if (in_array($name, $disableFields)) {
                 $disabled = true;
             }
@@ -554,6 +560,7 @@ class ListSettings
                 'value' => $value,
                 'size' => $option['size'] ?? '',
                 'height' => isset($option['height']) ? absint($option['height']) : 0,
+                'rows' => isset($option['rows']) ? absint($option['rows']) : 0,
                 'min' => $option['min'] ?? '',
                 'max' => $option['max'] ?? '',
                 'step' => $option['step'] ?? '',
@@ -624,6 +631,8 @@ class ListSettings
                     } else {
                         $value = $sanitizedValue;
                     }
+                } else {
+                    $value = $this->sanitizeValueByFieldType($value, $option);
                 }
                 if ($error) {
                     $hasError = true;
@@ -661,6 +670,85 @@ class ListSettings
             }
         }
         return false;
+    }
+
+    protected function sanitizeValueByFieldType($value, array $option) {
+        $type = isset($option['type']) ? strtolower((string) $option['type']) : '';
+
+        switch ($type) {
+            case 'checkbox':
+                return !empty($value) ? '1' : '0';
+            case 'radio':
+            case 'select':
+                return $this->sanitizeChoiceValue($value, $option);
+            case 'multicheckbox':
+            case 'multiselect':
+                return $this->sanitizeMultipleChoiceValue($value, $option);
+            case 'number':
+                return $this->sanitizeNumberValue($value, $option);
+            case 'email':
+                return sanitize_email((string) $value);
+            case 'url':
+                return sanitize_url((string) $value);
+            case 'textarea':
+                return sanitize_textarea_field((string) $value);
+            case 'wpeditor':
+                return wp_kses_post((string) $value);
+            case 'text':
+            case 'tel':
+            case 'date':
+            case 'selectpage':
+                return sanitize_text_field((string) $value);
+        }
+
+        return is_scalar($value) ? sanitize_text_field((string) $value) : '';
+    }
+
+    protected function sanitizeChoiceValue($value, array $option): string {
+        $value = sanitize_text_field((string) $value);
+        $options = isset($option['options']) && is_array($option['options']) ? $option['options'] : [];
+
+        if (!empty($options) && !array_key_exists($value, $options)) {
+            return isset($option['default']) ? sanitize_text_field((string) $option['default']) : '';
+        }
+
+        return $value;
+    }
+
+    protected function sanitizeMultipleChoiceValue($value, array $option): array {
+        $value = is_array($value) ? $value : [];
+        $options = isset($option['options']) && is_array($option['options']) ? $option['options'] : [];
+        $sanitized = [];
+
+        foreach ($value as $key => $item) {
+            $key = sanitize_text_field((string) $key);
+            if (!empty($options) && !array_key_exists($key, $options)) {
+                continue;
+            }
+            $sanitized[$key] = !empty($item) ? '1' : '0';
+        }
+
+        return $sanitized;
+    }
+
+    protected function sanitizeNumberValue($value, array $option) {
+        if ($value === '') {
+            return '';
+        }
+
+        $number = is_numeric($value) ? $value + 0 : null;
+        if ($number === null) {
+            return '';
+        }
+
+        if (isset($option['min']) && $option['min'] !== '' && $number < (float) $option['min']) {
+            return '';
+        }
+        if (isset($option['max']) && $option['max'] !== '' && $number > (float) $option['max']) {
+            return '';
+        }
+
+        return strpos((string) $value, '.') === false ? (int) $number : (float) $number;
     }
 
     /**
@@ -715,12 +803,13 @@ class ListSettings
      * @param string $type
      * @return void
      */
-    public function addSettingsError(string $message, string $type = 'error')
+    public function addSettingsError(string $message, string $type = 'error', bool $allowHtml = false)
     {
         global $rrzeLegalSettingsErrors;
         $rrzeLegalSettingsErrors[] = [
             'type' => $type,
             'message' => $message,
+            'allow_html' => $allowHtml,
         ];
     }
 
@@ -762,10 +851,11 @@ class ListSettings
             return;
         }
         foreach ($settingsErrors as $error) {
+            $message = !empty($error['allow_html']) ? wp_kses_post($error['message']) : esc_html($error['message']);
             if ($error['type'] === 'success') {
-                printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', esc_html($error['message']));
+                printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', wp_kses_post($message));
             } else {
-                printf('<div class="notice notice-warning"><p>%s</p></div>', esc_html($error['message']));
+                printf('<div class="notice notice-warning"><p>%s</p></div>', wp_kses_post($message));
             }
         }
     }
@@ -805,14 +895,7 @@ class ListSettings
      * Register admin scripts.
      * @return void
      */
-    public function adminRegisterSettingsScripts()
-    {
-        wp_register_style(
-            'rrze-legal-consent-settings',
-            plugins_url('build/consent.css', plugin()->getBasename()),
-            [],
-            plugin()->getVersion()
-        );
+    public function adminRegisterSettingsScripts() {
     }
 
     /**
@@ -855,8 +938,12 @@ class ListSettings
     {
         $isPluginActiveForNetwork = Utils::isPluginActiveForNetwork(plugin()->getBaseName());
         foreach ($this->options as $key => $option) {
+            if (!is_array($option)) {
+                unset($this->options[$key]);
+                continue;
+            }
             $static = !empty($option['static']) ? true : false;
-            if ($static && isset($data[$key]) && $isPluginActiveForNetwork) {
+            if ($static && isset($data[$key])) {
                 $status = $this->options[$key]['status'] ?? '0';
                 $this->options[$key] = $data[$key];
                 $this->options[$key]['status'] = $status;

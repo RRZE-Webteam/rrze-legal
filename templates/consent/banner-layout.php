@@ -18,7 +18,7 @@ defined('ABSPATH') || exit;
                 <div class="cookie-box">
                     <div class="container">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="_rrzelegal-banner-content">
                                 <div class="_rrzelegal-flex-center">
                                     <span role="heading" aria-level="3" class="_rrzelegal-h3" id="BannerTextHeadline">
                                         <?php echo esc_html($bannerTextHeadline); ?>
@@ -26,7 +26,7 @@ defined('ABSPATH') || exit;
                                 </div>
 
                                 <p id="BannerTextDescription">
-                                    <?php echo $bannerTextDescription; ?>
+                                    <?php echo wp_kses_post($bannerTextDescription); ?>
                                 </p>
 
                                 <?php
@@ -106,7 +106,7 @@ defined('ABSPATH') || exit;
                                 </p>
 
                                 <p class="_rrzelegal-legal">
-                                    <a href="<?php echo esc_html($imprintUrl); ?>" tabindex="0">
+                                    <a href="<?php echo esc_url($imprintUrl); ?>" tabindex="0">
                                         <?php echo esc_html($imprintLinkText); ?>
                                     </a>
                                                                         

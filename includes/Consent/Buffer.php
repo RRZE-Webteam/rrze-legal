@@ -50,7 +50,7 @@ class Buffer
     public function endBuffering()
     {
         ob_end_clean();
-        echo $this->buffer;
+        echo $this->buffer; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The complete response buffer must be restored unchanged after script blocking.
         unset($this->buffer);
         $this->bufferActive = false;
     }

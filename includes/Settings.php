@@ -216,6 +216,16 @@ class Settings {
         foreach ($this->fields as $field => $options) {
             $default = isset($options['default']) ? $options['default'] : '';
             $defaultOptions = array_merge($defaultOptions, [$field => $default]);
+            $type = isset($options['type']) ? strtolower($options['type']) : '';
+            if ($type === 'optionalwpeditor' && !empty($options['content_name'])) {
+                $name = $options['name'] ?? '';
+                $sectionId = $name !== '' ? substr($field, 0, -(strlen($name) + 1)) : '';
+                if ($sectionId !== '') {
+                    $contentKey = $sectionId . '_' . sanitize_key($options['content_name']);
+                    $contentDefault = $options['content_default'] ?? '';
+                    $defaultOptions = array_merge($defaultOptions, [$contentKey => $contentDefault]);
+                }
+            }
         }
         return $defaultOptions;
     }
@@ -304,6 +314,9 @@ class Settings {
             if (isset($option['capability']) && !current_user_can($option['capability'])) {
                 continue;
             }
+            if (isset($option['hide_field']) && (bool) $option['hide_field']) {
+                continue;
+            }
             if (isset($option['name'])) {
                 $this->fields[$sectionId . '_' . $option['name']] = $option;
             }
@@ -316,8 +329,11 @@ class Settings {
      */
     public function adminSubMenu()  {
         foreach ($this->sections as $key => $section) {
+            if (!$this->isSectionVisible($section)) {
+                continue;
+            }
             $sectionId = str_replace('_', '-', $section['id']);
-            if ($key == 0) {
+            if ($this->defaultTab === '') {
                 $this->defaultTab = $this->pagePrefix . $sectionId;
             }
             $this->allTabs[] = $this->pagePrefix . $sectionId;
@@ -354,36 +370,36 @@ class Settings {
      * @return void
      */
     public function sectionsTabs() {
-        $html = '<h1>' . $this->settings['settings']['title'] . '</h1>' . PHP_EOL;
+        $html = '<h1>' . esc_html($this->settings['settings']['title']) . '</h1>' . PHP_EOL;
         $count = 0;
         foreach ($this->sections as $section) {
-            if (isset($section['capability']) && !current_user_can($section['capability'])) {
+            if (!$this->isSectionVisible($section)) {
                 continue;
             }
             $count++;
         }
         if ($count < 2) {
-            echo $html;
+            echo wp_kses_post($html);
             return;
         }
 
         $html .= '<h2 class="nav-tab-wrapper wp-clearfix">';
         foreach ($this->sections as $section) {
             $sectionId = str_replace('_', '-', $section['id']);
-            if (isset($section['capability']) && !current_user_can($section['capability'])) {
+            if (!$this->isSectionVisible($section)) {
                 continue;
             }
             $class = $this->pagePrefix . $sectionId == $this->currentTab ? 'nav-tab-active' : $this->defaultTab;
             $html .= sprintf(
                 '<a href="?page=%4$s&current-tab=%1$s" class="nav-tab %3$s" id="%1$s-tab">%2$s</a>',
                 esc_attr($this->pagePrefix . $sectionId),
-                $section['title'],
+                esc_html($section['title']),
                 esc_attr($class),
-                $this->optionsMenu->slug
+                esc_attr($this->optionsMenu->slug)
             );
         }
         $html .= '</h2>' . PHP_EOL;
-        echo $html;
+        echo wp_kses_post($html);
     }
 
     /**
@@ -392,11 +408,14 @@ class Settings {
      */
     public function settingsForm() {
         foreach ($this->sections as $section) {
+            if (!$this->isSectionVisible($section)) {
+                continue;
+            }
             $sectionId = str_replace('_', '-', $section['id']);
             if ($this->pagePrefix . $sectionId != $this->currentTab) {
                 continue;
             }
-            echo '<form id="'. $this->pagePrefix . $sectionId . '" method="post" action="options.php">';
+            echo '<form id="' . esc_attr($this->pagePrefix . $sectionId) . '" method="post" action="options.php">';
             settings_errors();
             do_settings_sections($this->settingsPrefix . $section['id']);
             settings_fields($this->settingsPrefix . $section['id']);
@@ -413,6 +432,9 @@ class Settings {
             if (!isset($section['id']) || !isset($section['title'])) {
                 continue;
             }
+            if (!$this->isSectionVisible($section)) {
+                continue;
+            }
             $this->addSection($section);
             register_setting(
                 $this->settingsPrefix . $section['id'],
@@ -420,6 +442,16 @@ class Settings {
                 ['sanitize_callback' => [$this, 'sanitizeOptions']]
             );
         }
+    }
+
+    protected function isSectionVisible(array $section): bool {
+        if (isset($section['capability']) && !current_user_can($section['capability'])) {
+            return false;
+        }
+        if (isset($section['hide_section']) && (bool) $section['hide_section']) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -490,11 +522,18 @@ class Settings {
             } else {
                 $callback = null;
             }
+            $sectionClass = 'subsection subsection-' . $sectionId . '_' . $subsection['id'];
+            $args = [
+                'before_section' => '<div class="' . esc_attr($sectionClass) . '">',
+                'after_section' => '</div>',
+                'section_class' => 'subsection-' . $this->settingsPrefix . $sectionId . '_' . $subsection['id'],
+            ];
             add_settings_section(
                 $this->settingsPrefix . $sectionId . '_' . $subsection['id'],
                 !isset($subsection['hide_title']) || (bool) !$subsection['hide_title'] ? $subsection['title'] : '',
                 $callback,
-                $this->settingsPrefix . $sectionId
+                $this->settingsPrefix . $sectionId,
+                $args
             );
             $this->addFields($sectionId, $subsection);
         }
@@ -516,6 +555,9 @@ class Settings {
                 continue;
             }
             $name = $option['name'] ?? '';
+            if (isset($option['hide_field']) && (bool) $option['hide_field']) {
+                continue;
+            }
             if (!isset($this->fields[$sectionId . '_' . $option['name']])) {
                 continue;
             }
@@ -530,6 +572,8 @@ class Settings {
             $default = $option['default'] ?? '';
             $value = $this->getOption($sectionId, $name, $default);
             $required = isset($option['required']) ? (bool) $option['required'] : false;
+            $contentName = isset($option['content_name']) ? sanitize_key($option['content_name']) : '';
+            $contentDefault = $option['content_default'] ?? '';
 
             $atts = [
                 'name' => $name,
@@ -545,14 +589,22 @@ class Settings {
                 'value' => $value,
                 'size' => $option['size'] ?? '',
                 'height' => isset($option['height']) ? absint($option['height']) : 0,
+                'rows' => isset($option['rows']) ? absint($option['rows']) : 0,
                 'min' => $option['min'] ?? '',
                 'max' => $option['max'] ?? '',
                 'step' => $option['step'] ?? '',
                 'inline' => isset($option['inline']) ? (bool) $option['inline'] : false,
                 'disabled' => isset($option['disabled']) ? (bool) $option['disabled'] : false,
+                'readonly' => isset($option['readonly']) ? (bool) $option['readonly'] : false,
                 'sanitize_callback' => $option['sanitize_callback'] ?? null,
                 'required' => $required,
                 'errors' => get_settings_errors($this->settingsPrefix . $section),
+                'content_name' => $contentName,
+                'content_label' => $option['content_label'] ?? '',
+                'content_description' => $option['content_description'] ?? '',
+                'content_value' => $contentName !== '' ? $this->getOption($sectionId, $contentName, $contentDefault) : '',
+                'content_height' => isset($option['content_height']) ? absint($option['content_height']) : 0,
+                'content_editor' => !empty($option['content_editor']),
             ];
 
             $atts = Fields::matchAtts($atts);
@@ -588,8 +640,8 @@ class Settings {
                 }
                 $disabled = isset($option['disabled']) ? (bool) $option['disabled'] : false;
                 if (!isset($input[$key]) && $disabled) {
-                    $input[$key] = $this->options[$key] ?? ($type === 'checkbox' ? '0' : '');
-                } elseif (!isset($input[$key]) && $type === 'checkbox') {
+                    $input[$key] = $this->options[$key] ?? (in_array($type, ['checkbox', 'optionalwpeditor'], true) ? '0' : '');
+                } elseif (!isset($input[$key]) && in_array($type, ['checkbox', 'optionalwpeditor'], true)) {
                     $input[$key] = '0';
                 }
                 $error = '';
@@ -623,6 +675,8 @@ class Settings {
                     } else {
                         $value = $sanitizedValue;
                     }
+                } else {
+                    $value = $this->sanitizeValueByFieldType($value, $option);
                 }
                 if ($error) {
                     $hasError = true;
@@ -630,10 +684,21 @@ class Settings {
                 } else {
                     $input[$key] = $value;
                     $this->options[$key] = $value;
+                    if ($type === 'optionalwpeditor' && !empty($option['content_name'])) {
+                        $contentKey = $prefix . '_' . sanitize_key($option['content_name']);
+                        $contentValue = $input[$contentKey] ?? '';
+                        $input[$contentKey] = $this->sanitizeOptionalEditorContent((string) $contentValue);
+                        $this->options[$contentKey] = $input[$contentKey];
+                    }
                 }
             }
         }
         return $this->postSanitizeOptions($input, $hasError);
+    }
+
+    protected function sanitizeOptionalEditorContent(string $value): string {
+        $value = wp_kses($value, wp_kses_allowed_html('post'));
+        return force_balance_tags($value);
     }
 
     protected function postSanitizeOptions($input, $hasError) {
@@ -655,17 +720,98 @@ class Settings {
         return false;
     }
 
+    protected function sanitizeValueByFieldType($value, array $option) {
+        $type = isset($option['type']) ? strtolower((string) $option['type']) : '';
+
+        switch ($type) {
+            case 'checkbox':
+            case 'optionalwpeditor':
+                return !empty($value) ? '1' : '0';
+            case 'radio':
+            case 'select':
+                return $this->sanitizeChoiceValue($value, $option);
+            case 'multicheckbox':
+            case 'multiselect':
+                return $this->sanitizeMultipleChoiceValue($value, $option);
+            case 'number':
+                return $this->sanitizeNumberValue($value, $option);
+            case 'email':
+                return sanitize_email((string) $value);
+            case 'url':
+                return sanitize_url((string) $value);
+            case 'textarea':
+                return sanitize_textarea_field((string) $value);
+            case 'wpeditor':
+                return wp_kses_post((string) $value);
+            case 'text':
+            case 'tel':
+            case 'date':
+            case 'selectpage':
+                return sanitize_text_field((string) $value);
+        }
+
+        return is_scalar($value) ? sanitize_text_field((string) $value) : '';
+    }
+
+    protected function sanitizeChoiceValue($value, array $option): string {
+        $value = sanitize_text_field((string) $value);
+        $options = isset($option['options']) && is_array($option['options']) ? $option['options'] : [];
+
+        if (!empty($options) && !array_key_exists($value, $options)) {
+            return isset($option['default']) ? sanitize_text_field((string) $option['default']) : '';
+        }
+
+        return $value;
+    }
+
+    protected function sanitizeMultipleChoiceValue($value, array $option): array {
+        $value = is_array($value) ? $value : [];
+        $options = isset($option['options']) && is_array($option['options']) ? $option['options'] : [];
+        $sanitized = [];
+
+        foreach ($value as $key => $item) {
+            $key = sanitize_text_field((string) $key);
+            if (!empty($options) && !array_key_exists($key, $options)) {
+                continue;
+            }
+            $sanitized[$key] = !empty($item) ? '1' : '0';
+        }
+
+        return $sanitized;
+    }
+
+    protected function sanitizeNumberValue($value, array $option) {
+        if ($value === '') {
+            return '';
+        }
+
+        $number = is_numeric($value) ? $value + 0 : null;
+        if ($number === null) {
+            return '';
+        }
+
+        if (isset($option['min']) && $option['min'] !== '' && $number < (float) $option['min']) {
+            return '';
+        }
+        if (isset($option['max']) && $option['max'] !== '' && $number > (float) $option['max']) {
+            return '';
+        }
+
+        return strpos((string) $value, '.') === false ? (int) $number : (float) $number;
+    }
+
     /**
      * Register admin scripts.
      * @return void
      */
     public function adminRegisterSettingsScripts()  {
-        wp_register_style('rrze-legal-settings', plugins_url('build/settings.css', plugin()->getBasename()), [],plugin()->getVersion() );
+        wp_register_style('rrze-legal-settings', plugins_url('build/rrze-legal-admin.css', plugin()->getBasename()), [], plugin()->getVersion());
         wp_register_script(
             'rrze-legal-settings',
-            plugins_url('build/settings.js', plugin()->getBasename()),
+            plugins_url('build/rrze-legal-admin.js', plugin()->getBasename()),
             ['jquery', 'jquery-ui-datepicker'],
-            plugin()->getVersion()
+            plugin()->getVersion(),
+            true
         );
         wp_localize_script('rrze-legal-settings', 'legalSettings', [
             'dateFormat' => __('yy-mm-dd', 'rrze-legal')

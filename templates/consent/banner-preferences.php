@@ -13,9 +13,9 @@ defined('ABSPATH') || exit;
 >
     <div class="container not-visible">
         <div class="row no-gutters">
-            <div class="col-12">
-                <div class="row no-gutters align-items-top">
-                    <div class="col-12">
+            <div class="_rrzelegal-banner-content">
+                <div class="row no-gutters">
+                    <div class="_rrzelegal-banner-content">
                         <div class="_rrzelegal-flex-center">
                             <span role="heading" aria-level="3" class="_rrzelegal-h3">
                                 <?php echo esc_html($bannerPreferenceTextHeadline); ?>
@@ -23,11 +23,11 @@ defined('ABSPATH') || exit;
                         </div>
 
                         <p id="CookiePrefDescription">
-                            <?php echo do_shortcode($bannerPreferenceTextDescription); ?>
+                            <?php echo wp_kses_post(do_shortcode($bannerPreferenceTextDescription)); ?>
                         </p>
 
                         <div class="row no-gutters align-items-center">
-                            <div class="col-12 col-sm-10">
+                            <div class="_rrzelegal-preference-actions-primary">
                                 <p class="_rrzelegal-accept">
                                     <a
                                         href="#"
@@ -62,7 +62,7 @@ defined('ABSPATH') || exit;
                                 </p>
                             </div>
 
-                            <div class="col-12 col-sm-2">
+                            <div class="_rrzelegal-preference-actions-secondary">
                                 <p class="_rrzelegal-refuse">
                                     <a
                                         href="#"
