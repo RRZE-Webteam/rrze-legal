@@ -4,10 +4,9 @@ namespace RRZE\Legal\TOS;
 
 defined('ABSPATH') || exit;
 
-use RRZE\Legal\{Settings, Cache, Utils, Debug, Locale, Fields};
+use RRZE\Legal\{Settings, Cache, Utils, Locale, Fields};
 use RRZE\Legal\TOS\Endpoint;
 use function RRZE\Legal\{plugin, network, consent, consentCookies, fauDomains};
-// use RRZE\Legal\Debug;
 
 class Options extends Settings {
     private $isPluginActiveForNetwork;
@@ -51,7 +50,6 @@ class Options extends Settings {
         if ($this->optionName === '' || $this->settingsFilename === '') {
             return;
         }
-   //     Debug::log("loaded Settings, file: ".$this->settingsFilename);
         include_once(plugin()->getPath() . "settings/{$this->settingsFilename}.php");
         $this->settings = $settings ?? [];    
         $this->staticdata = $this->loadStaticData();
@@ -487,7 +485,6 @@ class Options extends Settings {
                   "after_section"   => '</div>',
                   "section_class" => "subsection-".$this->settingsPrefix . $sectionId . '_' . $subsection['id']
             );
-           //     Debug::log("addSubsections - add_settings_section: ".$this->settingsPrefix . $sectionId . '_' . $subsection['id']);
             add_settings_section(
                 $this->settingsPrefix . $sectionId . '_' . $subsection['id'],
                 !isset($subsection['hide_title']) || (bool) !$subsection['hide_title'] ? $subsection['title'] : '',
@@ -563,6 +560,7 @@ class Options extends Settings {
                 'content_description' => $option['content_description'] ?? '',
                 'content_value' => $contentName !== '' ? $this->getOption($sectionId, $contentName, $contentDefault) : '',
                 'content_height' => isset($option['content_height']) ? absint($option['content_height']) : 0,
+                'content_editor' => !empty($option['content_editor']),
             ];
 
             $atts = Fields::matchAtts($atts);

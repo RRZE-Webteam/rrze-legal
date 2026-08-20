@@ -323,7 +323,7 @@ class Main {
     }
 
     protected function setRequiredTOSNoticeAcknowledgementCookie(int $timestamp): void {
-        $path = parse_url(admin_url(), PHP_URL_PATH);
+        $path = wp_parse_url(admin_url(), PHP_URL_PATH);
         if (!is_string($path) || $path === '') {
             $path = '/';
         }

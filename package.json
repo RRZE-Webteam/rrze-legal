@@ -1,14 +1,14 @@
 {
   "name": "rrze-legal",
   "title": "RRZE Legal",
-  "version": "2.8.24",
+  "version": "2.8.25",
   "description": "Legal Mandatory Information & GDPR.",
   "main": "rrze-legal.php",
   "textdomain": "rrze-legal",
   "private": true,
   "compatibility": {
     "wprequires": "6.9.4",
-    "wptestedup": "7.0",
+    "wptestedup": "7.1",
     "phprequires": "8.3"
   },
   "supports": {
@@ -26,7 +26,7 @@
   },
   "license": "GNU General Public License v3",
   "licenseurl": "http://www.gnu.org/licenses/gpl-3.0.html",
-  "tags": "Plugin, WordPress, Legal, DSGVO, GDPR, Consent, RRZE, FAU",
+  "tags": "Plugin, WordPress, DSGVO, GDPR, Consent, RRZE",
   "engines": {
     "node": ">=22.10.0",
     "npm": ">=10.9.0"

@@ -29,10 +29,11 @@ class ContactForm
             'wp_nonce'       => $wp_nonce
         ];
 
-        if (isset($_POST['_wpnonce']) && wp_verify_nonce(sanitize_key($_POST['_wpnonce']), 'accessibility_contact_form')) {
+        $nonce = isset($_POST['_wpnonce']) ? sanitize_key(wp_unslash($_POST['_wpnonce'])) : '';
+        if ($nonce !== '' && wp_verify_nonce($nonce, 'accessibility_contact_form')) {
             global $wp;
 
-            $_wpnonce = $_POST['_wpnonce'];
+            $_wpnonce = $nonce;
             $transientName = $this->generateHash();
 
             if (isset($_POST['message_name'])) {
@@ -94,7 +95,10 @@ class ContactForm
             );
             wp_safe_redirect($redirectUrl . '#contact-form');
             exit;
-        } elseif (isset($_GET['_wpnonce']) && wp_verify_nonce(sanitize_key($_GET['_wpnonce']), 'accessibility_contact_form')) {
+        } elseif (
+            isset($_GET['_wpnonce'])
+            && wp_verify_nonce(sanitize_key(wp_unslash($_GET['_wpnonce'])), 'accessibility_contact_form')
+        ) {
             global $wp;
 
             $transientName = isset($_GET['_transient']) ? sanitize_key($_GET['_transient']) : '';
@@ -146,7 +150,7 @@ class ContactForm
             $pretext .= '   ' . __('User Agent', 'rrze-legal') . ': ' . sanitize_text_field($_SERVER['HTTP_USER_AGENT']) . " \n";
         }
 
-        $pretext .= '   ' . __('Sending Time', 'rrze-legal') . ': ' . date(__("d/m/Y - g:i a", 'rrze-legal')) . " \n";
+        $pretext .= '   ' . __('Sending Time', 'rrze-legal') . ': ' . gmdate(__("d/m/Y - g:i a", 'rrze-legal')) . " \n";
         $pretext .= '   ' . __('Website Form', 'rrze-legal') . ': ' . get_option('siteurl') . " \n\n";
         $pretext .= __('Message entered by the sender', 'rrze-legal') . ": \n\n";
 
@@ -210,9 +214,9 @@ class ContactForm
     {
         return sprintf(
             '%04x%04x%04x',
-            mt_rand(0, 0xffff),
-            mt_rand(0, 0x0fff) | 0x4000,
-            mt_rand(0, 0x3fff) | 0x8000
+            wp_rand(0, 0xffff),
+            wp_rand(0, 0x0fff) | 0x4000,
+            wp_rand(0, 0x3fff) | 0x8000
         );
     }
 

@@ -3,12 +3,12 @@
 /*
 Plugin Name:        RRZE Legal
 Plugin URI:         https://github.com/RRZE-Webteam/rrze-legal
-Version:            2.8.24
+Version:            2.8.25
 Description:        Legal Mandatory Information & GDPR.
-Author:             RRZE Webteam
-Author URI:         https://www.rrze.fau.de
-License:            GNU General Public License Version 3
-License URI:        https://www.gnu.org/licenses/gpl-3.0.html
+Author:             RRZE-Webteam <webmaster@fau.de>
+Author URI:         https://www.wp.rrze.fau.de
+License:            GNU General Public License v3
+License URI:        http://www.gnu.org/licenses/gpl-3.0.html
 Text Domain:        rrze-legal
 Domain Path:        /languages
 Requires at least:  6.9.4

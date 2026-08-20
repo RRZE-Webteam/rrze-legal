@@ -52,7 +52,7 @@ class ContentBlocker {
      */
     public function init()
     {
-        $this->siteHost = parse_url(get_home_url(), PHP_URL_HOST);
+        $this->siteHost = wp_parse_url(get_home_url(), PHP_URL_HOST);
 
         $hostWhitelist = consent()->getOption('content_blocker', 'host_whitelist');
         $this->hostWhitelist = !empty($hostWhitelist) ? explode(PHP_EOL, $hostWhitelist) : [];
@@ -217,7 +217,7 @@ class ContentBlocker {
         $this->currentURL = !empty($url) ? $url : '';
         $this->currentTitle = $title;
 
-        $currentURLData = parse_url($this->currentURL);
+        $currentURLData = wp_parse_url($this->currentURL);
 
         $detectedContentBlockerId = null;
 

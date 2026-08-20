@@ -604,6 +604,7 @@ class Settings {
                 'content_description' => $option['content_description'] ?? '',
                 'content_value' => $contentName !== '' ? $this->getOption($sectionId, $contentName, $contentDefault) : '',
                 'content_height' => isset($option['content_height']) ? absint($option['content_height']) : 0,
+                'content_editor' => !empty($option['content_editor']),
             ];
 
             $atts = Fields::matchAtts($atts);

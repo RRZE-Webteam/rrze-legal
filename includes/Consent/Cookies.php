@@ -59,14 +59,14 @@ class Cookies
 
         $expires = strtotime('+6 months');
         $siteUrl = trailingslashit(site_url());
-        $parseUrl = parse_url($siteUrl);
+        $parseUrl = wp_parse_url($siteUrl);
         $host = $parseUrl['host'];
         $path = $parseUrl['path'];
         $content = [
             'consents' => $consents['essential'],
             'domainPath' => $host . $path,
             // e.g. Tue, 21 Mar 2023 14:50:55 GMT
-            'expires' => date('D, j M Y H:i:s \G\M\T', $expires),
+            'expires' => gmdate('D, j M Y H:i:s \G\M\T', $expires),
             'uid' => 'anonymous',
             'version' => consent()->getCookieVersion()
         ];

@@ -174,7 +174,7 @@ class JavaScript {
         $jsCode = 'document.addEventListener("DOMContentLoaded", function (e) {';
         $jsCode .= "\n" . $this->getContentBlockerScriptsData() . "\n";
 
-        $jsCode .= <<<EOT
+        $jsCode .= '
         var RRZELegalInitCheck = function () {
     
             if (typeof window.RRZELegal === "object" && typeof window.jQuery === "function") {
@@ -190,7 +190,7 @@ class JavaScript {
         };
         
         RRZELegalInitCheck();
-EOT;
+';
         $jsCode .= '});';
 
         wp_add_inline_script('rrze_legal_consent_banner', $jsCode, 'after');

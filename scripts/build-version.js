@@ -14,6 +14,18 @@ function writeJson(filePath, obj) {
     fs.writeFileSync(filePath, out, 'utf8');
 }
 
+function getString(obj, key, fallback) {
+    if (!obj || typeof obj !== 'object' || typeof obj[key] !== 'string') {
+        return fallback;
+    }
+
+    return obj[key].trim() || fallback;
+}
+
+function escapeRegExp(value) {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function parseSemver(version) {
     var m = version.match(/^(\d+)\.(\d+)\.(\d+)(?:-([0-9A-Za-z.-]+))?$/);
     if (!m) {
@@ -146,6 +158,63 @@ function setPluginVersion(pluginRoot, pkg, newVersion) {
     }
 }
 
+function replacePluginHeaderValue(content, field, value) {
+    var pattern = new RegExp(
+        '^(\\s*(?:\\*\\s*)?' + escapeRegExp(field) + ':\\s*)(.+)$',
+        'm'
+    );
+
+    return content.replace(pattern, function replacePluginHeaderField(match, prefix) {
+        return prefix + value;
+    });
+}
+
+function setPluginHeaderMetadata(pluginRoot, pkg) {
+    var filePath;
+    var repository;
+    var author;
+    var compatibility;
+    var fields = [];
+
+    if (!pkg.main || typeof pkg.main !== 'string') {
+        throw new Error('package.json has no valid "main" entry');
+    }
+
+    filePath = path.join(pluginRoot, pkg.main);
+    if (!fs.existsSync(filePath)) {
+        throw new Error('Plugin main file not found: ' + filePath);
+    }
+
+    repository = pkg.repository && typeof pkg.repository === 'object' ? pkg.repository : {};
+    author = pkg.author && typeof pkg.author === 'object' ? pkg.author : {};
+    compatibility = pkg.compatibility && typeof pkg.compatibility === 'object' ? pkg.compatibility : {};
+
+    fields = [
+        ['Plugin Name', getString(pkg, 'title', '')],
+        ['Plugin URI', getString(repository, 'url', '')],
+        ['Description', getString(pkg, 'description', '')],
+        ['Author', getString(author, 'name', '')],
+        ['Author URI', getString(author, 'url', '')],
+        ['License', getString(pkg, 'license', '')],
+        ['License URI', getString(pkg, 'licenseurl', '')],
+        ['Text Domain', getString(pkg, 'textdomain', '')],
+        ['Requires at least', getString(compatibility, 'wprequires', '')],
+        ['Requires PHP', getString(compatibility, 'phprequires', '')],
+    ];
+
+    replaceInFile(filePath, function replacePluginHeaderMetadata(content) {
+        var updated = content;
+
+        fields.forEach(function replaceHeaderField(field) {
+            if (field[1] !== '') {
+                updated = replacePluginHeaderValue(updated, field[0], field[1]);
+            }
+        });
+
+        return updated;
+    });
+}
+
 function setPluginCompatibility(pluginRoot, pkg) {
     if (!pkg.main || typeof pkg.main !== 'string') {
         throw new Error('package.json has no valid "main" entry');
@@ -258,6 +327,7 @@ function main() {
 
     setReadmeTxtVersion(pluginRoot, next);
     setPluginVersion(pluginRoot, pkg, next);
+    setPluginHeaderMetadata(pluginRoot, pkg);
     setPluginCompatibility(pluginRoot, pkg);
     setPackageLockVersion(pluginRoot, next);
 

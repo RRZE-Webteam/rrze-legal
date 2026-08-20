@@ -129,28 +129,6 @@ function rrzeLegalTosReady($) {
         });
     }
 
-    function setOptionalTextfieldState($toggle) {
-        var isChecked = $toggle.is(":checked");
-        var $field = $toggle.closest(".rrze-legal-optional-textfield");
-        var $content = $field.find(".rrze-legal-optional-textfield-content").first();
-
-        $toggle.attr("aria-expanded", isChecked ? "true" : "false");
-        $content.prop("hidden", !isChecked);
-    }
-
-    function bindOptionalTextfields() {
-        var $toggles = $("#rrze-legal-imprint .rrze-legal-optional-textfield-toggle, #rrze-legal-privacy .rrze-legal-optional-textfield-toggle");
-
-        $("#rrze-legal-imprint, #rrze-legal-privacy").on("change", ".rrze-legal-optional-textfield-toggle", function rrzeLegalOptionalTextfieldChange() {
-            setOptionalTextfieldState($(this));
-        });
-        $toggles.each(function rrzeLegalOptionalTextfieldInitToggle() {
-            setOptionalTextfieldState($(this));
-        });
-    }
-
-    bindOptionalTextfields();
-
     accessibilityHelperSection();
     $("#rrze-legal-accessibility input[type='radio']").on("change", function rrzeLegalAccessibilityRadioChange() {
         accessibilityHelperSection();
