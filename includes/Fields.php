@@ -130,9 +130,14 @@ class Fields
             $length = ' size="' . esc_attr($atts['size']) . '"';
         }
         $pattern = '';
+        $title = '';
         switch ($type) {
             case 'tel':
-                $pattern = ' pattern="[0-9\+]{3} [0-9]{3,5} [0-9\-\s]+"';
+                $pattern = ' pattern="\s*\+?[0-9](?:[0-9\s\(\)\.\/\-]*[0-9]){2,}\s*"';
+                $title = ' title="' . esc_attr__(
+                    'Enter a telephone or fax number with at least three digits. Spaces, hyphens, parentheses, slashes, and a leading plus sign are permitted, e.g. +49 89 2186 0 or 09131 85-0.',
+                    'rrze-legal'
+                ) . '"';
                 break;
              case 'email':
                 $pattern = ' pattern=".+@[a-z0-9\.\-]+\.[a-z]{2,6}"';
@@ -156,7 +161,7 @@ class Fields
         }
         
         $html .= sprintf(
-            '<input type="%1$s" class="%2$s-text" id="%3$s" name="%4$s[%5$s_%6$s]" value="%7$s"%8$s%9$s%10$s%11$s%12$s>',
+            '<input type="%1$s" class="%2$s-text" id="%3$s" name="%4$s[%5$s_%6$s]" value="%7$s"%8$s%9$s%10$s%11$s%12$s%13$s>',
             esc_attr($type),
             esc_attr($size),
             esc_attr($atts['id']),
@@ -168,7 +173,8 @@ class Fields
             $atts['disabled'] ? ' disabled="disabled"' : '',
             $atts['readonly'] ? ' readonly="readonly"' : '',
             $length,
-            $pattern    
+            $pattern,
+            $title
         );
         $html .= self::description($atts);
 
@@ -196,6 +202,14 @@ class Fields
      * @param array $atts Settings field attributes
      */
     public static function tel(array $atts)  {
+        $formatDescription = __(
+            'Enter a telephone or fax number with at least three digits. Spaces, hyphens, parentheses, slashes, and a leading plus sign are permitted, e.g. +49 89 2186 0 or 09131 85-0.',
+            'rrze-legal'
+        );
+        $atts['description'] = empty($atts['description'])
+            ? $formatDescription
+            : $atts['description'] . ' ' . $formatDescription;
+
         self::text($atts, 'tel');
     }
 

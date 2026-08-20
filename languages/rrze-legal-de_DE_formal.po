@@ -20,6 +20,10 @@ msgstr ""
 "X-Loco-Template: languages/rrze-legal-de_DE.po\n"
 "X-Loco-Template-Mode: PO,JSON\n"
 
+#: includes/Fields.php
+msgid "Enter a telephone or fax number with at least three digits. Spaces, hyphens, parentheses, slashes, and a leading plus sign are permitted, e.g. +49 89 2186 0 or 09131 85-0."
+msgstr "Geben Sie eine Telefon- oder Faxnummer mit mindestens drei Ziffern ein. Leerzeichen, Bindestriche, Klammern, Schrägstriche und ein führendes Pluszeichen sind erlaubt, z. B. +49 89 2186 0 oder 09131 85-0."
+
 #. Plugin Name of the plugin
 #: rrze-legal.php
 msgid "RRZE Legal"
