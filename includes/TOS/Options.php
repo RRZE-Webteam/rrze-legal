@@ -673,8 +673,6 @@ class Options extends Settings {
                 $reason = __('Required field is empty.', 'rrze-legal');
             } elseif (($field['type'] ?? '') === 'email' && !is_email($value)) {
                 $reason = __('Required field does not contain a valid email address.', 'rrze-legal');
-            } elseif ($this->isPlaceholderDefaultValue($key, $field, $value)) {
-                $reason = __('Required field still contains an automatically set default value.', 'rrze-legal');
             }
 
             if ($reason === '') {
@@ -745,21 +743,6 @@ class Options extends Settings {
 
     protected function getRequiredDataNoticeLogOptionName(string $level): string {
         return $this->optionName . '_required_data_' . sanitize_key($level) . '_logged';
-    }
-
-    protected function isPlaceholderDefaultValue(string $key, array $field, string $value): bool {
-        $default = isset($field['default']) ? trim((string) $field['default']) : '';
-        if ($default === '' || $value !== $default) {
-            return false;
-        }
-
-        $placeholderDefaults = [
-            'imprint_responsible_person_organization' => $this->getSiteUrlHost(),
-            'imprint_webmaster_email' => get_option('admin_email'),
-            'accessibility_feedback_email' => get_option('admin_email'),
-        ];
-
-        return isset($placeholderDefaults[$key]) && $value === trim((string) $placeholderDefaults[$key]);
     }
 
     protected function getSectionLabel(string $sectionId): string {
