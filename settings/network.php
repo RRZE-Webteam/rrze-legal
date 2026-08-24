@@ -39,7 +39,7 @@ $settings = [
                                 'label' => __('Overwrite Endpoints', 'rrze-legal'),
                                 'description' => __('Websites may create their own, manually created web pages for the legal text. These then have priority over the automatically created texts and are shown instead', 'rrze-legal'),
                                 'type' => 'checkbox',
-                                'default' => true,
+                                'default' => false,
                             ],
                             [
                                 'name' => 'exceptions',

@@ -5,6 +5,7 @@ namespace RRZE\Legal\TOS;
 defined('ABSPATH') || exit;
 
 use RRZE\Legal\{Locale, Template};
+use RRZE\Legal\Consent\Frontend;
 use function RRZE\Legal\{plugin, tos, consentCookies};
 
 class Endpoint {
@@ -195,6 +196,9 @@ class Endpoint {
         
         // Render all templates and get the page content
         $content = self::getContent($template, $options);
+        if ($requestData['endpoint'] === 'privacy') {
+            Frontend::registerPrivacyEndpointConsentControls();
+        }
         // Search content for shortcodes and filter shortcodes through their hooks
         // Shortcodes inside HTML elements will be skipped
         $content = do_shortcode($content);

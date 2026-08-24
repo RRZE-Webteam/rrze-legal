@@ -160,7 +160,7 @@ class Options extends Settings
     {
         $options = (array) get_site_option($this->optionName);
         if (!array_key_exists('network_general_overwrite_endpoints', $options)) {
-            return true;
+            return false;
         }
 
         return (bool) $options['network_general_overwrite_endpoints'];

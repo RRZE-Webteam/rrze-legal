@@ -8,7 +8,11 @@ use RRZE\Legal\Utils;
 use function RRZE\Legal\{plugin, consent};
 
 class Frontend {
+    private static bool $consentAssetsRegistered = false;
+
     public static function loaded() {
+        add_shortcode('rrzelegal_consent', [__CLASS__, 'handleShortcode']);
+
         if (self::requestShouldBypassConsent()) {
             return;
         }
@@ -31,10 +35,7 @@ class Frontend {
         }
 
         if (consent()->isBannerActive() || consent()->isTestModeActive()) {
-            // Add scripts and styles
-            add_action('wp_enqueue_scripts', [__CLASS__, 'enqueueScripts']);
-            add_action('wp_head', [__CLASS__, 'head']);
-            add_action('wp_footer', [__CLASS__, 'footer']);
+            self::registerConsentAssets();
 
             // Block scripts
             add_action('template_redirect', [Buffer::getInstance(), 'handleBuffering'], 9998);
@@ -43,9 +44,6 @@ class Frontend {
 
             // Add banner
             add_action('wp_footer', [__CLASS__, 'addBanner']);
-
-            // Register shortcodes
-            add_shortcode('rrzelegal_consent', [__CLASS__, 'handleShortcode']);
 
             // Block cookies
             add_action('wp', [__CLASS__, 'handleCookieBlocking']);
@@ -58,6 +56,22 @@ class Frontend {
             add_filter('widget_block_content', [__CLASS__, 'handleContentBlocking'], 100, 1);
             add_filter('rrze_video_player_content', [__CLASS__, 'handleRRZEVideoBlocking'], 100, 1);
         }
+    }
+
+    public static function registerPrivacyEndpointConsentControls(): void {
+        self::registerConsentAssets();
+    }
+
+    protected static function registerConsentAssets(): void {
+        if (self::$consentAssetsRegistered) {
+            return;
+        }
+
+        self::$consentAssetsRegistered = true;
+
+        add_action('wp_enqueue_scripts', [__CLASS__, 'enqueueScripts']);
+        add_action('wp_head', [__CLASS__, 'head']);
+        add_action('wp_footer', [__CLASS__, 'footer']);
     }
 
     
@@ -300,6 +314,10 @@ class Frontend {
     }
 
     public static function handleShortcode($atts, $content = '')  {
+        if (!self::$consentAssetsRegistered) {
+            return '';
+        }
+
         return Shortcode::handleShortcode($atts, $content);
     }
 
