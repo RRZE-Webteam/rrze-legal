@@ -1,5 +1,5 @@
 === RRZE Legal ===
-Stable tag: 2.8.27
+Stable tag: 2.8.28
 Plugin URI: https://github.com/RRZE-Webteam/rrze-legal
 GitHub Issue URL: https://github.com/RRZE-Webteam/rrze-legal/issues
 Author: RRZE-Webteam <webmaster@fau.de>
