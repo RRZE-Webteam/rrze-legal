@@ -124,6 +124,15 @@ $data = [
                 'phone'             => '+49 89 2186 0',
                 'url'               => 'https://www.stmwk.bayern.de/',
             ],
+            'imprint_id_numbers'    => [
+                '_readonly'        => false,
+                'ustg'              => 'DE343954398',
+                'tax'               => '216/114/20045 (Finanzamt Mittelfranken-Ost)',         
+                'kontoinhaber'      => 'Freistaat Bayern',
+                'bankname'          => 'Bayerische Landesbank München',             
+                'iban'              => 'DE66700500000301279280',
+                'bic'               => 'BYLADEMMXXX'
+            ],
             'imprint_whistleblower_system' => [
                 '_readonly'        => false,
                 'linktitle'         => '',
@@ -143,13 +152,13 @@ $data = [
              'privacy_dpo' =>  [
                 '_readonly'        => true,
                 'email'             => 'dataprotection@utn.de',
-                'name'              => 'insidas GmbH & Co. KG vertreten durch Kilian Bauer',
+                'name'              => 'insidas GmbH & Co. KG / actago GmbH',
                 'fax'               => '',
-                'phone'             => '+49 871 20 54 94 0',
+                'phone'             => '+49 9951 99990 500',
                 'postal_co'         => '',
-                'postal_street'     => 'Wallerstraße 2',
-                'postal_code'       => '84032',
-                'postal_city'       => 'Altdorf ',
+                'postal_street'     => 'Weidenstr. 66',
+                'postal_code'       => '94405',
+                'postal_city'       => 'Landau a. d. Isar',
                 'person_name'       => '',
             ],
             'privacy_supervisory_authority' => [
