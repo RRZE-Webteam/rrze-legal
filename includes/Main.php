@@ -20,6 +20,10 @@ class Main {
 
     protected $overwrittenTOSPostId = 0;
 
+    protected $accessibilityReviewIsOverdue = false;
+
+    protected $accessibilityLastReviewDate = '';
+
     /**
      * Class constructor.
      */
@@ -102,6 +106,7 @@ class Main {
         $this->requiredTOSIssues = tos()->getRequiredDataIssues();
         $this->requiredTOSFirstReported = tos()->syncRequiredDataNoticeTimestamp($this->requiredTOSIssues);
         $this->requiredTOSNoticeLevel = $this->getRequiredTOSNoticeLevel();
+        $this->accessibilityReviewIsOverdue = $this->isAccessibilityReviewOverdue();
         if ($hadRequiredTOSFirstReported) {
             $this->logRequiredTOSNoticeEscalation();
         }
@@ -136,6 +141,9 @@ class Main {
                 add_action('admin_footer', [$this, 'requiredTOSAcknowledgementBackdrop']);
             }
         }
+        if ($this->accessibilityReviewIsOverdue && $this->isDashboardPage() && current_user_can('manage_options')) {
+            add_action('admin_notices', [$this, 'accessibilityReviewNotice']);
+        }
         if ($currentPage == 'legal' && isset($published[$current])) {
             $this->overwrittenTOSPostId = (int) $published[$current];
             add_action('admin_notices', [$this, 'currentTOSEndpointOverwrittenNotice']);
@@ -145,6 +153,64 @@ class Main {
     protected function isDashboardPage(): bool {
         global $pagenow;
         return $pagenow === 'index.php';
+    }
+
+    protected function isAccessibilityReviewOverdue(): bool {
+        $lastReviewDate = (string) tos()->getOption('accessibility', 'compliance_status_last_review_date');
+        if ($lastReviewDate === '') {
+            return false;
+        }
+
+        $timezone = wp_timezone();
+        $lastReview = \DateTimeImmutable::createFromFormat('!Y-m-d', $lastReviewDate, $timezone);
+        $errors = \DateTimeImmutable::getLastErrors();
+        if (
+            !$lastReview instanceof \DateTimeImmutable
+            || ($errors !== false && ($errors['warning_count'] > 0 || $errors['error_count'] > 0))
+            || $lastReview->format('Y-m-d') !== $lastReviewDate
+        ) {
+            return false;
+        }
+
+        $reviewMonths = max(1, (int) config()->get('accessibility_review_months', 18));
+        $reviewDeadline = current_datetime()
+            ->setTime(0, 0)
+            ->modify(sprintf('-%d months', $reviewMonths));
+        if ($lastReview >= $reviewDeadline) {
+            return false;
+        }
+
+        $this->accessibilityLastReviewDate = wp_date(get_option('date_format'), $lastReview->getTimestamp(), $timezone);
+
+        return true;
+    }
+
+    public function accessibilityReviewNotice(): void {
+        $settingsLink = sprintf(
+            '<a href="%1$s">%2$s</a>',
+            esc_url(
+                add_query_arg(
+                    [
+                        'page' => 'legal',
+                        'current-tab' => tos()->getPagePrefix() . 'accessibility',
+                    ],
+                    admin_url('admin.php')
+                )
+            ),
+            esc_html__('Accessibility settings', 'rrze-legal')
+        );
+
+        printf(
+            '<div class="notice notice-warning"><p>%s</p></div>',
+            wp_kses_post(
+                sprintf(
+                    /* translators: 1: Date of the last review, 2: Link to the accessibility settings. */
+                    __('The accessibility statement was last reviewed on %1$s, more than 18 months ago. Please check whether the information provided is still correct. If it is still correct or you make changes, update the date of the last review in the %2$s.', 'rrze-legal'),
+                    esc_html($this->accessibilityLastReviewDate),
+                    $settingsLink
+                )
+            )
+        );
     }
 
 
@@ -332,7 +398,7 @@ class Main {
             $this->getRequiredTOSNoticeAcknowledgementCookieName(),
             (string) $timestamp,
             [
-                'expires' => time() + DAY_IN_SECONDS,
+                'expires' => time() + (int) config()->get('tos_notice_acknowledgement_lifetime', DAY_IN_SECONDS),
                 'path' => $path,
                 'domain' => defined('COOKIE_DOMAIN') && COOKIE_DOMAIN ? (string) COOKIE_DOMAIN : '',
                 'secure' => is_ssl(),

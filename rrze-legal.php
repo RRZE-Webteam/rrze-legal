@@ -3,7 +3,7 @@
 /*
 Plugin Name:        RRZE Legal
 Plugin URI:         https://github.com/RRZE-Webteam/rrze-legal
-Version:            2.8.30
+Version:            2.8.33
 Description:        Legal Mandatory Information & GDPR.
 Author:             RRZE-Webteam <webmaster@fau.de>
 Author URI:         https://www.wp.rrze.fau.de
@@ -96,6 +96,19 @@ function plugin()
 }
 
 /**
+ * Instantiate the plugin configuration.
+ * @return Config
+ */
+function config(): Config {
+    static $instance;
+    if (null === $instance) {
+        $instance = new Config();
+    }
+
+    return $instance;
+}
+
+/**
  * Instantiate Network Options class.
  * @return object Plugin
  */
@@ -161,42 +174,6 @@ function consentCookies()
 }
 
 /**
- * TOS Plugin Deactivation.
- */
-function tosPluginDeactivation()
-{
-    include_once ABSPATH . 'wp-admin/includes/plugin.php';
-    if (is_plugin_active('rrze-tos/rrze-tos.php')) {
-        deactivate_plugins('rrze-tos/rrze-tos.php');
-    }
-    if (is_plugin_active_for_network('rrze-tos/rrze-tos.php')) {
-        add_action('network_admin_notices', function () {
-            echo '<div class="notice notice-warning"><p>',
-            esc_html(__('The "rrze-tos" plugin is networkwide activated. Please deactivate the "rrze-tos" plugin as it will be replaced by the "rrze-legal" plugin.', 'rrze-legal'), 'post'),
-            '</p></div>';
-        });
-        return false;
-    }
-    return true;
-}
-
-/**
- * Get FAU domains.
- * @return array
- */
-function fauDomains(): array
-{
-    return apply_filters(
-        'rrze_legal_fau_domains',
-        [
-            'fau.de',
-            'fau.eu',
-            'uni-erlangen.de'
-        ]
-    );
-}
-
-/**
  * Check system requirements for the plugin.
  *
  * This method checks if the server environment meets the minimum WordPress and PHP version requirements
@@ -245,9 +222,6 @@ function systemRequirements(): string
  */
 function loaded()
 {
-    if (!tosPluginDeactivation()) {
-        return;
-    }
     // Trigger the 'loaded' method of the main plugin instance.
     plugin()->loaded();
     // Check system requirements.

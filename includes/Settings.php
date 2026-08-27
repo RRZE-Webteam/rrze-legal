@@ -217,14 +217,38 @@ class Settings {
             $default = isset($options['default']) ? $options['default'] : '';
             $defaultOptions = array_merge($defaultOptions, [$field => $default]);
             $type = isset($options['type']) ? strtolower($options['type']) : '';
-            if ($type === 'optionalwpeditor' && !empty($options['content_name'])) {
+            if ($type === 'optionalwpeditor') {
                 $name = $options['name'] ?? '';
                 $sectionId = $name !== '' ? substr($field, 0, -(strlen($name) + 1)) : '';
-                if ($sectionId !== '') {
-                    $contentKey = $sectionId . '_' . sanitize_key($options['content_name']);
-                    $contentDefault = $options['content_default'] ?? '';
+
+                if ($sectionId === '') {
+                    continue;
+                }
+
+                foreach ([
+                    'content_name' => 'content_default',
+                    'content_name_en' => 'content_default_en',
+                ] as $contentNameProperty => $contentDefaultProperty) {
+                    if (empty($options[$contentNameProperty])) {
+                        continue;
+                    }
+
+                    $contentKey = $sectionId . '_' . sanitize_key($options[$contentNameProperty]);
+                    $contentDefault = $options[$contentDefaultProperty] ?? '';
                     $defaultOptions = array_merge($defaultOptions, [$contentKey => $contentDefault]);
                 }
+            }
+
+            if ($type === 'bilingualwpeditor' && !empty($options['content_name_en'])) {
+                $name = $options['name'] ?? '';
+                $sectionId = $name !== '' ? substr($field, 0, -(strlen($name) + 1)) : '';
+                if ($sectionId === '') {
+                    continue;
+                }
+
+                $contentKey = $sectionId . '_' . sanitize_key($options['content_name_en']);
+                $contentDefault = $options['content_default_en'] ?? '';
+                $defaultOptions = array_merge($defaultOptions, [$contentKey => $contentDefault]);
             }
         }
         return $defaultOptions;
@@ -574,6 +598,8 @@ class Settings {
             $required = isset($option['required']) ? (bool) $option['required'] : false;
             $contentName = isset($option['content_name']) ? sanitize_key($option['content_name']) : '';
             $contentDefault = $option['content_default'] ?? '';
+            $contentNameEnglish = isset($option['content_name_en']) ? sanitize_key($option['content_name_en']) : '';
+            $contentDefaultEnglish = $option['content_default_en'] ?? '';
 
             $atts = [
                 'name' => $name,
@@ -600,9 +626,10 @@ class Settings {
                 'required' => $required,
                 'errors' => get_settings_errors($this->settingsPrefix . $section),
                 'content_name' => $contentName,
-                'content_label' => $option['content_label'] ?? '',
+                'content_name_en' => $contentNameEnglish,
                 'content_description' => $option['content_description'] ?? '',
                 'content_value' => $contentName !== '' ? $this->getOption($sectionId, $contentName, $contentDefault) : '',
+                'content_value_en' => $contentNameEnglish !== '' ? $this->getOption($sectionId, $contentNameEnglish, $contentDefaultEnglish) : '',
                 'content_height' => isset($option['content_height']) ? absint($option['content_height']) : 0,
                 'content_editor' => !empty($option['content_editor']),
             ];
@@ -684,16 +711,50 @@ class Settings {
                 } else {
                     $input[$key] = $value;
                     $this->options[$key] = $value;
-                    if ($type === 'optionalwpeditor' && !empty($option['content_name'])) {
-                        $contentKey = $prefix . '_' . sanitize_key($option['content_name']);
-                        $contentValue = $input[$contentKey] ?? '';
-                        $input[$contentKey] = $this->sanitizeOptionalEditorContent((string) $contentValue);
-                        $this->options[$contentKey] = $input[$contentKey];
-                    }
                 }
             }
+
+            $input = $this->sanitizeBilingualEditorContents($input, $prefix);
         }
         return $this->postSanitizeOptions($input, $hasError);
+    }
+
+    /**
+     * Sanitizes paired editor contents independently from their display checkbox.
+     * @param array $input Submitted options
+     * @param string $prefix Current settings section prefix
+     * @return array
+     */
+    protected function sanitizeBilingualEditorContents(array $input, string $prefix): array {
+        foreach ($this->fields as $key => $option) {
+            if (strpos($key, $prefix) !== 0) {
+                continue;
+            }
+
+            $type = isset($option['type']) ? strtolower($option['type']) : '';
+            if (!in_array($type, ['optionalwpeditor', 'bilingualwpeditor'], true)) {
+                continue;
+            }
+
+            $contentNameProperties = $type === 'optionalwpeditor'
+                ? ['content_name', 'content_name_en']
+                : ['content_name_en'];
+            foreach ($contentNameProperties as $contentNameProperty) {
+                if (empty($option[$contentNameProperty])) {
+                    continue;
+                }
+
+                $contentKey = $prefix . '_' . sanitize_key($option[$contentNameProperty]);
+                if (!array_key_exists($contentKey, $input)) {
+                    continue;
+                }
+
+                $input[$contentKey] = $this->sanitizeOptionalEditorContent((string) $input[$contentKey]);
+                $this->options[$contentKey] = $input[$contentKey];
+            }
+        }
+
+        return $input;
     }
 
     protected function sanitizeOptionalEditorContent(string $value): string {
@@ -742,6 +803,7 @@ class Settings {
             case 'textarea':
                 return sanitize_textarea_field((string) $value);
             case 'wpeditor':
+            case 'bilingualwpeditor':
                 return wp_kses_post((string) $value);
             case 'text':
             case 'tel':

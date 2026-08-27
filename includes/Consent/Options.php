@@ -97,6 +97,38 @@ class Options extends Settings {
         return $currentVersion;
     }
 
+    /**
+     * Returns the lifetime of the consent cookie as it is configured for the banner.
+     */
+    public function getConsentCookieExpiryDescription(): string
+    {
+        $lifetime = max(1, (int) $this->getOption('banner', 'lifetime', 182));
+        $essentialOnlyLifetime = max(1, (int) $this->getOption('banner', 'lifetime_essential_only', 182));
+        $lifetimeText = $this->formatConsentCookieLifetime($lifetime);
+
+        if ($lifetime === $essentialOnlyLifetime) {
+            return $lifetimeText;
+        }
+
+        return sprintf(
+            /* translators: 1: Cookie lifetime with essential cookies only, 2: Cookie lifetime with additional cookie categories. */
+            __('%1$s for essential cookies only; %2$s when additional cookie categories are accepted.', 'rrze-legal'),
+            $this->formatConsentCookieLifetime($essentialOnlyLifetime),
+            $lifetimeText
+        );
+    }
+
+    /**
+     * Formats a cookie lifetime in days for display.
+     */
+    protected function formatConsentCookieLifetime(int $days): string
+    {
+        return sprintf(
+            _n('%d day', '%d days', $days, 'rrze-legal'),
+            $days
+        );
+    }
+
     public function updateCookieVersion()
     {
         $currentVersion = (int) get_option('rrze_legal_consent_cookie_version', 1);

@@ -4,7 +4,7 @@ namespace RRZE\Legal\Consent;
 
 defined('ABSPATH') || exit;
 
-use function RRZE\Legal\{plugin, tos, consent, consentCookies};
+use function RRZE\Legal\{config, plugin, tos, consent, consentCookies};
 
 class JavaScript {
     /**
@@ -109,6 +109,7 @@ class JavaScript {
             'cookieSecure' => (bool) consent()->getOption('banner', 'secure'),
             'cookieLifetime' => consent()->getOption('banner', 'lifetime'),
             'cookieLifetimeEssentialOnly' => consent()->getOption('banner', 'lifetime_essential_only'),
+            'consentCookieName' => config()->get('consent_cookie_name', 'rrze-legal-consent'),
             'crossDomainCookie' => [],
             'cookieBeforeConsent' => false,
             'cookieVersion' => $this->cookieVersion,
@@ -239,6 +240,7 @@ class JavaScript {
 
             wp_localize_script('rrze_legal_consent_banner_prioritize', 'rrzelegalCookiePrioritized', [
                 'domain' => consent()->getOption('banner', 'domain'),
+                'cookieName' => config()->get('consent_cookie_name', 'rrze-legal-consent'),
                 'path' => $this->cookiePath,
                 'version' => $this->cookieVersion,
                 'bots' => consent()->isCookieForBotsActive(),
