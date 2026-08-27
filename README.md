@@ -71,3 +71,4 @@ npm run dev
 Für eine produktive Auslieferung wird stattdessen `npm run prod` verwendet. Dadurch werden die Assets, Plugin-Metadaten und die WordPress-Readme aktualisiert.
 
 Die rechtliche Prüfung und Freigabe der angepassten Texte bleibt Verantwortung der jeweiligen Einrichtung. Das Plugin stellt technische und redaktionelle Bausteine bereit, ersetzt aber keine Rechtsberatung.
+
