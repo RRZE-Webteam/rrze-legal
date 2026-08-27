@@ -12,33 +12,6 @@ class Template
 
     const CONSENT_PATH = 'templates/consent';
 
-    protected static $themesFilenames = [
-        'fau.php' => [
-            'FAU-Einrichtungen',
-            'FAU-Einrichtungen-BETA',
-            'FAU-Medfak',
-            'FAU-RWFak',
-            'FAU-Philfak',
-            'FAU-Techfak',
-            'FAU-Natfak',
-            'FAU-Jobportal'
-        ],
-        'rrze.php' => [
-            'rrze-2015',
-            'rrze-2019',
-        ],
-        'fau-elemental.php' => [
-            'FAU-Elemental',
-        ],
-        'events.php' => [
-            'FAU-Events',
-            'FAU-Events-UTN',
-        ],
-        'jobs.php' => [
-            'FAU-Jobportal-Theme',
-        ]
-    ];
-
     /**
      * Get the template content.
      * @param string $template
@@ -82,7 +55,8 @@ class Template
     public static function getThemeFilename(): string
     {
         $currentTheme = wp_get_theme();
-        foreach (self::$themesFilenames as $filename => $theme) {
+        $themeFilenames = config()->get('theme_template_filenames', []);
+        foreach ($themeFilenames as $filename => $theme) {
             if (in_array(strtolower($currentTheme->stylesheet), array_map('strtolower', $theme))) {
                 return $filename;
             }

@@ -5,7 +5,7 @@ namespace RRZE\Legal\Network;
 defined('ABSPATH') || exit;
 
 use RRZE\Legal\{Settings, Utils};
-use function RRZE\Legal\{plugin, fauDomains};
+use function RRZE\Legal\{plugin, config};
 
 class Options extends Settings
 {
@@ -174,7 +174,7 @@ class Options extends Settings
                 'label' => $label,
                 'description' => __('Domain names or unique domain parts assigned to this organization. Enter one entry per line.', 'rrze-legal'),
                 'type' => 'textarea',
-                'default' => $key === 'fau' ? implode(PHP_EOL, fauDomains()) : '',
+                'default' => implode(PHP_EOL, $this->getOrganizationDomains($key)),
                 'sanitize_callback' => [$this, 'sanitizeTextareaList'],
             ];
         }
@@ -182,6 +182,47 @@ class Options extends Settings
     }
 
     protected function getOrganizations(): array {
+        $items = $this->getOrganizationItems();
+        if (empty($items)) {
+            return [];
+        }
+
+        $organizations = [];
+        foreach ($items as $key => $item) {
+            $name = $item['name'] ?? $key;
+            $organizations[$key] = is_string($name) && $name !== '' ? $name : $key;
+        }
+        return $organizations;
+    }
+
+    /**
+     * Returns the default domains of an organization.
+     * @param string $organization Organization key
+     * @return array
+     */
+    protected function getOrganizationDomains(string $organization): array {
+        $items = $this->getOrganizationItems();
+        $domains = $items[$organization]['domains'] ?? [];
+        if (!is_array($domains)) {
+            return [];
+        }
+
+        $result = [];
+        foreach ($domains as $domain) {
+            $domain = trim((string) $domain);
+            if ($domain !== '') {
+                $result[] = $domain;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Returns the organization data from the static TOS configuration.
+     * @return array
+     */
+    protected function getOrganizationItems(): array {
         $filePath = plugin()->getPath() . 'data/tos.php';
         if (!is_readable($filePath)) {
             return [];
@@ -193,12 +234,7 @@ class Options extends Settings
             return [];
         }
 
-        $organizations = [];
-        foreach ($items as $key => $item) {
-            $name = $item['name'] ?? $key;
-            $organizations[$key] = is_string($name) && $name !== '' ? $name : $key;
-        }
-        return $organizations;
+        return $items;
     }
 
     /**
@@ -414,11 +450,17 @@ class Options extends Settings
     }
 
     public function getTosNoticeWarningDays(): int {
-        return $this->getTosNoticeDays('tos_notice_warning_days', 7);
+        return $this->getTosNoticeDays(
+            'tos_notice_warning_days',
+            (int) config()->get('tos_notice_warning_days', 7)
+        );
     }
 
     public function getTosNoticeErrorDays(): int {
-        return $this->getTosNoticeDays('tos_notice_error_days', 30);
+        return $this->getTosNoticeDays(
+            'tos_notice_error_days',
+            (int) config()->get('tos_notice_error_days', 30)
+        );
     }
 
     public function getTosNoticeWarningText(): string {
@@ -436,7 +478,11 @@ class Options extends Settings
     }
 
     public function isTosNoticeAcknowledgementRequired(): bool {
-        return (bool) $this->getOption('network_general', 'tos_notice_require_acknowledgement', false);
+        return (bool) $this->getOption(
+            'network_general',
+            'tos_notice_require_acknowledgement',
+            config()->get('tos_notice_require_acknowledgement', false)
+        );
     }
 
     protected function getTosNoticeDays(string $name, int $default): int {

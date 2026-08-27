@@ -6,7 +6,7 @@ defined('ABSPATH') || exit;
 
 use RRZE\Legal\{Locale, Template};
 use RRZE\Legal\Consent\Frontend;
-use function RRZE\Legal\{plugin, tos, consentCookies};
+use function RRZE\Legal\{config, consent, plugin, tos, consentCookies};
 
 class Endpoint {
     protected static array $currentEndpointRequestData = [];
@@ -113,8 +113,8 @@ class Endpoint {
         }
 
         $options['imprint_scope_websites'] = $value;
-        // Set default domain option
-        $options['is_default_domain'] = tos()->isCurrentSiteInDefaultDomains() ? '1' : '0';
+        // Set organization domain option
+        $options['is_default_domain'] = tos()->isCurrentSiteInOrganizationDomains() ? '1' : '0';
 
    
         // Set accessibility conformity
@@ -281,6 +281,10 @@ class Endpoint {
         $labels = self::getServiceProviderLabels($langCode);
         $cookieName = trim((string) ($data['cookie_name'] ?? ''));
         $cookieExpiry = trim((string) ($data['cookie_expiry'] ?? ''));
+        if (($data['id'] ?? '') === 'default') {
+            $cookieName = (string) config()->get('consent_cookie_name', $cookieName);
+            $cookieExpiry = consent()->getConsentCookieExpiryDescription();
+        }
         $items = [
             $labels['provider'] => esc_html((string) ($data['provider'] ?? '')),
             $labels['privacy_policy_url'] => self::formatServiceProviderPrivacyUrl($data['privacy_policy_url'] ?? ''),

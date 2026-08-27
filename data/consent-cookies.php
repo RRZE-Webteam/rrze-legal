@@ -5,7 +5,7 @@ namespace RRZE\Legal;
 defined('ABSPATH') || exit;
 
 $data = [
-    'version' => 10,
+    'version' => 13,
     'items' => [
         'default' => [
             'id' => 'default',
@@ -16,7 +16,7 @@ $data = [
             'purpose' => __('Saves the visitors preferences selected in the Consent Banner.', 'rrze-legal'),
             'privacy_policy_url' => tos()->endpointUrl('privacy'),
             'hosts' => tos()->getSiteUrlHost(),
-            'cookie_expiry' => __('1 Year', 'rrze-legal'),
+            'cookie_expiry' => __('6 Months', 'rrze-legal'),
             'enqueued_script_handles' => '',
             'block_enqueued_script' => false,
             'prioritize' => false,
@@ -220,6 +220,42 @@ The legal basis for processing personal data using cookies is Art. 6 (1) (a) GDP
             'status' => consent()->isServiceProviderActive('siteimprove_analytics'),
             'static' => true,
         ],
+        'jobspreader_analytics' => [
+            'id' => 'jobspreader_analytics',
+            'cookie_name' => 'js_clid, js_startqueue, js_endqueue, js_end',
+            'category' => 'statistics',
+            'name' => __('Jobspreader Analytics', 'rrze-legal'),
+            'provider' => __('Wollmilchsau GmbH, Koppel 97, 20099 Hamburg, Germany', 'rrze-legal'),
+            'purpose' => __('Used to analyse the performance of job advertisements and application processes.', 'rrze-legal'),
+            'privacy_text_de' => 'Diese Website kann Jobspreader Analytics einsetzen, einen Analysedienst der Wollmilchsau GmbH. Jobspreader Analytics dient der Auswertung und Optimierung von Stellenanzeigen und Bewerbungsprozessen.
+
+Wenn Sie über eine von Jobspreader verbreitete Stellenanzeige auf die Karriereseite gelangen und eingewilligt haben, verarbeitet Jobspreader Analytics eine zufällig erzeugte Click-ID, die aufgerufene Job-URL sowie Zeitstempel. Zudem kann erfasst werden, ob ein Bewerbungsprozess gestartet oder abgeschlossen wurde. Die Daten werden verwendet, um die Leistung von Jobkampagnen und die Nutzerfreundlichkeit des Bewerbungsprozesses zu bewerten und zu verbessern.
+
+Jobspreader Analytics setzt die Cookies js_clid, js_startqueue, js_endqueue und js_end. Das Cookie js_clid wird 30 Tage gespeichert. Die übrigen Cookies werden nur vorübergehend für die jeweiligen Ereignisse verwendet und anschließend gelöscht.
+
+Die Nutzung erfolgt nur auf Grundlage Ihrer Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG. Die Einwilligung ist jederzeit widerrufbar.',
+            'privacy_text_en' => 'This website may use Jobspreader Analytics, an analytics service provided by Wollmilchsau GmbH. Jobspreader Analytics is used to analyse and optimise job advertisements and application processes.
+
+If you reach the careers website through a job advertisement distributed by Jobspreader and have given your consent, Jobspreader Analytics processes a randomly generated click ID, the job URL accessed and timestamps. It may also record whether an application process was started or completed. The data are used to evaluate and improve the performance of job campaigns and the usability of the application process.
+
+Jobspreader Analytics sets the cookies js_clid, js_startqueue, js_endqueue and js_end. The js_clid cookie is stored for 30 days. The remaining cookies are used temporarily for the respective events and are deleted afterwards.
+
+The service is used only on the basis of your consent pursuant to Art. 6 (1) (a) GDPR and Section 25 (1) TDDDG. Consent can be withdrawn at any time.',
+            'privacy_policy_url' => 'https://wollmilchsau.de/datenschutz/',
+            'hosts' => 'jobspreader.com',
+            'cookie_expiry' => __('30 Days (js_clid); otherwise Session', 'rrze-legal'),
+            'enqueued_script_handles' => '',
+            'block_enqueued_script' => false,
+            'prioritize' => false,
+            'async_opt_out_code' => false,
+            'opt_in_js' => '',
+            'opt_out_js' => '',
+            'fallback_js' => '',
+            'position' => 2,
+            'plugin_slug' => 'jobspreader-analytics/jobspreader-analytics.php',
+            'status' => consent()->isServiceProviderActive('jobspreader_analytics'),
+            'static' => true,
+        ],
         'twitter' => [
             'id' => 'twitter',
             'cookie_name' => 'guest_id, personalization_id, app_shell_referrer, _sl, __utma, _ga_',
@@ -294,7 +330,8 @@ The use is based on your consent pursuant to Art. 6 (1) (a) GDPR. Consent can be
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 2,
-            'status' => true,
+            'plugin_slug' => 'rrze-video/rrze-video.php',
+            'status' => consent()->isServiceProviderActive('youtube'),
             'static' => true,
         ],
         'spotify' => [
@@ -372,7 +409,8 @@ The use of Vimeo is based on your consent pursuant to Art. 6 (1) (a) GDPR. Conse
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 4,
-            'status' => true,
+            'plugin_slug' => 'rrze-video/rrze-video.php',
+            'status' => consent()->isServiceProviderActive('vimeo'),
             'static' => true,
         ],
         'gstatic' => [
@@ -485,7 +523,8 @@ The use is based on your consent pursuant to Art. 6 (1) (a) GDPR. Consent can be
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 7,
-            'status' => true,
+            'plugin_slug' => 'fau-oembed/fau-oembed.php',
+            'status' => consent()->isServiceProviderActive('slideshare'),
             'static' => true,
         ],
         'brmediathek' => [

@@ -60,6 +60,9 @@ class Frontend {
 
     public static function registerPrivacyEndpointConsentControls(): void {
         self::registerConsentAssets();
+        if (!consent()->isBannerActive() && !consent()->isTestModeActive()) {
+            add_action('wp_footer', [__CLASS__, 'addBanner']);
+        }
     }
 
     protected static function registerConsentAssets(): void {
@@ -69,7 +72,11 @@ class Frontend {
 
         self::$consentAssetsRegistered = true;
 
-        add_action('wp_enqueue_scripts', [__CLASS__, 'enqueueScripts']);
+        if (did_action('wp_enqueue_scripts')) {
+            self::enqueueScripts();
+        } else {
+            add_action('wp_enqueue_scripts', [__CLASS__, 'enqueueScripts']);
+        }
         add_action('wp_head', [__CLASS__, 'head']);
         add_action('wp_footer', [__CLASS__, 'footer']);
     }

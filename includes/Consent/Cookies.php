@@ -4,11 +4,9 @@ namespace RRZE\Legal\Consent;
 
 defined('ABSPATH') || exit;
 
-use function RRZE\Legal\{consent, consentCookies};
+use function RRZE\Legal\{config, consent, consentCookies};
 
-class Cookies
-{
-    const CONSENT_COOKIE_NAME = 'rrze-legal-consent';
+class Cookies {
 
     /**
      * Check cookie consent
@@ -19,8 +17,9 @@ class Cookies
     {
         $consent = false;
 
-        if (!empty($_COOKIE[self::CONSENT_COOKIE_NAME])) {
-            $cookieData = json_decode(stripslashes($_COOKIE[self::CONSENT_COOKIE_NAME]));
+        $cookieName = self::getConsentCookieName();
+        if (!empty($_COOKIE[$cookieName])) {
+            $cookieData = json_decode(stripslashes($_COOKIE[$cookieName]));
 
             if (!empty($cookieData->consents)) {
                 foreach ($cookieData->consents as $category) {
@@ -37,7 +36,8 @@ class Cookies
 
     public static function setEssentialCookie()
     {
-        if (!empty($_COOKIE[self::CONSENT_COOKIE_NAME])) {
+        $cookieName = self::getConsentCookieName();
+        if (!empty($_COOKIE[$cookieName])) {
             return;
         }
 
@@ -57,7 +57,7 @@ class Cookies
             }
         }
 
-        $expires = strtotime('+6 months');
+        $expires = strtotime((string) config()->get('consent_essential_cookie_expiry', '+6 months'));
         $siteUrl = trailingslashit(site_url());
         $parseUrl = wp_parse_url($siteUrl);
         $host = $parseUrl['host'];
@@ -73,11 +73,15 @@ class Cookies
         $content = json_encode($content);
 
         setcookie(
-            self::CONSENT_COOKIE_NAME,
+            $cookieName,
             $content,
             $expires,
             $path,
             $host
         );
+    }
+
+    protected static function getConsentCookieName(): string {
+        return (string) config()->get('consent_cookie_name', 'rrze-legal-consent');
     }
 }

@@ -4,36 +4,7 @@ namespace RRZE\Legal;
 
 defined('ABSPATH') || exit;
 
-class Theme
-{
-    /**
-     * Stylesheets Groups
-     * @var array
-     */
-    protected static $stylesheetsGroups =  [
-        'fau' => [
-            'FAU-Einrichtungen',
-            'FAU-Einrichtungen-BETA',
-            'FAU-Medfak',
-            'FAU-Philfak',
-            'FAU-Natfak',
-            'FAU-RWFak',
-            'FAU-Techfak',
-            'FAU-Jobportal'
-        ],
-        'rrze' => [
-            'rrze-2019',
-        ],
-        'events' => [
-            'FAU-Events',
-            'FAU-Events-UTN',
-            'FAU-Events UTN'
-        ],
-        'jobs' => [
-            'fau-jobportal-theme',
-        ]
-    ];
-
+class Theme {
     /**
      * Get the current theme stylesheet.
      * @return string return the current theme stylesheet or 'default'
@@ -44,7 +15,8 @@ class Theme
         $currentStylesheet = $currentTheme->stylesheet;
         $parentStylesheet = !empty($currentTheme->parent()) ? $currentTheme->parent()->stylesheet : '';
 
-        foreach (self::$stylesheetsGroups as $group => $stylesheets) {
+        $stylesheetGroups = config()->get('theme_stylesheet_groups', []);
+        foreach ($stylesheetGroups as $group => $stylesheets) {
             if (in_array(
                 strtolower($currentStylesheet),
                 array_map('strtolower', $stylesheets),

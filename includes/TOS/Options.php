@@ -6,7 +6,7 @@ defined('ABSPATH') || exit;
 
 use RRZE\Legal\{Settings, Cache, Utils, Locale, Fields};
 use RRZE\Legal\TOS\Endpoint;
-use function RRZE\Legal\{plugin, network, consent, consentCookies, fauDomains};
+use function RRZE\Legal\{plugin, network, consent, consentCookies};
 
 class Options extends Settings {
     private $isPluginActiveForNetwork;
@@ -37,7 +37,6 @@ class Options extends Settings {
         $this->settingsFilename = 'tos';
 
         add_action('admin_enqueue_scripts', [$this, 'adminEnqueueTOSScripts']);
-        add_filter('rrze_legal_privacy_hide_dpo_section', [$this, 'setFAUDpoSection']);
 
         $this->isPluginActiveForNetwork = Utils::isPluginActiveForNetwork(plugin()->getBaseName());
     }
@@ -66,6 +65,20 @@ class Options extends Settings {
 
     protected function postSanitizeOptions($input, $hasError) {
         if (!$hasError) {
+            $sectionId = $this->getSubmittedSectionId();
+            if ($sectionId === 'scope') {
+                $organization = sanitize_key((string) ($this->options['scope_context'] ?? ''));
+                if (isset($this->staticdata[$organization])) {
+                    $previousOrganization = $this->getStoredOrganizationContext();
+                    if ($previousOrganization !== '' && $previousOrganization !== $organization) {
+                        $this->removeStaticOrganizationOptions($previousOrganization);
+                    }
+                    $this->options['scope_context'] = $organization;
+                }
+            } elseif (!$this->hasStoredOrganizationContext()) {
+                unset($this->options['scope_context']);
+            }
+            $this->storeBilingualEditorOptions($input);
             $this->logTosSettingsChange();
             $serviceProviders = $this->options['privacy_service_providers'] ?? [];
             $consentCookiesOptionName = consentCookies()->getOptionName();
@@ -166,21 +179,18 @@ class Options extends Settings {
         ]);
     }
 
-    public function setFAUDpoSection()  {
-        if ($this->isCurrentSiteInDefaultDomains()) {
-            return true;
+    public function isCurrentSiteInOrganizationDomains(): bool {
+        $hostname = strtolower((string) Utils::getSiteUrlHost());
+        if ($hostname === '') {
+            return false;
         }
-        return false;
-    }
 
-    public function isCurrentSiteInDefaultDomains() {
-        $fauDomains = $this->getFAUDomains();
-        $hostname = Utils::getSiteUrlHost();
-        foreach ($fauDomains as $domain) {
-            if (strpos($hostname, $domain) !== false) {
+        foreach ($this->getCurrentOrganizationDomains() as $domain) {
+            if (str_contains($hostname, $domain)) {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -275,19 +285,106 @@ class Options extends Settings {
         return $settings;
     }
 
-    public function getFAUDomains() {
-        $fauDomains = fauDomains();
-        if ($this->isPluginActiveForNetwork) {
-            $customDomains = network()->getOption('network_general', 'fau_domains');
-            if (!empty($customDomains)) {
-                $fauDomains = explode(PHP_EOL, $customDomains);
-            }
+    protected function getCurrentOrganizationDomains(): array {
+        $organization = $this->getCurrentOrganizationContext();
+        if ($organization === '') {
+            return [];
         }
-        return $fauDomains;
+
+        return $this->getOrganizationDomains($organization);
     }
 
-    public function getFAUDomainsToString()  {
-        return implode(PHP_EOL, $this->getFAUDomains());
+    protected function getCurrentOrganizationContext(): string {
+        $organization = $this->getStoredOrganizationContext();
+        if ($organization !== '') {
+            return $organization;
+        }
+
+        $hostname = strtolower((string) Utils::getSiteUrlHost());
+        foreach (array_keys($this->staticdata) as $organization) {
+            foreach ($this->getOrganizationDomains($organization) as $domain) {
+                if (str_contains($hostname, $domain)) {
+                    return $organization;
+                }
+            }
+        }
+
+        return 'external';
+    }
+
+    protected function getStoredOrganizationContext(): string {
+        $optionNames = array_unique([
+            $this->getDefaultLanguageOptionName(),
+            $this->optionName,
+        ]);
+        foreach ($optionNames as $optionName) {
+            $options = get_option($optionName, []);
+            if (!is_array($options)) {
+                continue;
+            }
+
+            $organization = sanitize_key((string) ($options['scope_context'] ?? ''));
+            if (isset($this->staticdata[$organization])) {
+                return $organization;
+            }
+        }
+
+        return '';
+    }
+
+    protected function removeStaticOrganizationOptions(string $organization): void {
+        $staticOptions = $this->staticdata[$organization] ?? [];
+        if (!is_array($staticOptions)) {
+            return;
+        }
+
+        foreach ($staticOptions as $sectionId => $sectionOptions) {
+            if (!is_array($sectionOptions)) {
+                continue;
+            }
+
+            foreach ($sectionOptions as $name => $value) {
+                if ($name === '_readonly') {
+                    continue;
+                }
+                unset($this->options[$sectionId . '_' . $name]);
+            }
+        }
+    }
+
+    protected function hasStoredOrganizationContext(): bool {
+        return $this->getStoredOrganizationContext() !== '';
+    }
+
+    protected function getOrganizationDomains(string $organization): array {
+        $domains = $this->normalizeOrganizationDomains($this->staticdata[$organization]['domains'] ?? []);
+        if (!$this->isPluginActiveForNetwork) {
+            return $domains;
+        }
+
+        $customDomains = network()->getOption('network_general', $organization . '_domains');
+        $customDomains = $this->normalizeOrganizationDomains($customDomains);
+
+        return !empty($customDomains) ? $customDomains : $domains;
+    }
+
+    protected function normalizeOrganizationDomains($domains): array {
+        if (is_string($domains)) {
+            $domains = explode(PHP_EOL, $domains);
+        }
+        if (!is_array($domains)) {
+            return [];
+        }
+
+        $normalizedDomains = [];
+        foreach ($domains as $domain) {
+            $domain = strtolower(trim((string) $domain));
+            if ($domain !== '') {
+                $normalizedDomains[] = $domain;
+            }
+        }
+
+        return array_values(array_unique($normalizedDomains));
     }
 
     public function getSiteUrlHost()  {
@@ -373,24 +470,24 @@ class Options extends Settings {
         $options = $options !== false ? $options : [];
         $options = wp_parse_args($options, $defaults);
         $this->options = array_intersect_key($options, $defaults);
+        $this->loadBilingualEditorOptions();
         if (isset($this->fields['privacy_service_providers'])) {
             $this->options['privacy_service_providers'] = $this->getServiceProvidersStatus();
         }
         
  
-        if ((isset($this->options['scope_context'])) && (!empty($this->options['scope_context']))) {
-             $datascope = $this->options['scope_context'];
-        } elseif ((isset($defaults['scope_context'])) && (!empty($defaults['scope_context']))) {
-
-            $datascope  = $defaults['scope_context'];
-            $this->options['scope_context'] = $datascope;
-        }
+        $datascope = $this->getCurrentOrganizationContext();
+        $this->options['scope_context'] = $datascope;
         $this->staticdataScope = $datascope;
 
 
         if ((!empty($datascope)) && (isset($this->staticdata[$datascope]))) {
             $res = [];
             foreach ($this->staticdata[$datascope] as $scopeentry => $data) {
+                if ($scopeentry === 'domains') {
+                    continue;
+                }
+
                 $setreadonly = false;
                 if (is_array($data)) {
                     if ((isset($data['_readonly'])) && ($data['_readonly'] === true)) {
@@ -410,7 +507,120 @@ class Options extends Settings {
             $this->staticdataSet = $res;
 
         }
-                
+
+    }
+
+    /**
+     * Loads bilingual editor values from the site's default language options.
+     *
+     * The fields are edited as German and English pairs in one backend form,
+     * therefore they must not depend on the locale of the frontend request.
+     * @return void
+     */
+    protected function loadBilingualEditorOptions(): void {
+        $optionName = $this->getDefaultLanguageOptionName();
+        if ($optionName === $this->optionName) {
+            return;
+        }
+
+        $options = get_option($optionName, []);
+        if (!is_array($options)) {
+            return;
+        }
+
+        foreach ($this->getBilingualEditorOptionKeys() as $key) {
+            if (array_key_exists($key, $options)) {
+                $this->options[$key] = $options[$key];
+            }
+        }
+    }
+
+    /**
+     * Stores submitted bilingual editor values in the site's default language options.
+     * @param array $input Submitted options
+     * @return void
+     */
+    protected function storeBilingualEditorOptions(array $input): void {
+        $optionName = $this->getDefaultLanguageOptionName();
+        if ($optionName === $this->optionName) {
+            return;
+        }
+
+        $options = get_option($optionName, []);
+        if (!is_array($options)) {
+            $options = [];
+        }
+
+        $hasChanges = false;
+        foreach ($this->getBilingualEditorOptionKeys() as $key) {
+            if (!array_key_exists($key, $input)) {
+                continue;
+            }
+
+            if (!array_key_exists($key, $options) || $options[$key] !== $input[$key]) {
+                $options[$key] = $input[$key];
+                $hasChanges = true;
+            }
+        }
+
+        if ($hasChanges) {
+            update_option($optionName, $options);
+        }
+    }
+
+    /**
+     * Returns the options that contain paired German and English editor content.
+     * @return array
+     */
+    protected function getBilingualEditorOptionKeys(): array {
+        $keys = [];
+        foreach ($this->fields as $field => $options) {
+            $type = isset($options['type']) ? strtolower($options['type']) : '';
+            if ($type === 'optionalwpeditor') {
+                $name = $options['name'] ?? '';
+                $sectionId = $name !== '' ? substr($field, 0, -(strlen($name) + 1)) : '';
+                if ($sectionId === '') {
+                    continue;
+                }
+
+                $keys[] = $field;
+                foreach (['content_name', 'content_name_en'] as $contentNameProperty) {
+                    if (!empty($options[$contentNameProperty])) {
+                        $keys[] = $sectionId . '_' . sanitize_key($options[$contentNameProperty]);
+                    }
+                }
+                continue;
+            }
+
+            if ($type === 'bilingualwpeditor' && !empty($options['content_name_en'])) {
+                $name = $options['name'] ?? '';
+                $sectionId = $name !== '' ? substr($field, 0, -(strlen($name) + 1)) : '';
+                if ($sectionId === '') {
+                    continue;
+                }
+
+                $keys[] = $field;
+                $keys[] = $sectionId . '_' . sanitize_key($options['content_name_en']);
+                continue;
+            }
+
+            if ($type !== 'wpeditor' || substr($field, -3) !== '_en') {
+                continue;
+            }
+
+            $keys[] = substr($field, 0, -3);
+            $keys[] = $field;
+        }
+
+        return array_values(array_unique($keys));
+    }
+
+    /**
+     * Returns the option name for the site's default language.
+     * @return string
+     */
+    protected function getDefaultLanguageOptionName(): string {
+        return 'rrze_legal_' . substr(Locale::getDefaultLocale(), 0, 2);
     }
     
     
@@ -530,6 +740,8 @@ class Options extends Settings {
             $required = isset($option['required']) ? (bool) $option['required'] : false;
             $contentName = isset($option['content_name']) ? sanitize_key($option['content_name']) : '';
             $contentDefault = $option['content_default'] ?? '';
+            $contentNameEnglish = isset($option['content_name_en']) ? sanitize_key($option['content_name_en']) : '';
+            $contentDefaultEnglish = $option['content_default_en'] ?? '';
 
             $atts = [
                 'name' => $name,
@@ -556,9 +768,10 @@ class Options extends Settings {
                 'errors' => get_settings_errors($this->settingsPrefix . $section),
                 'notice' => $option['notice'] ?? '',
                 'content_name' => $contentName,
-                'content_label' => $option['content_label'] ?? '',
+                'content_name_en' => $contentNameEnglish,
                 'content_description' => $option['content_description'] ?? '',
                 'content_value' => $contentName !== '' ? $this->getOption($sectionId, $contentName, $contentDefault) : '',
+                'content_value_en' => $contentNameEnglish !== '' ? $this->getOption($sectionId, $contentNameEnglish, $contentDefaultEnglish) : '',
                 'content_height' => isset($option['content_height']) ? absint($option['content_height']) : 0,
                 'content_editor' => !empty($option['content_editor']),
             ];

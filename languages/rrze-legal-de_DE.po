@@ -21,6 +21,38 @@ msgstr ""
 msgid "Enter a telephone or fax number with at least three digits. Spaces, hyphens, parentheses, slashes, and a leading plus sign are permitted, e.g. +49 89 2186 0 or 09131 85-0."
 msgstr "Geben Sie eine Telefon- oder Faxnummer mit mindestens drei Ziffern ein. Leerzeichen, Bindestriche, Klammern, Schrägstriche und ein führendes Pluszeichen sind erlaubt, z. B. +49 89 2186 0 oder 09131 85-0."
 
+#: includes/Fields.php
+msgid "German"
+msgstr "Deutsch"
+
+#: includes/Fields.php
+msgid "English"
+msgstr "Englisch"
+
+#: includes/Main.php
+msgid "Accessibility settings"
+msgstr "Einstellungen zur Barrierefreiheit"
+
+#: templates/themes/francesca.php
+msgid "Skip back to main navigation"
+msgstr "Zurück zur Hauptnavigation"
+
+#. translators: 1: Date of the last review, 2: Link to the accessibility settings.
+#: includes/Main.php
+msgid "The accessibility statement was last reviewed on %1$s, more than 18 months ago. Please check whether the information provided is still correct. If it is still correct or you make changes, update the date of the last review in the %2$s."
+msgstr "Die Barrierefreiheitserklärung wurde zuletzt am %1$s überprüft, also vor mehr als 18 Monaten. Bitte prüfen Sie, ob die angegebenen Informationen noch korrekt sind. Wenn sie weiterhin korrekt sind oder Sie Daten ändern, aktualisieren Sie in den %2$s das Datum der letzten Überprüfung."
+
+#. translators: 1: Cookie lifetime with essential cookies only, 2: Cookie lifetime with additional cookie categories.
+#: includes/Consent/Options.php
+msgid "%1$s for essential cookies only; %2$s when additional cookie categories are accepted."
+msgstr "%1$s bei ausschließlich essenziellen Cookies; %2$s bei Zustimmung zu weiteren Cookie-Kategorien."
+
+#: includes/Consent/Options.php
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d Tag"
+msgstr[1] "%d Tage"
+
 #. Plugin Name of the plugin
 #: rrze-legal.php
 msgid "RRZE Legal"
@@ -128,6 +160,10 @@ msgstr ""
 msgid "1 Year"
 msgstr "1 Jahr"
 
+#: data/consent-cookies.php
+msgid "6 Months"
+msgstr "6 Monate"
+
 #: data/consent-cookies.php:35
 msgid "WordPress"
 msgstr "WordPress"
@@ -150,6 +186,18 @@ msgstr "Session"
 #: data/consent-cookies.php:56
 msgid "SimpleSAML"
 msgstr "SimpleSAML"
+
+#: data/consent-cookies.php
+msgid "Wollmilchsau GmbH, Koppel 97, 20099 Hamburg, Germany"
+msgstr "Wollmilchsau GmbH, Koppel 97, 20099 Hamburg, Deutschland"
+
+#: data/consent-cookies.php
+msgid "Used to analyse the performance of job advertisements and application processes."
+msgstr "Dient der Analyse der Leistung von Stellenanzeigen und Bewerbungsprozessen."
+
+#: data/consent-cookies.php
+msgid "30 Days (js_clid); otherwise Session"
+msgstr "30 Tage (js_clid); ansonsten Session"
 
 #: data/consent-cookies.php:58
 msgid "Used to manage WebSSO session state."
@@ -994,14 +1042,6 @@ msgstr ""
 #: includes/TOS/Options.php:667
 msgid "Required field still contains an automatically set default value."
 msgstr "Pflichtfeld enthält noch einen automatisch gesetzten Standardwert."
-
-#: rrze-legal.php:175
-msgid ""
-"The \"rrze-tos\" plugin is networkwide activated. Please deactivate the "
-"\"rrze-tos\" plugin as it will be replaced by the \"rrze-legal\" plugin."
-msgstr ""
-"Das Plugin „rrze-tos“ ist netzwerkweit aktiviert. Bitte deaktivieren Sie das "
-"Plugin „rrze-tos“, da es durch das Plugin „rrze-legal“ ersetzt wird."
 
 #. translators: 1: Server WordPress version number, 2: Required WordPress version number.
 #: rrze-legal.php:222
@@ -2444,9 +2484,6 @@ msgstr ""
 
 #~ msgid "Unlimited"
 #~ msgstr "Unbegrenzt"
-
-#~ msgid "6 Months"
-#~ msgstr "6 Monate"
 
 #~ msgid "2 Years"
 #~ msgstr "2 Jahre"

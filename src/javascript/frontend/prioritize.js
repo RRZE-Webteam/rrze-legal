@@ -31,7 +31,7 @@ rrzelegalCookiePrioritized = (function () {
                 var l = a[c].split("="),
                     s = void 0 !== l[0] ? l[0].trim() : "",
                     p = void 0 !== l[1] ? l[1].trim() : "";
-                if ("rrzelegal-cookie" === s) {
+                if ((e.cookieName || "rrze-legal-consent") === s) {
                     var v = JSON.parse(decodeURIComponent(p));
                     void 0 !== v.domainPath &&
                         v.domainPath === e.domain + e.path &&

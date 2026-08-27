@@ -1212,6 +1212,8 @@
                             },
                             n
                         )),
+                        (consentCookieName =
+                            e.consentCookieName || consentCookieName),
                         (t = h),
                         (u = i),
                         (b = c),

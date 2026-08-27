@@ -5,10 +5,15 @@ namespace RRZE\Legal;
 defined('ABSPATH') || exit;
 
 $data = [
-    'version' => 1,
+    'version' => 2,
     'items' => [
         'fau'   => [
             'name' => 'Friedrich-Alexander-Universität Erlangen-Nürnberg',
+            'domains' => [
+                'fau.de',
+                'fau.eu',
+                'uni-erlangen.de',
+            ],
         
             'imprint_representation'    => [
                 '_readonly'         => true,
@@ -102,6 +107,9 @@ $data = [
         ],
         'utn'   => [
             'name' => __('University of Technology Nuremberg ', 'rrze-legal'),
+            'domains' => [
+                'utn.de',
+            ],
              'imprint_representation'    => [
                 '_readonly'         => true,
                 'email'             => 'president@utn.de',
@@ -189,6 +197,9 @@ $data = [
         ],
         'uk'    => [
             'name'  => __('Universitätsklinikum Erlangen', 'rrze-legal'),
+            'domains' => [
+                'uk-erlangen.de',
+            ],
              'imprint_representation'    => [
                 '_readonly'         => true,
                 'email'             => '',

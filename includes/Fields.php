@@ -39,9 +39,10 @@ class Fields
         'errors' => '',
         'notice' => '',
         'content_name' => '',
-        'content_label' => '',
+        'content_name_en' => '',
         'content_description' => '',
         'content_value' => '',
+        'content_value_en' => '',
         'content_height' => 0,
         'content_editor' => false,
     ];
@@ -384,13 +385,15 @@ class Fields
     }
 
     /**
-     * Displays a checkbox with a directly related text field below it.
+     * Displays a display checkbox and paired German and English editors.
      * @param array $atts Settings field attributes
      */
     public static function optionalwpeditor(array $atts) {
         $value = $atts['value'];
         $contentName = sanitize_key($atts['content_name']);
         $contentId = sanitize_key($atts['section'] . '_' . $contentName);
+        $contentNameEnglish = sanitize_key($atts['content_name_en']);
+        $contentIdEnglish = sanitize_key($atts['section'] . '_' . $contentNameEnglish);
         $height = absint($atts['content_height']) > 150 ? absint($atts['content_height']) : 250;
 
         $html = '<div class="rrze-legal-optional-textfield">';
@@ -415,17 +418,45 @@ class Fields
         );
         $html .= sprintf('%s</label>', wp_kses_post($atts['description']));
         $html .= '<div class="rrze-legal-optional-textfield-content">';
-        if ($atts['content_label'] !== '') {
-            $html .= sprintf(
-                '<p><label for="%1$s"><strong>%2$s</strong></label></p>',
-                esc_attr($contentId),
-                esc_html($atts['content_label'])
+        self::outputHtml($html);
+        self::outputHtml(self::description(['description' => $atts['content_description']]));
+        self::outputHtml('<div class="rrze-legal-bilingual-editor">');
+
+        self::outputOptionalEditor(
+            $atts,
+            $contentName,
+            $contentId,
+            $atts['content_value'],
+            $height,
+            __('German', 'rrze-legal')
+        );
+
+        if ($contentNameEnglish !== '') {
+            self::outputOptionalEditor(
+                $atts,
+                $contentNameEnglish,
+                $contentIdEnglish,
+                $atts['content_value_en'],
+                $height,
+                __('English', 'rrze-legal')
             );
         }
-        self::outputHtml($html);
+
+        self::outputHtml('</div></div></div>');
+    }
+
+    protected static function outputOptionalEditor(
+        array $atts,
+        string $contentName,
+        string $contentId,
+        string $contentValue,
+        int $height,
+        string $language
+    ): void {
+        self::outputHtml('<div class="rrze-legal-bilingual-editor-item">');
 
         if ($atts['content_editor']) {
-            wp_editor($atts['content_value'], $contentId, [
+            wp_editor($contentValue, $contentId, [
                 'teeny' => true,
                 'media_buttons' => false,
                 'wpautop' => false,
@@ -446,12 +477,14 @@ class Fields
                 esc_attr($atts['option_name']),
                 esc_attr($atts['section']),
                 esc_attr($contentName),
-                esc_textarea($atts['content_value'])
+                esc_textarea($contentValue)
             ));
         }
 
-        self::outputHtml(self::description(['description' => $atts['content_description']]));
-        self::outputHtml('</div></div>');
+        self::outputHtml(sprintf(
+            '<p class="rrze-legal-bilingual-editor-language">%s</p></div>',
+            esc_html($language)
+        ));
     }
 
     /**
@@ -648,5 +681,77 @@ class Fields
         wp_editor($value, sanitize_key($atts['section'] . '_' . $atts['name']), $editorSettings);
         echo '</div>';
         self::outputHtml(self::description($atts));
+    }
+
+    /**
+     * Displays two editors for German and English variants of one setting.
+     * @param array $atts Settings field attributes
+     */
+    public static function bilingualwpeditor(array $atts): void {
+        $height = $atts['height'] > 150 ? $atts['height'] : 250;
+        $englishName = sanitize_key($atts['content_name_en']);
+        if ($englishName === '') {
+            self::wpeditor($atts);
+            return;
+        }
+
+        self::outputHtml(self::description($atts));
+        self::outputHtml('<div class="rrze-legal-bilingual-editor">');
+        self::outputBilingualEditor(
+            $atts['value'],
+            sanitize_key($atts['section'] . '_' . $atts['name']),
+            sprintf(
+                '%1$s[%2$s_%3$s]',
+                $atts['option_name'],
+                $atts['section'],
+                $atts['name']
+            ),
+            $height,
+            __('German', 'rrze-legal')
+        );
+        self::outputBilingualEditor(
+            $atts['content_value_en'],
+            sanitize_key($atts['section'] . '_' . $englishName),
+            sprintf(
+                '%1$s[%2$s_%3$s]',
+                $atts['option_name'],
+                $atts['section'],
+                $englishName
+            ),
+            $height,
+            __('English', 'rrze-legal')
+        );
+        self::outputHtml('</div>');
+    }
+
+    /**
+     * Outputs one editor in a bilingual editor group.
+     * @param string $value Editor value
+     * @param string $editorId Editor ID
+     * @param string $textareaName Textarea name
+     * @param int $height Editor height
+     * @param string $language Language label
+     * @return void
+     */
+    protected static function outputBilingualEditor(
+        string $value,
+        string $editorId,
+        string $textareaName,
+        int $height,
+        string $language
+    ): void {
+        self::outputHtml('<div class="rrze-legal-bilingual-editor-item">');
+        wp_editor($value, $editorId, [
+            'teeny' => true,
+            'media_buttons' => false,
+            'wpautop' => false,
+            'editor_height' => $height,
+            'textarea_name' => $textareaName,
+            'textarea_rows' => 10,
+        ]);
+        self::outputHtml(sprintf(
+            '<p class="rrze-legal-bilingual-editor-language">%s</p></div>',
+            esc_html($language)
+        ));
     }
 }
