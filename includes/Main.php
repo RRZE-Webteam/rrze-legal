@@ -98,7 +98,7 @@ class Main {
     }
 
     public function adminInit() {
-        if (!current_user_can('read') || wp_doing_ajax()) {
+        if (!current_user_can('read') || wp_doing_ajax() || is_network_admin()) {
             return;
         }
 
