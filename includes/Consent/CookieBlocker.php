@@ -52,6 +52,9 @@ class CookieBlocker {
             return;
         }
         foreach ($categories as $category) {
+            if (($category['id'] ?? '') === 'essential') {
+                continue;
+            }
             if (empty($category['cookies'])) {
                 continue;
             }
