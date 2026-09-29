@@ -12,6 +12,10 @@
 <form method="post" class="wcag-contact-form">
     {{=wp_nonce}}
     <input type="hidden" value="{{=captcha_result}}" name="message_solution">
+    <div hidden aria-hidden="true" style="display: none;">
+        <label for="message_website">Please leave this field empty.</label>
+        <input type="text" id="message_website" name="message_website" value="" tabindex="-1" autocomplete="off">
+    </div>
     <div class="form-group">
         <label class="form-control-label" for="message_name">Name <span class="wcag-contact-form__required">(required)</span></label>
         <input type="text" class="form-control form-control-success" id="message_name" name="message_name"

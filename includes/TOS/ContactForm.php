@@ -167,6 +167,14 @@ class ContactForm
 
     protected function validateForm($name, $email, $message, $result, $solution)
     {
+        // Allow older cached forms without this field, but reject any supplied value.
+        $website = $_POST['message_website'] ?? '';
+        if (!is_string($website) || $website !== '') {
+            $this->error = [
+                'error_message_could_not_be_sent' => __('The message could not be sent.', 'rrze-legal')
+            ];
+        }
+
         if (empty($name)) {
             $this->error['error_name'] = __('Please enter a name.', 'rrze-legal');
         }
