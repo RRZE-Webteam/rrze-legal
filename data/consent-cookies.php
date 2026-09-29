@@ -287,7 +287,7 @@ If you are logged in to X, X may associate the visit with your user account. Fur
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 1,
-            'status' => true,
+            'status' => false,
             'static' => true,
         ],
         'youtube' => [
