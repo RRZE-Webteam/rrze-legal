@@ -72,12 +72,36 @@
             }
             function O() {
                 o(i).attr("aria-modal", !1);
+                document.removeEventListener("keydown", handleBannerEscape, !0);
+            }
+            function refuseConsent() {
+                var groups = [];
+                o(s + ":checked").each(function () {
+                    -1 === groups.indexOf(this.value) &&
+                        (o(this).trigger("click"), groups.push(this.value));
+                });
+                H();
+                j();
+            }
+            function handleBannerEscape(event) {
+                if (
+                    "Escape" !== event.key &&
+                    "Esc" !== event.key &&
+                    27 !== event.keyCode
+                ) {
+                    return;
+                }
+                event.preventDefault();
+                event.stopPropagation();
+                refuseConsent();
             }
             function isNarrowBannerViewport() {
                 return window.matchMedia("(max-width: 479px)").matches;
             }
             var _,
                 S = function (t) {
+                    // Capture Escape even if the banner is obscured or focus is outside it.
+                    document.addEventListener("keydown", handleBannerEscape, !0);
                     o(i).attr("aria-modal", !0),
                         o("body").addClass("rrzelegal-position-fix"),
                         w(document.querySelector(".cookie-box")),
@@ -134,7 +158,9 @@
                                   "._rrzelegal-" + e.boxLayout + "-wrap"
                               ).addClass("_rrzelegal-position-fixed"),
                         o("#RRZELegalBanner > div").css("display", ""),
-                        o("#RRZELegalBanner > div").addClass("show-cookie-box");
+                        o("#RRZELegalBanner > div")
+                            .removeClass("rrzelegal-hide")
+                            .addClass("show-cookie-box");
                     const r = o("#RRZELegalBanner > div")[0];
                     return (
                         r.offsetWidth,
@@ -162,7 +188,10 @@
                             o(
                                 "#RRZELegalBanner ._rrzelegal-" + e.boxLayout
                             ).addClass(e.animationOut)),
-                        o("#RRZELegalBanner > div").addClass("rrzelegal-hide"),
+                        o("#RRZELegalBanner > div")
+                            .hide()
+                            .removeClass("show-cookie-box")
+                            .addClass("rrzelegal-hide"),
                         e.blockContent
                             ? o("#RRZELegalBanner > div").removeClass(
                                   "_rrzelegal-bg-dark"
@@ -172,6 +201,10 @@
                               ).addClass("_rrzelegal-position-fixed"),
                         setTimeout(
                             function () {
+                                // A reopened banner must not be reset by an earlier close.
+                                if ("true" === o(i).attr("aria-modal")) {
+                                    return;
+                                }
                                 o(
                                     "._rrzelegal-" + e.boxLayout + "-wrap"
                                 ).removeAttr("style"),
@@ -1359,14 +1392,7 @@
                             "[data-cookie-refuse]",
                             function (e) {
                                 e.preventDefault();
-                                var t = [];
-                                o(s + ":checked").each(function () {
-                                    -1 === t.indexOf(this.value) &&
-                                        (o(this).trigger("click"),
-                                        t.push(this.value));
-                                }),
-                                    H(),
-                                    j();
+                                refuseConsent();
                             }
                         ),
                         A(),

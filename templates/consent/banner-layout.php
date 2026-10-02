@@ -93,6 +93,7 @@ defined('ABSPATH') || exit;
                                         href="#"
                                         tabindex="0"
                                         role="button"
+                                        aria-keyshortcuts="Escape"
                                         data-cookie-refuse
                                     >
                                         <?php echo esc_html($bannerTextRefuseLink); ?>
