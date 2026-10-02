@@ -55,6 +55,7 @@ defined('ABSPATH') || exit;
                                         class="_rrzelegal-btn _rrzelegal-refuse-btn _rrzelegal-cursor"
                                         tabindex="0"
                                         role="button"
+                                        aria-keyshortcuts="Escape"
                                         data-cookie-refuse
                                     >
                                         <?php echo esc_html($bannerPreferenceTextRefuseLink); ?>

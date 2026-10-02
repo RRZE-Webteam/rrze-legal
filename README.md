@@ -42,6 +42,12 @@ bzw. auf Websites mit englischer Sprache die Endpoints
 Administratoren von Websites können im Backend unter "Rechtliche Pflichtangaben" individuelle Anpasungen an den Texten vornehmen.
 Ausserdem können dort die jeweiligen Pflichtdaten (z.B. Angaben zur verantwortlichen Person) ergänzt werden.
 
+## Consent-Banner per Tastatur
+
+Bei geöffnetem Consent-Banner lehnt die Taste `Esc` alle optionalen Cookies ab und schließt das Banner einschließlich Overlay. Das gilt auch in den individuellen Einstellungen und bei erneut geöffnetem Banner; eine zuvor erteilte optionale Einwilligung wird dabei widerrufen. Gespeichert wird dieselbe Auswahl wie beim Ablehnen-Button: nur essenzielle Cookies. Bei geschlossenem Banner hat `Esc` keine Auswirkung auf die Einwilligung.
+
+Die Regressionstests für diese Abläufe werden nach `npm install` mit `npm test` ausgeführt. Sie prüfen sowohl den JavaScript-Quellcode als auch das ausgelieferte Bundle; nach JavaScript-Änderungen zuerst `npm run build:assets:prod` ausführen.
+
 
 ## Anpassung für andere Hochschulen und Einrichtungen
 
@@ -71,4 +77,3 @@ npm run dev
 Für eine produktive Auslieferung wird stattdessen `npm run prod` verwendet. Dadurch werden die Assets, Plugin-Metadaten und die WordPress-Readme aktualisiert.
 
 Die rechtliche Prüfung und Freigabe der angepassten Texte bleibt Verantwortung der jeweiligen Einrichtung. Das Plugin stellt technische und redaktionelle Bausteine bereit, ersetzt aber keine Rechtsberatung.
-
