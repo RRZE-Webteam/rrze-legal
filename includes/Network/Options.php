@@ -485,6 +485,14 @@ class Options extends Settings
         );
     }
 
+    public function isDebugLoggingEnabled(): bool {
+        return (bool) $this->getOption(
+            'network_general',
+            'debug_logging',
+            false
+        );
+    }
+
     protected function getTosNoticeDays(string $name, int $default): int {
         $value = absint($this->getOption('network_general', $name, $default));
         return $value > 0 ? $value : $default;

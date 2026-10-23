@@ -1645,6 +1645,14 @@ msgstr ""
 msgid "TOS Data Issue Notices"
 msgstr "TOS-Mängelmeldungen"
 
+#: settings/network.php
+msgid "Debugging"
+msgstr "Debugging"
+
+#: settings/network.php
+msgid "Send debug messages to the info audit channel"
+msgstr "Debug-Meldungen an den Audit-Kanal info senden"
+
 #: settings/network.php:64
 msgid ""
 "Configuration of notices and log messages for missing or incorrectly "
