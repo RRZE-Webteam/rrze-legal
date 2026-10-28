@@ -33,7 +33,16 @@
                 },
                 x = null,
                 C = !1,
-                y = null;
+                y = null,
+                bannerVisibilityTimer = null,
+                focusTrapElement = null;
+
+            /**
+             * Keeps Tab navigation inside the active banner panel.
+             * @param {KeyboardEvent} o Keyboard event.
+             * @param {Element|null} e Panel containing the focusable controls.
+             * @returns {void}
+             */
             function B(o, e) {
                 if (e) {
                     var t = e.querySelectorAll(
@@ -44,6 +53,9 @@
                         }),
                         i = n[0],
                         a = n[n.length - 1];
+                    if (!n.length) {
+                        return;
+                    }
                     ("Tab" === o.key || 9 === o.keyCode) &&
                         (o.shiftKey
                             ? document.activeElement === i &&
@@ -52,37 +64,174 @@
                               (o.preventDefault(), i.focus()));
                 }
             }
-            function w(o) {
-                o.addEventListener(
-                    "keydown",
-                    function (e) {
-                        return B(e, o);
-                    },
-                    !0
-                );
+            /**
+             * Uses one stable listener so focus traps can actually be removed.
+             * @param {KeyboardEvent} event Keyboard event from the active panel.
+             * @returns {void}
+             */
+            function handleFocusTrap(event) {
+                B(event, event.currentTarget);
             }
-            function L(o) {
-                o.removeEventListener(
-                    "keydown",
-                    function (e) {
-                        return B(e, o);
-                    },
-                    !0
-                );
+
+            /**
+             * Moves the focus trap to an existing panel.
+             * @param {Element|null} element Panel to trap focus within.
+             * @returns {void}
+             */
+            function w(element) {
+                L(focusTrapElement);
+                if (element) {
+                    element.addEventListener("keydown", handleFocusTrap, !0);
+                    focusTrapElement = element;
+                }
             }
+
+            /**
+             * Removes a panel's focus trap, including from a detached panel.
+             * @param {Element|null} element Panel whose listener should be removed.
+             * @returns {void}
+             */
+            function L(element) {
+                if (element) {
+                    element.removeEventListener("keydown", handleFocusTrap, !0);
+                }
+                if (focusTrapElement === element) {
+                    focusTrapElement = null;
+                }
+            }
+
+            /**
+             * Releases modal state even when a blocker has removed the banner.
+             * @returns {void}
+             */
             function O() {
+                o("body").removeClass("rrzelegal-position-fix");
+                window.clearInterval(bannerVisibilityTimer);
+                bannerVisibilityTimer = null;
+                L(focusTrapElement);
                 o(i).attr("aria-modal", !1);
                 document.removeEventListener("keydown", handleBannerEscape, !0);
             }
-            function refuseConsent() {
-                var groups = [];
-                o(s + ":checked").each(function () {
-                    -1 === groups.indexOf(this.value) &&
-                        (o(this).trigger("click"), groups.push(this.value));
-                });
-                H();
-                j();
+
+            /**
+             * Checks rendered size and ancestor styles, including blocker CSS.
+             * @param {Element|null} element Element whose visibility is checked.
+             * @returns {boolean} Whether the element has visible rendered content.
+             */
+            function isBannerElementVisible(element) {
+                if (!element || !element.isConnected) {
+                    return false;
+                }
+                var rect = element.getBoundingClientRect();
+                if (rect.width <= 0 || rect.height <= 0) {
+                    return false;
+                }
+                for (var parent = element; parent; parent = parent.parentElement) {
+                    var style = window.getComputedStyle(parent);
+                    if (
+                        style.display === "none" ||
+                        style.visibility === "hidden" ||
+                        style.visibility === "collapse" ||
+                        style.opacity === "0" ||
+                        style.contentVisibility === "hidden"
+                    ) {
+                        return false;
+                    }
+                }
+                return true;
             }
+
+            /**
+             * Finds a visible consent action in an active, visible banner panel.
+             * @returns {Element|null} An action that can dismiss the banner.
+             */
+            function getVisibleBannerAction() {
+                var panels = document.querySelectorAll(
+                    i + " .cookie-box, " + i + " .cookie-preference"
+                );
+                for (var panel of panels) {
+                    if (
+                        panel.getAttribute("aria-hidden") === "true" ||
+                        !isBannerElementVisible(panel.querySelector(".container"))
+                    ) {
+                        continue;
+                    }
+                    // Preserve the save-selection button as the default focus target.
+                    var saveAction = panel.querySelector("[data-cookie-accept]");
+                    if (isBannerElementVisible(saveAction)) {
+                        return saveAction;
+                    }
+                    var actions = panel.querySelectorAll(
+                        "[data-cookie-accept-all], [data-cookie-refuse]"
+                    );
+                    for (var action of actions) {
+                        if (isBannerElementVisible(action)) {
+                            return action;
+                        }
+                    }
+                }
+                return null;
+            }
+
+            /**
+             * Closes an inaccessible banner without changing the visitor's consent.
+             * Runs only while open; polling also detects CSS-only extension changes.
+             * @returns {void}
+             */
+            function checkBannerVisibility() {
+                if (!getVisibleBannerAction()) {
+                    j();
+                }
+            }
+
+            /**
+             * Focuses a visible banner control, falling back if it was removed or hidden.
+             * @param {string} selector Selector for the intended control.
+             * @returns {void}
+             */
+            function focusBannerControl(selector) {
+                var control = document.querySelector(i + " " + selector);
+                if (!isBannerElementVisible(control)) {
+                    control = getVisibleBannerAction();
+                }
+                if (control) {
+                    control.focus({ preventScroll: true });
+                }
+            }
+
+            /**
+             * Saves consent and always releases the page, including on service errors.
+             * @returns {void}
+             */
+            function saveConsentAndClose() {
+                try {
+                    H();
+                } finally {
+                    j();
+                }
+            }
+
+            /**
+             * Refuses optional cookies and always closes the dialog.
+             * @returns {void}
+             */
+            function refuseConsent() {
+                try {
+                    var groups = [];
+                    o(s + ":checked").each(function () {
+                        -1 === groups.indexOf(this.value) &&
+                            (o(this).trigger("click"), groups.push(this.value));
+                    });
+                    H();
+                } finally {
+                    j();
+                }
+            }
+            /**
+             * Treats Escape as refusal while the dialog is open.
+             * @param {KeyboardEvent} event Keyboard event.
+             * @returns {void}
+             */
             function handleBannerEscape(event) {
                 if (
                     "Escape" !== event.key &&
@@ -95,89 +244,111 @@
                 event.stopPropagation();
                 refuseConsent();
             }
+            /**
+             * Matches the banner's mobile layout breakpoint.
+             * @returns {boolean} Whether the mobile layout is active.
+             */
             function isNarrowBannerViewport() {
                 return window.matchMedia("(max-width: 479px)").matches;
             }
             var _,
+                /**
+                 * Opens the banner and locks scrolling only after it is usable.
+                 * @param {boolean} t Legacy display flag retained for API compatibility.
+                 * @returns {boolean} Whether the banner was opened successfully.
+                 */
                 S = function (t) {
-                    // Capture Escape even if the banner is obscured or focus is outside it.
-                    document.addEventListener("keydown", handleBannerEscape, !0);
-                    o(i).attr("aria-modal", !0),
-                        o("body").addClass("rrzelegal-position-fix"),
-                        w(document.querySelector(".cookie-box")),
-                        void 0 === t && (t = !1);
-                    var a = o(s),
-                        c = null;
-                    Object.keys(v.consents).length
-                        ? (o("[data-rrzelegal-cookie-group]").each(function () {
-                              -1 ===
-                                  Object.keys(v.consents).indexOf(
-                                      this.dataset.rrzelegalCookieGroup
-                                  ) && o(this).addClass("rrzelegal-hide");
-                          }),
-                          a.length &&
-                              "1" === e.boxLayoutAdvanced &&
+                    O();
+                    var banner = document.querySelector(i),
+                        overlay = document.querySelector(i + " > div"),
+                        box = banner && banner.querySelector(".cookie-box"),
+                        wrap = banner && banner.querySelector("._rrzelegal-" + e.boxLayout + "-wrap");
+                    if (!overlay || !box || !wrap) {
+                        j();
+                        return false;
+                    }
+                    try {
+                        var a = o(s),
+                            c = null;
+                        Object.keys(v.consents).length
+                            ? (o("[data-rrzelegal-cookie-group]").each(function () {
+                                  -1 ===
+                                      Object.keys(v.consents).indexOf(
+                                          this.dataset.rrzelegalCookieGroup
+                                      ) && o(this).addClass("rrzelegal-hide");
+                              }),
+                              a.length &&
+                                  "1" === e.boxLayoutAdvanced &&
+                                  a.each(function () {
+                                      (c = this.value),
+                                          "string" ==
+                                              typeof this.dataset
+                                                  .rrzelegalCookieCheckbox &&
+                                              ("object" == typeof v.consents[c]
+                                                  ? o(this).prop("checked", !0)
+                                                  : o(this).prop("checked", !1));
+                                  }))
+                            : a.length &&
                               a.each(function () {
                                   (c = this.value),
-                                      "string" ==
-                                          typeof this.dataset
-                                              .rrzelegalCookieCheckbox &&
-                                          ("object" == typeof v.consents[c]
-                                              ? o(this).prop("checked", !0)
-                                              : o(this).prop("checked", !1));
-                              }))
-                        : a.length &&
-                          a.each(function () {
-                              (c = this.value),
-                                  "1" === e.boxLayoutAdvanced &&
-                                      "1" === e.ignorePreSelectStatus &&
-                                      !1 === f &&
-                                      "essential" !== c &&
-                                      (o(this).prop("checked", !1),
-                                      o(n + "[name='cookies[" + c + "][]']")
-                                          .prop("checked", !1)
-                                          .trigger("change"));
-                          }),
-                        e.blockContent
-                            ? (o("#RRZELegalBanner > div").addClass(
-                                  "_rrzelegal-block-content"
-                              ),
-                              e.animation
-                                  ? (o("#RRZELegalBanner > div").addClass(
-                                        "_rrzelegal-bg-animation"
-                                    ),
-                                    setTimeout(function () {
-                                        o("#RRZELegalBanner > div").addClass(
+                                      "1" === e.boxLayoutAdvanced &&
+                                          "1" === e.ignorePreSelectStatus &&
+                                          !1 === f &&
+                                          "essential" !== c &&
+                                          (o(this).prop("checked", !1),
+                                          o(n + "[name='cookies[" + c + "][]']")
+                                              .prop("checked", !1)
+                                              .trigger("change"));
+                              }),
+                            e.blockContent
+                                ? (o("#RRZELegalBanner > div").addClass(
+                                      "_rrzelegal-block-content"
+                                  ),
+                                  e.animation
+                                      ? (o("#RRZELegalBanner > div").addClass(
+                                            "_rrzelegal-bg-animation"
+                                        ),
+                                        setTimeout(function () {
+                                            o("#RRZELegalBanner > div").addClass(
+                                                "_rrzelegal-bg-dark"
+                                            );
+                                        }, 25))
+                                      : o("#RRZELegalBanner > div").addClass(
                                             "_rrzelegal-bg-dark"
-                                        );
-                                    }, 25))
-                                  : o("#RRZELegalBanner > div").addClass(
-                                        "_rrzelegal-bg-dark"
-                                    ))
-                            : o(
-                                  "._rrzelegal-" + e.boxLayout + "-wrap"
-                              ).addClass("_rrzelegal-position-fixed"),
-                        o("#RRZELegalBanner > div").css("display", ""),
-                        o("#RRZELegalBanner > div")
-                            .removeClass("rrzelegal-hide")
-                            .addClass("show-cookie-box");
-                    const r = o("#RRZELegalBanner > div")[0];
-                    return (
-                        r.offsetWidth,
-                        r.offsetHeight,
-                        o("#BannerSaveButton")[0].focus({
-                            preventScroll: !0,
-                        }),
-                        (y =
-                            o("._rrzelegal-" + e.boxLayout + "-wrap")[0]
-                                .offsetWidth + "px"),
-                        !0
-                    );
+                                        ))
+                                : o(
+                                      "._rrzelegal-" + e.boxLayout + "-wrap"
+                                  ).addClass("_rrzelegal-position-fixed"),
+                            o("#RRZELegalBanner > div").css("display", ""),
+                            o("#RRZELegalBanner > div")
+                                .removeClass("rrzelegal-hide")
+                                .addClass("show-cookie-box");
+                        var action = getVisibleBannerAction();
+                        if (!action) {
+                            j();
+                            return false;
+                        }
+                        action.focus({ preventScroll: true });
+                        y = wrap.offsetWidth + "px";
+                        w(action.closest(".cookie-box, .cookie-preference"));
+                        // Install the lock only after all fallible opening work succeeds.
+                        o(i).attr("aria-modal", !0);
+                        document.addEventListener("keydown", handleBannerEscape, !0);
+                        o("body").addClass("rrzelegal-position-fix");
+                        bannerVisibilityTimer = window.setInterval(checkBannerVisibility, 250);
+                        return true;
+                    } catch (error) {
+                        j();
+                        throw error;
+                    }
                 },
+                /**
+                 * Closes the banner, releasing scrolling before touching its DOM.
+                 * @returns {boolean} Whether the close operation completed.
+                 */
                 j = function () {
                     return (
                         O(),
-                        L(document.querySelector(".cookie-box")),
                         e.animation &&
                             (o(
                                 "#RRZELegalBanner ._rrzelegal-" + e.boxLayout
@@ -241,13 +412,16 @@
                             },
                             e.animation ? 1e3 : 0
                         ),
-                        o("body").removeClass("rrzelegal-position-fix"),
                         !0
                     );
                 },
+                /**
+                 * Shows individual preferences and moves the focus trap to that panel.
+                 * @returns {void}
+                 */
                 I = function () {
-                    L(document.querySelector(".cookie-box")),
-                        w(document.querySelector(".cookie-preference"));
+                    L(document.querySelector("#RRZELegalBanner .cookie-box")),
+                        w(document.querySelector("#RRZELegalBanner .cookie-preference"));
                     var t = o(s),
                         i = null;
                     t.length &&
@@ -329,9 +503,7 @@
                             )
                                 .removeAttr("style")
                                 .removeClass("not-visible"),
-                            o("#CookiePrefSave")[0].focus({
-                                preventScroll: !0,
-                            });
+                            focusBannerControl("#CookiePrefSave");
                         return;
                     }
                     o(
@@ -345,14 +517,17 @@
                                     e.boxLayout +
                                     " .cookie-preference"
                             ).attr("aria-hidden", !1),
-                            o("#CookiePrefSave")[0].focus({
-                                preventScroll: !0,
-                            }),
-                            showPreferenceContainer();
+                            showPreferenceContainer(),
+                            focusBannerControl("#CookiePrefSave");
                     });
                 },
+                /**
+                 * Returns from preferences to the main banner panel.
+                 * @returns {void}
+                 */
                 D = function () {
-                    L(document.querySelector(".cookie-preference"));
+                    L(document.querySelector("#RRZELegalBanner .cookie-preference"));
+                    w(document.querySelector("#RRZELegalBanner .cookie-box"));
                     if (isNarrowBannerViewport()) {
                         o(
                             "._rrzelegal-" + e.boxLayout + " .cookie-box"
@@ -376,9 +551,7 @@
                             )
                                 .removeAttr("style")
                                 .removeClass("not-visible"),
-                            o("#BannerSaveButton")[0].focus({
-                                preventScroll: !0,
-                            });
+                            focusBannerControl("#BannerSaveButton");
                         return;
                     }
                     o(
@@ -395,7 +568,7 @@
                                     " .cookie-preference"
                             ).attr("aria-hidden", !0),
                             showCookieBoxContainer(),
-                            o("#BannerSaveButton")[0].focus();
+                            focusBannerControl("#BannerSaveButton");
                     });
                 },
                 showPreferenceContainer = function () {
@@ -436,37 +609,22 @@
                         .removeAttr("style")
                         .removeClass("not-visible");
                 },
-                T = function (t) {
-                    return (
-                        void 0 !== t && t.preventDefault(),
-                        o(
-                            "._rrzelegal-" +
-                                e.boxLayout +
-                                " .cookie-preference .container a[" +
-                                "data-cookie-back]"
-                        ).css("display", "none"),
-                        o(
-                            "._rrzelegal-" +
-                                e.boxLayout +
-                                " .cookie-preference .container a[" +
-                                "data-cookie-back] + span._rrzelegal-separator"
-                        ).css("display", "none"),
-                        o(
-                            "._rrzelegal-" +
-                                e.boxLayout +
-                                " .cookie-box .container"
-                        ).css("height", 0),
-                        o(
-                            "._rrzelegal-" +
-                                e.boxLayout +
-                                " .cookie-box .container"
-                        ).css("opacity", 0),
-                        S(!1),
-                        setTimeout(function () {
-                            I();
-                        }, 500),
-                        !0
-                    );
+                /**
+                 * Opens individual preferences without a delayed hidden-banner phase.
+                 * @param {Event} [event] Optional triggering event.
+                 * @returns {boolean} Whether the preferences could be opened.
+                 */
+                T = function (event) {
+                    if (event) {
+                        event.preventDefault();
+                    }
+                    if (!S(!1)) {
+                        return false;
+                    }
+                    o(i + " [data-cookie-back]").hide();
+                    o(i + " [data-cookie-back] + span._rrzelegal-separator").hide();
+                    I();
+                    return true;
                 },
                 A = function () {
                     o("[data-cookie-accordion]").on(
@@ -517,23 +675,30 @@
                         }
                     );
                 },
+                /**
+                 * Accepts all displayed groups and closes even if a service fails.
+                 * @returns {void}
+                 */
                 E = function () {
-                    var e = o(s),
-                        t = null;
-                    e.length &&
-                        e.each(function () {
-                            (t = this.value),
-                                o(this).prop("checked", !0),
-                                o(this).trigger("change"),
-                                o(n + "[name='cookies[" + t + "][]']").each(
-                                    function () {
-                                        o(this).prop("checked", !0),
-                                            o(this).trigger("change");
-                                    }
-                                );
-                        }),
-                        H(),
+                    try {
+                        var e = o(s),
+                            t = null;
+                        e.length &&
+                            e.each(function () {
+                                (t = this.value),
+                                    o(this).prop("checked", !0),
+                                    o(this).trigger("change"),
+                                    o(n + "[name='cookies[" + t + "][]']").each(
+                                        function () {
+                                            o(this).prop("checked", !0),
+                                                o(this).trigger("change");
+                                        }
+                                    );
+                            }),
+                            H();
+                    } finally {
                         j();
+                    }
                 },
                 U = function () {
                     o(document).on("click", s, function () {
@@ -1363,7 +1528,7 @@
                             "click",
                             "[data-cookie-accept]",
                             function (o) {
-                                o.preventDefault(), H(), j();
+                                o.preventDefault(), saveConsentAndClose();
                             }
                         ),
                         o(document).on(
