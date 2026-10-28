@@ -5,13 +5,17 @@ namespace RRZE\Legal\Consent;
 defined('ABSPATH') || exit;
 
 use RRZE\Legal\Utils;
-use function RRZE\Legal\{plugin, consent};
+use function RRZE\Legal\{plugin, consent, network};
 
 class Frontend {
     private static bool $consentAssetsRegistered = false;
 
     public static function loaded() {
         add_shortcode('rrzelegal_consent', [__CLASS__, 'handleShortcode']);
+
+        if (!is_admin() && !self::isCliRequest() && isset($_SERVER['HTTP_USER_AGENT']) && network()->isDebugLoggingEnabled()) {
+            self::logDoNotTrackDebugInformation();
+        }
 
         if (self::requestShouldBypassConsent()) {
             return;
@@ -23,6 +27,39 @@ class Frontend {
             add_action('init', [__CLASS__, 'init']);
         }
 
+    }
+
+    /**
+     * Logs the DNT header received by the server for temporary diagnostics.
+     */
+    protected static function logDoNotTrackDebugInformation(): void {
+        $userAgent = isset($_SERVER['HTTP_USER_AGENT'])
+            ? sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT']))
+            : '';
+        $dntHeader = isset($_SERVER['HTTP_DNT'])
+            ? strtolower(trim(sanitize_text_field(wp_unslash($_SERVER['HTTP_DNT']))))
+            : '';
+        $isDoNotTrackActive = in_array($dntHeader, ['1', 'yes'], true);
+
+        do_action(
+            'rrze.log.info',
+            'RRZE Legal: Do Not Track debug information received.',
+            [
+                'site_id' => get_current_blog_id(),
+                'user_agent' => $userAgent,
+                'dnt_header' => $dntHeader !== '' ? $dntHeader : 'not sent',
+                'do_not_track_active' => $isDoNotTrackActive,
+                'respect_do_not_track_active' => consent()->isRespectDoNotTrackActive(),
+                'banner_active' => consent()->isBannerActive(),
+            ]
+        );
+    }
+
+    /**
+     * Determines whether the current request is executed through WP-CLI.
+     */
+    protected static function isCliRequest(): bool {
+        return defined('WP_CLI') && WP_CLI;
     }
 
     /**

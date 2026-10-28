@@ -108,6 +108,19 @@ $settings = [
                             ],
                         ],
                     ],
+                    [
+                        'id' => 'debugging',
+                        'title' => __('Debugging', 'rrze-legal'),
+                        'description' => '',
+                        'fields' => [
+                            [
+                                'name' => 'debug_logging',
+                                'label' => __('Send debug messages to the info audit channel', 'rrze-legal'),
+                                'type' => 'checkbox',
+                                'default' => false,
+                            ],
+                        ],
+                    ],
                 ],
             ],
             [
