@@ -5,7 +5,7 @@ namespace RRZE\Legal;
 defined('ABSPATH') || exit;
 
 $data = [
-    'version' => 14,
+    'version' => 15,
     'items' => [
         'default' => [
             'id' => 'default',
@@ -121,6 +121,34 @@ The cookies are used solely to protect and technically provide our website. They
             'fallback_js' => '',
             'position' => 5,
             'status' => true,
+            'static' => true,
+        ],
+        'wordfence' => [
+            'id' => 'wordfence',
+            'cookie_name' => 'wfwaf-authcookie-[*]',
+            'category' => 'essential',
+            'name' => __('Wordfence Web Application Firewall', 'rrze-legal'),
+            'provider' => __('Owner of this website', 'rrze-legal'),
+            'purpose' => __('Allows the Wordfence firewall to check the access permissions of logged-in users before WordPress is loaded.', 'rrze-legal'),
+            'privacy_text_de' => 'Zum Schutz unserer Website verwenden wir die Web Application Firewall Wordfence. Wordfence setzt für angemeldete WordPress-Benutzer ein Cookie, mit dem die Firewall deren Zugriffsberechtigungen prüfen kann, bevor WordPress vollständig geladen wird.
+
+Das Cookie ermöglicht der Firewall, angemeldete Benutzer zu erkennen und abhängig von deren Berechtigungsstufe angemessene Zugriffsentscheidungen zu treffen. Es dient ausschließlich der Sicherheit und dem Schutz der Website. Eine Übermittlung an Dritte findet nicht statt.',
+            'privacy_text_en' => 'We use the Wordfence web application firewall to protect our website. For logged-in WordPress users, Wordfence sets a cookie that enables the firewall to check their access permissions before WordPress is fully loaded.
+
+The cookie enables the firewall to recognize logged-in users and make appropriate access decisions according to their permission level. It is used solely for the security and protection of the website. No data are transmitted to third parties.',
+            'privacy_policy_url' => tos()->endpointUrl('privacy'),
+            'hosts' => '.' . Utils::getSiteUrlDomain(),
+            'cookie_expiry' => __('12 Hours; renewed for another 12 hours on the next page view while the user remains logged in', 'rrze-legal'),
+            'enqueued_script_handles' => '',
+            'block_enqueued_script' => false,
+            'prioritize' => false,
+            'async_opt_out_code' => false,
+            'opt_in_js' => '',
+            'opt_out_js' => '',
+            'fallback_js' => '',
+            'position' => 6,
+            'plugin_slug' => 'wordfence/wordfence.php',
+            'status' => consent()->isServiceProviderActive('wordfence'),
             'static' => true,
         ],
         'rrze_rsvp' => [

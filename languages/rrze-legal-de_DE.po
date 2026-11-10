@@ -176,6 +176,18 @@ msgstr "Schützt die Website vor automatisierten Anfragen und schädlichen Bots,
 msgid "7 Days (authentication); 30 Minutes (verification); 1 Minute (original referrer)"
 msgstr "7 Tage (Authentifizierung); 30 Minuten (Verifikation); 1 Minute (ursprünglicher Referrer)"
 
+#: data/consent-cookies.php
+msgid "Wordfence Web Application Firewall"
+msgstr "Wordfence-Web-Application-Firewall"
+
+#: data/consent-cookies.php
+msgid "Allows the Wordfence firewall to check the access permissions of logged-in users before WordPress is loaded."
+msgstr "Ermöglicht der Wordfence-Firewall, die Zugriffsberechtigungen angemeldeter Benutzer zu prüfen, bevor WordPress geladen wird."
+
+#: data/consent-cookies.php
+msgid "12 Hours; renewed for another 12 hours on the next page view while the user remains logged in"
+msgstr "12 Stunden; bei weiter bestehender Anmeldung beim nächsten Seitenaufruf um weitere 12 Stunden verlängert"
+
 #: data/consent-cookies.php:35
 msgid "WordPress"
 msgstr "WordPress"
