@@ -164,6 +164,18 @@ msgstr "1 Jahr"
 msgid "6 Months"
 msgstr "6 Monate"
 
+#: data/consent-cookies.php
+msgid "Anubis Web Firewall"
+msgstr "Anubis-Web-Firewall"
+
+#: data/consent-cookies.php
+msgid "Protects the website from automated requests and malicious bots by verifying that the visitor is using a browser."
+msgstr "Schützt die Website vor automatisierten Anfragen und schädlichen Bots, indem geprüft wird, ob der Besucher einen Browser verwendet."
+
+#: data/consent-cookies.php
+msgid "7 Days (authentication); 30 Minutes (verification); 1 Minute (original referrer)"
+msgstr "7 Tage (Authentifizierung); 30 Minuten (Verifikation); 1 Minute (ursprünglicher Referrer)"
+
 #: data/consent-cookies.php:35
 msgid "WordPress"
 msgstr "WordPress"

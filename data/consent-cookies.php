@@ -5,7 +5,7 @@ namespace RRZE\Legal;
 defined('ABSPATH') || exit;
 
 $data = [
-    'version' => 13,
+    'version' => 14,
     'items' => [
         'default' => [
             'id' => 'default',
@@ -89,6 +89,37 @@ $data = [
             'opt_out_js' => '',
             'fallback_js' => '',
             'position' => 4,
+            'status' => true,
+            'static' => true,
+        ],
+        'anubis' => [
+            'id' => 'anubis',
+            'cookie_name' => 'techaro.lol-anubis-auth, techaro.lol-anubis-cookie-verification, techaro.lol-anubis-original-referer',
+            'category' => 'essential',
+            'name' => __('Anubis Web Firewall', 'rrze-legal'),
+            'provider' => __('Owner of this website', 'rrze-legal'),
+            'purpose' => __('Protects the website from automated requests and malicious bots by verifying that the visitor is using a browser.', 'rrze-legal'),
+            'privacy_text_de' => 'Zum Schutz unserer Website vor automatisierten Zugriffen und schädlichen Bots verwenden wir die Web Application Firewall Anubis. Anubis prüft bei Bedarf, ob ein Aufruf von einem funktionsfähigen Browser stammt und leitet anschließend zur ursprünglich angeforderten Seite weiter.
+
+Nach einer erfolgreichen Prüfung speichert Anubis ein signiertes Authentifizierungs-Cookie. Dieses belegt, dass die technische Prüfung bestanden wurde, und verhindert, dass sie bei jedem Seitenaufruf erneut durchgeführt werden muss. Das Cookie zur Verifikation der Cookie-Unterstützung wird während der Prüfung verwendet. Ein weiteres, kurzlebiges Cookie bewahrt den ursprünglichen Referrer über die Weiterleitung auf die angeforderte Seite.
+
+Die Cookies dienen ausschließlich dem Schutz und der technischen Bereitstellung unserer Website. Sie werden nicht zur Analyse des Nutzungsverhaltens oder zu Marketingzwecken verwendet. Eine Übermittlung an Dritte findet nicht statt.',
+            'privacy_text_en' => 'We use the Anubis web application firewall to protect our website from automated requests and malicious bots. Where necessary, Anubis verifies that a request originates from a functioning browser and then redirects the visitor to the originally requested page.
+
+After a successful verification, Anubis stores a signed authentication cookie. This proves that the technical check has been passed and prevents it from being repeated for every page request. The cookie for verifying cookie support is used during the verification. A further short-lived cookie preserves the original referrer across the redirect to the requested page.
+
+The cookies are used solely to protect and technically provide our website. They are not used to analyse user behaviour or for marketing purposes. No data are transmitted to third parties.',
+            'privacy_policy_url' => tos()->endpointUrl('privacy'),
+            'hosts' => '.' . Utils::getSiteUrlDomain(),
+            'cookie_expiry' => __('7 Days (authentication); 30 Minutes (verification); 1 Minute (original referrer)', 'rrze-legal'),
+            'enqueued_script_handles' => '',
+            'block_enqueued_script' => false,
+            'prioritize' => false,
+            'async_opt_out_code' => false,
+            'opt_in_js' => '',
+            'opt_out_js' => '',
+            'fallback_js' => '',
+            'position' => 5,
             'status' => true,
             'static' => true,
         ],
