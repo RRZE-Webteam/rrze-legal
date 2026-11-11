@@ -127,11 +127,7 @@ class Frontend {
             return true;
         }
 
-        return consent()->isCookieForBotsActive()
-            && (
-                self::isWhitelistedIp($clientIp, self::getWhitelistedCidrs())
-                || consent()->isCurrentUserAgentAllowed()
-            );
+        return consent()->isCookieForBotsActive() && consent()->isCurrentUserAgentAllowed();
     }
 
     /**
@@ -214,22 +210,6 @@ class Frontend {
 
     
     /**
-     * Get the crawler IP addresses supplied by RRZE Settings.
-     */
-    protected static function getWhitelistedCidrs(): array
-    {
-        if (!is_multisite()) {
-            return [];
-        }
-
-        $cidrs = apply_filters('rrze_settings_crawler_ip_addresses', [], '');
-        $cidrs = is_array($cidrs) ? $cidrs : [];
-        $cidrs = array_merge($cidrs, self::getLegacyWhitelistedCidrs());
-
-        return self::normalizeCidrList($cidrs);
-    }
-
-    /**
      * Read the legacy Siteimprove crawler setting for existing RRZE Settings installations.
      */
     protected static function getLegacyWhitelistedCidrs(): array
@@ -263,25 +243,27 @@ class Frontend {
     }
 
     /**
-     * Get explicit IP addresses configured for the Legal consent banner.
+     * Get all IP addresses that bypass the consent banner.
+     *
+     * Banner IP addresses are always included. Crawler IP addresses are added
+     * only when the network banner allows accepted cookies for crawlers.
      */
     protected static function getConsentIpAddresses(): array
     {
-        $cidrs = [];
+        $ipAddresses = apply_filters('rrze_legal_consent_ip_addresses', []);
+        $ipAddresses = is_array($ipAddresses) ? $ipAddresses : [];
 
-        $option = consent()->getCookiesForIpAddresses();
-        if (is_array($option)) {
-            foreach (self::normalizeCidrList($option) as $cidr) {
-                $cidrs[] = $cidr;
-            }
-        } elseif (is_string($option)) {
-            $list = preg_split('/[\s,;]+/', $option, -1, PREG_SPLIT_NO_EMPTY);
-            foreach (self::normalizeCidrList($list) as $cidr) {
-                $cidrs[] = $cidr;
-            }
+        if (is_multisite() && consent()->isCookieForBotsActive()) {
+            $crawlerIpAddresses = apply_filters('rrze_settings_crawler_ip_addresses', [], '');
+            $crawlerIpAddresses = is_array($crawlerIpAddresses) ? $crawlerIpAddresses : [];
+            $ipAddresses = array_merge(
+                $ipAddresses,
+                $crawlerIpAddresses,
+                self::getLegacyWhitelistedCidrs()
+            );
         }
 
-        return array_values(array_unique($cidrs));
+        return self::normalizeCidrList($ipAddresses);
     }
 
     

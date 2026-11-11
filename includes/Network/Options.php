@@ -305,23 +305,20 @@ class Options extends Settings
         check_admin_referer('rrze-legal-network', 'rrze-legal-network-nonce');
         $postOptions = (array) $_POST[$this->optionName] ?? [];
         $options = $this->sanitizeOptions($postOptions);
+        $currentTab = $this->getRequestedTab();
         if (!$this->hasValidationError) {
             update_site_option($this->optionName, $options);
         }
-        $queryArgs['page'] = 'rrze-legal-network-action';
-        if (count($this->allTabs) > 1) {
-            $queryArgs['current-tab'] = $this->currentTab;
-        }
         $queryArgs = [
             'page' => $this->optionsMenu->slug,
-            'current-tab' => $this->currentTab,
+            'current-tab' => $currentTab,
             'updated' => true
         ];
         if ($this->hasValidationError) {
             unset($queryArgs['updated']);
             $queryArgs['settings-error'] = 'duplicate_organization_domains';
         }
-        if (count($this->allTabs) < 2) {
+        if (count($this->getAvailableTabs()) < 2) {
             unset($queryArgs['current-tab']);
         }
         wp_safe_redirect(add_query_arg(
@@ -329,6 +326,45 @@ class Options extends Settings
             $this->getNetworkMenuBaseUrl()
         ));
         exit;
+    }
+
+    /**
+     * Get the selected settings tab during a network edit request.
+     *
+     * The network_admin_edit action runs before network_admin_menu, therefore
+     * Settings::adminSubMenu() has not populated $currentTab at this point.
+     *
+     * @return string
+     */
+    protected function getRequestedTab(): string
+    {
+        $tabs = $this->getAvailableTabs();
+        $defaultTab = $tabs[0] ?? '';
+        $requestedTab = isset($_REQUEST['current-tab']) && is_string($_REQUEST['current-tab'])
+            ? sanitize_key(wp_unslash($_REQUEST['current-tab']))
+            : '';
+
+        return in_array($requestedTab, $tabs, true) ? $requestedTab : $defaultTab;
+    }
+
+    /**
+     * Get tabs visible to the current network administrator.
+     *
+     * @return array
+     */
+    protected function getAvailableTabs(): array
+    {
+        $tabs = [];
+        foreach ($this->sections as $section) {
+            if (!$this->isSectionVisible($section)) {
+                continue;
+            }
+
+            $sectionId = str_replace('_', '-', $section['id']);
+            $tabs[] = $this->pagePrefix . $sectionId;
+        }
+
+        return $tabs;
     }
 
     public function adminNotices()

@@ -16,6 +16,8 @@ class Options extends Settings {
         $this->settingsFilename = 'consent';
 
         $this->isPluginActiveForNetwork = Utils::isPluginActiveForNetwork(plugin()->getBaseName());
+
+        add_filter('rrze_legal_consent_ip_addresses', [$this, 'filterConsentIpAddresses']);
     }
 
     protected function postSanitizeOptions($input, $hasError) {
@@ -208,6 +210,19 @@ class Options extends Settings {
 
     public function getCookiesForIpAddresses()
     {
+        $ipAddresses = $this->getCookiesForIpAddressList();
+        $ipAddresses = array_unique(array_filter(array_map('trim', $ipAddresses)));
+
+        return !empty($ipAddresses) ? implode(PHP_EOL, $ipAddresses) : '';
+    }
+
+    /**
+     * Get raw IP address lists configured for the consent banner.
+     *
+     * @return array
+     */
+    protected function getCookiesForIpAddressList(): array
+    {
         $ipAddresses = [];
         if ($this->isPluginActiveForNetwork) {
             $ipAddresses = array_merge(
@@ -221,9 +236,29 @@ class Options extends Settings {
             $this->normalizeIpAddressList($this->getOption('banner', 'cookies_for_ip_addresses')),
             $this->getLocalizedBannerOptionList('cookies_for_ip_addresses')
         );
-        $ipAddresses = array_unique(array_filter(array_map('trim', $ipAddresses)));
 
-        return !empty($ipAddresses) ? implode(PHP_EOL, $ipAddresses) : '';
+        return $ipAddresses;
+    }
+
+    /**
+     * Provide IP addresses that bypass the consent banner.
+     *
+     * Includes the network Banner tab, local banner settings and language-specific
+     * banner settings for the current website. Crawler IP addresses are added by
+     * the consent request handler after all banner address sources are combined.
+     *
+     * @param mixed $ipAddresses
+     * @return array
+     */
+    public function filterConsentIpAddresses($ipAddresses): array
+    {
+        $ipAddresses = is_array($ipAddresses) ? $ipAddresses : [];
+        $ipAddresses = array_merge(
+            $ipAddresses,
+            $this->getCookiesForIpAddressList()
+        );
+
+        return $ipAddresses;
     }
 
     public function getDefaultUserAgentPatterns(): array
