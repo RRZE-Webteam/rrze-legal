@@ -53,7 +53,6 @@ class Options extends Settings
         add_action('network_admin_menu', [$this, 'adminSubMenu']);
         add_action('admin_init', [$this, 'registerSetting']);
 
-        add_action('network_admin_edit_rrze-legal-network-action', [$this, 'save']);
         add_action('network_admin_notices', [$this, 'adminNotices']);
     }
 
