@@ -3,7 +3,7 @@
 /*
 Plugin Name:        RRZE Legal
 Plugin URI:         https://github.com/RRZE-Webteam/rrze-legal
-Version:            2.8.49
+Version:            2.8.49-1
 Description:        Legal Mandatory Information & GDPR.
 Author:             RRZE-Webteam <webmaster@fau.de>
 Author URI:         https://www.wp.rrze.fau.de
@@ -64,6 +64,12 @@ register_deactivation_hook(__FILE__, __NAMESPACE__ . '\deactivation');
  * WordPress has fully loaded all active plugins and the theme's functions.php file.
  */
 add_action('plugins_loaded', __NAMESPACE__ . '\loaded');
+
+// Network edit requests are processed before the network admin menu is built.
+add_action('network_admin_edit_rrze-legal-network-action', function () {
+    network()->loaded();
+    network()->save();
+});
 
 /**
  * Activation callback function.

@@ -11,6 +11,8 @@ class Options extends Settings
 {
     protected bool $hasValidationError = false;
 
+    protected bool $isLoaded = false;
+
     public function __construct()
     {
         parent::__construct();
@@ -25,7 +27,7 @@ class Options extends Settings
      */
     public function loaded()
     {
-        if ($this->optionName === '' || $this->settingsFilename === '') {
+        if ($this->isLoaded || $this->optionName === '' || $this->settingsFilename === '') {
             return;
         }
         include_once(plugin()->getPath() . "settings/{$this->settingsFilename}.php");
@@ -46,6 +48,7 @@ class Options extends Settings
                 $this->options[$key] = implode(PHP_EOL, $value);
             }
         }
+        $this->isLoaded = true;
     }
 
     public function setAdminMenu()
