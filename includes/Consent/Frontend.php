@@ -10,11 +10,13 @@ use function RRZE\Legal\{plugin, consent, network};
 class Frontend {
     private static bool $consentAssetsRegistered = false;
 
+    private const CRAWLER_IP_DEBUG_ADDRESS = '47.65.241.50';
+
     public static function loaded() {
         add_shortcode('rrzelegal_consent', [__CLASS__, 'handleShortcode']);
 
-        if (!is_admin() && !self::isCliRequest() && isset($_SERVER['HTTP_USER_AGENT']) && network()->isDebugLoggingEnabled()) {
-            self::logDoNotTrackDebugInformation();
+        if (!is_admin() && !self::isCliRequest() && network()->isDebugLoggingEnabled()) {
+            self::logCrawlerIpDebugInformation();
         }
 
         if (self::requestShouldBypassConsent()) {
@@ -128,6 +130,69 @@ class Frontend {
         }
 
         return consent()->isCookieForBotsActive() && consent()->isCurrentUserAgentAllowed();
+    }
+
+    /**
+     * Log the crawler IP resolution only for the configured diagnostic address.
+     */
+    protected static function logCrawlerIpDebugInformation(): void
+    {
+        $remoteAddress = self::getServerValue('REMOTE_ADDR');
+        $forwardedFor = self::getServerValue('HTTP_X_FORWARDED_FOR');
+        if (!self::requestContainsCrawlerIpDebugAddress($remoteAddress, $forwardedFor)) {
+            return;
+        }
+
+        $clientIp = self::getClientIp();
+        $crawlerCidrs = self::getCrawlerIpAddresses();
+        $consentIpAddresses = self::getConsentIpAddresses();
+        $isCrawlerIp = self::isWhitelistedIp($clientIp, $crawlerCidrs);
+        $isConsentIp = self::isWhitelistedIp($clientIp, $consentIpAddresses);
+        $isConsentApprovalActive = consent()->isCookieForBotsActive();
+        $isUserAgentAllowed = consent()->isCurrentUserAgentAllowed();
+
+        do_action(
+            'rrze.log.info',
+            'RRZE Legal: Crawler IP consent diagnostic.',
+            [
+                'site_id' => get_current_blog_id(),
+                'debug_ip' => self::CRAWLER_IP_DEBUG_ADDRESS,
+                'remote_addr' => $remoteAddress !== '' ? $remoteAddress : 'not sent',
+                'x_forwarded_for' => $forwardedFor !== '' ? $forwardedFor : 'not sent',
+                'resolved_client_ip' => $clientIp ?? 'unresolved',
+                'crawler_ip_addresses' => $crawlerCidrs,
+                'legal_ip_addresses' => $consentIpAddresses,
+                'crawler_ip_matches' => $isCrawlerIp,
+                'legal_ip_matches' => $isConsentIp,
+                'consent_approval_active' => $isConsentApprovalActive,
+                'user_agent_allowed' => $isUserAgentAllowed,
+                'bypasses_consent' => $isConsentIp || ($isConsentApprovalActive && ($isCrawlerIp || $isUserAgentAllowed)),
+            ]
+        );
+    }
+
+    protected static function requestContainsCrawlerIpDebugAddress(string $remoteAddress, string $forwardedFor): bool
+    {
+        if ($remoteAddress === self::CRAWLER_IP_DEBUG_ADDRESS) {
+            return true;
+        }
+
+        foreach (explode(',', $forwardedFor) as $address) {
+            if (trim($address) === self::CRAWLER_IP_DEBUG_ADDRESS) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected static function getServerValue(string $name): string
+    {
+        if (!isset($_SERVER[$name]) || !is_string($_SERVER[$name])) {
+            return '';
+        }
+
+        return sanitize_text_field(wp_unslash($_SERVER[$name]));
     }
 
     /**
@@ -253,15 +318,23 @@ class Frontend {
         $ipAddresses = apply_filters('rrze_legal_consent_ip_addresses', []);
         $ipAddresses = is_array($ipAddresses) ? $ipAddresses : [];
 
-        if (is_multisite() && consent()->isCookieForBotsActive()) {
-            $crawlerIpAddresses = apply_filters('rrze_settings_crawler_ip_addresses', [], '');
-            $crawlerIpAddresses = is_array($crawlerIpAddresses) ? $crawlerIpAddresses : [];
-            $ipAddresses = array_merge(
-                $ipAddresses,
-                $crawlerIpAddresses,
-                self::getLegacyWhitelistedCidrs()
-            );
+        $ipAddresses = array_merge($ipAddresses, self::getCrawlerIpAddresses());
+
+        return self::normalizeCidrList($ipAddresses);
+    }
+
+    /**
+     * Get crawler IP addresses from RRZE Settings when consent approval is enabled.
+     */
+    protected static function getCrawlerIpAddresses(): array
+    {
+        if (!is_multisite() || !consent()->isCookieForBotsActive()) {
+            return [];
         }
+
+        $ipAddresses = apply_filters('rrze_settings_crawler_ip_addresses', [], '');
+        $ipAddresses = is_array($ipAddresses) ? $ipAddresses : [];
+        $ipAddresses = array_merge($ipAddresses, self::getLegacyWhitelistedCidrs());
 
         return self::normalizeCidrList($ipAddresses);
     }
