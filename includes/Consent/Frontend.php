@@ -5,17 +5,15 @@ namespace RRZE\Legal\Consent;
 defined('ABSPATH') || exit;
 
 use RRZE\Legal\Utils;
-use function RRZE\Legal\{plugin, consent, network};
+use function RRZE\Legal\{plugin, config, consent, network};
 
 class Frontend {
     private static bool $consentAssetsRegistered = false;
 
+    private static bool $consentBypassLogged = false;
+
     public static function loaded() {
         add_shortcode('rrzelegal_consent', [__CLASS__, 'handleShortcode']);
-
-        if (!is_admin() && !self::isCliRequest() && isset($_SERVER['HTTP_USER_AGENT']) && network()->isDebugLoggingEnabled()) {
-            self::logDoNotTrackDebugInformation();
-        }
 
         if (self::requestShouldBypassConsent()) {
             return;
@@ -72,6 +70,7 @@ class Frontend {
         }
 
         if (consent()->isBannerActive() || consent()->isTestModeActive()) {
+            self::logConsentBannerEnabled();
             self::registerConsentAssets();
 
             // Block scripts
@@ -122,12 +121,118 @@ class Frontend {
     protected static function requestShouldBypassConsent(): bool
     {
         $clientIp = self::getClientIp();
+        $networkIpAddresses = consent()->getNetworkConsentIpAddressList();
+        $localIpAddresses = consent()->getLocalConsentIpAddressList();
+        $crawlerIpAddresses = self::getCrawlerIpAddresses();
 
-        if (self::isWhitelistedIp($clientIp, self::getConsentIpAddresses())) {
+        if (self::isWhitelistedIp($clientIp, $networkIpAddresses)) {
+            self::logConsentBannerSuppression('network_ip_address', $clientIp);
             return true;
         }
 
-        return consent()->isCookieForBotsActive() && consent()->isCurrentUserAgentAllowed();
+        if (self::isWhitelistedIp($clientIp, $localIpAddresses)) {
+            self::logConsentBannerSuppression('local_ip_address', $clientIp);
+            return true;
+        }
+
+        if (consent()->isCookieForBotsActive() && self::isWhitelistedIp($clientIp, $crawlerIpAddresses)) {
+            self::logConsentBannerSuppression('crawler_ip_address', $clientIp);
+            return true;
+        }
+
+        if (consent()->isCookieForBotsActive() && consent()->isCurrentUserAgentAllowed()) {
+            self::logConsentBannerSuppression('crawler_user_agent', $clientIp);
+            return true;
+        }
+
+        self::logDoNotTrackBannerSuppression();
+
+        return false;
+    }
+
+    /**
+     * Log the rule that suppresses the consent banner for the current request.
+     */
+    protected static function logConsentBannerSuppression(string $reason, ?string $clientIp): void
+    {
+        if (
+            self::$consentBypassLogged
+            || !network()->isDebugLoggingEnabled()
+            || (!consent()->isBannerActive() && !consent()->isTestModeActive())
+        ) {
+            return;
+        }
+
+        self::$consentBypassLogged = true;
+
+        do_action(
+            'rrze.log.info',
+            'RRZE Legal: Consent banner suppressed.',
+            [
+                'site_id' => get_current_blog_id(),
+                'reason' => $reason,
+                'resolved_client_ip' => $clientIp ?? 'unresolved',
+                'user_agent' => self::getServerValue('HTTP_USER_AGENT'),
+            ]
+        );
+    }
+
+    /**
+     * Log a Do Not Track suppression that is performed by the browser script.
+     */
+    protected static function logDoNotTrackBannerSuppression(): void
+    {
+        if (!network()->isDebugLoggingEnabled() || !consent()->isRespectDoNotTrackActive()) {
+            return;
+        }
+
+        $dntHeader = strtolower(trim(self::getServerValue('HTTP_DNT')));
+        if (!in_array($dntHeader, ['1', 'yes'], true)) {
+            return;
+        }
+
+        self::logConsentBannerSuppression('do_not_track', self::getClientIp());
+    }
+
+    /**
+     * Log request data when the consent banner is enabled for the request.
+     */
+    protected static function logConsentBannerEnabled(): void
+    {
+        if (self::$consentBypassLogged || !network()->isDebugLoggingEnabled()) {
+            return;
+        }
+
+        $consentCookieName = (string) config()->get('consent_cookie_name', 'rrze-legal-consent');
+
+        do_action(
+            'rrze.log.info',
+            'RRZE Legal: Consent banner enabled for request.',
+            [
+                'site_id' => get_current_blog_id(),
+                'remote_addr' => self::getServerValue('REMOTE_ADDR'),
+                'x_forwarded_for' => self::getServerValue('HTTP_X_FORWARDED_FOR'),
+                'resolved_client_ip' => self::getClientIp() ?? 'unresolved',
+                'network_ip_addresses' => consent()->getNetworkConsentIpAddressList(),
+                'local_ip_addresses' => consent()->getLocalConsentIpAddressList(),
+                'crawler_ip_addresses' => self::getCrawlerIpAddresses(),
+                'user_agent' => self::getServerValue('HTTP_USER_AGENT'),
+                'dnt_header' => self::getServerValue('HTTP_DNT') ?: 'not sent',
+                'respect_do_not_track_active' => consent()->isRespectDoNotTrackActive(),
+                'consent_cookie_present' => isset($_COOKIE[$consentCookieName]),
+                'banner_active' => consent()->isBannerActive(),
+                'test_mode_active' => consent()->isTestModeActive(),
+            ]
+        );
+    }
+
+    protected static function getServerValue(string $name): string
+    {
+        if (!isset($_SERVER[$name]) || !is_string($_SERVER[$name])) {
+            return '';
+        }
+
+        return sanitize_text_field(wp_unslash($_SERVER[$name]));
     }
 
     /**
@@ -253,15 +358,23 @@ class Frontend {
         $ipAddresses = apply_filters('rrze_legal_consent_ip_addresses', []);
         $ipAddresses = is_array($ipAddresses) ? $ipAddresses : [];
 
-        if (is_multisite() && consent()->isCookieForBotsActive()) {
-            $crawlerIpAddresses = apply_filters('rrze_settings_crawler_ip_addresses', [], '');
-            $crawlerIpAddresses = is_array($crawlerIpAddresses) ? $crawlerIpAddresses : [];
-            $ipAddresses = array_merge(
-                $ipAddresses,
-                $crawlerIpAddresses,
-                self::getLegacyWhitelistedCidrs()
-            );
+        $ipAddresses = array_merge($ipAddresses, self::getCrawlerIpAddresses());
+
+        return self::normalizeCidrList($ipAddresses);
+    }
+
+    /**
+     * Get crawler IP addresses from RRZE Settings when consent approval is enabled.
+     */
+    protected static function getCrawlerIpAddresses(): array
+    {
+        if (!is_multisite() || !consent()->isCookieForBotsActive()) {
+            return [];
         }
+
+        $ipAddresses = apply_filters('rrze_settings_crawler_ip_addresses', [], '');
+        $ipAddresses = is_array($ipAddresses) ? $ipAddresses : [];
+        $ipAddresses = array_merge($ipAddresses, self::getLegacyWhitelistedCidrs());
 
         return self::normalizeCidrList($ipAddresses);
     }

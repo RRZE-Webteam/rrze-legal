@@ -223,21 +223,39 @@ class Options extends Settings {
      */
     protected function getCookiesForIpAddressList(): array
     {
-        $ipAddresses = [];
-        if ($this->isPluginActiveForNetwork) {
-            $ipAddresses = array_merge(
-                $ipAddresses,
-                $this->normalizeIpAddressList(network()->getOption('network_banner', 'cookies_for_ip_addresses'))
-            );
+        return array_merge(
+            $this->getNetworkConsentIpAddressList(),
+            $this->getLocalConsentIpAddressList()
+        );
+    }
+
+    /**
+     * Get IP addresses configured in the network-wide banner settings.
+     *
+     * @return array
+     */
+    public function getNetworkConsentIpAddressList(): array
+    {
+        if (!$this->isPluginActiveForNetwork) {
+            return [];
         }
 
-        $ipAddresses = array_merge(
-            $ipAddresses,
-            $this->normalizeIpAddressList($this->getOption('banner', 'cookies_for_ip_addresses')),
+        return $this->normalizeIpAddressList(
+            network()->getOption('network_banner', 'cookies_for_ip_addresses')
+        );
+    }
+
+    /**
+     * Get IP addresses configured for the current site and its languages.
+     *
+     * @return array
+     */
+    public function getLocalConsentIpAddressList(): array
+    {
+        return array_merge(
+            $this->normalizeIpAddressList(parent::getOption('banner', 'cookies_for_ip_addresses')),
             $this->getLocalizedBannerOptionList('cookies_for_ip_addresses')
         );
-
-        return $ipAddresses;
     }
 
     /**
