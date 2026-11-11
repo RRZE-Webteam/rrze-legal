@@ -119,16 +119,26 @@ class Frontend {
     }
 
     
-    protected static function requestShouldBypassConsent(): bool {
+    protected static function requestShouldBypassConsent(): bool
+    {
+        $clientIp = self::getClientIp();
+
+        if (self::isWhitelistedIp($clientIp, self::getConsentIpAddresses())) {
+            return true;
+        }
+
         return consent()->isCookieForBotsActive()
-            && (self::isWhitelistedIp() || consent()->isCurrentUserAgentAllowed());
+            && (
+                self::isWhitelistedIp($clientIp, self::getWhitelistedCidrs())
+                || consent()->isCurrentUserAgentAllowed()
+            );
     }
 
     /**
-     * Check if user IP is whitelisted.
+     * Check whether a client IP address is included in a list of CIDRs.
      */
-    protected static function isWhitelistedIp(): bool {             
-        $ip = self::getClientIp();
+    protected static function isWhitelistedIp(?string $ip, array $cidrs): bool
+    {
         if ($ip === null) {
             return false;
         }
@@ -137,7 +147,6 @@ class Frontend {
             return false;
         }
 
-        $cidrs = self::getAllWhitelistedCidrs();
         if (empty($cidrs)) {
             return false;
         }
@@ -253,15 +262,12 @@ class Frontend {
         return is_array($value) ? $value : [];
     }
 
-    /*
-     * Combine global network whitelist with local settins of plugin
+    /**
+     * Get explicit IP addresses configured for the Legal consent banner.
      */
-    protected static function getAllWhitelistedCidrs(): array {
+    protected static function getConsentIpAddresses(): array
+    {
         $cidrs = [];
-
-        foreach (self::getWhitelistedCidrs() as $cidr) {
-            $cidrs[] = $cidr;
-        }
 
         $option = consent()->getCookiesForIpAddresses();
         if (is_array($option)) {
