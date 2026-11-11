@@ -5,19 +5,15 @@ namespace RRZE\Legal\Consent;
 defined('ABSPATH') || exit;
 
 use RRZE\Legal\Utils;
-use function RRZE\Legal\{plugin, consent, network};
+use function RRZE\Legal\{plugin, config, consent, network};
 
 class Frontend {
     private static bool $consentAssetsRegistered = false;
 
-    private const CRAWLER_IP_DEBUG_ADDRESS = '47.65.241.50';
+    private static bool $consentBypassLogged = false;
 
     public static function loaded() {
         add_shortcode('rrzelegal_consent', [__CLASS__, 'handleShortcode']);
-
-        if (!is_admin() && !self::isCliRequest() && network()->isDebugLoggingEnabled()) {
-            self::logCrawlerIpDebugInformation();
-        }
 
         if (self::requestShouldBypassConsent()) {
             return;
@@ -74,6 +70,7 @@ class Frontend {
         }
 
         if (consent()->isBannerActive() || consent()->isTestModeActive()) {
+            self::logConsentBannerEnabled();
             self::registerConsentAssets();
 
             // Block scripts
@@ -124,66 +121,109 @@ class Frontend {
     protected static function requestShouldBypassConsent(): bool
     {
         $clientIp = self::getClientIp();
+        $networkIpAddresses = consent()->getNetworkConsentIpAddressList();
+        $localIpAddresses = consent()->getLocalConsentIpAddressList();
+        $crawlerIpAddresses = self::getCrawlerIpAddresses();
 
-        if (self::isWhitelistedIp($clientIp, self::getConsentIpAddresses())) {
+        if (self::isWhitelistedIp($clientIp, $networkIpAddresses)) {
+            self::logConsentBannerSuppression('network_ip_address', $clientIp);
             return true;
         }
 
-        return consent()->isCookieForBotsActive() && consent()->isCurrentUserAgentAllowed();
+        if (self::isWhitelistedIp($clientIp, $localIpAddresses)) {
+            self::logConsentBannerSuppression('local_ip_address', $clientIp);
+            return true;
+        }
+
+        if (consent()->isCookieForBotsActive() && self::isWhitelistedIp($clientIp, $crawlerIpAddresses)) {
+            self::logConsentBannerSuppression('crawler_ip_address', $clientIp);
+            return true;
+        }
+
+        if (consent()->isCookieForBotsActive() && consent()->isCurrentUserAgentAllowed()) {
+            self::logConsentBannerSuppression('crawler_user_agent', $clientIp);
+            return true;
+        }
+
+        self::logDoNotTrackBannerSuppression();
+
+        return false;
     }
 
     /**
-     * Log the crawler IP resolution only for the configured diagnostic address.
+     * Log the rule that suppresses the consent banner for the current request.
      */
-    protected static function logCrawlerIpDebugInformation(): void
+    protected static function logConsentBannerSuppression(string $reason, ?string $clientIp): void
     {
-        $remoteAddress = self::getServerValue('REMOTE_ADDR');
-        $forwardedFor = self::getServerValue('HTTP_X_FORWARDED_FOR');
-        if (!self::requestContainsCrawlerIpDebugAddress($remoteAddress, $forwardedFor)) {
+        if (
+            self::$consentBypassLogged
+            || !network()->isDebugLoggingEnabled()
+            || (!consent()->isBannerActive() && !consent()->isTestModeActive())
+        ) {
             return;
         }
 
-        $clientIp = self::getClientIp();
-        $crawlerCidrs = self::getCrawlerIpAddresses();
-        $consentIpAddresses = self::getConsentIpAddresses();
-        $isCrawlerIp = self::isWhitelistedIp($clientIp, $crawlerCidrs);
-        $isConsentIp = self::isWhitelistedIp($clientIp, $consentIpAddresses);
-        $isConsentApprovalActive = consent()->isCookieForBotsActive();
-        $isUserAgentAllowed = consent()->isCurrentUserAgentAllowed();
+        self::$consentBypassLogged = true;
 
         do_action(
             'rrze.log.info',
-            'RRZE Legal: Crawler IP consent diagnostic.',
+            'RRZE Legal: Consent banner suppressed.',
             [
                 'site_id' => get_current_blog_id(),
-                'debug_ip' => self::CRAWLER_IP_DEBUG_ADDRESS,
-                'remote_addr' => $remoteAddress !== '' ? $remoteAddress : 'not sent',
-                'x_forwarded_for' => $forwardedFor !== '' ? $forwardedFor : 'not sent',
+                'reason' => $reason,
                 'resolved_client_ip' => $clientIp ?? 'unresolved',
-                'crawler_ip_addresses' => $crawlerCidrs,
-                'legal_ip_addresses' => $consentIpAddresses,
-                'crawler_ip_matches' => $isCrawlerIp,
-                'legal_ip_matches' => $isConsentIp,
-                'consent_approval_active' => $isConsentApprovalActive,
-                'user_agent_allowed' => $isUserAgentAllowed,
-                'bypasses_consent' => $isConsentIp || ($isConsentApprovalActive && ($isCrawlerIp || $isUserAgentAllowed)),
+                'user_agent' => self::getServerValue('HTTP_USER_AGENT'),
             ]
         );
     }
 
-    protected static function requestContainsCrawlerIpDebugAddress(string $remoteAddress, string $forwardedFor): bool
+    /**
+     * Log a Do Not Track suppression that is performed by the browser script.
+     */
+    protected static function logDoNotTrackBannerSuppression(): void
     {
-        if ($remoteAddress === self::CRAWLER_IP_DEBUG_ADDRESS) {
-            return true;
+        if (!network()->isDebugLoggingEnabled() || !consent()->isRespectDoNotTrackActive()) {
+            return;
         }
 
-        foreach (explode(',', $forwardedFor) as $address) {
-            if (trim($address) === self::CRAWLER_IP_DEBUG_ADDRESS) {
-                return true;
-            }
+        $dntHeader = strtolower(trim(self::getServerValue('HTTP_DNT')));
+        if (!in_array($dntHeader, ['1', 'yes'], true)) {
+            return;
         }
 
-        return false;
+        self::logConsentBannerSuppression('do_not_track', self::getClientIp());
+    }
+
+    /**
+     * Log request data when the consent banner is enabled for the request.
+     */
+    protected static function logConsentBannerEnabled(): void
+    {
+        if (self::$consentBypassLogged || !network()->isDebugLoggingEnabled()) {
+            return;
+        }
+
+        $consentCookieName = (string) config()->get('consent_cookie_name', 'rrze-legal-consent');
+
+        do_action(
+            'rrze.log.info',
+            'RRZE Legal: Consent banner enabled for request.',
+            [
+                'site_id' => get_current_blog_id(),
+                'remote_addr' => self::getServerValue('REMOTE_ADDR'),
+                'x_forwarded_for' => self::getServerValue('HTTP_X_FORWARDED_FOR'),
+                'resolved_client_ip' => self::getClientIp() ?? 'unresolved',
+                'network_ip_addresses' => consent()->getNetworkConsentIpAddressList(),
+                'local_ip_addresses' => consent()->getLocalConsentIpAddressList(),
+                'crawler_ip_addresses' => self::getCrawlerIpAddresses(),
+                'user_agent' => self::getServerValue('HTTP_USER_AGENT'),
+                'dnt_header' => self::getServerValue('HTTP_DNT') ?: 'not sent',
+                'respect_do_not_track_active' => consent()->isRespectDoNotTrackActive(),
+                'consent_cookie_present' => isset($_COOKIE[$consentCookieName]),
+                'banner_active' => consent()->isBannerActive(),
+                'test_mode_active' => consent()->isTestModeActive(),
+            ]
+        );
     }
 
     protected static function getServerValue(string $name): string

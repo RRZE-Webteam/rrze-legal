@@ -1,1 +1,191 @@
-(()=>{function v(e){e('[type="date"]').prop("type")!="date"&&e('[type="date"]').datepicker({dateFormat:`${legalSettings.dateFormat}`})}function b(e,n,o){e.attr("aria-expanded",o?"true":"false"),e.text(o?"Technische Angaben ausblenden":"Technische Angaben anzeigen"),n.prop("hidden",!o)}function k(){var e=jQuery,n=e(".rrze-legal-consent-technical-toggle");n.each(function(){var s=e(this),c=s.closest("p").nextAll("table.form-table").first();c.length&&(c.addClass("rrze-legal-consent-technical-fields"),b(s,c,!1),s.on("click",function(){var d=s.attr("aria-expanded")==="true";b(s,c,!d)}))})}function y(e){var n=jQuery,o=n.trim(e.val())!=="",s=n("#rrze_legal_consent_cookies_status");s.closest("tr").toggle(!o)}function C(){var e=jQuery,n=e("#rrze_legal_consent_cookies_plugin_slug");n.length&&(y(n),n.on("input",function(){y(n)}))}function h(e,n){n.prop("readonly",!e.is(":checked"))}function S(){var e=jQuery,n=e("[id$='_banner_cookies_for_bots'], [id$='_network_banner_cookies_for_bots']").first(),o=e("[id$='_banner_cookies_for_user_agents'], [id$='_network_banner_cookies_for_user_agents']").first();!n.length||!o.length||(h(n,o),n.on("change",function(){h(n,o)}))}function z(){var e=jQuery;v(e),k(),C(),S()}jQuery(document).ready(z);function x(e){function n(t){return legalSettings.optionName+"["+t+"]"}function o(){var t=n("accessibility_statement_non_accessible_content_helper"),i=e("input[name='"+t+"']:checked","#rrze-legal-accessibility").val(),r="[id^=rrze_legal_accessibility_statement_non_accessible_content_list]";i==="1"?e(r).parents("tr").hide():e(r).parents("tr").show()}function s(t,i,r){var a="rrzeLegalPrevious"+i;typeof t.data(a)=="undefined"&&t.data(a,t.attr(i)||""),t.attr(i,r)}function c(t,i){var r="rrzeLegalPrevious"+i,a=t.data(r);typeof a!="undefined"&&(a===""?t.removeAttr(i):t.attr(i,a),t.removeData(r))}function f(t,i){var r=t.find("input:not([type='hidden']), select, textarea, button"),a=t.find("input[type='date'], input[type='email'], input[type='number'], input[type='password'], input[type='search'], input[type='tel'], input[type='text'], input[type='time'], input[type='url'], textarea");r.each(function(){i?s(e(this),"tabindex","-1"):c(e(this),"tabindex")}),a.each(function(){i?s(e(this),"readonly","readonly"):c(e(this),"readonly")})}function d(t,i){var r="rrze-legal-manual-page-submit",a=t.next("."+r),l=t.closest("form"),g=l.children(".submit").last().find("input[type='submit']").first(),u;return a.length?a:g.length?(u=g.clone(),u.removeAttr("id"),u.attr("name","submit"),u.attr("data-rrze-legal-endpoint",i),a=e('<p class="submit '+r+'"></p>'),a.append(u),t.after(a),a):e()}function m(t,i,r){var a=d(i,t);a.length&&(r?a.show():a.hide())}function _(t){var i=legalSettings.manualPages||{},r=i[t]||{},a="#rrze_legal_"+t+"_allow_manual_page",l=!!r.exists&&e(a).is(":checked"),g=e(".subsection-"+t+"_manual_page"),u=g.nextAll(".subsection");u.toggleClass("rrze-legal-manual-page-disabled",l).attr("aria-disabled",l?"true":"false"),f(u,l),m(t,g,l)}function p(t){var i="#rrze_legal_"+t+"_allow_manual_page";_(t),e(i).on("change",function(){_(t)})}o(),e("#rrze-legal-accessibility input[type='radio']").on("change",function(){o()}),p("imprint"),p("privacy"),p("accessibility")}jQuery(document).ready(x);})();
+(() => {
+  // src/javascript/admin/settings.js
+  function initDatepicker($) {
+    if ($('[type="date"]').prop("type") != "date") {
+      $('[type="date"]').datepicker({
+        dateFormat: `${legalSettings.dateFormat}`
+      });
+    }
+  }
+  function setConsentCookieTechnicalSectionState($button, $table, isOpen) {
+    $button.attr("aria-expanded", isOpen ? "true" : "false");
+    $button.text(isOpen ? "Technische Angaben ausblenden" : "Technische Angaben anzeigen");
+    $table.prop("hidden", !isOpen);
+  }
+  function bindConsentCookieTechnicalToggle() {
+    var $ = jQuery;
+    var $buttons = $(".rrze-legal-consent-technical-toggle");
+    $buttons.each(function initConsentCookieTechnicalToggle() {
+      var $button = $(this);
+      var $table = $button.closest("p").nextAll("table.form-table").first();
+      if (!$table.length) {
+        return;
+      }
+      $table.addClass("rrze-legal-consent-technical-fields");
+      setConsentCookieTechnicalSectionState($button, $table, false);
+      $button.on("click", function toggleConsentCookieTechnicalSection() {
+        var isOpen = $button.attr("aria-expanded") === "true";
+        setConsentCookieTechnicalSectionState($button, $table, !isOpen);
+      });
+    });
+  }
+  function setConsentCookieStatusVisibility($pluginSlug) {
+    var $ = jQuery;
+    var hasPluginSlug = $.trim($pluginSlug.val()) !== "";
+    var $status = $("#rrze_legal_consent_cookies_status");
+    $status.closest("tr").toggle(!hasPluginSlug);
+  }
+  function bindConsentCookieStatusVisibility() {
+    var $ = jQuery;
+    var $pluginSlug = $("#rrze_legal_consent_cookies_plugin_slug");
+    if (!$pluginSlug.length) {
+      return;
+    }
+    setConsentCookieStatusVisibility($pluginSlug);
+    $pluginSlug.on("input", function updateConsentCookieStatusVisibility() {
+      setConsentCookieStatusVisibility($pluginSlug);
+    });
+  }
+  function setCookiesForUserAgentsReadonly($checkbox, $textarea) {
+    $textarea.prop("readonly", !$checkbox.is(":checked"));
+  }
+  function bindCookiesForUserAgentsReadonly() {
+    var $ = jQuery;
+    var $checkbox = $("[id$='_banner_cookies_for_bots'], [id$='_network_banner_cookies_for_bots']").first();
+    var $textarea = $("[id$='_banner_cookies_for_user_agents'], [id$='_network_banner_cookies_for_user_agents']").first();
+    if (!$checkbox.length || !$textarea.length) {
+      return;
+    }
+    setCookiesForUserAgentsReadonly($checkbox, $textarea);
+    $checkbox.on("change", function updateCookiesForUserAgentsReadonly() {
+      setCookiesForUserAgentsReadonly($checkbox, $textarea);
+    });
+  }
+  function initSettings() {
+    var $ = jQuery;
+    initDatepicker($);
+    bindConsentCookieTechnicalToggle();
+    bindConsentCookieStatusVisibility();
+    bindCookiesForUserAgentsReadonly();
+  }
+  jQuery(document).ready(initSettings);
+
+  // src/javascript/admin/tos.js
+  function rrzeLegalTosReady($) {
+    function getOptionName(option) {
+      return legalSettings.optionName + "[" + option + "]";
+    }
+    function accessibilityHelperSection() {
+      var inputName = getOptionName("accessibility_statement_non_accessible_content_helper");
+      var input = $(
+        "input[name='" + inputName + "']:checked",
+        "#rrze-legal-accessibility"
+      ).val();
+      var inputList = "[id^=rrze_legal_accessibility_statement_non_accessible_content_list]";
+      if ("1" === input) {
+        $(inputList).parents("tr").hide();
+      } else {
+        $(inputList).parents("tr").show();
+      }
+    }
+    function setStoredAttribute($control, attribute, value) {
+      var dataName = "rrzeLegalPrevious" + attribute;
+      if (typeof $control.data(dataName) === "undefined") {
+        $control.data(dataName, $control.attr(attribute) || "");
+      }
+      $control.attr(attribute, value);
+    }
+    function restoreStoredAttribute($control, attribute) {
+      var dataName = "rrzeLegalPrevious" + attribute;
+      var previousValue = $control.data(dataName);
+      if (typeof previousValue === "undefined") {
+        return;
+      }
+      if (previousValue === "") {
+        $control.removeAttr(attribute);
+      } else {
+        $control.attr(attribute, previousValue);
+      }
+      $control.removeData(dataName);
+    }
+    function setManualPageControls($subsections, isOverridden) {
+      var $controls = $subsections.find("input:not([type='hidden']), select, textarea, button");
+      var $readonlyControls = $subsections.find(
+        "input[type='date'], input[type='email'], input[type='number'], input[type='password'], input[type='search'], input[type='tel'], input[type='text'], input[type='time'], input[type='url'], textarea"
+      );
+      $controls.each(function rrzeLegalManualPageControlState() {
+        if (isOverridden) {
+          setStoredAttribute($(this), "tabindex", "-1");
+        } else {
+          restoreStoredAttribute($(this), "tabindex");
+        }
+      });
+      $readonlyControls.each(function rrzeLegalManualPageReadonlyState() {
+        if (isOverridden) {
+          setStoredAttribute($(this), "readonly", "readonly");
+        } else {
+          restoreStoredAttribute($(this), "readonly");
+        }
+      });
+    }
+    function getManualPageSubmit($manualPageSubsection, endpoint) {
+      var submitClass = "rrze-legal-manual-page-submit";
+      var $submit = $manualPageSubsection.next("." + submitClass);
+      var $form = $manualPageSubsection.closest("form");
+      var $bottomSubmit = $form.children(".submit").last().find("input[type='submit']").first();
+      var $button;
+      if ($submit.length) {
+        return $submit;
+      }
+      if (!$bottomSubmit.length) {
+        return $();
+      }
+      $button = $bottomSubmit.clone();
+      $button.removeAttr("id");
+      $button.attr("name", "submit");
+      $button.attr("data-rrze-legal-endpoint", endpoint);
+      $submit = $('<p class="submit ' + submitClass + '"></p>');
+      $submit.append($button);
+      $manualPageSubsection.after($submit);
+      return $submit;
+    }
+    function setManualPageSubmit(endpoint, $manualPageSubsection, isOverridden) {
+      var $submit = getManualPageSubmit($manualPageSubsection, endpoint);
+      if (!$submit.length) {
+        return;
+      }
+      if (isOverridden) {
+        $submit.show();
+      } else {
+        $submit.hide();
+      }
+    }
+    function setManualPageState(endpoint) {
+      var manualPages = legalSettings.manualPages || {};
+      var config = manualPages[endpoint] || {};
+      var checkboxId = "#rrze_legal_" + endpoint + "_allow_manual_page";
+      var isOverridden = Boolean(config.exists) && $(checkboxId).is(":checked");
+      var $manualPageSubsection = $(".subsection-" + endpoint + "_manual_page");
+      var $subsections = $manualPageSubsection.nextAll(".subsection");
+      $subsections.toggleClass("rrze-legal-manual-page-disabled", isOverridden).attr("aria-disabled", isOverridden ? "true" : "false");
+      setManualPageControls($subsections, isOverridden);
+      setManualPageSubmit(endpoint, $manualPageSubsection, isOverridden);
+    }
+    function bindManualPageState(endpoint) {
+      var checkboxId = "#rrze_legal_" + endpoint + "_allow_manual_page";
+      setManualPageState(endpoint);
+      $(checkboxId).on("change", function rrzeLegalManualPageChange() {
+        setManualPageState(endpoint);
+      });
+    }
+    accessibilityHelperSection();
+    $("#rrze-legal-accessibility input[type='radio']").on("change", function rrzeLegalAccessibilityRadioChange() {
+      accessibilityHelperSection();
+    });
+    bindManualPageState("imprint");
+    bindManualPageState("privacy");
+    bindManualPageState("accessibility");
+  }
+  jQuery(document).ready(rrzeLegalTosReady);
+})();
+//# sourceMappingURL=rrze-legal-admin.js.map
