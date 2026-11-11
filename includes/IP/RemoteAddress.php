@@ -6,53 +6,80 @@ defined('ABSPATH') || exit;
 
 class RemoteAddress
 {
+    protected array $trustedProxies;
+
+    /**
+     * @param array|null $trustedProxies Trusted proxy IP addresses or CIDRs.
+     */
+    public function __construct(?array $trustedProxies = null)
+    {
+        $trustedProxies = $trustedProxies ?? apply_filters('rrze_trusted_proxies', []);
+        $this->trustedProxies = is_array($trustedProxies) ? $trustedProxies : [];
+    }
+
     public function getIpAddress()
     {
-        $ipStr = $this->getIpAddressFromProxy();
-        if ($ipStr) {
-            return $ipStr;
+        $remoteAddress = $_SERVER['REMOTE_ADDR'] ?? '';
+        if (!$this->isValidIp($remoteAddress)) {
+            return '';
         }
 
-        // Remote IP address
-        if (isset($_SERVER['REMOTE_ADDR'])) {
-            return $_SERVER['REMOTE_ADDR'];
+        if (!$this->isTrustedProxy($remoteAddress)) {
+            return $remoteAddress;
+        }
+
+        $forwarded = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? '';
+        if (!is_string($forwarded) || trim($forwarded) === '') {
+            return '';
+        }
+
+        foreach (array_reverse(explode(',', $forwarded)) as $address) {
+            $address = trim($address);
+            if (!$this->isValidIp($address)) {
+                return '';
+            }
+            if (!$this->isTrustedProxy($address)) {
+                return $address;
+            }
         }
 
         return '';
     }
 
-    protected function getIpAddressFromProxy()
+    protected function isValidIp($ip): bool
     {
-        if (empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            return false;
-        }
-
-        $ipsAry = array_map('trim', explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
-
-        if (empty($this->getProxies($ipsAry))) {
-            return false;
-        }
-
-        // The right-most IP address is always the IP address that connects to
-        // the last proxy, which means it is the most reliable source of information.
-        // @see https://en.wikipedia.org/wiki/X-Forwarded-For
-        $ipStr = array_pop($ipsAry);
-        return $ipStr;
+        return is_string($ip) && filter_var($ip, FILTER_VALIDATE_IP) !== false;
     }
 
-    protected function getProxies($ipsAry = [])
+    protected function isTrustedProxy(string $ip): bool
     {
-        $proxies = [];
-
-        foreach ($ipsAry as $ipStr) {
-            $ip = IP::fromStringIP($ipStr);
-            $host = $ip->getHostname();
-            if ($host === null) {
-                continue;
+        foreach ($this->trustedProxies as $range) {
+            if ($this->isIpInRange($ip, $range)) {
+                return true;
             }
-            $proxies[] = $ipStr;
         }
 
-        return $proxies;
+        return false;
+    }
+
+    protected function isIpInRange(string $ip, $range): bool
+    {
+        if (!$this->isValidIp($ip) || !is_string($range)) {
+            return false;
+        }
+
+        $parts = explode('/', trim($range));
+        $subnet = $parts[0];
+        if (count($parts) > 2 || !$this->isValidIp($subnet)) {
+            return false;
+        }
+
+        $maxBits = str_contains($subnet, ':') ? 128 : 32;
+        $bits = $parts[1] ?? (string) $maxBits;
+        if (!ctype_digit($bits) || (int) $bits > $maxBits) {
+            return false;
+        }
+
+        return IP::fromStringIP($ip)->isInRange($subnet . '/' . (int) $bits);
     }
 }
