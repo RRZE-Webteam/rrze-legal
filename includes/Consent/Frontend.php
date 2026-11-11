@@ -204,32 +204,53 @@ class Frontend {
     }
 
     
-    /*
-     * Get whitelist IP Adress from Multisite Setting rrze_settings 
-     * (managed by rrze-settings multisite plugn)
+    /**
+     * Get the crawler IP addresses supplied by RRZE Settings.
      */
-     protected static function getWhitelistedCidrs(): array {
+    protected static function getWhitelistedCidrs(): array
+    {
         if (!is_multisite()) {
             return [];
         }
 
+        $cidrs = apply_filters('rrze_settings_crawler_ip_addresses', [], '');
+        $cidrs = is_array($cidrs) ? $cidrs : [];
+        $cidrs = array_merge($cidrs, self::getLegacyWhitelistedCidrs());
+
+        return self::normalizeCidrList($cidrs);
+    }
+
+    /**
+     * Read the legacy Siteimprove crawler setting for existing RRZE Settings installations.
+     */
+    protected static function getLegacyWhitelistedCidrs(): array
+    {
         $settings = get_site_option('rrze_settings');
         if (empty($settings)) {
             return [];
         }
 
-        $value = null;
+        $plugins = [];
 
         if (is_array($settings)) {
-            $value = $settings['plugins']['siteimprove_crawler_ip_addresses'] ?? null;
+            $plugins = $settings['plugins'] ?? [];
         } elseif (is_object($settings)) {
-            $value = $settings->plugins->siteimprove_crawler_ip_addresses ?? null;
+            $plugins = $settings->plugins ?? [];
         }
 
-        if (!is_array($value)) {
-            return [];
+        if (is_array($plugins)) {
+            $value = $plugins['siteimprove_crawler_ip_addresses'] ?? [];
+        } elseif (is_object($plugins)) {
+            $value = $plugins->siteimprove_crawler_ip_addresses ?? [];
+        } else {
+            $value = [];
         }
-        return self::normalizeCidrList($value);
+
+        if (is_string($value)) {
+            $value = preg_split('/[\r\n]+/', $value, -1, PREG_SPLIT_NO_EMPTY);
+        }
+
+        return is_array($value) ? $value : [];
     }
 
     /*
@@ -320,17 +341,11 @@ class Frontend {
     
     
     
-    protected static function getClientIp(): ?string {
-        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $parts = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-            return trim($parts[0]);
-        }
+    protected static function getClientIp(): ?string
+    {
+        $ip = Utils::getRemoteIpAddress();
 
-        if (!empty($_SERVER['REMOTE_ADDR'])) {
-            return $_SERVER['REMOTE_ADDR'];
-        }
-
-        return null;
+        return filter_var($ip, FILTER_VALIDATE_IP) !== false ? $ip : null;
     }
 
 
