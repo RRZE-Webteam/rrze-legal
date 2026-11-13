@@ -13,8 +13,10 @@ defined('ABSPATH') || exit;
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Block markup is retrieved from the WordPress template API. ?>
-<?php echo do_blocks($templateContent); ?>
+<div class="wp-site-blocks">
+    <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Block markup is retrieved from the WordPress template API. ?>
+    <?php echo $blockContent; ?>
+</div>
 <?php wp_footer(); ?>
 </body>
 </html>
