@@ -5,6 +5,7 @@ namespace RRZE\Legal;
 defined('ABSPATH') || exit;
 
 use RRZE\Legal\TOS\{Endpoint, NavMenu};
+use RRZE\Legal\Blocks\Legal;
 use RRZE\Legal\Consent\Frontend;
 
 /**
@@ -52,6 +53,7 @@ class Main {
             tos()->loaded();
         });
         new Endpoint();
+        new Legal();
         NavMenu::addTosMenu();
 
         // Set admin submenus

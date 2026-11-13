@@ -96,9 +96,7 @@ class Frontend {
 
     public static function registerPrivacyEndpointConsentControls(): void {
         self::registerConsentAssets();
-        if (!consent()->isBannerActive() && !consent()->isTestModeActive()) {
-            add_action('wp_footer', [__CLASS__, 'addBanner']);
-        }
+        add_action('wp_footer', [__CLASS__, 'addBanner']);
     }
 
     protected static function registerConsentAssets(): void {
