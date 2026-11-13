@@ -36,6 +36,14 @@ bzw. auf Websites mit englischer Sprache die Endpoints
 -  /privacy
 -  /accessibility
 
+## Block-Themes und Site Editor
+
+Bei einem Block-Theme stellt RRZE Legal im Site Editor die Vorlage **Legal** bereit. Sie enthält den dynamischen Block **RRZE Legal** und kann dort wie jede andere Vorlage mit Header, Footer und weiteren Blöcken gestaltet werden. Die automatisch erzeugten Endpoints verwenden diese Vorlage, sofern sie nicht durch eine manuelle Seite ersetzt werden.
+
+Der Block **RRZE Legal** befindet sich in der Kategorie **RRZE**. Er gibt wahlweise Impressum, Datenschutzerklärung oder Barrierefreiheitserklärung aus den RRZE-Legal-Einstellungen aus. Die Option „Aktueller Endpoint“ ist für die Legal-Vorlage gedacht und darf nur auf einem Legal-Endpoint verwendet werden.
+
+Bei Classic Themes bleibt die bisherige Ausgabe der automatisch erzeugten Endpoints unverändert.
+
 
 ## Individuelle Anpassungen
 

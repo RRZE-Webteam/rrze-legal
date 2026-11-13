@@ -5,6 +5,7 @@ namespace RRZE\Legal;
 defined('ABSPATH') || exit;
 
 use RRZE\Legal\TOS\{Endpoint, NavMenu};
+use RRZE\Legal\Blocks\Legal;
 use RRZE\Legal\Consent\Frontend;
 
 /**
@@ -31,9 +32,6 @@ class Main {
         // Load network settings
         $isPluginActiveForNetwork = Utils::isPluginActiveForNetwork(plugin()->getBaseName());
         if ($isPluginActiveForNetwork) {
-            // Network edit actions are handled before the network admin menu is built.
-            add_action('network_admin_edit_rrze-legal-network-action', [network(), 'save']);
-
             add_action('init', function () {
                 network()->loaded();
                 network()->setAdminMenu();
@@ -55,6 +53,7 @@ class Main {
             tos()->loaded();
         });
         new Endpoint();
+        new Legal();
         NavMenu::addTosMenu();
 
         // Set admin submenus

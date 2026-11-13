@@ -11,6 +11,8 @@ class Options extends Settings
 {
     protected bool $hasValidationError = false;
 
+    protected bool $isLoaded = false;
+
     public function __construct()
     {
         parent::__construct();
@@ -25,7 +27,7 @@ class Options extends Settings
      */
     public function loaded()
     {
-        if ($this->optionName === '' || $this->settingsFilename === '') {
+        if ($this->isLoaded || $this->optionName === '' || $this->settingsFilename === '') {
             return;
         }
         include_once(plugin()->getPath() . "settings/{$this->settingsFilename}.php");
@@ -46,10 +48,12 @@ class Options extends Settings
                 $this->options[$key] = implode(PHP_EOL, $value);
             }
         }
+        $this->isLoaded = true;
     }
 
     public function setAdminMenu()
     {
+        add_action('network_admin_menu', [$this, 'maybeSave'], 1);
         add_action('network_admin_menu', [$this, 'adminSubMenu']);
         add_action('admin_init', [$this, 'registerSetting']);
 
@@ -261,22 +265,11 @@ class Options extends Settings
             if ($this->pagePrefix . $sectionId != $this->currentTab) {
                 continue;
             }
-            $queryArgs = [
-                'action' => 'rrze-legal-network-action',
-                'current-tab' => $this->pagePrefix . $sectionId
-            ];
-            if (count($this->allTabs) < 2) {
-                unset($queryArgs['current-tab']);
-            }
-            $action = add_query_arg(
-                $queryArgs,
-                network_admin_url('edit.php')
-            );
-            echo '<form id="'. esc_attr($this->pagePrefix . $sectionId) . '" method="post" action="' . esc_attr($action) . '">';
+            echo '<form id="'. esc_attr($this->pagePrefix . $sectionId) . '" method="post">';
             wp_nonce_field('rrze-legal-network', 'rrze-legal-network-nonce');
             do_settings_sections($this->settingsPrefix . $section['id']);
             settings_fields($this->settingsPrefix . $section['id']);
-            submit_button();
+            submit_button(__('Save Changes', 'rrze-legal'), 'primary', 'rrze_legal_network_submit');
             echo '</form>' . PHP_EOL;
         }
     }
@@ -325,6 +318,25 @@ class Options extends Settings
             $this->getNetworkMenuBaseUrl()
         ));
         exit;
+    }
+
+    /**
+     * Save a network settings form submitted to its current admin page.
+     */
+    public function maybeSave(): void
+    {
+        if (!is_network_admin() || !isset($_POST['rrze_legal_network_submit'])) {
+            return;
+        }
+
+        $page = isset($_GET['page']) && is_string($_GET['page'])
+            ? sanitize_key(wp_unslash($_GET['page']))
+            : '';
+        if ($page !== $this->optionsMenu->slug) {
+            return;
+        }
+
+        $this->save();
     }
 
     /**

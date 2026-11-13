@@ -5,11 +5,14 @@ namespace RRZE\Legal\TOS;
 defined('ABSPATH') || exit;
 
 use RRZE\Legal\{Locale, Template};
+use RRZE\Legal\Blocks\Legal;
 use RRZE\Legal\Consent\Frontend;
 use function RRZE\Legal\{config, consent, plugin, tos, consentCookies};
 
 class Endpoint {
     protected static array $currentEndpointRequestData = [];
+
+    protected static array $endpointContents = [];
 
     /**
      * Class constructor.
@@ -92,10 +95,47 @@ class Endpoint {
         add_action('admin_bar_menu', [__CLASS__, 'adminBarEditLink'], 80);
         add_filter('pre_get_document_title', [__CLASS__, 'documentTitle']);
 
-        // Get the options
+        if (wp_is_block_theme()) {
+            self::renderBlockThemeEndpoint();
+        }
+
+        $content = self::getEndpointContent($requestData['endpoint'], $langCode);
+        self::enqueueFrontendStyle();
+        $content = self::wrapEndpointContent($content);
+        $title = $requestData['title'] ?? '';
+        $template = plugin()->getPath(Template::THEMES_PATH) . Template::getThemeFilename();
+        if (!is_readable($template)) {
+            self::error404();
+        }
+
+        include($template);
+        exit;
+    }
+
+    public static function isEndpoint(string $endpoint): bool
+    {
+        return in_array($endpoint, self::defaultSlugs(), true);
+    }
+
+    public static function getCurrentEndpoint(): string
+    {
+        return self::$currentEndpointRequestData['endpoint'] ?? '';
+    }
+
+    public static function getEndpointContent(string $endpoint, ?string $langCode = null): string
+    {
+        if (!self::isEndpoint($endpoint)) {
+            return '';
+        }
+
+        $langCode = $langCode ?? Locale::getLangCode();
+        $cacheKey = $endpoint . ':' . $langCode;
+        if (array_key_exists($cacheKey, self::$endpointContents)) {
+            return self::$endpointContents[$cacheKey];
+        }
+
         $options = tos()->getOptions();
-        // Adjustments
-        $value = $options['imprint_scope_websites'];
+        $value = $options['imprint_scope_websites'] ?? '';
         if (!is_array($value)) {
             $value = explode(PHP_EOL, $value);
         }
@@ -113,43 +153,29 @@ class Endpoint {
         }
 
         $options['imprint_scope_websites'] = $value;
-        // Set organization domain option
         $options['is_default_domain'] = tos()->isCurrentSiteInOrganizationDomains() ? '1' : '0';
 
-   
-        // Set accessibility conformity
         self::setAccessibilityConformity($options);
-        // Set accessibility compliance method
         self::setComplianceMethod($options);
-        // Set accessibility compliance dates
         self::setComplianceDates($options);
-        // Set accessibility compliance content list
         self::setComplianceContentList($options);
-        
-        // Check if ID Numbers are present and set imprint_id_numbers_exists to true if so.
-        self::setFilledIDNumbers($options);    
-        // Check if name, email, url or phone for IT Security exists
+        self::setFilledIDNumbers($options);
         self::setFilledAbuseData($options);
-        // Check if Supervisory data exists
-        self:: setFilledSupervisory($options);
-        
-        
-        // Set contact form
+        self::setFilledSupervisory($options);
         self::setContactForm($options);
 
-        // Get the parent template
-        $template = plugin()->getPath(Template::TOS_PATH) . $requestData['endpoint'] . '-' . $langCode . '.html';
+        $template = plugin()->getPath(Template::TOS_PATH) . $endpoint . '-' . $langCode . '.html';
         if (!is_readable($template)) {
-            $template = plugin()->getPath(Template::TOS_PATH) . $requestData['endpoint'] . '-en.html';
+            $template = plugin()->getPath(Template::TOS_PATH) . $endpoint . '-en.html';
         }
         if (!is_readable($template)) {
-            self::error404();
+            return '';
         }
-        // Find child templates in settings fields
+
         foreach (tos()->getFields() as $key => $field) {
             $_tplAry = isset($field['template']) && is_array($field['template']) ? $field['template'] : [];
             foreach ($_tplAry as $_val => $_tpl) {
-                if ($options[$key] == $_val) {
+                if (($options[$key] ?? '') == $_val) {
                     $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-' . $langCode . '.html';
                     if (!is_readable($tpl)) {
                         $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-en.html';
@@ -161,7 +187,6 @@ class Endpoint {
             }
         }
         self::setPrivacyTechnicalServices($options);
-        // Includes service providers.
         $options['privacy_external_service_providers'] = '';
         $options['service_providers_template'] = [];
         $consentCookiesOptions = consentCookies()->getOptions();
@@ -180,10 +205,9 @@ class Endpoint {
         if (!empty($options['service_providers_template'])) {
             $options['privacy_external_service_providers'] = '1';
         }
-        // Includes other child templates
-       
+
         $default_active_subtemplates = ['imprint-representation', 'imprint-id-numbers', 'imprint-supervisory-authority', 'imprint-it-security', 'imprint-whistleblower-system', 'privacy-controller', 'privacy-dpo', 'privacy-general-rightsdata', 'privacy-supervisory-authority', 'privacy-general', 'privacy-technical-server', 'privacy-technical-cookies', 'privacy-technical-javascript', 'privacy-technical-email', 'privacy-closingstatement', 'accessibility-supervisory-authority'];
-        
+
         foreach ($default_active_subtemplates as $_tpl) {
             $tpl = plugin()->getPath(Template::TOS_PATH) . $_tpl . '-' . $langCode . '.html';
             if (!is_readable($tpl)) {
@@ -191,26 +215,33 @@ class Endpoint {
             }
             $options[str_replace('-', '_', $_tpl) . '_template'] = is_readable($tpl) ? self::getContent($tpl, $options) : '';
         }
-        
-        
-        
-        // Render all templates and get the page content
+
         $content = self::getContent($template, $options);
-        if ($requestData['endpoint'] === 'privacy') {
+        if ($endpoint === 'privacy') {
             Frontend::registerPrivacyEndpointConsentControls();
         }
-        // Search content for shortcodes and filter shortcodes through their hooks
-        // Shortcodes inside HTML elements will be skipped
-        $content = do_shortcode($content);
+
+        self::$endpointContents[$cacheKey] = do_shortcode($content);
+
+        return self::$endpointContents[$cacheKey];
+    }
+
+    protected static function renderBlockThemeEndpoint(): void
+    {
+        self::getEndpointContent(self::getCurrentEndpoint());
         self::enqueueFrontendStyle();
-        $content = self::wrapEndpointContent($content);
-        $title = $requestData['title'] ?? '';
-        // Render the page with the content
-        $template = plugin()->getPath(Template::THEMES_PATH) . Template::getThemeFilename();
-        if (!is_readable($template)) {
+
+        $template = get_block_template(get_stylesheet() . '//legal');
+        $templateContent = $template instanceof \WP_Block_Template
+            ? $template->content
+            : Legal::getTemplateContent();
+
+        $blockTemplate = plugin()->getPath(Template::THEMES_PATH) . 'block.php';
+        if (!is_readable($blockTemplate)) {
             self::error404();
         }
-        include($template);
+
+        include($blockTemplate);
         exit;
     }
 

@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { test } = require('node:test');
 const { JSDOM } = require('jsdom');
-const jquery = require('jquery');
+const jqueryPath = require.resolve('jquery');
 
 const root = path.join(__dirname, '..');
 const cookies = { essential: ['necessary'], statistics: ['analytics'], external_media: ['video'] };
@@ -67,7 +67,7 @@ function setup(t, script, { settings = {}, savedConsent, narrow = false, beforeI
         return { x: 0, y: 0, top: 0, left: 0, right: 100, bottom: collapsed ? 0 : 40,
             width: 100, height: collapsed ? 0 : 40 };
     };
-    window.jQuery = jquery(window);
+    window.eval(fs.readFileSync(jqueryPath, 'utf8'));
     window.jQuery.fx.off = true;
     window.executed = [];
     if (savedConsent) {
