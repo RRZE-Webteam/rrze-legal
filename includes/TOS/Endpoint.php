@@ -236,6 +236,13 @@ class Endpoint {
             ? $template->content
             : Legal::getTemplateContent();
 
+        /*
+         * Render the template before wp_head(). Core block support styles are
+         * enqueued while blocks are rendered and must be available when the
+         * head is printed.
+         */
+        $blockContent = do_blocks($templateContent);
+
         $blockTemplate = plugin()->getPath(Template::THEMES_PATH) . 'block.php';
         if (!is_readable($blockTemplate)) {
             self::error404();
