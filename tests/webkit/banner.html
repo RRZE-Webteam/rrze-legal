@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Consent banner</title>
+    <link rel="stylesheet" href="/rrze-legal.css">
+</head>
+<body>
+    <a id="article-link" href="#article">Read article</a>
+    <a class="rrzelegal-cookie-preference" href="#">Privacy settings</a>
+    <main id="article">Article</main>
+    <div data-nosnippet>
+        <script id="RRZELegalBannerWrap" type="text/template">
+            <div id="RRZELegalBanner" class="RRZELegal" role="dialog" aria-modal="true">
+                <div class="middle-center" style="display: none;">
+                    <div class="_rrzelegal-box-wrap"><div class="_rrzelegal-box _rrzelegal-box-advanced">
+                        <div class="cookie-box"><div class="container"><div class="row"><div class="_rrzelegal-banner-content">
+                            <h3 id="BannerTextHeadline">Privacy settings</h3>
+                            <p id="BannerTextDescription">Choose which services to allow.</p>
+                            <!-- Additional service details -->
+                            <fieldset>
+                                <legend>Services</legend>
+                                <label><input type="checkbox" name="cookieGroup[]" value="essential" checked disabled data-rrzelegal-cookie-checkbox>Essential</label>
+                                <label><input type="checkbox" name="cookieGroup[]" value="statistics" data-rrzelegal-cookie-checkbox>Statistics</label>
+                            </fieldset>
+                            <p><a class="_rrzelegal-btn" href="#" data-cookie-accept-all>Accept all</a></p>
+                            <p><a class="_rrzelegal-btn" href="#" id="BannerSaveButton" data-cookie-accept>Save</a></p>
+                            <p><a class="_rrzelegal-btn" href="#" data-cookie-refuse>Refuse</a></p>
+                            <p><a href="#" data-cookie-individual>Individual settings</a></p>
+                        </div></div></div></div>
+                        <div class="cookie-preference" aria-hidden="true"><div class="container not-visible"><div class="row"><div class="_rrzelegal-banner-content">
+                            <h3>Individual settings</h3>
+                            <label><input type="checkbox" name="cookieGroup[]" value="statistics" data-rrzelegal-cookie-checkbox>Statistics</label>
+                            <label><input type="checkbox" name="cookies[statistics][]" value="analytics" data-cookie-group="statistics">Analytics</label>
+                            <p><a class="_rrzelegal-btn" href="#" id="CookiePrefSave" data-cookie-accept>Save</a></p>
+                            <p><a class="_rrzelegal-btn" href="#" data-cookie-refuse>Refuse</a></p>
+                            <p><a href="#" data-cookie-back>Back</a></p>
+                        </div></div></div></div>
+                    </div></div>
+                </div>
+            </div>
+        </script>
+    </div>
+    <script src="/jquery.js"></script>
+    <script src="/rrze-legal.js"></script>
+</body>
+</html>

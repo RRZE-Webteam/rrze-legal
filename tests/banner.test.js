@@ -242,6 +242,21 @@ for (const script of ['src/javascript/frontend/banner.js', 'build/rrze-legal.js'
         assert.equal(ctx.saved(), undefined);
     });
 
+    test(`${script}: without hit testing, the dialog must still intersect the viewport`, t => {
+        const ctx = setup(t, script, { settings: { showBanner: '' } });
+        ctx.document.elementFromPoint = undefined;
+        assert.equal(ctx.api.showBanner(), true);
+        ctx.api.hideBanner();
+
+        const dialog = ctx.document.querySelector('._rrzelegal-box');
+        /** @returns {DOMRect} Dialog translated beyond the right edge of the viewport. */
+        dialog.getBoundingClientRect = () => new ctx.window.DOMRect(ctx.window.innerWidth + 10, 0, 100, 40);
+        assert.equal(ctx.api.showBanner(), false);
+        assertClosed(ctx);
+        assert.equal(ctx.saved(), undefined);
+        assert.equal(ctx.saves(), 0);
+    });
+
     for (const selector of ['#RRZELegalBanner', '.cookie-box', '._rrzelegal-box-wrap']) {
         test(`${script}: missing ${selector} during initialization does not lock the page`, t => {
             const ctx = setup(t, script, {
