@@ -142,7 +142,58 @@
             }
 
             /**
-             * Finds a visible consent action in an active, visible banner panel.
+             * Checks whether any part of the active panel can receive pointer input.
+             * Tests the panel surface so controls below its scroll position remain usable.
+             * @param {Element|null} container Content container of the active panel.
+             * @returns {boolean} Whether the panel has a reachable surface in the viewport.
+             */
+            function isBannerPanelReachable(container) {
+                if (!isBannerElementVisible(container)) {
+                    return false;
+                }
+                var dialog = container.closest("._rrzelegal-" + e.boxLayout);
+                if (!dialog) {
+                    return false;
+                }
+                var contentRect = container.getBoundingClientRect();
+                var dialogRect = dialog.getBoundingClientRect();
+                var viewport = document.documentElement;
+                var left = Math.max(0, contentRect.left, dialogRect.left);
+                var top = Math.max(0, contentRect.top, dialogRect.top);
+                var right = Math.min(
+                    viewport.clientWidth || window.innerWidth, contentRect.right, dialogRect.right
+                );
+                var bottom = Math.min(
+                    viewport.clientHeight || window.innerHeight, contentRect.bottom, dialogRect.bottom
+                );
+                var width = right - left;
+                var height = bottom - top;
+                if (width <= 0 || height <= 0) {
+                    return false;
+                }
+                if (typeof document.elementFromPoint !== "function") {
+                    return true;
+                }
+
+                // A clipped dialog still reports its full bounding rectangle.
+                var samples = [
+                    [0.5, 0.5],
+                    [0.25, 0.25], [0.75, 0.25],
+                    [0.25, 0.75], [0.75, 0.75],
+                ];
+                for (var point of samples) {
+                    var hit = document.elementFromPoint(
+                        left + width * point[0], top + height * point[1]
+                    );
+                    if (container.contains(hit)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            /**
+             * Finds a visible consent action in an active, reachable banner panel.
              * @returns {Element|null} An action that can dismiss the banner.
              */
             function getVisibleBannerAction() {
@@ -152,7 +203,7 @@
                 for (var panel of panels) {
                     if (
                         panel.getAttribute("aria-hidden") === "true" ||
-                        !isBannerElementVisible(panel.querySelector(".container"))
+                        !isBannerPanelReachable(panel.querySelector(".container"))
                     ) {
                         continue;
                     }

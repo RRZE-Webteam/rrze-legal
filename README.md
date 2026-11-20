@@ -50,11 +50,15 @@ Bei Classic Themes bleibt die bisherige Ausgabe der automatisch erzeugten Endpoi
 Administratoren von Websites können im Backend unter "Rechtliche Pflichtangaben" individuelle Anpasungen an den Texten vornehmen.
 Ausserdem können dort die jeweiligen Pflichtdaten (z.B. Angaben zur verantwortlichen Person) ergänzt werden.
 
-## Consent-Banner per Tastatur
+## Bedienbarkeit des Consent-Banners
 
 Bei geöffnetem Consent-Banner lehnt die Taste `Esc` alle optionalen Cookies ab und schließt das Banner einschließlich Overlay. Das gilt auch in den individuellen Einstellungen und bei erneut geöffnetem Banner; eine zuvor erteilte optionale Einwilligung wird dabei widerrufen. Gespeichert wird dieselbe Auswahl wie beim Ablehnen-Button: nur essenzielle Cookies. Bei geschlossenem Banner hat `Esc` keine Auswirkung auf die Einwilligung.
 
+Erkennt das Plugin, dass der gesamte Dialog abgeschnitten ist oder außerhalb des Browserfensters liegt, entfernt es den Grauschleier und gibt die Seite frei. Dabei bleibt die bisherige Cookie-Auswahl erhalten. Auf kleinen Displays können Nutzer innerhalb des Dialogs zu den Schaltflächen scrollen.
+
 Die Regressionstests für diese Abläufe werden nach `npm install` mit `npm test` ausgeführt. Sie prüfen sowohl den JavaScript-Quellcode als auch das ausgelieferte Bundle; nach JavaScript-Änderungen zuerst `npm run build:assets:prod` ausführen.
+
+Die Layouttests prüfen das ausgelieferte Banner in WebKit, auch mit abgeschnittenem Dialog und auf kleinen Displays. Den Testbrowser für die installierte Playwright-Version mit `npx playwright install webkit` einrichten und die Tests mit `npm run test:webkit` starten.
 
 
 ## Anpassung für andere Hochschulen und Einrichtungen
