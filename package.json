@@ -1,7 +1,7 @@
 {
   "name": "rrze-legal",
   "title": "RRZE Legal",
-  "version": "2.8.53",
+  "version": "2.9.0",
   "description": "Legal Mandatory Information & GDPR.",
   "main": "rrze-legal.php",
   "textdomain": "rrze-legal",
@@ -40,10 +40,12 @@
     "esbuild": "^0.28.2",
     "jquery": "^4.0.0",
     "jsdom": "^31.0.1",
+    "playwright": "1.65.0",
     "sass": "^1.96.0"
   },
   "scripts": {
     "test": "node --test tests/*.test.js",
+    "test:webkit": "node --test tests/webkit/banner.test.js",
     "build": "npm run build:assets:dev && npm run build:wordpress:dev",
     "build:assets:dev": "node scripts/build-assets.js dev",
     "build:assets:prod": "node scripts/build-assets.js prod",
