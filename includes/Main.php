@@ -99,6 +99,11 @@ class Main {
         Frontend::loaded();
     }
 
+    /**
+     * Evaluate the site's legal notices and register them on the relevant admin screen.
+     *
+     * @return void
+     */
     public function adminInit() {
         if (!current_user_can('read') || wp_doing_ajax() || is_network_admin()) {
             return;
@@ -134,10 +139,6 @@ class Main {
         $current = $current == '' ? array_key_first($slugs) : $current;
 
         if (!empty($this->requiredTOSIssues) && $this->isDashboardPage()) {
-            if (current_user_can('manage_options')) {
-                $notice_menu_inline_css = " #adminmenu li#toplevel_page_legal {background-color: red;color: white;} ";
-                wp_add_inline_style('wp-admin', $notice_menu_inline_css);
-            }
             add_action('admin_notices', [$this, 'requiredTOSFieldNotice']);
             if ($this->mustAcknowledgeRequiredTOSNotice()) {
                 add_action('admin_footer', [$this, 'requiredTOSAcknowledgementBackdrop']);
@@ -216,9 +217,74 @@ class Main {
     }
 
 
+    /**
+     * Display the outstanding legal fields or the acknowledgement required for this visit.
+     *
+     * @return void
+     */
     public function requiredTOSFieldNotice() {
+        if (empty($this->requiredTOSIssues)) {
+            return;
+        }
+
         $canEdit = current_user_can('manage_options');
-        $mustAcknowledge = $this->mustAcknowledgeRequiredTOSNotice();
+        if ($this->mustAcknowledgeRequiredTOSNotice()) {
+            $this->requiredTOSAcknowledgementDialog($canEdit);
+            return;
+        }
+
+        $issues = $this->requiredTOSIssues;
+        $summary = $this->getRequiredTOSNoticeSummary($issues);
+        $firstReported = tos()->formatRequiredDataNoticeTimestamp($this->requiredTOSFirstReported);
+        $isError = $this->requiredTOSNoticeLevel === 'error';
+        $escalationText = $this->getRequiredTOSNoticeEscalationText();
+
+        require plugin()->getPath() . 'templates/admin/required-fields-notice.php';
+    }
+
+    /**
+     * Summarize the affected sections and the corrections needed in the dashboard notice.
+     *
+     * @param array[] $issues Non-empty list of issues from the required-field check.
+     * @return string Localized summary in plain text.
+     */
+    protected function getRequiredTOSNoticeSummary(array $issues): string {
+        $sections = array_column($issues, 'section_label', 'section');
+        $sectionId = count($sections) === 1 ? array_key_first($sections) : '';
+        $location = match ($sectionId) {
+            'imprint' => __('In the legal notice', 'rrze-legal'),
+            'privacy' => __('In the privacy policy', 'rrze-legal'),
+            'accessibility' => __('In the accessibility statement', 'rrze-legal'),
+            default => sprintf(
+                /* translators: %s: List of affected settings sections. */
+                _n('In the section %s', 'In the sections %s', count($sections), 'rrze-legal'),
+                wp_sprintf_l('%l', array_values($sections))
+            ),
+        };
+
+        $count = count($issues);
+        $reasons = array_count_values(array_column($issues, 'reason_code'));
+        if (count($reasons) > 1) {
+            /* translators: 1: Location of the affected fields, 2: Total number of fields. */
+            $format = __('%1$s, %2$s entries are missing or contain invalid email addresses.', 'rrze-legal');
+        } elseif (isset($reasons['invalid_email'])) {
+            /* translators: 1: Location of the affected fields, 2: Number of invalid email addresses. */
+            $format = _n('%1$s, %2$s email address is invalid.', '%1$s, %2$s email addresses are invalid.', $count, 'rrze-legal');
+        } else {
+            /* translators: 1: Location of the affected fields, 2: Number of missing entries. */
+            $format = _n('%1$s, %2$s required field is empty.', '%1$s, %2$s required fields are empty.', $count, 'rrze-legal');
+        }
+
+        return sprintf($format, $location, number_format_i18n($count));
+    }
+
+    /**
+     * Render the confirmation dialog for sites that require acknowledgement after escalation.
+     *
+     * @param bool $canEdit Whether the current user may open the legal settings.
+     * @return void
+     */
+    protected function requiredTOSAcknowledgementDialog(bool $canEdit): void {
         $firstReported = tos()->formatRequiredDataNoticeTimestamp($this->requiredTOSFirstReported);
         $settingsLink = sprintf(
             '<a href="%1$s">%2$s</a>',
@@ -226,16 +292,7 @@ class Main {
             esc_html__('Legal Mandatory Information', 'rrze-legal')
         );
 
-        $classes = 'notice notice-warning rrze-legal-dashboardalert';
-        if ($mustAcknowledge) {
-            $classes .= ' rrze-legal-required-ack-dialog';
-        }
-
-        printf(
-            '<div class="%1$s"%2$s>',
-            esc_attr($classes),
-            $mustAcknowledge ? ' role="dialog" aria-modal="true"' : ''
-        );
+        echo '<div class="notice notice-warning rrze-legal-dashboardalert rrze-legal-required-ack-dialog" role="dialog" aria-modal="true">';
         echo '<h2>' . esc_html__('Please note', 'rrze-legal') . '</h2>';
 
         if ($canEdit) {
@@ -261,12 +318,10 @@ class Main {
                 esc_html($firstReported)
             );
         }
-        $this->requiredTOSNoticeEscalationText();
+        echo '<p class="rrze-legal-required-escalation">' . esc_html($this->getRequiredTOSNoticeEscalationText()) . '</p>';
 
         $this->requiredTOSIssuesList($canEdit);
-        if ($mustAcknowledge) {
-            $this->requiredTOSAcknowledgementForm();
-        }
+        $this->requiredTOSAcknowledgementForm();
         echo '</div>';
     }
 
@@ -276,21 +331,17 @@ class Main {
         }
     }
 
-    protected function requiredTOSNoticeEscalationText(): void {
-        if ($this->requiredTOSNoticeLevel === 'error') {
-            printf(
-                '<p class="rrze-legal-required-escalation">%s</p>',
-                esc_html(network()->getTosNoticeErrorText())
-            );
-            return;
-        }
-
-        if ($this->requiredTOSNoticeLevel === 'warning') {
-            printf(
-                '<p class="rrze-legal-required-escalation">%s</p>',
-                esc_html(network()->getTosNoticeWarningText())
-            );
-        }
+    /**
+     * Get the network's message for the current escalation level.
+     *
+     * @return string Plain text, or an empty string before the warning period.
+     */
+    protected function getRequiredTOSNoticeEscalationText(): string {
+        return match ($this->requiredTOSNoticeLevel) {
+            'error' => network()->getTosNoticeErrorText(),
+            'warning' => network()->getTosNoticeWarningText(),
+            default => '',
+        };
     }
 
     protected function getRequiredTOSNoticeLevel(): string {

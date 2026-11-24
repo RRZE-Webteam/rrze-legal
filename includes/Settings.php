@@ -863,11 +863,15 @@ class Settings {
     }
 
     /**
-     * Register admin scripts.
+     * Register the settings assets, refreshing cached styles when the CSS build changes.
+     *
      * @return void
      */
     public function adminRegisterSettingsScripts()  {
-        wp_register_style('rrze-legal-settings', plugins_url('build/rrze-legal-admin.css', plugin()->getBasename()), [], plugin()->getVersion());
+        $stylesheet = 'build/rrze-legal-admin.css';
+        $stylePath = plugin()->getPath() . $stylesheet;
+        $styleVersion = is_file($stylePath) ? (string) filemtime($stylePath) : plugin()->getVersion();
+        wp_register_style('rrze-legal-settings', plugins_url($stylesheet, plugin()->getBasename()), [], $styleVersion);
         wp_register_script(
             'rrze-legal-settings',
             plugins_url('build/rrze-legal-admin.js', plugin()->getBasename()),

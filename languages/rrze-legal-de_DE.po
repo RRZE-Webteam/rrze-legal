@@ -17,6 +17,82 @@ msgstr ""
 "X-Domain: rrze-legal\n"
 "X-Loco-Version: 2.7.1; wp-6.7.2\n"
 
+#: templates/admin/required-fields-notice.php:19
+msgid "Legal information incomplete"
+msgstr "Rechtliche Pflichtangaben unvollständig"
+
+#: templates/admin/required-fields-notice.php:28
+msgid "Edit details"
+msgstr "Angaben bearbeiten"
+
+#: templates/admin/required-fields-notice.php:22
+msgid "Please contact the administrator of this website."
+msgstr "Bitte informieren Sie die Administration dieser Website."
+
+#: templates/admin/required-fields-notice.php:43
+msgid "Affected fields"
+msgstr "Betroffene Felder"
+
+#. translators: %s: Localized date when the issue was first detected.
+#: templates/admin/required-fields-notice.php:64
+#, php-format
+msgid "First detected on %s."
+msgstr "Erstmals festgestellt am %s."
+
+#: templates/admin/required-fields-notice.php:37
+msgid "If the legal information remains incomplete, the website may be deactivated."
+msgstr "Bei weiterhin unvollständigen Pflichtangaben kann die Website deaktiviert werden."
+
+#: includes/Main.php:255
+msgid "In the legal notice"
+msgstr "Im Impressum"
+
+#: includes/Main.php:256
+msgid "In the privacy policy"
+msgstr "In der Datenschutzerklärung"
+
+#: includes/Main.php:257
+msgid "In the accessibility statement"
+msgstr "In der Barrierefreiheitserklärung"
+
+#. translators: %s: Name or list of names of the affected settings sections.
+#: includes/Main.php:260
+#, php-format
+msgid "In the section %s"
+msgid_plural "In the sections %s"
+msgstr[0] "Im Bereich %s"
+msgstr[1] "In den Bereichen %s"
+
+#. translators: 1: Affected section phrase, 2: Number of empty required fields.
+#: includes/Main.php:275
+#, php-format
+msgid "%1$s, %2$s required field is empty."
+msgid_plural "%1$s, %2$s required fields are empty."
+msgstr[0] "%1$s fehlt %2$s Angabe."
+msgstr[1] "%1$s fehlen %2$s Angaben."
+
+#. translators: 1: Affected section phrase, 2: Number of invalid email addresses.
+#: includes/Main.php:272
+#, php-format
+msgid "%1$s, %2$s email address is invalid."
+msgid_plural "%1$s, %2$s email addresses are invalid."
+msgstr[0] "%1$s ist %2$s E-Mail-Adresse ungültig."
+msgstr[1] "%1$s sind %2$s E-Mail-Adressen ungültig."
+
+#. translators: 1: Affected section phrase, 2: Total number of affected fields.
+#: includes/Main.php:269
+#, php-format
+msgid "%1$s, %2$s entries are missing or contain invalid email addresses."
+msgstr "%1$s fehlen Angaben oder E-Mail-Adressen sind ungültig. Insgesamt sind %2$s Felder betroffen."
+
+#: templates/admin/required-fields-notice.php:56
+msgid "Add the missing information."
+msgstr "Fehlende Angabe ergänzen."
+
+#: templates/admin/required-fields-notice.php:55
+msgid "Enter a valid email address."
+msgstr "Gültige E-Mail-Adresse eingeben."
+
 #: includes/Fields.php
 msgid "Enter a telephone or fax number with at least three digits. Spaces, hyphens, parentheses, slashes, and a leading plus sign are permitted, e.g. +49 89 2186 0 or 09131 85-0."
 msgstr "Geben Sie eine Telefon- oder Faxnummer mit mindestens drei Ziffern ein. Leerzeichen, Bindestriche, Klammern, Schrägstriche und ein führendes Pluszeichen sind erlaubt, z. B. +49 89 2186 0 oder 09131 85-0."

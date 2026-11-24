@@ -706,10 +706,11 @@ class Options extends Settings {
         }
     }
     
- /**
-     * Add fields to the settings page.
-     * @param string $sectionId
-     * @param array $subsection
+    /**
+     * Register the controls displayed on a legal settings tab.
+     *
+     * @param string $sectionId ID of the settings section.
+     * @param array $subsection Optional subsection containing the fields to register.
      * @return void
      */
     protected function addFields(string $sectionId, array $subsection = []) {
@@ -720,11 +721,12 @@ class Options extends Settings {
                 continue;
             }
             $name = $option['name'] ?? '';
-            if (!isset($this->fields[$sectionId . '_' . $option['name']])) {
+            $fieldKey = $sectionId . '_' . $name;
+            if (!isset($this->fields[$fieldKey])) {
                 continue;
             }
             
-            $option = $this->updateOptionByStaticdata($sectionId . '_' . $option['name'], $option); 
+            $option = $this->updateOptionByStaticdata($fieldKey, $option);
             
             
             $type = isset($option['type']) ? strtolower($option['type']) : '';
@@ -745,7 +747,7 @@ class Options extends Settings {
 
             $atts = [
                 'name' => $name,
-                'id' => $this->settingsPrefix . $sectionId . '_' . $name,
+                'id' => $this->getSettingsFieldId($fieldKey),
                 'label' => $label,
                 'type' => $type,
                 'description' => $option['description'] ?? '',
@@ -777,6 +779,9 @@ class Options extends Settings {
             ];
 
             $atts = Fields::matchAtts($atts);
+            if ($required && in_array($type, ['text', 'email'], true)) {
+                $atts['label_for'] = $atts['id'];
+            }
 
             add_settings_field(
                 "{$section}[{$name}]",
@@ -865,6 +870,13 @@ class Options extends Settings {
         return []; 
     }
     
+    /**
+     * Describe missing or invalid mandatory settings for the generated legal pages.
+     *
+     * @return array<int, array{section: string, section_label: string, subsection_label: string,
+     *     field: string, field_label: string, reason: string, reason_code: 'empty'|'invalid_email',
+     *     edit_url: string, field_url: string}> Issues in settings order, with tab and field links.
+     */
     public function getRequiredDataIssues(): array {
         $issues = [];
         $options = $this->options;
@@ -881,28 +893,60 @@ class Options extends Settings {
             }
 
             $value = isset($options[$key]) ? trim((string) $options[$key]) : '';
-            $reason = '';
             if ($value === '') {
+                $reasonCode = 'empty';
                 $reason = __('Required field is empty.', 'rrze-legal');
             } elseif (($field['type'] ?? '') === 'email' && !is_email($value)) {
+                $reasonCode = 'invalid_email';
                 $reason = __('Required field does not contain a valid email address.', 'rrze-legal');
-            }
-
-            if ($reason === '') {
+            } else {
                 continue;
             }
 
+            $subsectionLabels ??= $this->getFieldSubsectionLabels();
+            $editUrl = $this->getRequiredDataIssueEditUrl($sectionId);
             $issues[] = [
                 'section' => $sectionId,
                 'section_label' => $this->getSectionLabel($sectionId),
+                'subsection_label' => $subsectionLabels[$key] ?? '',
                 'field' => $key,
                 'field_label' => wp_strip_all_tags((string) ($field['label'] ?? $key)),
                 'reason' => $reason,
-                'edit_url' => $this->getRequiredDataIssueEditUrl($sectionId),
+                'reason_code' => $reasonCode,
+                'edit_url' => $editUrl,
+                'field_url' => $editUrl . '#' . rawurlencode($this->getSettingsFieldId($key)),
             ];
         }
 
         return $issues;
+    }
+
+    /**
+     * Look up the translated settings subsection title for each field it contains.
+     *
+     * @return array<string, string> Plain-text subsection titles indexed by full field key.
+     */
+    private function getFieldSubsectionLabels(): array {
+        $labels = [];
+        foreach ((array) $this->sections as $section) {
+            foreach ($section['subsections'] ?? [] as $subsection) {
+                $label = wp_strip_all_tags((string) ($subsection['title'] ?? ''));
+                foreach (array_column($subsection['fields'] ?? [], 'name') as $name) {
+                    $labels[$section['id'] . '_' . $name] = $label;
+                }
+            }
+        }
+        return $labels;
+    }
+
+    /**
+     * Return the HTML ID shared by a settings control and its dashboard link.
+     *
+     * @param string $fieldKey Full field key, including the section ID.
+     * @return string ID attribute of the settings control.
+     */
+    private function getSettingsFieldId(string $fieldKey): string {
+        return $this->settingsPrefix . $fieldKey;
     }
 
     public function syncRequiredDataNoticeTimestamp(array $issues): int {
