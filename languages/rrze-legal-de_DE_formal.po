@@ -20,46 +20,88 @@ msgstr ""
 "X-Loco-Template: languages/rrze-legal-de_DE.po\n"
 "X-Loco-Template-Mode: PO,JSON\n"
 
+#: templates/admin/required-fields-dialog.php:20
+msgid "Legal information still incomplete"
+msgstr "Rechtliche Pflichtangaben noch offen"
+
+#: templates/admin/required-fields-dialog.php:38
+msgid "Edit later"
+msgstr "Später bearbeiten"
+
+#: templates/admin/required-fields-dialog-form.php:24
+msgid "Confirm and return to the dashboard"
+msgstr "Bestätigen und zum Dashboard"
+
+#. translators: %s: Localized time until the dialog reappears.
+#: templates/admin/required-fields-dialog-form.php:21
+#, php-format
+msgid "If any fields still need attention, this dialog will reappear after %s."
+msgstr "Sind noch Angaben offen, erscheint der Dialog nach %s erneut."
+
+#. translators: %s: Number of hours.
+#: includes/Main.php:497
+#, php-format
+msgid "%s hour"
+msgid_plural "%s hours"
+msgstr[0] "%s Stunde"
+msgstr[1] "%s Stunden"
+
+#. translators: %s: Number of minutes.
+#: includes/Main.php:501
+#, php-format
+msgid "%s minute"
+msgid_plural "%s minutes"
+msgstr[0] "%s Minute"
+msgstr[1] "%s Minuten"
+
+#. translators: %s: Number of seconds.
+#: includes/Main.php:505
+#, php-format
+msgid "%s second"
+msgid_plural "%s seconds"
+msgstr[0] "%s Sekunde"
+msgstr[1] "%s Sekunden"
+
 #: templates/admin/required-fields-notice.php:19
 msgid "Legal information incomplete"
 msgstr "Rechtliche Pflichtangaben unvollständig"
 
-#: templates/admin/required-fields-notice.php:28
+#: templates/admin/required-fields-dialog.php:34 templates/admin/required-fields-notice.php:28
 msgid "Edit details"
 msgstr "Angaben bearbeiten"
 
-#: templates/admin/required-fields-notice.php:22
+#: templates/admin/required-fields-dialog.php:24 templates/admin/required-fields-notice.php:22
 msgid "Please contact the administrator of this website."
 msgstr "Bitte informieren Sie die Administration dieser Website."
 
-#: templates/admin/required-fields-notice.php:43
+#: templates/admin/required-fields-list.php:13
 msgid "Affected fields"
 msgstr "Betroffene Felder"
 
 #. translators: %s: Localized date when the issue was first detected.
-#: templates/admin/required-fields-notice.php:64
+#: templates/admin/required-fields-list.php:34
 #, php-format
 msgid "First detected on %s."
 msgstr "Erstmals festgestellt am %s."
 
-#: templates/admin/required-fields-notice.php:37
+#: templates/admin/required-fields-dialog.php:28 templates/admin/required-fields-notice.php:37
 msgid "If the legal information remains incomplete, the website may be deactivated."
 msgstr "Bei weiterhin unvollständigen Pflichtangaben kann die Website deaktiviert werden."
 
-#: includes/Main.php:255
+#: includes/Main.php:283
 msgid "In the legal notice"
 msgstr "Im Impressum"
 
-#: includes/Main.php:256
+#: includes/Main.php:284
 msgid "In the privacy policy"
 msgstr "In der Datenschutzerklärung"
 
-#: includes/Main.php:257
+#: includes/Main.php:285
 msgid "In the accessibility statement"
 msgstr "In der Barrierefreiheitserklärung"
 
 #. translators: %s: Name or list of names of the affected settings sections.
-#: includes/Main.php:260
+#: includes/Main.php:288
 #, php-format
 msgid "In the section %s"
 msgid_plural "In the sections %s"
@@ -67,7 +109,7 @@ msgstr[0] "Im Bereich %s"
 msgstr[1] "In den Bereichen %s"
 
 #. translators: 1: Affected section phrase, 2: Number of empty required fields.
-#: includes/Main.php:275
+#: includes/Main.php:303
 #, php-format
 msgid "%1$s, %2$s required field is empty."
 msgid_plural "%1$s, %2$s required fields are empty."
@@ -75,7 +117,7 @@ msgstr[0] "%1$s fehlt %2$s Angabe."
 msgstr[1] "%1$s fehlen %2$s Angaben."
 
 #. translators: 1: Affected section phrase, 2: Number of invalid email addresses.
-#: includes/Main.php:272
+#: includes/Main.php:300
 #, php-format
 msgid "%1$s, %2$s email address is invalid."
 msgid_plural "%1$s, %2$s email addresses are invalid."
@@ -83,16 +125,16 @@ msgstr[0] "%1$s ist %2$s E-Mail-Adresse ungültig."
 msgstr[1] "%1$s sind %2$s E-Mail-Adressen ungültig."
 
 #. translators: 1: Affected section phrase, 2: Total number of affected fields.
-#: includes/Main.php:269
+#: includes/Main.php:297
 #, php-format
 msgid "%1$s, %2$s entries are missing or contain invalid email addresses."
 msgstr "%1$s fehlen Angaben oder E-Mail-Adressen sind ungültig. Insgesamt sind %2$s Felder betroffen."
 
-#: templates/admin/required-fields-notice.php:56
+#: templates/admin/required-fields-list.php:26
 msgid "Add the missing information."
 msgstr "Fehlende Angabe ergänzen."
 
-#: templates/admin/required-fields-notice.php:55
+#: templates/admin/required-fields-list.php:25
 msgid "Enter a valid email address."
 msgstr "Gültige E-Mail-Adresse eingeben."
 
@@ -825,15 +867,15 @@ msgstr ""
 msgid "This message was first displayed on:"
 msgstr "Diese Nachricht wurde erstmals angezeigt am:"
 
-#: includes/Main.php:308
+#: includes/Main.php:434
 msgid "You are not allowed to confirm this notice."
 msgstr "Sie dürfen diesen Hinweis nicht bestätigen."
 
-#: includes/Main.php:315
+#: includes/Main.php:441
 msgid "Please confirm that you have read the notice."
 msgstr "Bitte bestätigen Sie, dass Sie den Hinweis gelesen haben."
 
-#: includes/Main.php:359
+#: templates/admin/required-fields-dialog-form.php:17
 msgid "I have read this notice."
 msgstr "Ich habe diesen Hinweis gelesen."
 
@@ -1813,12 +1855,13 @@ msgstr "Bestätigung nach Fehlerfrist erzwingen"
 
 #: settings/network.php:105
 msgid ""
-"If enabled, backend users must confirm the notice by dialog and checkbox "
-"after the error period has been reached before they can continue working."
+"After the error period, dashboard users must confirm that they have read the "
+"notice before they can postpone corrections. Users with editing access can "
+"open the affected fields immediately."
 msgstr ""
-"Wenn aktiviert, müssen Backend-Benutzer die Meldung nach Erreichen der "
-"Fehlerfrist per Dialog und Checkbox bestätigen, bevor sie weiterarbeiten "
-"können."
+"Nach Ablauf der Fehlerfrist müssen Nutzer die Kenntnisnahme bestätigen, wenn "
+"sie die Korrektur aufschieben. Wer die Angaben bearbeiten darf, kann die "
+"betroffenen Felder direkt öffnen."
 
 #: settings/network.php:117
 msgid "General network settings for consent banner."

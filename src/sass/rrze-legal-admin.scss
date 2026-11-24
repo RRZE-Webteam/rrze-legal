@@ -186,42 +186,6 @@
             pointer-events: none;
         }
     }
-    .rrze-legal-dashboardalert {
-   
-	border-left-color: red;
-	padding: 1rem;
-
-	p {
-	    font-size: 1rem;
-	}
-	h2 {
-	    font-size: 1.2rem;
-	}
-	p.details {
-	    font-weight: bold; 
-	}
-        p.rrze-legal-required-escalation {
-            font-weight: 600;
-        }
-        .rrze-legal-required-issues {
-            margin-top: 1rem;
-
-            summary {
-                cursor: pointer;
-                font-weight: 600;
-            }
-
-            ul {
-                margin: 0.75rem 0 0 1.25rem;
-                list-style: disc;
-            }
-
-            li {
-                margin-bottom: 0.5rem;
-            }
-        }
-      }
-
     .rrze-legal-consent-technical-toggle {
         margin-top: 0.25rem;
     }
@@ -253,22 +217,6 @@
         padding: var(--notice-inset);
     }
 
-    .rrze-legal-notice-symbol {
-        display: grid;
-        place-items: center;
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 50%;
-        background: #fff0d3;
-        color: #855609;
-        font-size: 1.375rem;
-    }
-
-    &.notice-error .rrze-legal-notice-symbol {
-        background: #fce8e4;
-        color: #a03627;
-    }
-
     .rrze-legal-notice-intro h2 {
         margin: 0;
         color: inherit;
@@ -283,7 +231,38 @@
         line-height: 1.5;
     }
 
-    a.rrze-legal-notice-edit {
+    p.rrze-legal-notice-escalation {
+        grid-column: 2 / -1;
+        max-inline-size: 96ch;
+        margin: 0;
+        color: #475569;
+        text-wrap: pretty;
+    }
+
+    .rrze-legal-notice-fields:not([open]) > summary {
+        border-radius: 0 0 9px 9px;
+    }
+}
+
+:is(.notice.rrze-legal-required-notice, .rrze-legal-required-dialog) {
+    .rrze-legal-notice-symbol {
+        display: grid;
+        place-items: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        background: #fff0d3;
+        color: #855609;
+        font-size: 1.375rem;
+    }
+
+    &:is(.notice-error, .rrze-legal-required-dialog) .rrze-legal-notice-symbol {
+        background: #fce8e4;
+        color: #a03627;
+    }
+
+    a.rrze-legal-notice-edit,
+    .rrze-legal-dialog-submit {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -310,14 +289,6 @@
         }
     }
 
-    p.rrze-legal-notice-escalation {
-        grid-column: 2 / -1;
-        max-inline-size: 96ch;
-        margin: 0;
-        color: #475569;
-        text-wrap: pretty;
-    }
-
     .rrze-legal-notice-fields {
         border-top: 1px solid #dce2e8;
 
@@ -328,7 +299,6 @@
             gap: 1rem;
             min-height: 2.75rem;
             padding-inline: var(--notice-inset);
-            border-radius: 0 0 9px 9px;
             background: #f6f8fa;
             color: #35475d;
             cursor: pointer;
@@ -353,10 +323,6 @@
 
         summary:hover {
             background: #edf1f5;
-        }
-
-        &[open] summary {
-            border-radius: 0;
         }
 
         &[open] summary::after {
@@ -395,7 +361,7 @@
         }
     }
 
-    :is(a, summary):focus-visible {
+    :is(a, summary, button, input):focus-visible {
         outline: 2px solid var(--wp-admin-theme-color, #2271b1);
         outline-offset: 2px;
         box-shadow: none;
@@ -429,37 +395,172 @@
     }
 }
 
-.rrze-legal-required-ack-backdrop {
-    position: fixed;
-    z-index: 100000;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.55);
+// Keep the dashboard unavailable until the browser successfully opens the modal.
+body.rrze-legal-ack-pending:not(.rrze-legal-ack-modal) {
+    > :not(#wpwrap),
+    #wpwrap > :not(#rrze-legal-required-dialog) {
+        display: none !important;
+    }
 }
 
-.rrze-legal-required-ack-dialog {
-    position: fixed;
-    z-index: 100001;
-    top: 50%;
-    left: 50%;
-    width: min(560px, calc(100vw - 2rem));
-    max-height: calc(100vh - 2rem);
-    overflow: auto;
-    transform: translate(-50%, -50%);
-    box-sizing: border-box;
-    padding: 1.5rem;
-    background: #fff;
-    border: 1px solid #dcdcde;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-    margin: 0;
+body.rrze-legal-ack-modal {
+    overflow: hidden;
+}
 
-    h2 {
-        margin-top: 0;
+.rrze-legal-required-dialog {
+    --notice-inset: clamp(1rem, 4vw, 1.75rem);
+    position: static;
+    box-sizing: border-box;
+    inline-size: min(36rem, calc(100% - 2rem));
+    max-inline-size: none;
+    margin: 2rem auto;
+    padding: 0;
+    border: 1px solid #cbd3dc;
+    border-radius: 12px;
+    background: #fff;
+    color: #1d2939;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    box-shadow: 0 1rem 3rem rgba(29, 41, 57, 0.18);
+
+    body.rrze-legal-ack-modal & {
+        position: fixed;
+        inset: 0;
+        max-block-size: calc(100vh - 2rem);
+        max-block-size: calc(100dvh - 2rem);
+        margin: auto;
+        overflow: auto;
+        overscroll-behavior: contain;
     }
 
-    .rrze-legal-required-ack-confirm {
-        display: block;
-        margin: 1rem 0;
+    &::backdrop {
+        background: rgba(17, 28, 45, 0.58);
+    }
+
+    .rrze-legal-dialog-header {
+        display: flex;
+        align-items: center;
+        gap: 0.875rem;
+        padding: var(--notice-inset) var(--notice-inset) 0;
+
+        .rrze-legal-notice-symbol {
+            flex: none;
+        }
+    }
+
+    h2 {
+        margin: 0;
+        color: inherit;
+        font-size: 1.375rem;
         font-weight: 600;
+        line-height: 1.3;
+        text-wrap: balance;
+    }
+
+    .rrze-legal-dialog-content > p {
+        margin: 0.75rem var(--notice-inset);
+        font-size: inherit;
+        line-height: inherit;
+    }
+
+    .rrze-legal-dialog-escalation {
+        color: #475569;
+    }
+
+    .rrze-legal-notice-fields {
+        margin-top: 1.25rem;
+        border-bottom: 1px solid #dce2e8;
+
+        .description {
+            flex-basis: 100%;
+        }
+    }
+
+    .rrze-legal-dialog-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.625rem 1rem;
+        padding: 1.125rem var(--notice-inset);
+
+        > form,
+        > details[open] {
+            flex-basis: 100%;
+        }
+    }
+
+    .rrze-legal-dialog-defer > summary {
+        width: fit-content;
+        padding-block: 0.625rem;
+        color: #35475d;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .rrze-legal-dialog-defer .rrze-legal-dialog-form {
+        margin-top: 0.25rem;
+        padding: 1rem;
+        border: 1px solid #dce2e8;
+        border-radius: 6px;
+        background: #f6f8fa;
+    }
+
+    .rrze-legal-dialog-form {
+        display: grid;
+        gap: 0.5rem;
+        margin: 0;
+    }
+
+    .rrze-legal-dialog-confirm {
+        display: flex;
+        align-items: baseline;
+        gap: 0.5rem;
+        cursor: pointer;
+        font-weight: 600;
+
+        input {
+            flex: none;
+            align-self: flex-start;
+            margin: 0.125rem 0 0;
+        }
+    }
+
+    .rrze-legal-dialog-reminder {
+        margin: 0;
+        color: #475569;
+    }
+
+    .rrze-legal-dialog-submit {
+        justify-self: start;
+        margin-top: 0.5rem;
+        font: inherit;
+        cursor: pointer;
+        text-align: start;
+    }
+
+    .rrze-legal-dialog-defer .rrze-legal-dialog-submit {
+        border-color: #8092a6;
+        background: #fff;
+        color: #04316a;
+
+        &:hover {
+            background: #edf1f5;
+            color: #041e42;
+        }
+    }
+}
+
+@media (max-width: 32rem) {
+    .rrze-legal-required-dialog .rrze-legal-dialog-actions {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: start;
+
+        > details,
+        > form {
+            justify-self: stretch;
+        }
     }
 }
 

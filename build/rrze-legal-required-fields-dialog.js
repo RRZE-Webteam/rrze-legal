@@ -1,0 +1,1 @@
+(()=>{function t(){let e=document.getElementById("rrze-legal-required-dialog");if(!(!e||typeof e.showModal!="function")){e.addEventListener("cancel",l);try{e.close(),e.showModal()}catch(o){e.setAttribute("open","");return}document.body.classList.add("rrze-legal-ack-modal"),document.getElementById("rrze-legal-dialog-title").focus()}}function l(e){e.preventDefault()}t();})();

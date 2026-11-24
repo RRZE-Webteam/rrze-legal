@@ -141,6 +141,12 @@ function buildCss(mode) {
     return true;
 }
 
+/**
+ * Bundle the frontend, settings and dashboard scripts for the selected build.
+ *
+ * @param {string} mode Build mode, either "dev" or "prod".
+ * @returns {boolean} True when all script bundles are ready.
+ */
 function buildJs(mode) {
     var isProd = mode === 'prod';
 
@@ -152,6 +158,11 @@ function buildJs(mode) {
     compileJs(
         path.join('src', 'javascript', 'admin', 'rrze-legal-admin.js'),
         path.join('build', 'rrze-legal-admin.js'),
+        isProd
+    );
+    compileJs(
+        path.join('src', 'javascript', 'admin', 'required-fields-dialog.js'),
+        path.join('build', 'rrze-legal-required-fields-dialog.js'),
         isProd
     );
     compileInlineJs(

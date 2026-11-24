@@ -102,7 +102,7 @@ $settings = [
                             [
                                 'name' => 'tos_notice_require_acknowledgement',
                                 'label' => __('Require confirmation after error period', 'rrze-legal'),
-                                'description' => __('If enabled, backend users must confirm the notice by dialog and checkbox after the error period has been reached before they can continue working.', 'rrze-legal'),
+                                'description' => __('After the error period, dashboard users must confirm that they have read the notice before they can postpone corrections. Users with editing access can open the affected fields immediately.', 'rrze-legal'),
                                 'type' => 'checkbox',
                                 'default' => config()->get('tos_notice_require_acknowledgement'),
                             ],

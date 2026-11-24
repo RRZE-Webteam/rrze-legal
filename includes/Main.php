@@ -19,6 +19,9 @@ class Main {
 
     protected $requiredTOSNoticeLevel = '';
 
+    /** @var bool Whether this dashboard request requires the acknowledgement view. */
+    private bool $requiredTOSDialogPending = false;
+
     protected $overwrittenTOSPostId = 0;
 
     protected $accessibilityReviewIsOverdue = false;
@@ -71,7 +74,7 @@ class Main {
 
         // Notices for the administrator
         add_action('admin_init', [$this, 'adminInit']);
-        add_action('admin_enqueue_scripts', [$this, 'enqueueRequiredTOSNoticeAssets']);
+        add_action('load-index.php', [$this, 'registerRequiredTOSDashboardNotice']);
         add_action('admin_post_rrze_legal_ack_tos_notice', [$this, 'acknowledgeRequiredTOSNotice']);
     }
 
@@ -138,12 +141,6 @@ class Main {
         $current = $current && strpos($current, $pagePrefix) === 0 ? substr($current, strlen($pagePrefix)) : '';
         $current = $current == '' ? array_key_first($slugs) : $current;
 
-        if (!empty($this->requiredTOSIssues) && $this->isDashboardPage()) {
-            add_action('admin_notices', [$this, 'requiredTOSFieldNotice']);
-            if ($this->mustAcknowledgeRequiredTOSNotice()) {
-                add_action('admin_footer', [$this, 'requiredTOSAcknowledgementBackdrop']);
-            }
-        }
         if ($this->accessibilityReviewIsOverdue && $this->isDashboardPage() && current_user_can('manage_options')) {
             add_action('admin_notices', [$this, 'accessibilityReviewNotice']);
         }
@@ -156,6 +153,36 @@ class Main {
     protected function isDashboardPage(): bool {
         global $pagenow;
         return $pagenow === 'index.php';
+    }
+
+    /**
+     * Register the inline notice or the required dialog on the site's Dashboard home screen.
+     *
+     * @return void
+     */
+    public function registerRequiredTOSDashboardNotice(): void {
+        if (empty($this->requiredTOSIssues) || get_current_screen()?->id !== 'dashboard') {
+            return;
+        }
+
+        $this->requiredTOSDialogPending = $this->mustAcknowledgeRequiredTOSNotice();
+        if ($this->requiredTOSDialogPending) {
+            add_filter('admin_body_class', [$this, 'addRequiredTOSDialogBodyClass']);
+            add_action('admin_footer', [$this, 'requiredTOSFieldNotice']);
+        } else {
+            add_action('admin_notices', [$this, 'requiredTOSFieldNotice']);
+        }
+        add_action('admin_enqueue_scripts', [$this, 'enqueueRequiredTOSNoticeAssets']);
+    }
+
+    /**
+     * Identify the dashboard that provides a standalone confirmation form until JS opens the modal.
+     *
+     * @param string $classes Existing admin body classes.
+     * @return string Body classes for this request.
+     */
+    public function addRequiredTOSDialogBodyClass(string $classes): string {
+        return $classes . ' rrze-legal-ack-pending ';
     }
 
     protected function isAccessibilityReviewOverdue(): bool {
@@ -228,18 +255,19 @@ class Main {
         }
 
         $canEdit = current_user_can('manage_options');
-        if ($this->mustAcknowledgeRequiredTOSNotice()) {
-            $this->requiredTOSAcknowledgementDialog($canEdit);
-            return;
-        }
-
         $issues = $this->requiredTOSIssues;
         $summary = $this->getRequiredTOSNoticeSummary($issues);
         $firstReported = tos()->formatRequiredDataNoticeTimestamp($this->requiredTOSFirstReported);
         $isError = $this->requiredTOSNoticeLevel === 'error';
         $escalationText = $this->getRequiredTOSNoticeEscalationText();
 
-        require plugin()->getPath() . 'templates/admin/required-fields-notice.php';
+        if ($this->requiredTOSDialogPending) {
+            $reportedTimestamp = $this->requiredTOSFirstReported;
+            $reminderInterval = $this->formatRequiredTOSReminderInterval();
+            require plugin()->getPath() . 'templates/admin/required-fields-dialog.php';
+        } else {
+            require plugin()->getPath() . 'templates/admin/required-fields-notice.php';
+        }
     }
 
     /**
@@ -279,55 +307,26 @@ class Main {
     }
 
     /**
-     * Render the confirmation dialog for sites that require acknowledgement after escalation.
+     * Load the dashboard styles and upgrade the standalone form to a modal when required.
      *
-     * @param bool $canEdit Whether the current user may open the legal settings.
      * @return void
      */
-    protected function requiredTOSAcknowledgementDialog(bool $canEdit): void {
-        $firstReported = tos()->formatRequiredDataNoticeTimestamp($this->requiredTOSFirstReported);
-        $settingsLink = sprintf(
-            '<a href="%1$s">%2$s</a>',
-            esc_url(add_query_arg(['page' => 'legal'], admin_url('admin.php'))),
-            esc_html__('Legal Mandatory Information', 'rrze-legal')
-        );
-
-        echo '<div class="notice notice-warning rrze-legal-dashboardalert rrze-legal-required-ack-dialog" role="dialog" aria-modal="true">';
-        echo '<h2>' . esc_html__('Please note', 'rrze-legal') . '</h2>';
-
-        if ($canEdit) {
-            printf(
-                '<p class="details">%s</p>',
-                wp_kses_post(
-                    sprintf(
-                        /* translators: %s: Link of the settings page. */
-                        __('One or more mandatory fields of the legal settings have not been filled or still contain default values. Please correct these fields as soon as possible here: %s.', 'rrze-legal'),
-                        $settingsLink
-                    )
-                )
-            );
-        } else {
-            echo '<p class="details">' . esc_html__('One or more mandatory fields of the legal settings have not been filled or still contain default values. Please inform a site administrator.', 'rrze-legal') . '</p>';
-        }
-
-        echo '<p>' . esc_html__('In order to operate this website, it is mandatory that all necessary legal texts are available. Websites that do not provide this information or do not provide it completely may be deactivated.', 'rrze-legal') . '</p>';
-        if ($firstReported !== '') {
-            printf(
-                '<p>%1$s %2$s</p>',
-                esc_html__('This message was first displayed on:', 'rrze-legal'),
-                esc_html($firstReported)
-            );
-        }
-        echo '<p class="rrze-legal-required-escalation">' . esc_html($this->getRequiredTOSNoticeEscalationText()) . '</p>';
-
-        $this->requiredTOSIssuesList($canEdit);
-        $this->requiredTOSAcknowledgementForm();
-        echo '</div>';
-    }
-
     public function enqueueRequiredTOSNoticeAssets(): void {
-        if (!empty($this->requiredTOSIssues) && $this->isDashboardPage()) {
-            wp_enqueue_style('rrze-legal-settings');
+        wp_enqueue_style('rrze-legal-settings');
+        if (!$this->requiredTOSDialogPending) {
+            return;
+        }
+
+        $script = 'build/rrze-legal-required-fields-dialog.js';
+        $path = plugin()->getPath() . $script;
+        if (is_file($path)) {
+            wp_enqueue_script(
+                'rrze-legal-required-fields-dialog',
+                plugins_url($script, plugin()->getBasename()),
+                [],
+                (string) filemtime($path),
+                true
+            );
         }
     }
 
@@ -422,6 +421,14 @@ class Main {
         return 'rrze_legal_required_tos_notice_ack_' . get_current_blog_id();
     }
 
+    /**
+     * Acknowledge the current incident after an explicit confirmation and return to the dashboard.
+     *
+     * A form from a resolved or superseded incident may return to the dashboard but cannot
+     * postpone a newer reminder.
+     *
+     * @return void
+     */
     public function acknowledgeRequiredTOSNotice(): void {
         if (!is_user_logged_in()) {
             wp_die(esc_html__('You are not allowed to confirm this notice.', 'rrze-legal'));
@@ -429,18 +436,25 @@ class Main {
 
         check_admin_referer('rrze_legal_ack_tos_notice', 'rrze_legal_ack_tos_notice_nonce');
         $timestamp = absint($_POST['rrze_legal_tos_notice_timestamp'] ?? 0);
-        $confirmed = !empty($_POST['rrze_legal_tos_notice_confirm']);
-        if (!$confirmed || $timestamp <= 0 || $timestamp !== tos()->getRequiredDataNoticeTimestamp()) {
+        $confirmed = ($_POST['rrze_legal_tos_notice_confirm'] ?? '') === '1';
+        if (!$confirmed || $timestamp <= 0) {
             wp_die(esc_html__('Please confirm that you have read the notice.', 'rrze-legal'));
         }
 
-        $this->setRequiredTOSNoticeAcknowledgementCookie($timestamp);
+        if ($timestamp === tos()->getRequiredDataNoticeTimestamp() && $this->mustAcknowledgeRequiredTOSNotice()) {
+            $this->setRequiredTOSNoticeAcknowledgementCookie($timestamp);
+        }
 
-        $redirectTo = esc_url_raw((string) ($_POST['redirect_to'] ?? admin_url()));
-        wp_safe_redirect($redirectTo !== '' ? $redirectTo : admin_url());
+        wp_safe_redirect(admin_url(), 303);
         exit;
     }
 
+    /**
+     * Pause the dashboard reminder for this incident in the current browser.
+     *
+     * @param int $timestamp First report timestamp of the acknowledged incident.
+     * @return void
+     */
     protected function setRequiredTOSNoticeAcknowledgementCookie(int $timestamp): void {
         $path = wp_parse_url(admin_url(), PHP_URL_PATH);
         if (!is_string($path) || $path === '') {
@@ -451,7 +465,7 @@ class Main {
             $this->getRequiredTOSNoticeAcknowledgementCookieName(),
             (string) $timestamp,
             [
-                'expires' => time() + (int) config()->get('tos_notice_acknowledgement_lifetime', DAY_IN_SECONDS),
+                'expires' => time() + $this->getRequiredTOSAcknowledgementLifetime(),
                 'path' => $path,
                 'domain' => defined('COOKIE_DOMAIN') && COOKIE_DOMAIN ? (string) COOKIE_DOMAIN : '',
                 'secure' => is_ssl(),
@@ -461,60 +475,36 @@ class Main {
         );
     }
 
-    public function requiredTOSAcknowledgementBackdrop(): void {
-        echo '<div class="rrze-legal-required-ack-backdrop" role="presentation"></div>';
+    /**
+     * Get the lifetime shared by the reminder text and the acknowledgement cookie.
+     *
+     * @return int Number of seconds before the acknowledgement expires.
+     */
+    private function getRequiredTOSAcknowledgementLifetime(): int {
+        return max(0, (int) config()->get('tos_notice_acknowledgement_lifetime', DAY_IN_SECONDS));
     }
 
-    protected function requiredTOSAcknowledgementForm(): void {
-        $redirectTo = isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : admin_url();
-
-        echo '<form method="post" action="' . esc_url(admin_url('admin-post.php')) . '">';
-        echo '<input type="hidden" name="action" value="rrze_legal_ack_tos_notice">';
-        echo '<input type="hidden" name="rrze_legal_tos_notice_timestamp" value="' . esc_attr((string) $this->requiredTOSFirstReported) . '">';
-        echo '<input type="hidden" name="redirect_to" value="' . esc_url($redirectTo) . '">';
-        wp_nonce_field('rrze_legal_ack_tos_notice', 'rrze_legal_ack_tos_notice_nonce');
-        echo '<label class="rrze-legal-required-ack-confirm">';
-        echo '<input type="checkbox" name="rrze_legal_tos_notice_confirm" value="1" required>';
-        echo ' ' . esc_html__('I have read this notice.', 'rrze-legal');
-        echo '</label>';
-        submit_button(__('Continue', 'rrze-legal'), 'primary', 'submit', false);
-        echo '</form>';
-    }
-
-    protected function requiredTOSIssuesList(bool $canEdit): void {
-        if (empty($this->requiredTOSIssues)) {
-            return;
+    /**
+     * Express the reminder interval in the largest unit that represents its exact duration.
+     *
+     * @return string Localized duration for the acknowledgement form.
+     */
+    private function formatRequiredTOSReminderInterval(): string {
+        $seconds = $this->getRequiredTOSAcknowledgementLifetime();
+        if ($seconds > 0 && $seconds % HOUR_IN_SECONDS === 0) {
+            $count = intdiv($seconds, HOUR_IN_SECONDS);
+            /* translators: %s: Number of hours until the reminder returns. */
+            $format = _n('%s hour', '%s hours', $count, 'rrze-legal');
+        } elseif ($seconds > 0 && $seconds % MINUTE_IN_SECONDS === 0) {
+            $count = intdiv($seconds, MINUTE_IN_SECONDS);
+            /* translators: %s: Number of minutes until the reminder returns. */
+            $format = _n('%s minute', '%s minutes', $count, 'rrze-legal');
+        } else {
+            $count = $seconds;
+            /* translators: %s: Number of seconds until the reminder returns. */
+            $format = _n('%s second', '%s seconds', $count, 'rrze-legal');
         }
-
-        printf(
-            '<details class="rrze-legal-required-issues"><summary>%s</summary><ul>',
-            esc_html__('Show issue list', 'rrze-legal')
-        );
-
-        foreach ($this->requiredTOSIssues as $issue) {
-            $field = sprintf(
-                '%1$s: %2$s',
-                $issue['section_label'] ?? '',
-                $issue['field_label'] ?? ''
-            );
-            if ($canEdit && !empty($issue['edit_url'])) {
-                $field = sprintf(
-                    '<a href="%1$s">%2$s</a>',
-                    esc_url($issue['edit_url']),
-                    esc_html($field)
-                );
-            } else {
-                $field = esc_html($field);
-            }
-
-            printf(
-                '<li>%1$s <span class="description">%2$s</span></li>',
-                wp_kses_post($field),
-                esc_html($issue['reason'] ?? '')
-            );
-        }
-
-        echo '</ul></details>';
+        return sprintf($format, number_format_i18n($count));
     }
 
 
